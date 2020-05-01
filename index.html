@@ -1,0 +1,414 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8"><title>amayben's PbtA Pattern Language in Blockly</title>
+		<script src="blockly_compressed.js"></script>
+		<script src="blocks_compressed.js"></script>
+		<script src="msg/js/en.js"></script>
+		<script src="blocks/setting.js"></script>
+	</head>
+	<body>
+		<table style="height: 98vh; width: 98vw;">
+			<tbody>
+				<tr>
+					<td id="blocklyArea" style="text-align: center">
+					</td>
+				</tr>
+			</tbody>
+		</table>	
+			<div id="blocklyDiv" style="position: absolute"></div>
+			<!--
+			<xml id="toolbox" style="display: none">
+			  <block type="controls_if"></block>
+			  <block type="controls_repeat_ext"></block>
+			  <block type="logic_compare"></block>
+			  <block type="math_number"></block>
+			  <block type="math_arithmetic"></block>
+			  <block type="text"></block>
+			  <block type="text_print"></block>
+			</xml>
+			-->
+
+			<xml xmlns="https://developers.google.com/blockly/xml" id="toolbox" style="display: none">
+			  <category name="Setting" colour="#5ba55b">
+			    <block type="society">
+			      <field name="Name">&lt;region, race, social group, etc.&gt;</field>
+			      <field name="Description">&lt;Describe how people in this social group live.&gt;</field>
+			    </block>
+			    <block type="history">
+			      <field name="Name">&lt;subject&gt;</field>
+			      <statement name="Eras">
+			        <block type="era">
+			          <field name="Name">&lt;era name&gt;</field>
+			          <field name="Current">TRUE</field>
+			        </block>
+			      </statement>
+			      <statement name="Notable Entities">
+			        <block type="entity">
+			          <field name="Name">&lt;name&gt;</field>
+			          <field name="Past Role">&lt;description&gt;</field>
+			          <field name="Current Status">&lt;description&gt;</field>
+			        </block>
+			      </statement>
+			      <statement name="Notable Events">
+			        <block type="event">
+			          <field name="Name">&lt;name&gt;</field>
+			          <field name="Description">&lt;description&gt;</field>
+			          <field name="Significance">&lt;significance&gt;</field>
+			        </block>
+			      </statement>
+			    </block>
+			    <block type="entity">
+			      <field name="Name">&lt;name&gt;</field>
+			      <field name="Past Role">&lt;description&gt;</field>
+			      <field name="Current Status">&lt;description&gt;</field>
+			    </block>
+			    <block type="event">
+			      <field name="Name">&lt;name&gt;</field>
+			      <field name="Description">&lt;description&gt;</field>
+			      <field name="Significance">&lt;significance&gt;</field>
+			    </block>
+			    <block type="mystery">
+			      <field name="Name">&lt;name&gt;</field>
+			      <field name="Description">&lt;description&gt;</field>
+			    </block>
+			    <block type="region">
+			      <field name="Name">&lt;name&gt;</field>
+			      <field name="Description">&lt;description&gt;</field>
+			      <statement name="Landmarks">
+			        <block type="landmark">
+			          <field name="Name">&lt;name&gt;</field>
+			          <field name="Appearance">&lt;description&gt;</field>
+			          <field name="Significance">&lt;description&gt;</field>
+			        </block>
+			      </statement>
+			    </block>
+			    <block type="landmark">
+			      <field name="Name">&lt;name&gt;</field>
+			      <field name="Appearance">&lt;description&gt;</field>
+			      <field name="Significance">&lt;description&gt;</field>
+			    </block>
+			  </category>
+			</xml>
+			
+			<!--
+			<xml xmlns="https://developers.google.com/blockly/xml" id="workspaceBlocks" style="display: none">
+			  <block type="setting" id="UI76$s;P3Nqcx)dQ4:#o" x="138" y="63">
+			    <field name="Name">&lt;name&gt;</field>
+			    <statement name="society">
+			      <block type="society" id="y/C#dqn(1~H^eCZ`BKmm">
+			        <field name="Name">&lt;region, race, social group, etc.&gt;</field>
+			        <field name="Description">&lt;Describe how people in this social group live.&gt;</field>
+			      </block>
+			    </statement>
+			    <statement name="history">
+			      <block type="history" id="dWi(sF+7!wVM=UmYIBBv">
+			        <field name="Name">&lt;subject&gt;</field>
+			        <statement name="era">
+			          <block type="era" id="Ml5M-Gc6VyV,ai(e13|G">
+			            <field name="Name">&lt;era name&gt;</field>
+			            <field name="Current">TRUE</field>
+			          </block>
+			        </statement>
+			        <statement name="entity">
+			          <block type="entity" id="I[kRgA=@K|aN05Lf+9AC">
+			            <field name="Name">&lt;name&gt;</field>
+			            <field name="Past Role">&lt;description&gt;</field>
+			            <field name="Current Status">&lt;description&gt;</field>
+			          </block>
+			        </statement>
+			        <statement name="event">
+			          <block type="event" id="r`Zy`7cc!%[s6jCM{p:B">
+			            <field name="Name">&lt;name&gt;</field>
+			            <field name="Description">&lt;description&gt;</field>
+			            <field name="Significance">&lt;significance&gt;</field>
+			          </block>
+			        </statement>
+			      </block>
+			    </statement>
+			    <statement name="mystery">
+			      <block type="mystery" id="._Pi8!|,luP*O!Y/x3%b">
+			        <field name="Name">&lt;name&gt;</field>
+			        <field name="Description">&lt;description&gt;</field>
+			      </block>
+			    </statement>
+			    <statement name="region">
+			      <block type="region" id="90ql,|9ALI=H0]r?H]24">
+			        <field name="Name">&lt;name&gt;</field>
+			        <field name="Description">&lt;description&gt;</field>
+			        <statement name="landmark">
+			          <block type="landmark" id="MpLqz.ad9b1kRzBa1}Xl">
+			            <field name="Name">&lt;name&gt;</field>
+			            <field name="Appearance">&lt;description&gt;</field>
+			            <field name="Significance">&lt;description&gt;</field>
+			          </block>
+			        </statement>
+			      </block>
+			    </statement>
+			  </block>
+			</xml>
+		-->
+		<!--
+			<xml xmlns="https://developers.google.com/blockly/xml" id="toolbox" style="display: none">
+			  <category name="System">
+			    <block type="system">
+			      <field name="Name">&lt;system name&gt;</field>
+			      <statement name="Themes">
+			        <block type="theme">
+			          <field name="Name">&lt;name&gt;</field>
+			          <field name="Description">&lt;description&gt;</field>
+			          <statement name="Functions">
+			            <block type="function">
+			              <field name="Name">&lt;name&gt;</field>
+			              <field name="Description">&lt;description&gt;</field>
+			            </block>
+			          </statement>
+			        </block>
+			      </statement>
+			      <statement name="Settting">
+			        <block type="setting">
+			          <field name="Name">&lt;name&gt;</field>
+			        </block>
+			      </statement>
+			      <statement name="Mechanics">
+			        <block type="mechanics"></block>
+			      </statement>
+			    </block>
+			    <block type="theme">
+			      <field name="Name">&lt;name&gt;</field>
+			      <field name="Description">&lt;description&gt;</field>
+			      <statement name="Functions">
+			        <block type="function">
+			          <field name="Name">&lt;name&gt;</field>
+			          <field name="Description">&lt;description&gt;</field>
+			        </block>
+			      </statement>
+			    </block>
+			    <block type="function">
+			      <field name="Name">&lt;name&gt;</field>
+			      <field name="Description">&lt;description&gt;</field>
+			    </block>
+			    <block type="setting">
+			      <field name="Name">&lt;name&gt;</field>
+			    </block>
+			    <block type="mechanics"></block>
+			  </category>
+			  <category name="Setting" colour="#5ba55b">
+			    <block type="society">
+			      <field name="Name">&lt;region, race, social group, etc.&gt;</field>
+			      <field name="Description">&lt;Describe how people in this social group live.&gt;</field>
+			    </block>
+			    <block type="history">
+			      <field name="Name">&lt;subject&gt;</field>
+			      <statement name="Eras">
+			        <block type="era">
+			          <field name="Name">&lt;era name&gt;</field>
+			          <field name="Current">TRUE</field>
+			        </block>
+			      </statement>
+			      <statement name="Notable Entities">
+			        <block type="entity">
+			          <field name="Name">&lt;name&gt;</field>
+			          <field name="Past Role">&lt;description&gt;</field>
+			          <field name="Current Status">&lt;description&gt;</field>
+			        </block>
+			      </statement>
+			      <statement name="Notable Events">
+			        <block type="event">
+			          <field name="Name">&lt;name&gt;</field>
+			          <field name="Description">&lt;description&gt;</field>
+			          <field name="Significance">&lt;significance&gt;</field>
+			        </block>
+			      </statement>
+			    </block>
+			    <block type="entity">
+			      <field name="Name">&lt;name&gt;</field>
+			      <field name="Past Role">&lt;description&gt;</field>
+			      <field name="Current Status">&lt;description&gt;</field>
+			    </block>
+			    <block type="event">
+			      <field name="Name">&lt;name&gt;</field>
+			      <field name="Description">&lt;description&gt;</field>
+			      <field name="Significance">&lt;significance&gt;</field>
+			    </block>
+			    <block type="mystery">
+			      <field name="Name">&lt;name&gt;</field>
+			      <field name="Description">&lt;description&gt;</field>
+			    </block>
+			    <block type="region">
+			      <field name="Name">&lt;name&gt;</field>
+			      <field name="Description">&lt;description&gt;</field>
+			      <statement name="Landmarks">
+			        <block type="landmark">
+			          <field name="Name">&lt;name&gt;</field>
+			          <field name="Appearance">&lt;description&gt;</field>
+			          <field name="Significance">&lt;description&gt;</field>
+			        </block>
+			      </statement>
+			    </block>
+			    <block type="landmark">
+			      <field name="Name">&lt;name&gt;</field>
+			      <field name="Appearance">&lt;description&gt;</field>
+			      <field name="Significance">&lt;description&gt;</field>
+			    </block>
+			  </category>
+			  <category name="Moves" colour="#5b67a5">
+			    <block type="parameter">
+			      <field name="Name">&lt;outcome&gt;</field>
+			      <field name="LRange">0</field>
+			      <field name="RRange">1</field>
+			    </block>
+			    <block type="factor">
+			      <field name="Name">&lt;name&gt;</field>
+			      <field name="Type">Scalar</field>
+			      <field name="Description">&lt;description&gt;</field>
+			      <field name="Additive?">TRUE</field>
+			    </block>
+			    <block type="move">
+			      <field name="Name">&lt;name&gt;</field>
+			      <field name="Description">&lt;description&gt;</field>
+			    </block>
+			  </category>
+			  <category name="Players" colour="#995ba5">
+			    <block type="player_rules">
+			      <statement name="Character Creation">
+			        <block type="character_creation"></block>
+			      </statement>
+			      <statement name="Playbooks">
+			        <block type="playbook">
+			          <field name="Name">&lt;name&gt;</field>
+			          <field name="Distribution">&lt;distribution&gt;</field>
+			          <field name="Equipment">&lt;equipment&gt;</field>
+			        </block>
+			      </statement>
+			      <statement name="Resources">
+			        <block type="resource">
+			          <field name="Name">&lt;name&gt;</field>
+			          <field name="Description">&lt;description&gt;</field>
+			          <field name="LRange">0</field>
+			          <field name="RRange">0</field>
+			          <field name="init">0</field>
+			        </block>
+			      </statement>
+			      <statement name="Types of Equipment">
+			        <block type="equipment_type">
+			          <field name="Name">&lt;name&gt;</field>
+			          <field name="Description">&lt;description&gt;</field>
+			          <statement name="Subtypes">
+			            <block type="subtype">
+			              <field name="Name">&lt;name&gt;</field>
+			              <field name="Description">&lt;description&gt;</field>
+			              <field name="IsRequired">FALSE</field>
+			            </block>
+			          </statement>
+			        </block>
+			      </statement>
+			    </block>
+			    <block type="character_creation"></block>
+			    <block type="creation_step">
+			      <field name="Name">&lt;name&gt;</field>
+			      <field name="Description">&lt;description&gt;</field>
+			    </block>
+			    <block type="playbook_creation">
+			      <field name="Name">&lt;playbook&gt;</field>
+			    </block>
+			    <block type="playbook">
+			      <field name="Name">&lt;name&gt;</field>
+			      <field name="Distribution">&lt;distribution&gt;</field>
+			      <field name="Equipment">&lt;equipment&gt;</field>
+			    </block>
+			    <block type="playbook_introduction">
+			      <field name="Pitch">&lt;description for players&gt;</field>
+			      <field name="SRole">&lt;personality/social interactions&gt;</field>
+			      <field name="MRole">&lt;system/mechanical interactions&gt;</field>
+			    </block>
+			    <block type="feature">
+			      <field name="Name">&lt;name&gt;</field>
+			      <field name="Description">&lt;description&gt;</field>
+			    </block>
+			    <block type="resource">
+			      <field name="Name">&lt;name&gt;</field>
+			      <field name="Description">&lt;description&gt;</field>
+			      <field name="LRange">0</field>
+			      <field name="RRange">0</field>
+			      <field name="init">0</field>
+			    </block>
+			    <block type="equipment_type">
+			      <field name="Name">&lt;name&gt;</field>
+			      <field name="Description">&lt;description&gt;</field>
+			      <statement name="Subtypes">
+			        <block type="subtype">
+			          <field name="Name">&lt;name&gt;</field>
+			          <field name="Description">&lt;description&gt;</field>
+			          <field name="IsRequired">FALSE</field>
+			        </block>
+			      </statement>
+			    </block>
+			    <block type="subtype">
+			      <field name="Name">&lt;name&gt;</field>
+			      <field name="Description">&lt;description&gt;</field>
+			      <field name="IsRequired">FALSE</field>
+			    </block>
+			    <block type="extra_mechanic">
+			      <field name="Name">&lt;name&gt;</field>
+			      <field name="Description">&lt;description&gt;</field>
+			      <field name="HasResources">FALSE</field>
+			      <field name="HasMoves">FALSE</field>
+			    </block>
+			  </category>
+			</xml>
+		-->
+	</body>
+	<script>
+	  var blocklyArea = document.getElementById('blocklyArea');
+	  var blocklyDiv = document.getElementById('blocklyDiv');
+	  var options = { 
+		toolbox : document.getElementById('toolbox'), 
+		collapse : true, 
+		comments : true, 
+		disable : true, 
+		maxBlocks : Infinity, 
+		trashcan : true, 
+		horizontalLayout : false, 
+		toolboxPosition : 'start', 
+		css : true, 
+		media : 'https://blockly-demo.appspot.com/static/media/', 
+		rtl : false, 
+		scrollbars : true, 
+		sounds : true, 
+		oneBasedIndex : true, 
+		zoom : {
+			controls : true, 
+			wheel : true, 
+			startScale : 1, 
+			maxScale : 3, 
+			minScale : 0.3, 
+			scaleSpeed : 1.2
+		}
+	  };
+	  var workspace = Blockly.inject(blocklyDiv, options);
+	  //var workspaceBlocks = document.getElementById("workspaceBlocks"); 
+		/* Load blocks to workspace. */
+	  //Blockly.Xml.domToWorkspace(workspaceBlocks, workspace);
+	  var onresize = function(e) {
+	    // Compute the absolute coordinates and dimensions of blocklyArea.
+	    var element = blocklyArea;
+	    var x = 0;
+	    var y = 0;
+	    do {
+	      x += element.offsetLeft;
+	      y += element.offsetTop;
+	      element = element.offsetParent;
+	    } while (element);
+	    // Position blocklyDiv over blocklyArea.
+	    blocklyDiv.style.left = x + 'px';
+	    blocklyDiv.style.top = y + 'px';
+	    blocklyDiv.style.width = blocklyArea.offsetWidth + 'px';
+	    blocklyDiv.style.height = blocklyArea.offsetHeight + 'px';
+	    Blockly.svgResize(workspace);
+	  };
+	  window.addEventListener('resize', onresize, false);
+	  onresize();
+	  Blockly.svgResize(workspace);
+	</script>
+</html> 
