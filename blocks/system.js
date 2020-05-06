@@ -20,1241 +20,734 @@
 //goog.require('Blockly.FieldColour');
 //goog.require('Blockly.FieldLabel');
 
-Blockly.defineBlocksWithJsonArray([{
-  "type": "setting",
-  "message0": "Setting:  %1 %2 Societies:  %3 Histories:  %4 Mysteries:  %5 Regions:  %6",
-  "args0": [
-    {
-      "type": "field_input",
-      "name": "name",
-      "text": "<name>"
-    },
-    {
-      "type": "input_dummy",
-      "align": "CENTRE"
-    },
-    {
-      "type": "input_statement",
-      "name": "society",
-      "check": "society"
-    },
-    {
-      "type": "input_statement",
-      "name": "history",
-      "check": "history"
-    },
-    {
-      "type": "input_statement",
-      "name": "mystery",
-      "check": "mystery"
-    },
-    {
-      "type": "input_statement",
-      "name": "region",
-      "check": "region"
-    }
-  ],
-  "inputsInline": false,
-  "previousStatement": "setting",
-  "nextStatement": "setting",
-  "colour": 60,
-  "tooltip": "Defines the world of a given RPG system.",
-  "helpUrl": ""
-},
-{
-  "type": "society",
-  "message0": "Society of  %1 %2 %3",
-  "args0": [
-    {
-      "type": "field_input",
-      "name": "name",
-      "text": "<region, race, social group, etc.>"
-    },
-    {
-      "type": "input_dummy",
-      "align": "CENTRE"
-    },
-    {
-      "type": "field_input",
-      "name": "desc",
-      "text": "<Describe how people in this social group live.>"
-    }
-  ],
-  "inputsInline": false,
-  "previousStatement": "society",
-  "nextStatement": "society",
-  "colour": 75,
-  "tooltip": "What form does this society take?  How do people spend their lives?  What technology is used?",
-  "helpUrl": ""
-},
-{
-  "type": "history",
-  "message0": "History of  %1 %2 Eras:  %3 Notable Entities:  %4 Notable Events: %5",
-  "args0": [
-    {
-      "type": "field_input",
-      "name": "name",
-      "text": "<subject>"
-    },
-    {
-      "type": "input_dummy",
-      "align": "CENTRE"
-    },
-    {
-      "type": "input_statement",
-      "name": "era",
-      "check": "era"
-    },
-    {
-      "type": "input_statement",
-      "name": "entity",
-      "check": "entity"
-    },
-    {
-      "type": "input_statement",
-      "name": "event",
-      "check": "event"
-    }
-  ],
-  "inputsInline": false,
-  "previousStatement": "history",
-  "nextStatement": "history",
-  "colour": 75,
-  "tooltip": "What happened or is happening in the world that is relevant to the players?",
-  "helpUrl": ""
-},
-{
-  "type": "entity",
-  "lastDummyAlign0": "CENTRE",
-  "message0": "Entity: %1 %2 Role: %3 %4 Current Status (if any): %5",
-  "args0": [
-    {
-      "type": "field_input",
-      "name": "name",
-      "text": "<name>"
-    },
-    {
-      "type": "input_dummy",
-      "align": "CENTRE"
-    },
-    {
-      "type": "field_input",
-      "name": "role",
-      "text": "<description>"
-    },
-    {
-      "type": "input_dummy",
-      "align": "CENTRE"
-    },
-    {
-      "type": "field_input",
-      "name": "status",
-      "text": "<description>"
-    }
-  ],
-  "inputsInline": false,
-  "previousStatement": "entity",
-  "nextStatement": "entity",
-  "colour": 90,
-  "tooltip": "A relevant historical group or figure.",
-  "helpUrl": ""
-},
-{
-  "type": "event",
-  "lastDummyAlign0": "CENTRE",
-  "message0": "Event: %1 %2 Description: %3 %4 Significance:  %5",
-  "args0": [
-    {
-      "type": "field_input",
-      "name": "name",
-      "text": "<name>"
-    },
-    {
-      "type": "input_dummy",
-      "align": "CENTRE"
-    },
-    {
-      "type": "field_input",
-      "name": "desc",
-      "text": "<description>"
-    },
-    {
-      "type": "input_dummy",
-      "align": "CENTRE"
-    },
-    {
-      "type": "field_input",
-      "name": "significance",
-      "text": "<significance>"
-    }
-  ],
-  "inputsInline": false,
-  "previousStatement": "event",
-  "nextStatement": "event",
-  "colour": 90,
-  "tooltip": "A relevant moment in history, and its significance to the world.",
-  "helpUrl": ""
-},
-{
-  "type": "mystery",
-  "lastDummyAlign0": "CENTRE",
-  "message0": "Mystery: %1 %2 Description: %3",
-  "args0": [
-    {
-      "type": "field_input",
-      "name": "name",
-      "text": "<name>"
-    },
-    {
-      "type": "input_dummy",
-      "align": "CENTRE"
-    },
-    {
-      "type": "field_input",
-      "name": "desc",
-      "text": "<description>"
-    }
-  ],
-  "inputsInline": false,
-  "previousStatement": "mystery",
-  "nextStatement": "mystery",
-  "colour": 75,
-  "tooltip": "An unknown element that has been identified (but not defined) within the setting.",
-  "helpUrl": ""
-},
-{
-  "type": "region",
-  "message0": "Region: %1 %2 Description: %3 %4 Landmarks: %5",
-  "args0": [
-    {
-      "type": "field_input",
-      "name": "name",
-      "text": "<name>"
-    },
-    {
-      "type": "input_dummy",
-      "align": "CENTRE"
-    },
-    {
-      "type": "field_input",
-      "name": "desc",
-      "text": "<description>"
-    },
-    {
-      "type": "input_dummy",
-      "align": "CENTRE"
-    },
-    {
-      "type": "input_statement",
-      "name": "landmark",
-      "check": "landmark"
-    }
-  ],
-  "inputsInline": false,
-  "previousStatement": "region",
-  "nextStatement": "region",
-  "colour": 75,
-  "tooltip": "A notable region in which action of the game is set, or can be set.",
-  "helpUrl": ""
-},
-{
-  "type": "landmark",
-  "lastDummyAlign0": "CENTRE",
-  "message0": "Landmark: %1 %2 Description: %3 %4 Significance: %5",
-  "args0": [
-    {
-      "type": "field_input",
-      "name": "name",
-      "text": "<name>"
-    },
-    {
-      "type": "input_dummy",
-      "align": "CENTRE"
-    },
-    {
-      "type": "field_input",
-      "name": "desc",
-      "text": "<description>"
-    },
-    {
-      "type": "input_dummy",
-      "align": "CENTRE"
-    },
-    {
-      "type": "field_input",
-      "name": "significance",
-      "text": "<description>"
-    }
-  ],
-  "inputsInline": false,
-  "previousStatement": "landmark",
-  "nextStatement": "landmark",
-  "colour": 120,
-  "tooltip": "A notable feature within a given geographic region around which action may revolve.",
-  "helpUrl": ""
-},
-{
-  "type": "system",
-  "message0": "System: %1 %2 Themes: %3 Setting:  %4 Mechanics: %5",
-  "args0": [
-    {
-      "type": "field_input",
-      "name": "name",
-      "text": "<system name>"
-    },
-    {
-      "type": "input_dummy",
-      "align": "CENTRE"
-    },
-    {
-      "type": "input_statement",
-      "name": "theme",
-      "check": "theme"
-    },
-    {
-      "type": "input_statement",
-      "name": "setting",
-      "check": "setting"
-    },
-    {
-      "type": "input_statement",
-      "name": "mechanics",
-      "check": "mechanics"
-    }
-  ],
-  "inputsInline": false,
-  "colour": 30,
-  "tooltip": "The system you are composing.",
-  "helpUrl": ""
-},
-{
-  "type": "theme",
-  "message0": "Theme: %1 %2 Description: %3 %4 Functions: %5",
-  "args0": [
-    {
-      "type": "field_input",
-      "name": "name",
-      "text": "<name>"
-    },
-    {
-      "type": "input_dummy",
-      "align": "CENTRE"
-    },
-    {
-      "type": "field_input",
-      "name": "desc",
-      "text": "<description>"
-    },
-    {
-      "type": "input_dummy",
-      "align": "CENTRE"
-    },
-    {
-      "type": "input_statement",
-      "name": "function",
-      "check": "function"
-    }
-  ],
-  "inputsInline": false,
-  "previousStatement": "theme",
-  "nextStatement": "theme",
-  "colour": 0,
-  "tooltip": "What is one idea that will drive the design of the system, and what functions do you intend it to serve?",
-  "helpUrl": ""
-},
-{
-  "type": "function",
-  "lastDummyAlign0": "CENTRE",
-  "message0": "Function: %1 %2 Description: %3",
-  "args0": [
-    {
-      "type": "field_input",
-      "name": "name",
-      "text": "<name>"
-    },
-    {
-      "type": "input_dummy",
-      "align": "CENTRE"
-    },
-    {
-      "type": "field_input",
-      "name": "desc",
-      "text": "<description>"
-    }
-  ],
-  "inputsInline": false,
-  "previousStatement": "function",
-  "nextStatement": "function",
-  "colour": 345,
-  "tooltip": "A manifestation of a certain theme within a system's story, its mechanics, or both.",
-  "helpUrl": ""
-},
-{
-  "type": "mechanics",
-  "message0": "Mechanics %1 Move Factors:  %2 Moves:  %3 Special Parameters:  %4 Player Rules:  %5",
-  "args0": [
-    {
-      "type": "input_dummy",
-      "align": "CENTRE"
-    },
-    {
-      "type": "input_statement",
-      "name": "factor",
-      "check": "factor"
-    },
-    {
-      "type": "input_statement",
-      "name": "move",
-      "check": "move"
-    },
-    {
-      "type": "input_statement",
-      "name": "parameter",
-      "check": "parameter"
-    },
-    {
-      "type": "input_statement",
-      "name": "player_rules",
-      "check": "player_rules"
-    }
-  ],
-  "inputsInline": false,
-  "previousStatement": "mechanics",
-  "colour": 210,
-  "tooltip": "Defines the rules of a given RPG system.",
-  "helpUrl": ""
-},
-{
-  "type": "factor",
-  "lastDummyAlign0": "CENTRE",
-  "message0": "Factor: %1 %2 Type: %3 %4 Effect: %5 %6 Additive? %7",
-  "args0": [
-    {
-      "type": "field_input",
-      "name": "name",
-      "text": "<name>"
-    },
-    {
-      "type": "input_dummy",
-      "align": "CENTRE"
-    },
-    {
-      "type": "field_dropdown",
-      "name": "type",
-      "options": [
-        [
-          "Scalar",
-          "Scalar"
-        ],
-        [
-          "Reroll",
-          "Reroll"
-        ],
-        [
-          "Revision",
-          "Revision"
-        ],
-        [
-          "Meta",
-          "Meta"
-        ]
-      ]
-    },
-    {
-      "type": "input_dummy",
-      "align": "CENTRE"
-    },
-    {
-      "type": "field_input",
-      "name": "desc",
-      "text": "<description>"
-    },
-    {
-      "type": "input_dummy",
-      "align": "CENTRE"
-    },
-    {
-      "type": "field_checkbox",
-      "name": "isAdditive",
-      "checked": false
-    }
-  ],
-  "inputsInline": false,
-  "previousStatement": "factor",
-  "nextStatement": "factor",
-  "colour": 315,
-  "tooltip": "A situational variable that factors into the outcome of a move. (Types: Scalar factors give a value that add or subtract to a move, Reroll factors involve a rolling or rerolling of dice, Revision factors involve an immediate or pre-decided outcome, and Meta factors describe non-numerical qualities of the move or situation.) (Additive factors are effects that can result from move outcomes.)",
-  "helpUrl": ""
-},
-{
-  "type": "move",
-  "lastDummyAlign0": "CENTRE",
-  "message0": "Move: %1 %2 Factors: %3 %4 %5 Description: %6 %7 Adds Factor? %8",
-  "args0": [
-    {
-      "type": "field_input",
-      "name": "name",
-      "text": "<name>"
-    },
-    {
-      "type": "input_dummy",
-      "align": "CENTRE"
-    },
-    {
-      "type": "input_dummy",
-      "align": "CENTRE"
-    },
-    {
-      "type": "field_dropdown",
-      "name": "factors",
-      "options": [
-        [
-          "option",
-          "factor1"
-        ]
-      ]
-    },
-    {
-      "type": "input_dummy",
-      "align": "CENTRE"
-    },
-    {
-      "type": "field_input",
-      "name": "desc",
-      "text": "<description>"
-    },
-    {
-      "type": "input_dummy",
-      "align": "CENTRE"
-    },
-    {
-      "type": "field_checkbox",
-      "name": "adds_factor",
-      "checked": false
-    }
-  ],
-  "inputsInline": false,
-  "previousStatement": "move",
-  "nextStatement": "move",
-  "colour": 315,
-  "tooltip": "An action available to a player character.",
-  "helpUrl": "todo: communication with factors"
-},
-{
-  "type": "parameter",
-  "lastDummyAlign0": "CENTRE",
-  "message0": "Parameter:  %1 %2 Range:  %3  to  %4",
-  "args0": [
-    {
-      "type": "field_input",
-      "name": "name",
-      "text": "<outcome>"
-    },
-    {
-      "type": "input_dummy",
-      "align": "CENTRE"
-    },
-    {
-      "type": "field_number",
-      "name": "lrange",
-      "value": 0
-    },
-    {
-      "type": "field_number",
-      "name": "rrange",
-      "value": 1
-    }
-  ],
-  "inputsInline": false,
-  "previousStatement": "parameter",
-  "nextStatement": "parameter",
-  "colour": 315,
-  "tooltip": "An outcome defined by a range of possible valid rolls.",
-  "helpUrl": ""
-},
-{
-  "type": "era",
-  "lastDummyAlign0": "CENTRE",
-  "message0": "Era:  %1 %2 Current Era?  %3",
-  "args0": [
-    {
-      "type": "field_input",
-      "name": "name",
-      "text": "<era name>"
-    },
-    {
-      "type": "input_dummy",
-      "align": "CENTRE"
-    },
-    {
-      "type": "field_checkbox",
-      "name": "isCurrent",
-      "checked": true
-    }
-  ],
-  "inputsInline": false,
-  "previousStatement": "era",
-  "nextStatement": "era",
-  "colour": 90,
-  "tooltip": "What historical period are you describing?",
-  "helpUrl": ""
-},
-{
-  "type": "player_rules",
-  "message0": "Player Rules %1 Character Creation:  %2 Playbooks:  %3 Resources:  %4 Equipment:  %5 Extra Mechanics:  %6",
-  "args0": [
-    {
-      "type": "input_dummy",
-      "align": "CENTRE"
-    },
-    {
-      "type": "input_statement",
-      "name": "character_creation",
-      "check": "character_creation"
-    },
-    {
-      "type": "input_statement",
-      "name": "playbook",
-      "check": "playbook"
-    },
-    {
-      "type": "input_statement",
-      "name": "resource",
-      "check": "resource"
-    },
-    {
-      "type": "input_statement",
-      "name": "equipment",
-      "check": "equipment"
-    },
-    {
-      "type": "input_statement",
-      "name": "extra_mechanic",
-      "check": "extra_mechanic"
-    }
-  ],
-  "inputsInline": false,
-  "previousStatement": "player_rules",
-  "colour": 225,
-  "tooltip": "How player decision-making is defined and bounded by the system.",
-  "helpUrl": ""
-},
-{
-  "type": "character_creation",
-  "message0": "Character Creation %1 Creation Process: %2 Playbook Creation Rules: %3",
-  "args0": [
-    {
-      "type": "input_dummy",
-      "align": "CENTRE"
-    },
-    {
-      "type": "input_statement",
-      "name": "creation_step",
-      "check": "creation_step"
-    },
-    {
-      "type": "input_statement",
-      "name": "playbook_creation",
-      "check": "playbook_creation"
-    }
-  ],
-  "inputsInline": false,
-  "previousStatement": "character_creation",
-  "colour": 240,
-  "tooltip": "The step-by-step process by which players define their own characters.  The common \"creation process\" applies to all by default; special rules apply to certain playbooks.",
-  "helpUrl": "TODO: connection with playbooks"
-},
-{
-  "type": "playbook_creation",
-  "message0": "Steps for Playbook:  %1 %2 %3",
-  "args0": [
-    {
-      "type": "field_input",
-      "name": "name",
-      "text": "<playbook>"
-    },
-    {
-      "type": "input_dummy",
-      "align": "CENTRE"
-    },
-    {
-      "type": "input_statement",
-      "name": "creation_step",
-      "check": "creation_step"
-    }
-  ],
-  "inputsInline": false,
-  "previousStatement": "playbook_creation",
-  "nextStatement": "playbook_creation",
-  "colour": 225,
-  "tooltip": "A set of additional steps or revisions that must be made when creating a character of the specified playbook.",
-  "helpUrl": ""
-},
-{
-  "type": "creation_step",
-  "lastDummyAlign0": "CENTRE",
-  "message0": "Step:  %1 %2 Description: %3 %4 Factors:  %5 %6",
-  "args0": [
-    {
-      "type": "field_input",
-      "name": "name",
-      "text": "<name>"
-    },
-    {
-      "type": "input_dummy",
-      "align": "CENTRE"
-    },
-    {
-      "type": "field_input",
-      "name": "desc",
-      "text": "<description>"
-    },
-    {
-      "type": "input_dummy",
-      "align": "CENTRE"
-    },
-    {
-      "type": "input_dummy",
-      "align": "CENTRE"
-    },
-    {
-      "type": "field_dropdown",
-      "name": "factors",
-      "options": [
-        [
-          "option",
-          "factor1"
-        ]
-      ]
-    }
-  ],
-  "inputsInline": false,
-  "previousStatement": "creation_step",
-  "nextStatement": "creation_step",
-  "colour": 270,
-  "tooltip": "One step of the creation process.",
-  "helpUrl": ""
-},
-{
-  "type": "playbook",
-  "lastDummyAlign0": "CENTRE",
-  "message0": "Playbook:  %1 %2 Introduction:  %3 Playbook Moves and Features: %4 Starting Equipment: %5",
-  "args0": [
-    {
-      "type": "field_input",
-      "name": "name",
-      "text": "<name>"
-    },
-    {
-      "type": "input_dummy",
-      "align": "CENTRE"
-    },
-    {
-      "type": "input_statement",
-      "name": "playbook_introduction",
-      "check": "playbook_introduction"
-    },
-    {
-      "type": "input_statement",
-      "name": "feature",
-      "check": [
-        "playbook_move",
-        "feature"
-      ]
-    },
-    {
-      "type": "field_input",
-      "name": "equipment",
-      "text": "<equipment>"
-    }
-  ],
-  "inputsInline": false,
-  "previousStatement": "playbook",
-  "nextStatement": "playbook",
-  "colour": 240,
-  "tooltip": "Defines a character playbook or class in the system.",
-  "helpUrl": ""
-},
-{
-  "type": "playbook_introduction",
-  "lastDummyAlign0": "CENTRE",
-  "message0": "Introduction %1 Flavor Pitch: %2 %3 Social Role: %4 %5 Mechanical Role:  %6",
-  "args0": [
-    {
-      "type": "input_dummy",
-      "align": "CENTRE"
-    },
-    {
-      "type": "field_input",
-      "name": "pitch",
-      "text": "<description for players>"
-    },
-    {
-      "type": "input_dummy",
-      "align": "CENTRE"
-    },
-    {
-      "type": "field_input",
-      "name": "soc_role",
-      "text": "<personality/social interactions>"
-    },
-    {
-      "type": "input_dummy",
-      "align": "CENTRE"
-    },
-    {
-      "type": "field_input",
-      "name": "mech_role",
-      "text": "<system/mechanical interactions>"
-    }
-  ],
-  "inputsInline": false,
-  "previousStatement": "playbook_introduction",
-  "colour": 270,
-  "tooltip": "A description of the playbook's role(s) in the system.",
-  "helpUrl": ""
-},
-{
-  "type": "resource",
-  "lastDummyAlign0": "CENTRE",
-  "message0": "Resource:  %1 %2 Description:  %3 %4 Factors:  %5 %6 %7 Range:  %8  to  %9 %10 Initial Value:  %11",
-  "args0": [
-    {
-      "type": "field_input",
-      "name": "name",
-      "text": "<name>"
-    },
-    {
-      "type": "input_dummy",
-      "align": "CENTRE"
-    },
-    {
-      "type": "field_input",
-      "name": "desc",
-      "text": "<description>"
-    },
-    {
-      "type": "input_dummy",
-      "align": "CENTRE"
-    },
-    {
-      "type": "input_dummy",
-      "align": "CENTRE"
-    },
-    {
-      "type": "field_dropdown",
-      "name": "factors",
-      "options": [
-        [
-          "option",
-          "factor1"
-        ]
-      ]
-    },
-    {
-      "type": "input_dummy",
-      "align": "CENTRE"
-    },
-    {
-      "type": "field_number",
-      "name": "lrange",
-      "value": 0
-    },
-    {
-      "type": "field_number",
-      "name": "rrange",
-      "value": 0
-    },
-    {
-      "type": "input_dummy",
-      "align": "CENTRE"
-    },
-    {
-      "type": "field_number",
-      "name": "init",
-      "value": 0
-    }
-  ],
-  "inputsInline": false,
-  "previousStatement": "resource",
-  "nextStatement": "resource",
-  "colour": 240,
-  "tooltip": "A statistic that a player tracks which can factor into certain moves.",
-  "helpUrl": ""
-},
-{
-  "type": "feature",
-  "lastDummyAlign0": "CENTRE",
-  "message0": "Feature:  %1 %2 Description: %3 %4 Factors: %5 %6",
-  "args0": [
-    {
-      "type": "field_input",
-      "name": "name",
-      "text": "<name>"
-    },
-    {
-      "type": "input_dummy",
-      "align": "CENTRE"
-    },
-    {
-      "type": "field_input",
-      "name": "desc",
-      "text": "<description>"
-    },
-    {
-      "type": "input_dummy",
-      "align": "CENTRE"
-    },
-    {
-      "type": "input_dummy",
-      "align": "CENTRE"
-    },
-    {
-      "type": "field_dropdown",
-      "name": "factors",
-      "options": [
-        [
-          "option",
-          "factor1"
-        ]
-      ]
-    }
-  ],
-  "inputsInline": false,
-  "previousStatement": [
-    "feature",
-    "playbook_move"
-  ],
-  "nextStatement": [
-    "feature",
-    "playbook_move"
-  ],
-  "colour": 270,
-  "tooltip": "An ability or effect unique to a certain playbook.",
-  "helpUrl": ""
-},
-{
-  "type": "equipment_type",
-  "lastDummyAlign0": "CENTRE",
-  "message0": "Equipment Type:  %1 %2 Description: %3 %4 Factors:  %5 %6 %7 Subtypes?  %8",
-  "args0": [
-    {
-      "type": "field_input",
-      "name": "name",
-      "text": "<name>"
-    },
-    {
-      "type": "input_dummy",
-      "align": "CENTRE"
-    },
-    {
-      "type": "field_input",
-      "name": "desc",
-      "text": "<description>"
-    },
-    {
-      "type": "input_dummy",
-      "align": "CENTRE"
-    },
-    {
-      "type": "input_dummy",
-      "align": "CENTRE"
-    },
-    {
-      "type": "field_dropdown",
-      "name": "factors",
-      "options": [
-        [
-          "option",
-          "factor1"
-        ]
-      ]
-    },
-    {
-      "type": "input_dummy",
-      "align": "CENTRE"
-    },
-    {
-      "type": "field_checkbox",
-      "name": "hasSubtypes",
-      "checked": false
-    }
-  ],
-  "inputsInline": false,
-  "previousStatement": "equipment_type",
-  "nextStatement": "equipment_type",
-  "colour": 270,
-  "tooltip": "A category of certain equipment items, as well as that category's pertinent factors for its items to be used, and what subtypes it may be divided into.",
-  "helpUrl": ""
-},
-{
-  "type": "subtype",
-  "message0": "Subtype:  %1 %2 Description: %3 %4 Factors:  %5 %6 %7 Required by Parent Type?  %8 %9 Subtypes?  %10",
-  "args0": [
-    {
-      "type": "field_input",
-      "name": "name",
-      "text": "<name>"
-    },
-    {
-      "type": "input_dummy",
-      "align": "CENTRE"
-    },
-    {
-      "type": "field_input",
-      "name": "desc",
-      "text": "<description>"
-    },
-    {
-      "type": "input_dummy",
-      "align": "CENTRE"
-    },
-    {
-      "type": "input_dummy",
-      "align": "CENTRE"
-    },
-    {
-      "type": "field_dropdown",
-      "name": "factors",
-      "options": [
-        [
-          "option",
-          "factor1"
-        ]
-      ]
-    },
-    {
-      "type": "input_dummy",
-      "align": "CENTRE"
-    },
-    {
-      "type": "field_checkbox",
-      "name": "isRequired",
-      "checked": false
-    },
-    {
-      "type": "input_dummy",
-      "align": "CENTRE"
-    },
-    {
-      "type": "field_checkbox",
-      "name": "hasSubtypes",
-      "checked": true
-    }
-  ],
-  "previousStatement": "subtype",
-  "nextStatement": "subtype",
-  "colour": 270,
-  "tooltip": "A category of certain equipment items, as well as that category's pertinent factors for its items to be used, and what subtypes it may be divided into.",
-  "helpUrl": ""
-},
-{
-  "type": "extra_mechanic",
-  "lastDummyAlign0": "CENTRE",
-  "message0": "Extra Mechanic: %1 %2 Description:  %3 %4 Factors: %5 %6 %7 Special Resources? %8 %9 Special Moves? %10",
-  "args0": [
-    {
-      "type": "field_input",
-      "name": "name",
-      "text": "<name>"
-    },
-    {
-      "type": "input_dummy",
-      "align": "CENTRE"
-    },
-    {
-      "type": "field_input",
-      "name": "desc",
-      "text": "<description>"
-    },
-    {
-      "type": "input_dummy",
-      "align": "CENTRE"
-    },
-    {
-      "type": "input_dummy",
-      "align": "CENTRE"
-    },
-    {
-      "type": "field_dropdown",
-      "name": "factors",
-      "options": [
-        [
-          "option",
-          "factor1"
-        ]
-      ]
-    },
-    {
-      "type": "input_dummy",
-      "align": "CENTRE"
-    },
-    {
-      "type": "field_checkbox",
-      "name": "hasResources",
-      "checked": false
-    },
-    {
-      "type": "input_dummy",
-      "align": "CENTRE"
-    },
-    {
-      "type": "field_checkbox",
-      "name": "hasMoves",
-      "checked": false
-    }
-  ],
-  "previousStatement": "extra_mechanic",
-  "nextStatement": "extra_mechanic",
-  "colour": 240,
-  "tooltip": "An additional mechanic relevant to player action.",
-  "helpUrl": ""
-},
-{
-  "type": "playbook_move",
-  "lastDummyAlign0": "CENTRE",
-  "message0": "Playbook Move: %1 %2 Factors: %3 %4 %5 Description: %6 %7 Adds Factor? %8",
-  "args0": [
-    {
-      "type": "field_input",
-      "name": "name",
-      "text": "<name>"
-    },
-    {
-      "type": "input_dummy",
-      "align": "CENTRE"
-    },
-    {
-      "type": "input_dummy",
-      "align": "CENTRE"
-    },
-    {
-      "type": "field_dropdown",
-      "name": "factors",
-      "options": [
-        [
-          "option",
-          "dummy1"
-        ]
-      ]
-    },
-    {
-      "type": "input_dummy",
-      "align": "CENTRE"
-    },
-    {
-      "type": "field_input",
-      "name": "desc",
-      "text": "<description>"
-    },
-    {
-      "type": "input_dummy",
-      "align": "CENTRE"
-    },
-    {
-      "type": "field_checkbox",
-      "name": "addsFactor",
-      "checked": false
-    }
-  ],
-  "inputsInline": false,
-  "previousStatement": [
-    "playbook_move",
-    "feature"
-  ],
-  "nextStatement": [
-    "playbook_move",
-    "feature"
-  ],
-  "colour": 65,
-  "tooltip": "An action only available to a certain playbook.",
-  "helpUrl": "todo: communication with factors"
-},
-{
-  "type": "equipment",
-  "message0": "Equipment %1 Equipment Types: %2 Item List: %3",
-  "args0": [
-    {
-      "type": "input_dummy",
-      "align": "CENTRE"
-    },
-    {
-      "type": "input_statement",
-      "name": "equipment_type",
-      "check": "equipment_type"
-    },
-    {
-      "type": "input_statement",
-      "name": "item",
-      "check": "item"
-    }
-  ],
-  "inputsInline": false,
-  "previousStatement": "equipment",
-  "colour": 240,
-  "tooltip": "Items usable by the players.",
-  "helpUrl": ""
-},
-{
-  "type": "item",
-  "lastDummyAlign0": "CENTRE",
-  "message0": "Item:  %1 %2 Types:  %3 %4 %5 Subtypes: %6 %7 %8 Description: %9",
-  "args0": [
-    {
-      "type": "field_input",
-      "name": "name",
-      "text": "<name>"
-    },
-    {
-      "type": "input_dummy",
-      "align": "CENTRE"
-    },
-    {
-      "type": "input_dummy",
-      "align": "CENTRE"
-    },
-    {
-      "type": "field_dropdown",
-      "name": "types",
-      "options": [
-        [
-          "option",
-          "type1"
-        ]
-      ]
-    },
-    {
-      "type": "input_dummy",
-      "align": "CENTRE"
-    },
-    {
-      "type": "input_dummy",
-      "align": "CENTRE"
-    },
-    {
-      "type": "field_dropdown",
-      "name": "subtypes",
-      "options": [
-        [
-          "option",
-          "subtype1"
-        ]
-      ]
-    },
-    {
-      "type": "input_dummy",
-      "align": "CENTRE"
-    },
-    {
-      "type": "field_input",
-      "name": "desc",
-      "text": "<description>"
-    }
-  ],
-  "inputsInline": false,
-  "previousStatement": "item",
-  "nextStatement": "item",
-  "colour": 270,
-  "tooltip": "A category of certain equipment items, as well as that category's pertinent factors for its items to be used, and what subtypes it may be divided into.",
-  "helpUrl": ""
-}]);  // END JSON EXTRACT (Do not delete this comment.)
+Blockly.Blocks['setting'] = {
+  init: function() {
+    this.appendDummyInput()
+        .setAlign(Blockly.ALIGN_CENTRE)
+        .appendField("Setting: ")
+        .appendField(new Blockly.FieldTextInput("<name>"), "name");
+    this.appendStatementInput("society")
+        .setCheck("society")
+        .appendField("Societies: ");
+    this.appendStatementInput("history")
+        .setCheck("history")
+        .appendField("Histories: ");
+    this.appendStatementInput("mystery")
+        .setCheck("mystery")
+        .appendField("Mysteries: ");
+    this.appendStatementInput("region")
+        .setCheck("region")
+        .appendField("Regions: ");
+    this.setInputsInline(false);
+    this.setPreviousStatement(true, "setting");
+    this.setNextStatement(true, "setting");
+    this.setColour(60);
+ this.setTooltip("Defines the world of a given RPG system.");
+ this.setHelpUrl("");
+  }
+};
+
+Blockly.Blocks['society'] = {
+  init: function() {
+    this.appendDummyInput()
+        .setAlign(Blockly.ALIGN_CENTRE)
+        .appendField("Society of ")
+        .appendField(new Blockly.FieldTextInput("<region, race, social group, etc.>"), "name");
+    this.appendDummyInput()
+        .appendField(new Blockly.FieldTextInput("<Describe how people in this social group live.>"), "desc");
+    this.setInputsInline(false);
+    this.setPreviousStatement(true, "society");
+    this.setNextStatement(true, "society");
+    this.setColour(75);
+ this.setTooltip("What form does this society take?  How do people spend their lives?  What technology is used?");
+ this.setHelpUrl("");
+  }
+};
+
+Blockly.Blocks['history'] = {
+  init: function() {
+    this.appendDummyInput()
+        .setAlign(Blockly.ALIGN_CENTRE)
+        .appendField("History of ")
+        .appendField(new Blockly.FieldTextInput("<subject>"), "name");
+    this.appendStatementInput("era")
+        .setCheck("era")
+        .appendField("Eras: ");
+    this.appendStatementInput("entity")
+        .setCheck("entity")
+        .appendField("Notable Entities: ");
+    this.appendStatementInput("event")
+        .setCheck("event")
+        .appendField("Notable Events:");
+    this.setInputsInline(false);
+    this.setPreviousStatement(true, "history");
+    this.setNextStatement(true, "history");
+    this.setColour(75);
+ this.setTooltip("What happened or is happening in the world that is relevant to the players?");
+ this.setHelpUrl("");
+  }
+};
+
+Blockly.Blocks['entity'] = {
+  init: function() {
+    this.appendDummyInput()
+        .setAlign(Blockly.ALIGN_CENTRE)
+        .appendField("Entity:")
+        .appendField(new Blockly.FieldTextInput("<name>"), "name");
+    this.appendDummyInput()
+        .setAlign(Blockly.ALIGN_CENTRE)
+        .appendField("Role:")
+        .appendField(new Blockly.FieldTextInput("<description>"), "role");
+    this.appendDummyInput()
+        .setAlign(Blockly.ALIGN_CENTRE)
+        .appendField("Current Status (if any):")
+        .appendField(new Blockly.FieldTextInput("<description>"), "status");
+    this.setInputsInline(false);
+    this.setPreviousStatement(true, "entity");
+    this.setNextStatement(true, "entity");
+    this.setColour(90);
+ this.setTooltip("A relevant historical group or figure.");
+ this.setHelpUrl("");
+  }
+};
+
+Blockly.Blocks['event'] = {
+  init: function() {
+    this.appendDummyInput()
+        .setAlign(Blockly.ALIGN_CENTRE)
+        .appendField("Event:")
+        .appendField(new Blockly.FieldTextInput("<name>"), "name");
+    this.appendDummyInput()
+        .setAlign(Blockly.ALIGN_CENTRE)
+        .appendField("Description:")
+        .appendField(new Blockly.FieldTextInput("<description>"), "desc");
+    this.appendDummyInput()
+        .setAlign(Blockly.ALIGN_CENTRE)
+        .appendField("Significance: ")
+        .appendField(new Blockly.FieldTextInput("<significance>"), "significance");
+    this.setInputsInline(false);
+    this.setPreviousStatement(true, "event");
+    this.setNextStatement(true, "event");
+    this.setColour(90);
+ this.setTooltip("A relevant moment in history, and its significance to the world.");
+ this.setHelpUrl("");
+  }
+};
+
+Blockly.Blocks['mystery'] = {
+  init: function() {
+    this.appendDummyInput()
+        .setAlign(Blockly.ALIGN_CENTRE)
+        .appendField("Mystery:")
+        .appendField(new Blockly.FieldTextInput("<name>"), "name");
+    this.appendDummyInput()
+        .setAlign(Blockly.ALIGN_CENTRE)
+        .appendField("Description:")
+        .appendField(new Blockly.FieldTextInput("<description>"), "desc");
+    this.setInputsInline(false);
+    this.setPreviousStatement(true, "mystery");
+    this.setNextStatement(true, "mystery");
+    this.setColour(75);
+ this.setTooltip("An unknown element that has been identified (but not defined) within the setting.");
+ this.setHelpUrl("");
+  }
+};
+
+Blockly.Blocks['region'] = {
+  init: function() {
+    this.appendDummyInput()
+        .setAlign(Blockly.ALIGN_CENTRE)
+        .appendField("Region:")
+        .appendField(new Blockly.FieldTextInput("<name>"), "name");
+    this.appendDummyInput()
+        .setAlign(Blockly.ALIGN_CENTRE)
+        .appendField("Description:")
+        .appendField(new Blockly.FieldTextInput("<description>"), "desc");
+    this.appendStatementInput("landmark")
+        .setCheck("landmark")
+        .appendField("Landmarks:");
+    this.setInputsInline(false);
+    this.setPreviousStatement(true, "region");
+    this.setNextStatement(true, "region");
+    this.setColour(75);
+ this.setTooltip("A notable region in which action of the game is set, or can be set.");
+ this.setHelpUrl("");
+  }
+};
+
+Blockly.Blocks['landmark'] = {
+  init: function() {
+    this.appendDummyInput()
+        .setAlign(Blockly.ALIGN_CENTRE)
+        .appendField("Landmark:")
+        .appendField(new Blockly.FieldTextInput("<name>"), "name");
+    this.appendDummyInput()
+        .setAlign(Blockly.ALIGN_CENTRE)
+        .appendField("Description:")
+        .appendField(new Blockly.FieldTextInput("<description>"), "desc");
+    this.appendDummyInput()
+        .setAlign(Blockly.ALIGN_CENTRE)
+        .appendField("Significance:")
+        .appendField(new Blockly.FieldTextInput("<description>"), "significance");
+    this.setInputsInline(false);
+    this.setPreviousStatement(true, "landmark");
+    this.setNextStatement(true, "landmark");
+    this.setColour(120);
+ this.setTooltip("A notable feature within a given geographic region around which action may revolve.");
+ this.setHelpUrl("");
+  }
+};
+
+Blockly.Blocks['system'] = {
+  init: function() {
+    this.appendDummyInput()
+        .setAlign(Blockly.ALIGN_CENTRE)
+        .appendField("System:")
+        .appendField(new Blockly.FieldTextInput("<system name>"), "name");
+    this.appendStatementInput("theme")
+        .setCheck("theme")
+        .appendField("Themes:");
+    this.appendStatementInput("setting")
+        .setCheck("setting")
+        .appendField("Setting: ");
+    this.appendStatementInput("mechanics")
+        .setCheck("mechanics")
+        .appendField("Mechanics:");
+    this.setInputsInline(false);
+    this.setColour(30);
+ this.setTooltip("The system you are composing.");
+ this.setHelpUrl("");
+  }
+};
+
+Blockly.Blocks['theme'] = {
+  init: function() {
+    this.appendDummyInput()
+        .setAlign(Blockly.ALIGN_CENTRE)
+        .appendField("Theme:")
+        .appendField(new Blockly.FieldTextInput("<name>"), "name");
+    this.appendDummyInput()
+        .setAlign(Blockly.ALIGN_CENTRE)
+        .appendField("Description:")
+        .appendField(new Blockly.FieldTextInput("<description>"), "desc");
+    this.appendStatementInput("function")
+        .setCheck("function")
+        .appendField("Functions:");
+    this.setInputsInline(false);
+    this.setPreviousStatement(true, "theme");
+    this.setNextStatement(true, "theme");
+    this.setColour(0);
+ this.setTooltip("What is one idea that will drive the design of the system, and what functions do you intend it to serve?");
+ this.setHelpUrl("");
+  }
+};
+
+Blockly.Blocks['function'] = {
+  init: function() {
+    this.appendDummyInput()
+        .setAlign(Blockly.ALIGN_CENTRE)
+        .appendField("Function:")
+        .appendField(new Blockly.FieldTextInput("<name>"), "name");
+    this.appendDummyInput()
+        .setAlign(Blockly.ALIGN_CENTRE)
+        .appendField("Description:")
+        .appendField(new Blockly.FieldTextInput("<description>"), "desc");
+    this.setInputsInline(false);
+    this.setPreviousStatement(true, "function");
+    this.setNextStatement(true, "function");
+    this.setColour(345);
+ this.setTooltip("A manifestation of a certain theme within a system's story, its mechanics, or both.");
+ this.setHelpUrl("");
+  }
+};
+
+Blockly.Blocks['mechanics'] = {
+  init: function() {
+    this.appendDummyInput()
+        .setAlign(Blockly.ALIGN_CENTRE)
+        .appendField("Mechanics");
+    this.appendStatementInput("factor")
+        .setCheck("factor")
+        .appendField("Move Factors: ");
+    this.appendStatementInput("move")
+        .setCheck("move")
+        .appendField("Moves: ");
+    this.appendStatementInput("parameter")
+        .setCheck("parameter")
+        .appendField("Special Parameters: ");
+    this.appendStatementInput("player_rules")
+        .setCheck("player_rules")
+        .appendField("Player Rules: ");
+    this.setInputsInline(false);
+    this.setPreviousStatement(true, "mechanics");
+    this.setColour(210);
+ this.setTooltip("Defines the rules of a given RPG system.");
+ this.setHelpUrl("");
+  }
+};
+
+Blockly.Blocks['factor'] = {
+  init: function() {
+    this.appendDummyInput()
+        .setAlign(Blockly.ALIGN_CENTRE)
+        .appendField("Factor:")
+        .appendField(new Blockly.FieldTextInput("<name>"), "name");
+    this.appendDummyInput()
+        .setAlign(Blockly.ALIGN_CENTRE)
+        .appendField("Type:")
+        .appendField(new Blockly.FieldDropdown([["Scalar","Scalar"], ["Reroll","Reroll"], ["Revision","Revision"], ["Meta","Meta"]]), "type");
+    this.appendDummyInput()
+        .setAlign(Blockly.ALIGN_CENTRE)
+        .appendField("Effect:")
+        .appendField(new Blockly.FieldTextInput("<description>"), "desc");
+    this.appendDummyInput()
+        .setAlign(Blockly.ALIGN_CENTRE)
+        .appendField("Additive?")
+        .appendField(new Blockly.FieldCheckbox("FALSE"), "isAdditive");
+    this.setInputsInline(false);
+    this.setPreviousStatement(true, "factor");
+    this.setNextStatement(true, "factor");
+    this.setColour(315);
+ this.setTooltip("A situational variable that factors into the outcome of a move. (Types: Scalar factors give a value that add or subtract to a move, Reroll factors involve a rolling or rerolling of dice, Revision factors involve an immediate or pre-decided outcome, and Meta factors describe non-numerical qualities of the move or situation.) (Additive factors are effects that can result from move outcomes.)");
+ this.setHelpUrl("");
+  }
+};
+
+Blockly.Blocks['move'] = {
+  init: function() {
+    this.appendDummyInput()
+        .setAlign(Blockly.ALIGN_CENTRE)
+        .appendField("Move:")
+        .appendField(new Blockly.FieldTextInput("<name>"), "name");
+    this.appendDummyInput()
+        .setAlign(Blockly.ALIGN_CENTRE)
+        .appendField("Factors:");
+    this.appendDummyInput()
+        .setAlign(Blockly.ALIGN_CENTRE)
+        .appendField(new Blockly.FieldDropdown([["option","factor1"]]), "factors");
+    this.appendDummyInput()
+        .setAlign(Blockly.ALIGN_CENTRE)
+        .appendField("Description:")
+        .appendField(new Blockly.FieldTextInput("<description>"), "desc");
+    this.appendDummyInput()
+        .setAlign(Blockly.ALIGN_CENTRE)
+        .appendField("Adds Factor?")
+        .appendField(new Blockly.FieldCheckbox("FALSE"), "adds_factor");
+    this.setInputsInline(false);
+    this.setPreviousStatement(true, "move");
+    this.setNextStatement(true, "move");
+    this.setColour(315);
+ this.setTooltip("An action available to a player character.");
+ this.setHelpUrl("todo: communication with factors");
+  }
+};
+
+Blockly.Blocks['parameter'] = {
+  init: function() {
+    this.appendDummyInput()
+        .setAlign(Blockly.ALIGN_CENTRE)
+        .appendField("Parameter: ")
+        .appendField(new Blockly.FieldTextInput("<outcome>"), "name");
+    this.appendDummyInput()
+        .setAlign(Blockly.ALIGN_CENTRE)
+        .appendField("Range: ")
+        .appendField(new Blockly.FieldNumber(0), "lrange")
+        .appendField(" to ")
+        .appendField(new Blockly.FieldNumber(1), "rrange");
+    this.setInputsInline(false);
+    this.setPreviousStatement(true, "parameter");
+    this.setNextStatement(true, "parameter");
+    this.setColour(315);
+ this.setTooltip("An outcome defined by a range of possible valid rolls.");
+ this.setHelpUrl("");
+  }
+};
+
+Blockly.Blocks['era'] = {
+  init: function() {
+    this.appendDummyInput()
+        .setAlign(Blockly.ALIGN_CENTRE)
+        .appendField("Era: ")
+        .appendField(new Blockly.FieldTextInput("<era name>"), "name");
+    this.appendDummyInput()
+        .setAlign(Blockly.ALIGN_CENTRE)
+        .appendField("Current Era? ")
+        .appendField(new Blockly.FieldCheckbox("TRUE"), "isCurrent");
+    this.setInputsInline(false);
+    this.setPreviousStatement(true, "era");
+    this.setNextStatement(true, "era");
+    this.setColour(90);
+ this.setTooltip("What historical period are you describing?");
+ this.setHelpUrl("");
+  }
+};
+
+Blockly.Blocks['player_rules'] = {
+  init: function() {
+    this.appendDummyInput()
+        .setAlign(Blockly.ALIGN_CENTRE)
+        .appendField("Player Rules");
+    this.appendStatementInput("character_creation")
+        .setCheck("character_creation")
+        .appendField("Character Creation: ");
+    this.appendStatementInput("playbook")
+        .setCheck("playbook")
+        .appendField("Playbooks: ");
+    this.appendStatementInput("resource")
+        .setCheck("resource")
+        .appendField("Resources: ");
+    this.appendStatementInput("equipment")
+        .setCheck("equipment")
+        .appendField("Equipment: ");
+    this.appendStatementInput("extra_mechanic")
+        .setCheck("extra_mechanic")
+        .appendField("Extra Mechanics: ");
+    this.setInputsInline(false);
+    this.setPreviousStatement(true, "player_rules");
+    this.setColour(225);
+ this.setTooltip("How player decision-making is defined and bounded by the system.");
+ this.setHelpUrl("");
+  }
+};
+
+Blockly.Blocks['character_creation'] = {
+  init: function() {
+    this.appendDummyInput()
+        .setAlign(Blockly.ALIGN_CENTRE)
+        .appendField("Character Creation");
+    this.appendStatementInput("creation_step")
+        .setCheck("creation_step")
+        .appendField("Creation Process:");
+    this.appendStatementInput("playbook_creation")
+        .setCheck("playbook_creation")
+        .appendField("Playbook Creation Rules:");
+    this.setInputsInline(false);
+    this.setPreviousStatement(true, "character_creation");
+    this.setColour(240);
+ this.setTooltip("The step-by-step process by which players define their own characters.  The common \"creation process\" applies to all by default; special rules apply to certain playbooks.");
+ this.setHelpUrl("TODO: connection with playbooks");
+  }
+};
+
+Blockly.Blocks['playbook_creation'] = {
+  init: function() {
+    this.appendDummyInput()
+        .setAlign(Blockly.ALIGN_CENTRE)
+        .appendField("Steps for Playbook: ")
+        .appendField(new Blockly.FieldTextInput("<playbook>"), "name");
+    this.appendStatementInput("creation_step")
+        .setCheck("creation_step");
+    this.setInputsInline(false);
+    this.setPreviousStatement(true, "playbook_creation");
+    this.setNextStatement(true, "playbook_creation");
+    this.setColour(225);
+ this.setTooltip("A set of additional steps or revisions that must be made when creating a character of the specified playbook.");
+ this.setHelpUrl("");
+  }
+};
+
+Blockly.Blocks['creation_step'] = {
+  init: function() {
+    this.appendDummyInput()
+        .setAlign(Blockly.ALIGN_CENTRE)
+        .appendField("Step: ")
+        .appendField(new Blockly.FieldTextInput("<name>"), "name");
+    this.appendDummyInput()
+        .setAlign(Blockly.ALIGN_CENTRE)
+        .appendField("Description:")
+        .appendField(new Blockly.FieldTextInput("<description>"), "desc");
+    this.appendDummyInput()
+        .setAlign(Blockly.ALIGN_CENTRE)
+        .appendField("Factors: ");
+    this.appendDummyInput()
+        .setAlign(Blockly.ALIGN_CENTRE)
+        .appendField(new Blockly.FieldDropdown([["option","factor1"]]), "factors");
+    this.setInputsInline(false);
+    this.setPreviousStatement(true, "creation_step");
+    this.setNextStatement(true, "creation_step");
+    this.setColour(270);
+ this.setTooltip("One step of the creation process.");
+ this.setHelpUrl("");
+  }
+};
+
+Blockly.Blocks['playbook'] = {
+  init: function() {
+    this.appendDummyInput()
+        .setAlign(Blockly.ALIGN_CENTRE)
+        .appendField("Playbook: ")
+        .appendField(new Blockly.FieldTextInput("<name>"), "name");
+    this.appendStatementInput("playbook_introduction")
+        .setCheck("playbook_introduction")
+        .appendField("Introduction: ");
+    this.appendStatementInput("feature")
+        .setCheck(["playbook_move", "feature"])
+        .appendField("Playbook Moves and Features:");
+    this.appendDummyInput()
+        .setAlign(Blockly.ALIGN_CENTRE)
+        .appendField("Starting Equipment:")
+        .appendField(new Blockly.FieldTextInput("<equipment>"), "equipment");
+    this.setInputsInline(false);
+    this.setPreviousStatement(true, "playbook");
+    this.setNextStatement(true, "playbook");
+    this.setColour(240);
+ this.setTooltip("Defines a character playbook or class in the system.");
+ this.setHelpUrl("");
+  }
+};
+
+Blockly.Blocks['playbook_introduction'] = {
+  init: function() {
+    this.appendDummyInput()
+        .setAlign(Blockly.ALIGN_CENTRE)
+        .appendField("Introduction");
+    this.appendDummyInput()
+        .setAlign(Blockly.ALIGN_CENTRE)
+        .appendField("Flavor Pitch:")
+        .appendField(new Blockly.FieldTextInput("<description for players>"), "pitch");
+    this.appendDummyInput()
+        .setAlign(Blockly.ALIGN_CENTRE)
+        .appendField("Social Role:")
+        .appendField(new Blockly.FieldTextInput("<personality/social interactions>"), "soc_role");
+    this.appendDummyInput()
+        .setAlign(Blockly.ALIGN_CENTRE)
+        .appendField("Mechanical Role: ")
+        .appendField(new Blockly.FieldTextInput("<system/mechanical interactions>"), "mech_role");
+    this.setInputsInline(false);
+    this.setPreviousStatement(true, "playbook_introduction");
+    this.setColour(270);
+ this.setTooltip("A description of the playbook's role(s) in the system.");
+ this.setHelpUrl("");
+  }
+};
+
+Blockly.Blocks['resource'] = {
+  init: function() {
+    this.appendDummyInput()
+        .setAlign(Blockly.ALIGN_CENTRE)
+        .appendField("Resource: ")
+        .appendField(new Blockly.FieldTextInput("<name>"), "name");
+    this.appendDummyInput()
+        .setAlign(Blockly.ALIGN_CENTRE)
+        .appendField("Description: ")
+        .appendField(new Blockly.FieldTextInput("<description>"), "desc");
+    this.appendDummyInput()
+        .setAlign(Blockly.ALIGN_CENTRE)
+        .appendField("Factors: ");
+    this.appendDummyInput()
+        .setAlign(Blockly.ALIGN_CENTRE)
+        .appendField(new Blockly.FieldDropdown([["option","factor1"]]), "factors");
+    this.appendDummyInput()
+        .setAlign(Blockly.ALIGN_CENTRE)
+        .appendField("Range: ")
+        .appendField(new Blockly.FieldNumber(0), "lrange")
+        .appendField(" to ")
+        .appendField(new Blockly.FieldNumber(0), "rrange");
+    this.appendDummyInput()
+        .setAlign(Blockly.ALIGN_CENTRE)
+        .appendField("Initial Value: ")
+        .appendField(new Blockly.FieldNumber(0), "init");
+    this.setInputsInline(false);
+    this.setPreviousStatement(true, "resource");
+    this.setNextStatement(true, "resource");
+    this.setColour(240);
+ this.setTooltip("A statistic that a player tracks which can factor into certain moves.");
+ this.setHelpUrl("");
+  }
+};
+
+Blockly.Blocks['feature'] = {
+  init: function() {
+    this.appendDummyInput()
+        .setAlign(Blockly.ALIGN_CENTRE)
+        .appendField("Feature: ")
+        .appendField(new Blockly.FieldTextInput("<name>"), "name");
+    this.appendDummyInput()
+        .setAlign(Blockly.ALIGN_CENTRE)
+        .appendField("Description:")
+        .appendField(new Blockly.FieldTextInput("<description>"), "desc");
+    this.appendDummyInput()
+        .setAlign(Blockly.ALIGN_CENTRE)
+        .appendField("Factors:");
+    this.appendDummyInput()
+        .setAlign(Blockly.ALIGN_CENTRE)
+        .appendField(new Blockly.FieldDropdown([["option","factor1"]]), "factors");
+    this.setInputsInline(false);
+    this.setPreviousStatement(true, ["feature", "playbook_move"]);
+    this.setNextStatement(true, ["feature", "playbook_move"]);
+    this.setColour(270);
+ this.setTooltip("An ability or effect unique to a certain playbook.");
+ this.setHelpUrl("");
+  }
+};
+
+Blockly.Blocks['equipment_type'] = {
+  init: function() {
+    this.appendDummyInput()
+        .setAlign(Blockly.ALIGN_CENTRE)
+        .appendField("Equipment Type: ")
+        .appendField(new Blockly.FieldTextInput("<name>"), "name");
+    this.appendDummyInput()
+        .setAlign(Blockly.ALIGN_CENTRE)
+        .appendField("Description:")
+        .appendField(new Blockly.FieldTextInput("<description>"), "desc");
+    this.appendDummyInput()
+        .setAlign(Blockly.ALIGN_CENTRE)
+        .appendField("Factors: ");
+    this.appendDummyInput()
+        .setAlign(Blockly.ALIGN_CENTRE)
+        .appendField(new Blockly.FieldDropdown([["option","factor1"]]), "factors");
+    this.appendDummyInput()
+        .setAlign(Blockly.ALIGN_CENTRE)
+        .appendField("Subtypes? ")
+        .appendField(new Blockly.FieldCheckbox("FALSE"), "hasSubtypes");
+    this.setInputsInline(false);
+    this.setPreviousStatement(true, "equipment_type");
+    this.setNextStatement(true, "equipment_type");
+    this.setColour(270);
+ this.setTooltip("A category of certain equipment items, as well as that category's pertinent factors for its items to be used, and what subtypes it may be divided into.");
+ this.setHelpUrl("");
+  }
+};
+
+Blockly.Blocks['subtype'] = {
+  init: function() {
+    this.appendDummyInput()
+        .setAlign(Blockly.ALIGN_CENTRE)
+        .appendField("Subtype: ")
+        .appendField(new Blockly.FieldTextInput("<name>"), "name");
+    this.appendDummyInput()
+        .setAlign(Blockly.ALIGN_CENTRE)
+        .appendField("Description:")
+        .appendField(new Blockly.FieldTextInput("<description>"), "desc");
+    this.appendDummyInput()
+        .setAlign(Blockly.ALIGN_CENTRE)
+        .appendField("Factors: ");
+    this.appendDummyInput()
+        .setAlign(Blockly.ALIGN_CENTRE)
+        .appendField(new Blockly.FieldDropdown([["option","factor1"]]), "factors");
+    this.appendDummyInput()
+        .setAlign(Blockly.ALIGN_CENTRE)
+        .appendField("Required by Parent Type? ")
+        .appendField(new Blockly.FieldCheckbox("FALSE"), "isRequired");
+    this.appendDummyInput()
+        .appendField("Subtypes? ")
+        .appendField(new Blockly.FieldCheckbox("TRUE"), "hasSubtypes");
+    this.setPreviousStatement(true, "subtype");
+    this.setNextStatement(true, "subtype");
+    this.setColour(270);
+ this.setTooltip("A category of certain equipment items, as well as that category's pertinent factors for its items to be used, and what subtypes it may be divided into.");
+ this.setHelpUrl("");
+  }
+};
+
+Blockly.Blocks['extra_mechanic'] = {
+  init: function() {
+    this.appendDummyInput()
+        .setAlign(Blockly.ALIGN_CENTRE)
+        .appendField("Extra Mechanic:")
+        .appendField(new Blockly.FieldTextInput("<name>"), "name");
+    this.appendDummyInput()
+        .setAlign(Blockly.ALIGN_CENTRE)
+        .appendField("Description: ")
+        .appendField(new Blockly.FieldTextInput("<description>"), "desc");
+    this.appendDummyInput()
+        .setAlign(Blockly.ALIGN_CENTRE)
+        .appendField("Factors:");
+    this.appendDummyInput()
+        .setAlign(Blockly.ALIGN_CENTRE)
+        .appendField(new Blockly.FieldDropdown([["option","factor1"]]), "factors");
+    this.appendDummyInput()
+        .setAlign(Blockly.ALIGN_CENTRE)
+        .appendField("Special Resources?")
+        .appendField(new Blockly.FieldCheckbox("FALSE"), "hasResources");
+    this.appendDummyInput()
+        .setAlign(Blockly.ALIGN_CENTRE)
+        .appendField("Special Moves?")
+        .appendField(new Blockly.FieldCheckbox("FALSE"), "hasMoves");
+    this.setPreviousStatement(true, "extra_mechanic");
+    this.setNextStatement(true, "extra_mechanic");
+    this.setColour(240);
+ this.setTooltip("An additional mechanic relevant to player action.");
+ this.setHelpUrl("");
+  }
+};
+
+Blockly.Blocks['playbook_move'] = {
+  init: function() {
+    this.appendDummyInput()
+        .setAlign(Blockly.ALIGN_CENTRE)
+        .appendField("Playbook Move:")
+        .appendField(new Blockly.FieldTextInput("<name>"), "name");
+    this.appendDummyInput()
+        .setAlign(Blockly.ALIGN_CENTRE)
+        .appendField("Factors:");
+    this.appendDummyInput()
+        .setAlign(Blockly.ALIGN_CENTRE)
+        .appendField(new Blockly.FieldDropdown([["option","dummy1"]]), "factors");
+    this.appendDummyInput()
+        .setAlign(Blockly.ALIGN_CENTRE)
+        .appendField("Description:")
+        .appendField(new Blockly.FieldTextInput("<description>"), "desc");
+    this.appendDummyInput()
+        .setAlign(Blockly.ALIGN_CENTRE)
+        .appendField("Adds Factor?")
+        .appendField(new Blockly.FieldCheckbox("FALSE"), "addsFactor");
+    this.setInputsInline(false);
+    this.setPreviousStatement(true, ["playbook_move", "feature"]);
+    this.setNextStatement(true, ["playbook_move", "feature"]);
+    this.setColour(65);
+ this.setTooltip("An action only available to a certain playbook.");
+ this.setHelpUrl("todo: communication with factors");
+  }
+};
+
+Blockly.Blocks['equipment'] = {
+  init: function() {
+    this.appendDummyInput()
+        .setAlign(Blockly.ALIGN_CENTRE)
+        .appendField("Equipment");
+    this.appendStatementInput("equipment_type")
+        .setCheck("equipment_type")
+        .appendField("Equipment Types:");
+    this.appendStatementInput("item")
+        .setCheck("item")
+        .appendField("Item List:");
+    this.setInputsInline(false);
+    this.setPreviousStatement(true, "equipment");
+    this.setColour(240);
+ this.setTooltip("Items usable by the players.");
+ this.setHelpUrl("");
+  }
+};
+
+Blockly.Blocks['item'] = {
+  init: function() {
+    this.appendDummyInput()
+        .setAlign(Blockly.ALIGN_CENTRE)
+        .appendField("Item: ")
+        .appendField(new Blockly.FieldTextInput("<name>"), "name");
+    this.appendDummyInput()
+        .setAlign(Blockly.ALIGN_CENTRE)
+        .appendField("Types: ");
+    this.appendDummyInput()
+        .setAlign(Blockly.ALIGN_CENTRE)
+        .appendField(new Blockly.FieldDropdown([["option","type1"]]), "types");
+    this.appendDummyInput()
+        .setAlign(Blockly.ALIGN_CENTRE)
+        .appendField("Subtypes:");
+    this.appendDummyInput()
+        .setAlign(Blockly.ALIGN_CENTRE)
+        .appendField(new Blockly.FieldDropdown([["option","subtype1"]]), "subtypes");
+    this.appendDummyInput()
+        .setAlign(Blockly.ALIGN_CENTRE)
+        .appendField("Description:")
+        .appendField(new Blockly.FieldTextInput("<description>"), "desc");
+    this.setInputsInline(false);
+    this.setPreviousStatement(true, "item");
+    this.setNextStatement(true, "item");
+    this.setColour(270);
+ this.setTooltip("A category of certain equipment items, as well as that category's pertinent factors for its items to be used, and what subtypes it may be divided into.");
+ this.setHelpUrl("");
+  }
+};
