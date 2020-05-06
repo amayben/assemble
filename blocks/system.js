@@ -5,13 +5,13 @@
  */
 
 /**
- * @fileoverview Colour blocks for Blockly.
+ * @fileoverview PL blocks for PbtA pattern language.
  *
  * This file is scraped to extract a .json file of block definitions. The array
  * passed to defineBlocksWithJsonArray(..) must be strict JSON: double quotes
  * only, no outside references, no functions, no trailing commas, etc. The one
  * exception is end-of-line comments, which the scraper will remove.
- * @author fraser@google.com (Neil Fraser)
+ * @author amayben@ucsc.edu (Alexander Mayben)
  */
 'use strict';
 
@@ -26,7 +26,7 @@ Blockly.defineBlocksWithJsonArray([{
   "args0": [
     {
       "type": "field_input",
-      "name": "Name",
+      "name": "name",
       "text": "<name>"
     },
     {
@@ -57,7 +57,7 @@ Blockly.defineBlocksWithJsonArray([{
   "inputsInline": false,
   "previousStatement": "setting",
   "nextStatement": "setting",
-  "colour": 290,
+  "colour": 60,
   "tooltip": "Defines the world of a given RPG system.",
   "helpUrl": ""
 },
@@ -67,7 +67,7 @@ Blockly.defineBlocksWithJsonArray([{
   "args0": [
     {
       "type": "field_input",
-      "name": "Name",
+      "name": "name",
       "text": "<region, race, social group, etc.>"
     },
     {
@@ -76,14 +76,14 @@ Blockly.defineBlocksWithJsonArray([{
     },
     {
       "type": "field_input",
-      "name": "Description",
+      "name": "desc",
       "text": "<Describe how people in this social group live.>"
     }
   ],
   "inputsInline": false,
   "previousStatement": "society",
   "nextStatement": "society",
-  "colour": 230,
+  "colour": 75,
   "tooltip": "What form does this society take?  How do people spend their lives?  What technology is used?",
   "helpUrl": ""
 },
@@ -93,7 +93,7 @@ Blockly.defineBlocksWithJsonArray([{
   "args0": [
     {
       "type": "field_input",
-      "name": "Name",
+      "name": "name",
       "text": "<subject>"
     },
     {
@@ -119,7 +119,7 @@ Blockly.defineBlocksWithJsonArray([{
   "inputsInline": false,
   "previousStatement": "history",
   "nextStatement": "history",
-  "colour": 230,
+  "colour": 75,
   "tooltip": "What happened or is happening in the world that is relevant to the players?",
   "helpUrl": ""
 },
@@ -130,7 +130,7 @@ Blockly.defineBlocksWithJsonArray([{
   "args0": [
     {
       "type": "field_input",
-      "name": "Name",
+      "name": "name",
       "text": "<name>"
     },
     {
@@ -139,7 +139,7 @@ Blockly.defineBlocksWithJsonArray([{
     },
     {
       "type": "field_input",
-      "name": "Past Role",
+      "name": "role",
       "text": "<description>"
     },
     {
@@ -148,14 +148,14 @@ Blockly.defineBlocksWithJsonArray([{
     },
     {
       "type": "field_input",
-      "name": "Current Status",
+      "name": "status",
       "text": "<description>"
     }
   ],
   "inputsInline": false,
   "previousStatement": "entity",
   "nextStatement": "entity",
-  "colour": 65,
+  "colour": 90,
   "tooltip": "A relevant historical group or figure.",
   "helpUrl": ""
 },
@@ -166,7 +166,7 @@ Blockly.defineBlocksWithJsonArray([{
   "args0": [
     {
       "type": "field_input",
-      "name": "Name",
+      "name": "name",
       "text": "<name>"
     },
     {
@@ -175,7 +175,7 @@ Blockly.defineBlocksWithJsonArray([{
     },
     {
       "type": "field_input",
-      "name": "Description",
+      "name": "desc",
       "text": "<description>"
     },
     {
@@ -184,14 +184,14 @@ Blockly.defineBlocksWithJsonArray([{
     },
     {
       "type": "field_input",
-      "name": "Significance",
+      "name": "significance",
       "text": "<significance>"
     }
   ],
   "inputsInline": false,
   "previousStatement": "event",
   "nextStatement": "event",
-  "colour": 65,
+  "colour": 90,
   "tooltip": "A relevant moment in history, and its significance to the world.",
   "helpUrl": ""
 },
@@ -202,7 +202,7 @@ Blockly.defineBlocksWithJsonArray([{
   "args0": [
     {
       "type": "field_input",
-      "name": "Name",
+      "name": "name",
       "text": "<name>"
     },
     {
@@ -211,14 +211,14 @@ Blockly.defineBlocksWithJsonArray([{
     },
     {
       "type": "field_input",
-      "name": "Description",
+      "name": "desc",
       "text": "<description>"
     }
   ],
   "inputsInline": false,
   "previousStatement": "mystery",
   "nextStatement": "mystery",
-  "colour": 65,
+  "colour": 75,
   "tooltip": "An unknown element that has been identified (but not defined) within the setting.",
   "helpUrl": ""
 },
@@ -228,7 +228,7 @@ Blockly.defineBlocksWithJsonArray([{
   "args0": [
     {
       "type": "field_input",
-      "name": "Name",
+      "name": "name",
       "text": "<name>"
     },
     {
@@ -237,7 +237,7 @@ Blockly.defineBlocksWithJsonArray([{
     },
     {
       "type": "field_input",
-      "name": "Description",
+      "name": "desc",
       "text": "<description>"
     },
     {
@@ -253,18 +253,18 @@ Blockly.defineBlocksWithJsonArray([{
   "inputsInline": false,
   "previousStatement": "region",
   "nextStatement": "region",
-  "colour": 65,
+  "colour": 75,
   "tooltip": "A notable region in which action of the game is set, or can be set.",
   "helpUrl": ""
 },
 {
   "type": "landmark",
   "lastDummyAlign0": "CENTRE",
-  "message0": "Landmark: %1 %2 Appearance: %3 %4 Significance: %5",
+  "message0": "Landmark: %1 %2 Description: %3 %4 Significance: %5",
   "args0": [
     {
       "type": "field_input",
-      "name": "Name",
+      "name": "name",
       "text": "<name>"
     },
     {
@@ -273,7 +273,7 @@ Blockly.defineBlocksWithJsonArray([{
     },
     {
       "type": "field_input",
-      "name": "Appearance",
+      "name": "desc",
       "text": "<description>"
     },
     {
@@ -282,7 +282,7 @@ Blockly.defineBlocksWithJsonArray([{
     },
     {
       "type": "field_input",
-      "name": "Significance",
+      "name": "significance",
       "text": "<description>"
     }
   ],
@@ -299,7 +299,7 @@ Blockly.defineBlocksWithJsonArray([{
   "args0": [
     {
       "type": "field_input",
-      "name": "Name",
+      "name": "name",
       "text": "<system name>"
     },
     {
@@ -323,7 +323,7 @@ Blockly.defineBlocksWithJsonArray([{
     }
   ],
   "inputsInline": false,
-  "colour": 230,
+  "colour": 30,
   "tooltip": "The system you are composing.",
   "helpUrl": ""
 },
@@ -333,7 +333,7 @@ Blockly.defineBlocksWithJsonArray([{
   "args0": [
     {
       "type": "field_input",
-      "name": "Name",
+      "name": "name",
       "text": "<name>"
     },
     {
@@ -342,7 +342,7 @@ Blockly.defineBlocksWithJsonArray([{
     },
     {
       "type": "field_input",
-      "name": "Description",
+      "name": "desc",
       "text": "<description>"
     },
     {
@@ -358,7 +358,7 @@ Blockly.defineBlocksWithJsonArray([{
   "inputsInline": false,
   "previousStatement": "theme",
   "nextStatement": "theme",
-  "colour": 160,
+  "colour": 0,
   "tooltip": "What is one idea that will drive the design of the system, and what functions do you intend it to serve?",
   "helpUrl": ""
 },
@@ -369,7 +369,7 @@ Blockly.defineBlocksWithJsonArray([{
   "args0": [
     {
       "type": "field_input",
-      "name": "Name",
+      "name": "name",
       "text": "<name>"
     },
     {
@@ -378,29 +378,24 @@ Blockly.defineBlocksWithJsonArray([{
     },
     {
       "type": "field_input",
-      "name": "Description",
+      "name": "desc",
       "text": "<description>"
     }
   ],
   "inputsInline": false,
   "previousStatement": "function",
   "nextStatement": "function",
-  "colour": 200,
+  "colour": 345,
   "tooltip": "A manifestation of a certain theme within a system's story, its mechanics, or both.",
   "helpUrl": ""
 },
 {
   "type": "mechanics",
-  "message0": "Mechanics %1 Decision Parameters:  %2 Move Factors:  %3 Moves:  %4 Player Rules:  %5",
+  "message0": "Mechanics %1 Move Factors:  %2 Moves:  %3 Special Parameters:  %4 Player Rules:  %5",
   "args0": [
     {
       "type": "input_dummy",
       "align": "CENTRE"
-    },
-    {
-      "type": "input_statement",
-      "name": "parameter",
-      "check": "parameter"
     },
     {
       "type": "input_statement",
@@ -414,13 +409,18 @@ Blockly.defineBlocksWithJsonArray([{
     },
     {
       "type": "input_statement",
+      "name": "parameter",
+      "check": "parameter"
+    },
+    {
+      "type": "input_statement",
       "name": "player_rules",
       "check": "player_rules"
     }
   ],
   "inputsInline": false,
   "previousStatement": "mechanics",
-  "colour": 290,
+  "colour": 210,
   "tooltip": "Defines the rules of a given RPG system.",
   "helpUrl": ""
 },
@@ -431,7 +431,7 @@ Blockly.defineBlocksWithJsonArray([{
   "args0": [
     {
       "type": "field_input",
-      "name": "Name",
+      "name": "name",
       "text": "<name>"
     },
     {
@@ -440,7 +440,7 @@ Blockly.defineBlocksWithJsonArray([{
     },
     {
       "type": "field_dropdown",
-      "name": "Type",
+      "name": "type",
       "options": [
         [
           "Scalar",
@@ -466,7 +466,7 @@ Blockly.defineBlocksWithJsonArray([{
     },
     {
       "type": "field_input",
-      "name": "Description",
+      "name": "desc",
       "text": "<description>"
     },
     {
@@ -475,24 +475,25 @@ Blockly.defineBlocksWithJsonArray([{
     },
     {
       "type": "field_checkbox",
-      "name": "Additive?",
+      "name": "isAdditive",
       "checked": false
     }
   ],
   "inputsInline": false,
   "previousStatement": "factor",
   "nextStatement": "factor",
-  "colour": 65,
+  "colour": 315,
   "tooltip": "A situational variable that factors into the outcome of a move. (Types: Scalar factors give a value that add or subtract to a move, Reroll factors involve a rolling or rerolling of dice, Revision factors involve an immediate or pre-decided outcome, and Meta factors describe non-numerical qualities of the move or situation.) (Additive factors are effects that can result from move outcomes.)",
   "helpUrl": ""
 },
 {
   "type": "move",
-  "message0": "Move: %1 %2 Factors: %3 Description: %4 %5 Adds: %6",
+  "lastDummyAlign0": "CENTRE",
+  "message0": "Move: %1 %2 Factors: %3 %4 %5 Description: %6 %7 Adds Factor? %8",
   "args0": [
     {
       "type": "field_input",
-      "name": "Name",
+      "name": "name",
       "text": "<name>"
     },
     {
@@ -500,13 +501,26 @@ Blockly.defineBlocksWithJsonArray([{
       "align": "CENTRE"
     },
     {
-      "type": "input_statement",
-      "name": "factor",
-      "check": "factor"
+      "type": "input_dummy",
+      "align": "CENTRE"
+    },
+    {
+      "type": "field_dropdown",
+      "name": "factors",
+      "options": [
+        [
+          "option",
+          "factor1"
+        ]
+      ]
+    },
+    {
+      "type": "input_dummy",
+      "align": "CENTRE"
     },
     {
       "type": "field_input",
-      "name": "Description",
+      "name": "desc",
       "text": "<description>"
     },
     {
@@ -514,21 +528,15 @@ Blockly.defineBlocksWithJsonArray([{
       "align": "CENTRE"
     },
     {
-      "type": "input_statement",
-      "name": "adds",
-      "check": "factor"
+      "type": "field_checkbox",
+      "name": "adds_factor",
+      "checked": false
     }
   ],
   "inputsInline": false,
-  "previousStatement": [
-    "move",
-    "feature"
-  ],
-  "nextStatement": [
-    "move",
-    "feature"
-  ],
-  "colour": 65,
+  "previousStatement": "move",
+  "nextStatement": "move",
+  "colour": 315,
   "tooltip": "An action available to a player character.",
   "helpUrl": "todo: communication with factors"
 },
@@ -539,7 +547,7 @@ Blockly.defineBlocksWithJsonArray([{
   "args0": [
     {
       "type": "field_input",
-      "name": "Name",
+      "name": "name",
       "text": "<outcome>"
     },
     {
@@ -548,19 +556,19 @@ Blockly.defineBlocksWithJsonArray([{
     },
     {
       "type": "field_number",
-      "name": "LRange",
+      "name": "lrange",
       "value": 0
     },
     {
       "type": "field_number",
-      "name": "RRange",
+      "name": "rrange",
       "value": 1
     }
   ],
   "inputsInline": false,
   "previousStatement": "parameter",
   "nextStatement": "parameter",
-  "colour": 230,
+  "colour": 315,
   "tooltip": "An outcome defined by a range of possible valid rolls.",
   "helpUrl": ""
 },
@@ -571,7 +579,7 @@ Blockly.defineBlocksWithJsonArray([{
   "args0": [
     {
       "type": "field_input",
-      "name": "Name",
+      "name": "name",
       "text": "<era name>"
     },
     {
@@ -580,20 +588,20 @@ Blockly.defineBlocksWithJsonArray([{
     },
     {
       "type": "field_checkbox",
-      "name": "Current",
+      "name": "isCurrent",
       "checked": true
     }
   ],
   "inputsInline": false,
   "previousStatement": "era",
   "nextStatement": "era",
-  "colour": 20,
+  "colour": 90,
   "tooltip": "What historical period are you describing?",
   "helpUrl": ""
 },
 {
   "type": "player_rules",
-  "message0": "Player Rules %1 Character Creation:  %2 Playbooks:  %3 Resources:  %4 Types of Equipment:  %5 Extra Mechanics:  %6",
+  "message0": "Player Rules %1 Character Creation:  %2 Playbooks:  %3 Resources:  %4 Equipment:  %5 Extra Mechanics:  %6",
   "args0": [
     {
       "type": "input_dummy",
@@ -616,8 +624,8 @@ Blockly.defineBlocksWithJsonArray([{
     },
     {
       "type": "input_statement",
-      "name": "equipment_type",
-      "check": "equipment_type"
+      "name": "equipment",
+      "check": "equipment"
     },
     {
       "type": "input_statement",
@@ -627,13 +635,13 @@ Blockly.defineBlocksWithJsonArray([{
   ],
   "inputsInline": false,
   "previousStatement": "player_rules",
-  "colour": 230,
+  "colour": 225,
   "tooltip": "How player decision-making is defined and bounded by the system.",
   "helpUrl": ""
 },
 {
   "type": "character_creation",
-  "message0": "Character Creation %1 Creation Process: %2 Special Playbook Rules: %3",
+  "message0": "Character Creation %1 Creation Process: %2 Playbook Creation Rules: %3",
   "args0": [
     {
       "type": "input_dummy",
@@ -652,7 +660,7 @@ Blockly.defineBlocksWithJsonArray([{
   ],
   "inputsInline": false,
   "previousStatement": "character_creation",
-  "colour": 230,
+  "colour": 240,
   "tooltip": "The step-by-step process by which players define their own characters.  The common \"creation process\" applies to all by default; special rules apply to certain playbooks.",
   "helpUrl": "TODO: connection with playbooks"
 },
@@ -662,7 +670,7 @@ Blockly.defineBlocksWithJsonArray([{
   "args0": [
     {
       "type": "field_input",
-      "name": "Name",
+      "name": "name",
       "text": "<playbook>"
     },
     {
@@ -678,17 +686,18 @@ Blockly.defineBlocksWithJsonArray([{
   "inputsInline": false,
   "previousStatement": "playbook_creation",
   "nextStatement": "playbook_creation",
-  "colour": 230,
+  "colour": 225,
   "tooltip": "A set of additional steps or revisions that must be made when creating a character of the specified playbook.",
   "helpUrl": ""
 },
 {
   "type": "creation_step",
-  "message0": "Step:  %1 %2 Description: %3 %4 Factors:  %5",
+  "lastDummyAlign0": "CENTRE",
+  "message0": "Step:  %1 %2 Description: %3 %4 Factors:  %5 %6",
   "args0": [
     {
       "type": "field_input",
-      "name": "Name",
+      "name": "name",
       "text": "<name>"
     },
     {
@@ -697,7 +706,7 @@ Blockly.defineBlocksWithJsonArray([{
     },
     {
       "type": "field_input",
-      "name": "Description",
+      "name": "desc",
       "text": "<description>"
     },
     {
@@ -705,26 +714,35 @@ Blockly.defineBlocksWithJsonArray([{
       "align": "CENTRE"
     },
     {
-      "type": "input_statement",
-      "name": "factor",
-      "check": "factor"
+      "type": "input_dummy",
+      "align": "CENTRE"
+    },
+    {
+      "type": "field_dropdown",
+      "name": "factors",
+      "options": [
+        [
+          "option",
+          "factor1"
+        ]
+      ]
     }
   ],
   "inputsInline": false,
   "previousStatement": "creation_step",
   "nextStatement": "creation_step",
-  "colour": 230,
+  "colour": 270,
   "tooltip": "One step of the creation process.",
   "helpUrl": ""
 },
 {
   "type": "playbook",
   "lastDummyAlign0": "CENTRE",
-  "message0": "Playbook:  %1 %2 Introduction:  %3 Playbook Features and Moves: %4 Stat Distribution: %5 %6 Starting Equipment: %7",
+  "message0": "Playbook:  %1 %2 Introduction:  %3 Playbook Moves and Features: %4 Starting Equipment: %5",
   "args0": [
     {
       "type": "field_input",
-      "name": "Name",
+      "name": "name",
       "text": "<name>"
     },
     {
@@ -740,29 +758,20 @@ Blockly.defineBlocksWithJsonArray([{
       "type": "input_statement",
       "name": "feature",
       "check": [
-        "move",
+        "playbook_move",
         "feature"
       ]
     },
     {
       "type": "field_input",
-      "name": "Distribution",
-      "text": "<distribution>"
-    },
-    {
-      "type": "input_dummy",
-      "align": "CENTRE"
-    },
-    {
-      "type": "field_input",
-      "name": "Equipment",
+      "name": "equipment",
       "text": "<equipment>"
     }
   ],
   "inputsInline": false,
   "previousStatement": "playbook",
   "nextStatement": "playbook",
-  "colour": 230,
+  "colour": 240,
   "tooltip": "Defines a character playbook or class in the system.",
   "helpUrl": ""
 },
@@ -777,7 +786,7 @@ Blockly.defineBlocksWithJsonArray([{
     },
     {
       "type": "field_input",
-      "name": "Pitch",
+      "name": "pitch",
       "text": "<description for players>"
     },
     {
@@ -786,7 +795,7 @@ Blockly.defineBlocksWithJsonArray([{
     },
     {
       "type": "field_input",
-      "name": "SRole",
+      "name": "soc_role",
       "text": "<personality/social interactions>"
     },
     {
@@ -795,24 +804,24 @@ Blockly.defineBlocksWithJsonArray([{
     },
     {
       "type": "field_input",
-      "name": "MRole",
+      "name": "mech_role",
       "text": "<system/mechanical interactions>"
     }
   ],
   "inputsInline": false,
   "previousStatement": "playbook_introduction",
-  "colour": 230,
+  "colour": 270,
   "tooltip": "A description of the playbook's role(s) in the system.",
   "helpUrl": ""
 },
 {
   "type": "resource",
   "lastDummyAlign0": "CENTRE",
-  "message0": "Resource:  %1 %2 Description:  %3 %4 Factors:  %5 Range:  %6  to  %7 %8 Initial Value:  %9",
+  "message0": "Resource:  %1 %2 Description:  %3 %4 Factors:  %5 %6 %7 Range:  %8  to  %9 %10 Initial Value:  %11",
   "args0": [
     {
       "type": "field_input",
-      "name": "Name",
+      "name": "name",
       "text": "<name>"
     },
     {
@@ -821,7 +830,7 @@ Blockly.defineBlocksWithJsonArray([{
     },
     {
       "type": "field_input",
-      "name": "Description",
+      "name": "desc",
       "text": "<description>"
     },
     {
@@ -829,18 +838,31 @@ Blockly.defineBlocksWithJsonArray([{
       "align": "CENTRE"
     },
     {
-      "type": "input_statement",
-      "name": "factor",
-      "check": "factor"
+      "type": "input_dummy",
+      "align": "CENTRE"
+    },
+    {
+      "type": "field_dropdown",
+      "name": "factors",
+      "options": [
+        [
+          "option",
+          "factor1"
+        ]
+      ]
+    },
+    {
+      "type": "input_dummy",
+      "align": "CENTRE"
     },
     {
       "type": "field_number",
-      "name": "LRange",
+      "name": "lrange",
       "value": 0
     },
     {
       "type": "field_number",
-      "name": "RRange",
+      "name": "rrange",
       "value": 0
     },
     {
@@ -856,17 +878,18 @@ Blockly.defineBlocksWithJsonArray([{
   "inputsInline": false,
   "previousStatement": "resource",
   "nextStatement": "resource",
-  "colour": 230,
+  "colour": 240,
   "tooltip": "A statistic that a player tracks which can factor into certain moves.",
   "helpUrl": ""
 },
 {
   "type": "feature",
-  "message0": "Feature:  %1 %2 Description: %3 %4 Factors: %5",
+  "lastDummyAlign0": "CENTRE",
+  "message0": "Feature:  %1 %2 Description: %3 %4 Factors: %5 %6",
   "args0": [
     {
       "type": "field_input",
-      "name": "Name",
+      "name": "name",
       "text": "<name>"
     },
     {
@@ -875,7 +898,7 @@ Blockly.defineBlocksWithJsonArray([{
     },
     {
       "type": "field_input",
-      "name": "Description",
+      "name": "desc",
       "text": "<description>"
     },
     {
@@ -883,31 +906,41 @@ Blockly.defineBlocksWithJsonArray([{
       "align": "CENTRE"
     },
     {
-      "type": "input_statement",
-      "name": "factor",
-      "check": "factor"
+      "type": "input_dummy",
+      "align": "CENTRE"
+    },
+    {
+      "type": "field_dropdown",
+      "name": "factors",
+      "options": [
+        [
+          "option",
+          "factor1"
+        ]
+      ]
     }
   ],
   "inputsInline": false,
   "previousStatement": [
     "feature",
-    "move"
+    "playbook_move"
   ],
   "nextStatement": [
     "feature",
-    "move"
+    "playbook_move"
   ],
-  "colour": 230,
-  "tooltip": "",
+  "colour": 270,
+  "tooltip": "An ability or effect unique to a certain playbook.",
   "helpUrl": ""
 },
 {
   "type": "equipment_type",
-  "message0": "Equipment Type:  %1 %2 Description: %3 %4 Factors:  %5 Subtypes:  %6",
+  "lastDummyAlign0": "CENTRE",
+  "message0": "Equipment Type:  %1 %2 Description: %3 %4 Factors:  %5 %6 %7 Subtypes?  %8",
   "args0": [
     {
       "type": "field_input",
-      "name": "Name",
+      "name": "name",
       "text": "<name>"
     },
     {
@@ -916,7 +949,7 @@ Blockly.defineBlocksWithJsonArray([{
     },
     {
       "type": "field_input",
-      "name": "Description",
+      "name": "desc",
       "text": "<description>"
     },
     {
@@ -924,30 +957,43 @@ Blockly.defineBlocksWithJsonArray([{
       "align": "CENTRE"
     },
     {
-      "type": "input_statement",
-      "name": "factor",
-      "check": "factor"
+      "type": "input_dummy",
+      "align": "CENTRE"
     },
     {
-      "type": "input_statement",
-      "name": "subtype",
-      "check": "subtype"
+      "type": "field_dropdown",
+      "name": "factors",
+      "options": [
+        [
+          "option",
+          "factor1"
+        ]
+      ]
+    },
+    {
+      "type": "input_dummy",
+      "align": "CENTRE"
+    },
+    {
+      "type": "field_checkbox",
+      "name": "hasSubtypes",
+      "checked": false
     }
   ],
   "inputsInline": false,
   "previousStatement": "equipment_type",
   "nextStatement": "equipment_type",
-  "colour": 230,
+  "colour": 270,
   "tooltip": "A category of certain equipment items, as well as that category's pertinent factors for its items to be used, and what subtypes it may be divided into.",
   "helpUrl": ""
 },
 {
   "type": "subtype",
-  "message0": "Subtype:  %1 %2 Description: %3 %4 Factors:  %5 Required by Parent Type?:  %6 %7 Subtypes:  %8",
+  "message0": "Subtype:  %1 %2 Description: %3 %4 Factors:  %5 %6 %7 Required by Parent Type?  %8 %9 Subtypes?  %10",
   "args0": [
     {
       "type": "field_input",
-      "name": "Name",
+      "name": "name",
       "text": "<name>"
     },
     {
@@ -956,7 +1002,7 @@ Blockly.defineBlocksWithJsonArray([{
     },
     {
       "type": "field_input",
-      "name": "Description",
+      "name": "desc",
       "text": "<description>"
     },
     {
@@ -964,37 +1010,52 @@ Blockly.defineBlocksWithJsonArray([{
       "align": "CENTRE"
     },
     {
-      "type": "input_statement",
-      "name": "factor",
-      "check": "factor"
+      "type": "input_dummy",
+      "align": "CENTRE"
+    },
+    {
+      "type": "field_dropdown",
+      "name": "factors",
+      "options": [
+        [
+          "option",
+          "factor1"
+        ]
+      ]
+    },
+    {
+      "type": "input_dummy",
+      "align": "CENTRE"
     },
     {
       "type": "field_checkbox",
-      "name": "IsRequired",
+      "name": "isRequired",
       "checked": false
     },
     {
-      "type": "input_dummy"
+      "type": "input_dummy",
+      "align": "CENTRE"
     },
     {
-      "type": "input_statement",
-      "name": "subtype",
-      "check": "subtype"
+      "type": "field_checkbox",
+      "name": "hasSubtypes",
+      "checked": true
     }
   ],
   "previousStatement": "subtype",
   "nextStatement": "subtype",
-  "colour": 230,
+  "colour": 270,
   "tooltip": "A category of certain equipment items, as well as that category's pertinent factors for its items to be used, and what subtypes it may be divided into.",
   "helpUrl": ""
 },
 {
   "type": "extra_mechanic",
-  "message0": "Extra Mechanic: %1 %2 Description:  %3 %4 Factors: %5 Special Resources? %6 %7 Special Moves? %8 %9",
+  "lastDummyAlign0": "CENTRE",
+  "message0": "Extra Mechanic: %1 %2 Description:  %3 %4 Factors: %5 %6 %7 Special Resources? %8 %9 Special Moves? %10",
   "args0": [
     {
       "type": "field_input",
-      "name": "Name",
+      "name": "name",
       "text": "<name>"
     },
     {
@@ -1003,41 +1064,197 @@ Blockly.defineBlocksWithJsonArray([{
     },
     {
       "type": "field_input",
-      "name": "Description",
+      "name": "desc",
       "text": "<description>"
     },
     {
-      "type": "input_dummy"
+      "type": "input_dummy",
+      "align": "CENTRE"
     },
     {
-      "type": "input_statement",
-      "name": "factor",
-      "check": "factor"
+      "type": "input_dummy",
+      "align": "CENTRE"
+    },
+    {
+      "type": "field_dropdown",
+      "name": "factors",
+      "options": [
+        [
+          "option",
+          "factor1"
+        ]
+      ]
+    },
+    {
+      "type": "input_dummy",
+      "align": "CENTRE"
     },
     {
       "type": "field_checkbox",
-      "name": "HasResources",
+      "name": "hasResources",
       "checked": false
     },
     {
-      "type": "input_statement",
-      "name": "resource",
-      "check": "resource"
+      "type": "input_dummy",
+      "align": "CENTRE"
     },
     {
       "type": "field_checkbox",
-      "name": "HasMoves",
+      "name": "hasMoves",
       "checked": false
-    },
-    {
-      "type": "input_statement",
-      "name": "move",
-      "check": "move"
     }
   ],
   "previousStatement": "extra_mechanic",
   "nextStatement": "extra_mechanic",
-  "colour": 230,
+  "colour": 240,
   "tooltip": "An additional mechanic relevant to player action.",
+  "helpUrl": ""
+},
+{
+  "type": "playbook_move",
+  "lastDummyAlign0": "CENTRE",
+  "message0": "Playbook Move: %1 %2 Factors: %3 %4 %5 Description: %6 %7 Adds Factor? %8",
+  "args0": [
+    {
+      "type": "field_input",
+      "name": "name",
+      "text": "<name>"
+    },
+    {
+      "type": "input_dummy",
+      "align": "CENTRE"
+    },
+    {
+      "type": "input_dummy",
+      "align": "CENTRE"
+    },
+    {
+      "type": "field_dropdown",
+      "name": "factors",
+      "options": [
+        [
+          "option",
+          "dummy1"
+        ]
+      ]
+    },
+    {
+      "type": "input_dummy",
+      "align": "CENTRE"
+    },
+    {
+      "type": "field_input",
+      "name": "desc",
+      "text": "<description>"
+    },
+    {
+      "type": "input_dummy",
+      "align": "CENTRE"
+    },
+    {
+      "type": "field_checkbox",
+      "name": "addsFactor",
+      "checked": false
+    }
+  ],
+  "inputsInline": false,
+  "previousStatement": [
+    "playbook_move",
+    "feature"
+  ],
+  "nextStatement": [
+    "playbook_move",
+    "feature"
+  ],
+  "colour": 65,
+  "tooltip": "An action only available to a certain playbook.",
+  "helpUrl": "todo: communication with factors"
+},
+{
+  "type": "equipment",
+  "message0": "Equipment %1 Equipment Types: %2 Item List: %3",
+  "args0": [
+    {
+      "type": "input_dummy",
+      "align": "CENTRE"
+    },
+    {
+      "type": "input_statement",
+      "name": "equipment_type",
+      "check": "equipment_type"
+    },
+    {
+      "type": "input_statement",
+      "name": "item",
+      "check": "item"
+    }
+  ],
+  "inputsInline": false,
+  "previousStatement": "equipment",
+  "colour": 240,
+  "tooltip": "Items usable by the players.",
+  "helpUrl": ""
+},
+{
+  "type": "item",
+  "lastDummyAlign0": "CENTRE",
+  "message0": "Item:  %1 %2 Types:  %3 %4 %5 Subtypes: %6 %7 %8 Description: %9",
+  "args0": [
+    {
+      "type": "field_input",
+      "name": "name",
+      "text": "<name>"
+    },
+    {
+      "type": "input_dummy",
+      "align": "CENTRE"
+    },
+    {
+      "type": "input_dummy",
+      "align": "CENTRE"
+    },
+    {
+      "type": "field_dropdown",
+      "name": "types",
+      "options": [
+        [
+          "option",
+          "type1"
+        ]
+      ]
+    },
+    {
+      "type": "input_dummy",
+      "align": "CENTRE"
+    },
+    {
+      "type": "input_dummy",
+      "align": "CENTRE"
+    },
+    {
+      "type": "field_dropdown",
+      "name": "subtypes",
+      "options": [
+        [
+          "option",
+          "subtype1"
+        ]
+      ]
+    },
+    {
+      "type": "input_dummy",
+      "align": "CENTRE"
+    },
+    {
+      "type": "field_input",
+      "name": "desc",
+      "text": "<description>"
+    }
+  ],
+  "inputsInline": false,
+  "previousStatement": "item",
+  "nextStatement": "item",
+  "colour": 270,
+  "tooltip": "A category of certain equipment items, as well as that category's pertinent factors for its items to be used, and what subtypes it may be divided into.",
   "helpUrl": ""
 }]);  // END JSON EXTRACT (Do not delete this comment.)

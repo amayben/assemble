@@ -3,6 +3,7 @@
 	<head>
 		<meta charset="UTF-8"><title>amayben's PbtA Pattern Language in Blockly</title>
 		<script src="blockly_compressed.js"></script>
+		<script src="javascript_compressed.js"></script>
 		<script src="blocks_compressed.js"></script>
 		<script src="msg/js/en.js"></script>
 		<script src="blocks/system.js"></script>
@@ -16,400 +17,347 @@
 				</tr>
 			</tbody>
 		</table>	
-			<div id="blocklyDiv" style="position: absolute"></div>
-			<!--
-			<xml id="toolbox" style="display: none">
-			  <block type="controls_if"></block>
-			  <block type="controls_repeat_ext"></block>
-			  <block type="logic_compare"></block>
-			  <block type="math_number"></block>
-			  <block type="math_arithmetic"></block>
-			  <block type="text"></block>
-			  <block type="text_print"></block>
-			</xml>
-			-->
+		<div id="blocklyDiv" style="position: absolute"></div>
+		<!--
+		<xml id="toolbox" style="display: none">
+		  <block type="controls_if"></block>
+		  <block type="controls_repeat_ext"></block>
+		  <block type="logic_compare"></block>
+		  <block type="math_number"></block>
+		  <block type="math_arithmetic"></block>
+		  <block type="text"></block>
+		  <block type="text_print"></block>
+		</xml>
+		-->
 
-			<xml xmlns="https://developers.google.com/blockly/xml" id="toolbox" style="display: none">
-			  <category name="System">
-			    <block type="system">
-			      <field name="Name">&lt;system name&gt;</field>
-			      <statement name="Themes">
-			        <block type="theme">
-			          <field name="Name">&lt;name&gt;</field>
-			          <field name="Description">&lt;description&gt;</field>
-			          <statement name="Functions">
-			            <block type="function">
-			              <field name="Name">&lt;name&gt;</field>
-			              <field name="Description">&lt;description&gt;</field>
-			            </block>
-			          </statement>
-			        </block>
-			      </statement>
-			      <statement name="Setting">
-			        <block type="setting">
-			          <field name="Name">&lt;name&gt;</field>
-			        </block>
-			      </statement>
-			      <statement name="Mechanics">
-			        <block type="mechanics"></block>
-			      </statement>
-			    </block>
-			    <block type="theme">
-			      <field name="Name">&lt;name&gt;</field>
-			      <field name="Description">&lt;description&gt;</field>
-			      <statement name="Functions">
-			        <block type="function">
-			          <field name="Name">&lt;name&gt;</field>
-			          <field name="Description">&lt;description&gt;</field>
-			        </block>
-			      </statement>
-			    </block>
-			    <block type="function">
-			      <field name="Name">&lt;name&gt;</field>
-			      <field name="Description">&lt;description&gt;</field>
-			    </block>
-			    <block type="setting">
-			      <field name="Name">&lt;name&gt;</field>
-			    </block>
-			    <block type="mechanics"></block>
-			  </category>
-			  <category name="Setting" colour="#5ba55b">
-			    <block type="society">
-			      <field name="Name">&lt;region, race, social group, etc.&gt;</field>
-			      <field name="Description">&lt;Describe how people in this social group live.&gt;</field>
-			    </block>
-			    <block type="history">
-			      <field name="Name">&lt;subject&gt;</field>
-			      <statement name="Eras">
-			        <block type="era">
-			          <field name="Name">&lt;era name&gt;</field>
-			          <field name="Current">TRUE</field>
-			        </block>
-			      </statement>
-			      <statement name="Notable Entities">
-			        <block type="entity">
-			          <field name="Name">&lt;name&gt;</field>
-			          <field name="Past Role">&lt;description&gt;</field>
-			          <field name="Current Status">&lt;description&gt;</field>
-			        </block>
-			      </statement>
-			      <statement name="Notable Events">
-			        <block type="event">
-			          <field name="Name">&lt;name&gt;</field>
-			          <field name="Description">&lt;description&gt;</field>
-			          <field name="Significance">&lt;significance&gt;</field>
-			        </block>
-			      </statement>
-			    </block>
-			    <block type="entity">
-			      <field name="Name">&lt;name&gt;</field>
-			      <field name="Past Role">&lt;description&gt;</field>
-			      <field name="Current Status">&lt;description&gt;</field>
-			    </block>
-			    <block type="event">
-			      <field name="Name">&lt;name&gt;</field>
-			      <field name="Description">&lt;description&gt;</field>
-			      <field name="Significance">&lt;significance&gt;</field>
-			    </block>
-			    <block type="mystery">
-			      <field name="Name">&lt;name&gt;</field>
-			      <field name="Description">&lt;description&gt;</field>
-			    </block>
-			    <block type="region">
-			      <field name="Name">&lt;name&gt;</field>
-			      <field name="Description">&lt;description&gt;</field>
-			      <statement name="Landmarks">
-			        <block type="landmark">
-			          <field name="Name">&lt;name&gt;</field>
-			          <field name="Appearance">&lt;description&gt;</field>
-			          <field name="Significance">&lt;description&gt;</field>
-			        </block>
-			      </statement>
-			    </block>
-			    <block type="landmark">
-			      <field name="Name">&lt;name&gt;</field>
-			      <field name="Appearance">&lt;description&gt;</field>
-			      <field name="Significance">&lt;description&gt;</field>
-			    </block>
-			  </category>
-			  <category name="Moves" colour="#5b67a5">
-			    <block type="parameter">
-			      <field name="Name">&lt;outcome&gt;</field>
-			      <field name="LRange">0</field>
-			      <field name="RRange">1</field>
-			    </block>
-			    <block type="factor">
-			      <field name="Name">&lt;name&gt;</field>
-			      <field name="Type">Scalar</field>
-			      <field name="Description">&lt;description&gt;</field>
-			      <field name="Additive?">TRUE</field>
-			    </block>
-			    <block type="move">
-			      <field name="Name">&lt;name&gt;</field>
-			      <field name="Description">&lt;description&gt;</field>
-			    </block>
-			  </category>
-			  <category name="Players" colour="#995ba5">
-			    <block type="player_rules">
-			      <statement name="Character Creation">
-			        <block type="character_creation"></block>
-			      </statement>
-			      <statement name="Playbooks">
-			        <block type="playbook">
-			          <field name="Name">&lt;name&gt;</field>
-			          <field name="Distribution">&lt;distribution&gt;</field>
-			          <field name="Equipment">&lt;equipment&gt;</field>
-			        </block>
-			      </statement>
-			      <statement name="Resources">
-			        <block type="resource">
-			          <field name="Name">&lt;name&gt;</field>
-			          <field name="Description">&lt;description&gt;</field>
-			          <field name="LRange">0</field>
-			          <field name="RRange">0</field>
-			          <field name="init">0</field>
-			        </block>
-			      </statement>
-			      <statement name="Types of Equipment">
-			        <block type="equipment_type">
-			          <field name="Name">&lt;name&gt;</field>
-			          <field name="Description">&lt;description&gt;</field>
-			          <statement name="Subtypes">
-			            <block type="subtype">
-			              <field name="Name">&lt;name&gt;</field>
-			              <field name="Description">&lt;description&gt;</field>
-			              <field name="IsRequired">FALSE</field>
-			            </block>
-			          </statement>
-			        </block>
-			      </statement>
-			    </block>
-			    <block type="character_creation"></block>
-			    <block type="creation_step">
-			      <field name="Name">&lt;name&gt;</field>
-			      <field name="Description">&lt;description&gt;</field>
-			    </block>
-			    <block type="playbook_creation">
-			      <field name="Name">&lt;playbook&gt;</field>
-			    </block>
-			    <block type="playbook">
-			      <field name="Name">&lt;name&gt;</field>
-			      <field name="Distribution">&lt;distribution&gt;</field>
-			      <field name="Equipment">&lt;equipment&gt;</field>
-			    </block>
-			    <block type="playbook_introduction">
-			      <field name="Pitch">&lt;description for players&gt;</field>
-			      <field name="SRole">&lt;personality/social interactions&gt;</field>
-			      <field name="MRole">&lt;system/mechanical interactions&gt;</field>
-			    </block>
-			    <block type="feature">
-			      <field name="Name">&lt;name&gt;</field>
-			      <field name="Description">&lt;description&gt;</field>
-			    </block>
-			    <block type="resource">
-			      <field name="Name">&lt;name&gt;</field>
-			      <field name="Description">&lt;description&gt;</field>
-			      <field name="LRange">0</field>
-			      <field name="RRange">0</field>
-			      <field name="init">0</field>
-			    </block>
-			    <block type="equipment_type">
-			      <field name="Name">&lt;name&gt;</field>
-			      <field name="Description">&lt;description&gt;</field>
-			      <statement name="Subtypes">
-			        <block type="subtype">
-			          <field name="Name">&lt;name&gt;</field>
-			          <field name="Description">&lt;description&gt;</field>
-			          <field name="IsRequired">FALSE</field>
-			        </block>
-			      </statement>
-			    </block>
-			    <block type="subtype">
-			      <field name="Name">&lt;name&gt;</field>
-			      <field name="Description">&lt;description&gt;</field>
-			      <field name="IsRequired">FALSE</field>
-			    </block>
-			    <block type="extra_mechanic">
-			      <field name="Name">&lt;name&gt;</field>
-			      <field name="Description">&lt;description&gt;</field>
-			      <field name="HasResources">FALSE</field>
-			      <field name="HasMoves">FALSE</field>
-			    </block>
-			  </category>
-			</xml>
-			
-			<xml xmlns="https://developers.google.com/blockly/xml" id="workspaceBlocks" style="display: none">
-			  <block type="system" id="t9Hqtr^5eqhn0iO=Kg)*" x="113" y="162">
-			    <field name="Name">&lt;system name&gt;</field>
-			    <statement name="theme">
-			      <block type="theme" id="J]Y7-V-,/EGRlSf(Q;dQ">
-			        <field name="Name">&lt;name&gt;</field>
-			        <field name="Description">&lt;description&gt;</field>
-			        <statement name="function">
-			          <block type="function" id="i[0._WAM`!U_[NN:K!VW">
-			            <field name="Name">&lt;name&gt;</field>
-			            <field name="Description">&lt;description&gt;</field>
-			          </block>
-			        </statement>
-			      </block>
-			    </statement>
-			    <statement name="setting">
-			      <block type="setting" id="vx1k=m;p9jqmIm*g|HLz">
-			        <field name="Name">&lt;name&gt;</field>
-			        <statement name="society">
-			          <block type="society" id="3dQWk]LAWnFXshmf?shb">
-			            <field name="Name">&lt;region, race, social group, etc.&gt;</field>
-			            <field name="Description">&lt;Describe how people in this social group live.&gt;</field>
-			          </block>
-			        </statement>
-			        <statement name="history">
-			          <block type="history" id="c1Dpv+jT2xwrZnKVQ;^p">
-			            <field name="Name">&lt;subject&gt;</field>
-			            <statement name="era">
-			              <block type="era" id="=c1$UzyfQv/q63S_TT15">
-			                <field name="Name">&lt;era name&gt;</field>
-			                <field name="Current">TRUE</field>
-			              </block>
-			            </statement>
-			            <statement name="entity">
-			              <block type="entity" id=".;XC-7+Ug.%=+nTGt3|j">
-			                <field name="Name">&lt;name&gt;</field>
-			                <field name="Past Role">&lt;description&gt;</field>
-			                <field name="Current Status">&lt;description&gt;</field>
-			              </block>
-			            </statement>
-			            <statement name="event">
-			              <block type="event" id=")g*rs0W{87!*o%.;6/-S">
-			                <field name="Name">&lt;name&gt;</field>
-			                <field name="Description">&lt;description&gt;</field>
-			                <field name="Significance">&lt;significance&gt;</field>
-			              </block>
-			            </statement>
-			          </block>
-			        </statement>
-			        <statement name="mystery">
-			          <block type="mystery" id="/KTr;5`}4gzKD3AuTU#@">
-			            <field name="Name">&lt;name&gt;</field>
-			            <field name="Description">&lt;description&gt;</field>
-			          </block>
-			        </statement>
-			        <statement name="region">
-			          <block type="region" id="kIGNwWi06.;I$bfc6{Qs">
-			            <field name="Name">&lt;name&gt;</field>
-			            <field name="Description">&lt;description&gt;</field>
-			            <statement name="landmark">
-			              <block type="landmark" id="w4L9:i7_,ep~Zh^BbmVG">
-			                <field name="Name">&lt;name&gt;</field>
-			                <field name="Appearance">&lt;description&gt;</field>
-			                <field name="Significance">&lt;description&gt;</field>
-			              </block>
-			            </statement>
-			          </block>
-			        </statement>
-			      </block>
-			    </statement>
-			    <statement name="mechanics">
-			      <block type="mechanics" id="t08ex37tCRQsY33cPyBe">
-			        <statement name="parameter">
-			          <block type="parameter" id="NU%IN-yG$3X|rTSUsiA~">
-			            <field name="Name">&lt;outcome&gt;</field>
-			            <field name="LRange">0</field>
-			            <field name="RRange">1</field>
-			          </block>
-			        </statement>
-			        <statement name="factor">
-			          <block type="factor" id="|Qp--pqF[#[d6iW=jnPG">
-			            <field name="Name">&lt;name&gt;</field>
-			            <field name="Type">Scalar</field>
-			            <field name="Description">&lt;description&gt;</field>
-			            <field name="Additive?">FALSE</field>
-			          </block>
-			        </statement>
-			        <statement name="move">
-			          <block type="move" id="[c~k9@9[i;wcs?#)z7m~">
-			            <field name="Name">&lt;name&gt;</field>
-			            <field name="Description">&lt;description&gt;</field>
-			          </block>
-			        </statement>
-			        <statement name="player_rules">
-			          <block type="player_rules" id="{^09t?:+E+(PA|3l1xA{">
-			            <statement name="character_creation">
-			              <block type="character_creation" id=";Vb/VDwXDx_#XI:vOMy?">
-			                <statement name="creation_step">
-			                  <block type="creation_step" id="0f7.PM=cl]P=N%6Ms`?}">
-			                    <field name="Name">&lt;name&gt;</field>
-			                    <field name="Description">&lt;description&gt;</field>
-			                  </block>
-			                </statement>
-			                <statement name="playbook_creation">
-			                  <block type="playbook_creation" id="d2cLg(!46(48N+fWLCLT">
-			                    <field name="Name">&lt;playbook&gt;</field>
-			                    <statement name="creation_step">
-			                      <block type="creation_step" id="]:q%4mx5qC|x#/$wBKc_">
-			                        <field name="Name">&lt;name&gt;</field>
-			                        <field name="Description">&lt;description&gt;</field>
-			                      </block>
-			                    </statement>
-			                  </block>
-			                </statement>
-			              </block>
-			            </statement>
-			            <statement name="playbook">
-			              <block type="playbook" id="Cg:j;^I3_FQ-RJ8JGNW6">
-			                <field name="Name">&lt;name&gt;</field>
-			                <field name="Distribution">&lt;distribution&gt;</field>
-			                <field name="Equipment">&lt;equipment&gt;</field>
-			                <statement name="playbook_introduction">
-			                  <block type="playbook_introduction" id="Vdi}DOa:uXUE#Q0e0_bB">
-			                    <field name="Pitch">&lt;description for players&gt;</field>
-			                    <field name="SRole">&lt;personality/social interactions&gt;</field>
-			                    <field name="MRole">&lt;system/mechanical interactions&gt;</field>
-			                  </block>
-			                </statement>
-			                <statement name="feature">
-			                  <block type="feature" id="L}yAt=.#(J|VQUPNuqqY">
-			                    <field name="Name">&lt;name&gt;</field>
-			                    <field name="Description">&lt;description&gt;</field>
-			                  </block>
-			                </statement>
-			              </block>
-			            </statement>
-			            <statement name="resource">
-			              <block type="resource" id="+DFRZm9vkTLitW%+;TX#">
-			                <field name="Name">&lt;name&gt;</field>
-			                <field name="Description">&lt;description&gt;</field>
-			                <field name="LRange">0</field>
-			                <field name="RRange">0</field>
-			                <field name="init">0</field>
-			              </block>
-			            </statement>
-			            <statement name="equipment_type">
-			              <block type="equipment_type" id="?4CJRJp~pIeP8tSW/M-I">
-			                <field name="Name">&lt;name&gt;</field>
-			                <field name="Description">&lt;description&gt;</field>
-			                <statement name="subtype">
-			                  <block type="subtype" id="UX`GcQ{[hr`LtKci%W5W">
-			                    <field name="Name">&lt;name&gt;</field>
-			                    <field name="Description">&lt;description&gt;</field>
-			                    <field name="IsRequired">FALSE</field>
-			                  </block>
-			                </statement>
-			              </block>
-			            </statement>
-			            <statement name="extra_mechanic">
-			              <block type="extra_mechanic" id="d,=1)=3lULsNuIfpx!#!">
-			                <field name="Name">&lt;name&gt;</field>
-			                <field name="Description">&lt;description&gt;</field>
-			                <field name="HasResources">FALSE</field>
-			                <field name="HasMoves">FALSE</field>
-			              </block>
-			            </statement>
-			          </block>
-			        </statement>
-			      </block>
-			    </statement>
-			  </block>
-			</xml>
+		<xml xmlns="https://developers.google.com/blockly/xml" id="toolbox" style="display: none">
+		  <category name="System" colour="#a5745b">
+		    <block type="system">
+		      <field name="name">&lt;system name&gt;</field>
+		    </block>
+		    <block type="theme">
+		      <field name="name">&lt;name&gt;</field>
+		      <field name="desc">&lt;description&gt;</field>
+		    </block>
+		    <block type="function">
+		      <field name="name">&lt;name&gt;</field>
+		      <field name="desc">&lt;description&gt;</field>
+		    </block>
+		    <block type="setting">
+		      <field name="name">&lt;name&gt;</field>
+		    </block>
+		    <block type="mechanics"></block>
+		  </category>
+		  <category name="Setting" colour="#5ba55b">
+		    <block type="society">
+		      <field name="name">&lt;region, race, social group, etc.&gt;</field>
+		      <field name="desc">&lt;Describe how people in this social group live.&gt;</field>
+		    </block>
+		    <block type="history">
+		      <field name="name">&lt;subject&gt;</field>
+		    </block>
+		    <block type="era">
+		      <field name="name">&lt;era name&gt;</field>
+		      <field name="isCurrent">TRUE</field>
+		    </block>
+		    <block type="entity">
+		      <field name="name">&lt;name&gt;</field>
+		      <field name="role">&lt;description&gt;</field>
+		      <field name="status">&lt;description&gt;</field>
+		    </block>
+		    <block type="event">
+		      <field name="name">&lt;name&gt;</field>
+		      <field name="desc">&lt;description&gt;</field>
+		      <field name="significance">&lt;significance&gt;</field>
+		    </block>
+		    <block type="mystery">
+		      <field name="name">&lt;name&gt;</field>
+		      <field name="desc">&lt;description&gt;</field>
+		    </block>
+		    <block type="region">
+		      <field name="name">&lt;name&gt;</field>
+		      <field name="desc">&lt;description&gt;</field>
+		    </block>
+		    <block type="landmark">
+		      <field name="name">&lt;name&gt;</field>
+		      <field name="desc">&lt;description&gt;</field>
+		      <field name="significance">&lt;description&gt;</field>
+		    </block>
+		  </category>
+		  <category name="Moves" colour="#995ba5">
+		    <block type="factor">
+		      <field name="name">&lt;name&gt;</field>
+		      <field name="type">Scalar</field>
+		      <field name="desc">&lt;description&gt;</field>
+		      <field name="isAdditive">FALSE</field>
+		    </block>
+		    <block type="move">
+		      <field name="name">&lt;name&gt;</field>
+		      <field name="factors">factor1</field>
+		      <field name="desc">&lt;description&gt;</field>
+		      <field name="adds_factor">FALSE</field>
+		    </block>
+		    <block type="parameter">
+		      <field name="name">&lt;outcome&gt;</field>
+		      <field name="lrange">0</field>
+		      <field name="rrange">1</field>
+		    </block>
+		  </category>
+		  <category name="Players" colour="#5b67a5">
+		    <block type="player_rules"></block>
+		    <block type="character_creation"></block>
+		    <block type="creation_step">
+		      <field name="name">&lt;name&gt;</field>
+		      <field name="desc">&lt;description&gt;</field>
+		      <field name="factors">factor1</field>
+		    </block>
+		    <block type="playbook_creation">
+		      <field name="name">&lt;playbook&gt;</field>
+		      <statement name="creation_step">
+		        <block type="creation_step">
+		          <field name="name">&lt;name&gt;</field>
+		          <field name="desc">&lt;description&gt;</field>
+		          <field name="factors">factor1</field>
+		        </block>
+		      </statement>
+		    </block>
+		    <block type="playbook">
+		      <field name="name">&lt;name&gt;</field>
+		      <field name="equipment">&lt;equipment&gt;</field>
+		    </block>
+		    <block type="playbook_introduction">
+		      <field name="pitch">&lt;description for players&gt;</field>
+		      <field name="soc_role">&lt;personality/social interactions&gt;</field>
+		      <field name="mech_role">&lt;system/mechanical interactions&gt;</field>
+		    </block>
+		    <block type="feature">
+		      <field name="name">&lt;name&gt;</field>
+		      <field name="desc">&lt;description&gt;</field>
+		      <field name="factors">factor1</field>
+		    </block>
+		    <block type="resource">
+		      <field name="name">&lt;name&gt;</field>
+		      <field name="desc">&lt;description&gt;</field>
+		      <field name="factors">factor1</field>
+		      <field name="lrange">0</field>
+		      <field name="rrange">0</field>
+		      <field name="init">0</field>
+		    </block>
+		    <block type="equipment"></block>
+		    <block type="equipment_type">
+		      <field name="name">&lt;name&gt;</field>
+		      <field name="desc">&lt;description&gt;</field>
+		      <field name="factors">factor1</field>
+		      <field name="hasSubtypes">FALSE</field>
+		    </block>
+		    <block type="subtype">
+		      <field name="name">&lt;name&gt;</field>
+		      <field name="desc">&lt;description&gt;</field>
+		      <field name="factors">factor1</field>
+		      <field name="isRequired">FALSE</field>
+		      <field name="hasSubtypes">TRUE</field>
+		    </block>
+		    <block type="item">
+		      <field name="name">&lt;name&gt;</field>
+		      <field name="types">type1</field>
+		      <field name="subtypes">subtype1</field>
+		      <field name="desc">&lt;description&gt;</field>
+		    </block>
+		    <block type="extra_mechanic">
+		      <field name="name">&lt;name&gt;</field>
+		      <field name="desc">&lt;description&gt;</field>
+		      <field name="factors">factor1</field>
+		      <field name="hasResources">FALSE</field>
+		      <field name="hasMoves">FALSE</field>
+		    </block>
+		  </category>
+		</xml>
+		
+		<xml xmlns="https://developers.google.com/blockly/xml" id="workspaceBlocks" style="display: none">
+		  <block type="system" id="t9Hqtr^5eqhn0iO=Kg)*" x="113" y="162">
+		    <field name="name">&lt;system name&gt;</field>
+		    <statement name="theme">
+		      <block type="theme" id="J]Y7-V-,/EGRlSf(Q;dQ">
+		        <field name="name">&lt;name&gt;</field>
+		        <field name="desc">&lt;description&gt;</field>
+		        <statement name="function">
+		          <block type="function" id="i[0._WAM`!U_[NN:K!VW">
+		            <field name="name">&lt;name&gt;</field>
+		            <field name="desc">&lt;description&gt;</field>
+		          </block>
+		        </statement>
+		      </block>
+		    </statement>
+		    <statement name="setting">
+		      <block type="setting" id="vx1k=m;p9jqmIm*g|HLz">
+		        <field name="name">&lt;name&gt;</field>
+		        <statement name="society">
+		          <block type="society" id="3dQWk]LAWnFXshmf?shb">
+		            <field name="name">&lt;region, race, social group, etc.&gt;</field>
+		            <field name="desc">&lt;Describe how people in this social group live.&gt;</field>
+		          </block>
+		        </statement>
+		        <statement name="history">
+		          <block type="history" id="c1Dpv+jT2xwrZnKVQ;^p">
+		            <field name="name">&lt;subject&gt;</field>
+		            <statement name="era">
+		              <block type="era" id="=c1$UzyfQv/q63S_TT15">
+		                <field name="name">&lt;era name&gt;</field>
+		                <field name="isCurrent">TRUE</field>
+		              </block>
+		            </statement>
+		            <statement name="entity">
+		              <block type="entity" id=".;XC-7+Ug.%=+nTGt3|j">
+		                <field name="name">&lt;name&gt;</field>
+		                <field name="role">&lt;description&gt;</field>
+		                <field name="status">&lt;description&gt;</field>
+		              </block>
+		            </statement>
+		            <statement name="event">
+		              <block type="event" id=")g*rs0W{87!*o%.;6/-S">
+		                <field name="name">&lt;name&gt;</field>
+		                <field name="desc">&lt;description&gt;</field>
+		                <field name="significance">&lt;significance&gt;</field>
+		              </block>
+		            </statement>
+		          </block>
+		        </statement>
+		        <statement name="mystery">
+		          <block type="mystery" id="/KTr;5`}4gzKD3AuTU#@">
+		            <field name="name">&lt;name&gt;</field>
+		            <field name="desc">&lt;description&gt;</field>
+		          </block>
+		        </statement>
+		        <statement name="region">
+		          <block type="region" id="kIGNwWi06.;I$bfc6{Qs">
+		            <field name="name">&lt;name&gt;</field>
+		            <field name="desc">&lt;description&gt;</field>
+		            <statement name="landmark">
+		              <block type="landmark" id="w4L9:i7_,ep~Zh^BbmVG">
+		                <field name="name">&lt;name&gt;</field>
+		                <field name="desc">&lt;description&gt;</field>
+		                <field name="significance">&lt;description&gt;</field>
+		              </block>
+		            </statement>
+		          </block>
+		        </statement>
+		      </block>
+		    </statement>
+		    <statement name="mechanics">
+		      <block type="mechanics" id="t08ex37tCRQsY33cPyBe">
+		        <statement name="factor">
+		          <block type="factor" id="|Qp--pqF[#[d6iW=jnPG">
+		            <field name="name">&lt;name&gt;</field>
+		            <field name="type">Scalar</field>
+		            <field name="desc">&lt;description&gt;</field>
+		            <field name="isAdditive">FALSE</field>
+		          </block>
+		        </statement>
+		        <statement name="move">
+		          <block type="move" id="[c~k9@9[i;wcs?#)z7m~">
+		            <field name="name">&lt;name&gt;</field>
+		            <field name="factors">factor1</field>
+		            <field name="desc">&lt;description&gt;</field>
+		            <field name="adds_factor">FALSE</field>
+		          </block>
+		        </statement>
+		        <statement name="parameter">
+		          <block type="parameter" id="NU%IN-yG$3X|rTSUsiA~">
+		            <field name="name">&lt;outcome&gt;</field>
+		            <field name="lrange">0</field>
+		            <field name="rrange">1</field>
+		          </block>
+		        </statement>
+		        <statement name="player_rules">
+		          <block type="player_rules" id="{^09t?:+E+(PA|3l1xA{">
+		            <statement name="character_creation">
+		              <block type="character_creation" id=";Vb/VDwXDx_#XI:vOMy?">
+		                <statement name="creation_step">
+		                  <block type="creation_step" id="0f7.PM=cl]P=N%6Ms`?}">
+		                    <field name="name">&lt;name&gt;</field>
+		                    <field name="desc">&lt;description&gt;</field>
+		                    <field name="factors">factor1</field>
+		                  </block>
+		                </statement>
+		                <statement name="playbook_creation">
+		                  <block type="playbook_creation" id="d2cLg(!46(48N+fWLCLT">
+		                    <field name="name">&lt;playbook&gt;</field>
+		                    <statement name="creation_step">
+		                      <block type="creation_step" id="]:q%4mx5qC|x#/$wBKc_">
+		                        <field name="name">&lt;name&gt;</field>
+		                        <field name="desc">&lt;description&gt;</field>
+		                        <field name="factors">factor1</field>
+		                      </block>
+		                    </statement>
+		                  </block>
+		                </statement>
+		              </block>
+		            </statement>
+		            <statement name="playbook">
+		              <block type="playbook" id="Cg:j;^I3_FQ-RJ8JGNW6">
+		                <field name="name">&lt;name&gt;</field>
+		                <field name="equipment">&lt;equipment&gt;</field>
+		                <statement name="playbook_introduction">
+		                  <block type="playbook_introduction" id="Vdi}DOa:uXUE#Q0e0_bB">
+		                    <field name="pitch">&lt;description for players&gt;</field>
+		                    <field name="soc_role">&lt;personality/social interactions&gt;</field>
+		                    <field name="mech_role">&lt;system/mechanical interactions&gt;</field>
+		                  </block>
+		                </statement>
+		                <statement name="feature">
+		                  <block type="feature" id="L}yAt=.#(J|VQUPNuqqY">
+		                    <field name="name">&lt;name&gt;</field>
+		                    <field name="desc">&lt;description&gt;</field>
+		                    <field name="factors">factor1</field>
+		                  </block>
+		                </statement>
+		              </block>
+		            </statement>
+		            <statement name="resource">
+		              <block type="resource" id="+DFRZm9vkTLitW%+;TX#">
+		                <field name="name">&lt;name&gt;</field>
+		                <field name="desc">&lt;description&gt;</field>
+		                <field name="factors">factor1</field>
+		                <field name="lrange">0</field>
+		                <field name="rrange">0</field>
+		                <field name="init">0</field>
+		              </block>
+		            </statement>
+		            <statement name="equipment">
+		              <block type="equipment" id="!/[Q6T:sS8?h@~#G9ii|">
+		                <statement name="equipment_type">
+		                  <block type="equipment_type" id="@CQaeb:,ovfPDi0E9qfk">
+		                    <field name="name">&lt;name&gt;</field>
+		                    <field name="desc">&lt;description&gt;</field>
+		                    <field name="factors">factor1</field>
+		                    <field name="hasSubtypes">FALSE</field>
+		                  </block>
+		                </statement>
+		                <statement name="item">
+		                  <block type="item" id="sap4C%+sxsjyuBoL^%D@">
+		                    <field name="name">&lt;name&gt;</field>
+		                    <field name="types">type1</field>
+		                    <field name="subtypes">subtype1</field>
+		                    <field name="desc">&lt;description&gt;</field>
+		                  </block>
+		                </statement>
+		              </block>
+		            </statement>
+		            <statement name="extra_mechanic">
+		              <block type="extra_mechanic" id="d,=1)=3lULsNuIfpx!#!">
+		                <field name="name">&lt;name&gt;</field>
+		                <field name="desc">&lt;description&gt;</field>
+		                <field name="factors">factor1</field>
+		                <field name="hasResources">FALSE</field>
+		                <field name="hasMoves">FALSE</field>
+		              </block>
+		            </statement>
+		          </block>
+		        </statement>
+		      </block>
+		    </statement>
+		  </block>
+		</xml>
 
 	</body>
 	<script>
