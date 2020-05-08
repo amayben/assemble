@@ -582,7 +582,10 @@ Blockly.Blocks['feature'] = {
 };
 
 Blockly.Blocks['equipment_type'] = {
+
   init: function() {
+    //validator for new statement input for subtype
+
     this.appendDummyInput()
         .setAlign(Blockly.ALIGN_CENTRE)
         .appendField("Equipment Type: ")
@@ -600,13 +603,23 @@ Blockly.Blocks['equipment_type'] = {
     this.appendDummyInput()
         .setAlign(Blockly.ALIGN_CENTRE)
         .appendField("Subtypes? ")
-        .appendField(new Blockly.FieldCheckbox("FALSE"), "hasSubtypes");
+        .appendField(new Blockly.FieldCheckbox("FALSE", this.subtypeValidator), "hasSubtypes");
     this.setInputsInline(false);
     this.setPreviousStatement(true, "equipment_type");
     this.setNextStatement(true, "equipment_type");
     this.setColour(270);
- this.setTooltip("A category of certain equipment items, as well as that category's pertinent factors for its items to be used, and what subtypes it may be divided into.");
- this.setHelpUrl("");
+    this.setTooltip("A category of certain equipment items, as well as that category's pertinent factors for its items to be used, and what subtypes it may be divided into.");
+    this.setHelpUrl("");
+  },
+  subtypeValidator: function(newValue){
+    var sourceBlock = this.getSourceBlock();
+    sourceBlock.showInput_ = newValue == 'TRUE';
+    sourceBlock.updateInput();
+    return newValue;
+  },
+  updateInput: function(){
+    this.removeInput('subtype', true);
+    if (this.showInput_) this.appendStatementInput('subtype').setCheck('subtype');
   }
 };
 
