@@ -542,7 +542,7 @@ Blockly.Blocks['resource'] = {
         .appendField("Range: ")
         .appendField(new Blockly.FieldNumber(0), "lrange")
         .appendField(" to ")
-        .appendField(new Blockly.FieldNumber(0), "rrange");
+        .appendField(new Blockly.FieldNumber(1), "rrange");
     this.appendDummyInput()
         .setAlign(Blockly.ALIGN_CENTRE)
         .appendField("Initial Value: ")
@@ -673,16 +673,39 @@ Blockly.Blocks['extra_mechanic'] = {
     this.appendDummyInput()
         .setAlign(Blockly.ALIGN_CENTRE)
         .appendField("Special Resources?")
-        .appendField(new Blockly.FieldCheckbox("FALSE"), "hasResources");
-    this.appendDummyInput()
+        .appendField(new Blockly.FieldCheckbox("FALSE", this.resourceValidator), "hasResources");
+    this.appendDummyInput('checkMoves')
         .setAlign(Blockly.ALIGN_CENTRE)
         .appendField("Special Moves?")
-        .appendField(new Blockly.FieldCheckbox("FALSE"), "hasMoves");
+        .appendField(new Blockly.FieldCheckbox("FALSE", this.moveValidator), "hasMoves");
     this.setPreviousStatement(true, "extra_mechanic");
     this.setNextStatement(true, "extra_mechanic");
     this.setColour(240);
  this.setTooltip("An additional mechanic relevant to player action.");
  this.setHelpUrl("");
+  },
+  resourceValidator: function(newValue){
+    var sourceBlock = this.getSourceBlock();
+    sourceBlock.showResourceInput_ = newValue == 'TRUE';
+    sourceBlock.updateResourceInput();
+    return newValue;
+  },
+  moveValidator: function(newValue){
+    var sourceBlock = this.getSourceBlock();
+    sourceBlock.showMoveInput_ = newValue == 'TRUE';
+    sourceBlock.updateMoveInput();
+    return newValue;
+  },
+  updateResourceInput: function(){
+    this.removeInput('resource', true);
+    if (this.showResourceInput_) {
+      this.appendStatementInput('resource').setCheck('resource');
+      this.moveInputBefore('resource', 'checkMoves');
+    }
+  },
+  updateMoveInput: function(){
+    this.removeInput('move', true);
+    if (this.showMoveInput_) this.appendStatementInput('move').setCheck('move');
   }
 };
 
