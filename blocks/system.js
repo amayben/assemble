@@ -645,10 +645,10 @@ Blockly.Blocks['subtype'] = {
         .appendField(new Blockly.FieldCheckbox("FALSE"), "isRequired");
     this.appendDummyInput()
         .appendField("Subtypes? ")
-        .appendField(new Blockly.FieldCheckbox("TRUE"), "hasSubtypes");
+        .appendField(new Blockly.FieldCheckbox("FALSE"), "hasSubtypes");
     this.setPreviousStatement(true, "subtype");
     this.setNextStatement(true, "subtype");
-    this.setColour(270);
+    this.setColour(315);
  this.setTooltip("A category of certain equipment items, as well as that category's pertinent factors for its items to be used, and what subtypes it may be divided into.");
  this.setHelpUrl("");
   }
@@ -717,14 +717,14 @@ Blockly.Blocks['playbook_move'] = {
         .appendField(new Blockly.FieldTextInput("<name>"), "name");
     this.appendDummyInput()
         .setAlign(Blockly.ALIGN_CENTRE)
+        .appendField("Description:")
+        .appendField(new Blockly.FieldTextInput("<description>"), "desc");
+    this.appendDummyInput()
+        .setAlign(Blockly.ALIGN_CENTRE)
         .appendField("Factors:");
     this.appendDummyInput()
         .setAlign(Blockly.ALIGN_CENTRE)
         .appendField(new Blockly.FieldDropdown([["option","dummy1"]]), "factors");
-    this.appendDummyInput()
-        .setAlign(Blockly.ALIGN_CENTRE)
-        .appendField("Description:")
-        .appendField(new Blockly.FieldTextInput("<description>"), "desc");
     this.appendDummyInput()
         .setAlign(Blockly.ALIGN_CENTRE)
         .appendField("Adds Factor?")
@@ -732,7 +732,7 @@ Blockly.Blocks['playbook_move'] = {
     this.setInputsInline(false);
     this.setPreviousStatement(true, ["playbook_move", "feature"]);
     this.setNextStatement(true, ["playbook_move", "feature"]);
-    this.setColour(65);
+    this.setColour(315);
  this.setTooltip("An action only available to a certain playbook.");
  this.setHelpUrl("todo: communication with factors");
   }
@@ -765,6 +765,10 @@ Blockly.Blocks['item'] = {
         .appendField(new Blockly.FieldTextInput("<name>"), "name");
     this.appendDummyInput()
         .setAlign(Blockly.ALIGN_CENTRE)
+        .appendField("Description:")
+        .appendField(new Blockly.FieldTextInput("<description>"), "desc");
+    this.appendDummyInput()
+        .setAlign(Blockly.ALIGN_CENTRE)
         .appendField("Types: ");
     this.appendDummyInput()
         .setAlign(Blockly.ALIGN_CENTRE)
@@ -775,10 +779,6 @@ Blockly.Blocks['item'] = {
     this.appendDummyInput()
         .setAlign(Blockly.ALIGN_CENTRE)
         .appendField(new Blockly.FieldDropdown([["option","subtype1"]]), "subtypes");
-    this.appendDummyInput()
-        .setAlign(Blockly.ALIGN_CENTRE)
-        .appendField("Description:")
-        .appendField(new Blockly.FieldTextInput("<description>"), "desc");
     this.setInputsInline(false);
     this.setPreviousStatement(true, "item");
     this.setNextStatement(true, "item");
