@@ -485,8 +485,10 @@ Blockly.Blocks['playbook'] = {
         .appendField("Playbook Moves and Features:");
     this.appendDummyInput()
         .setAlign(Blockly.ALIGN_CENTRE)
-        .appendField("Starting Equipment:")
-        .appendField(new Blockly.FieldTextInput("<equipment>"), "equipment");
+        .appendField("Starting Equipment:");
+    this.appendDummyInput()
+        .setAlign(Blockly.ALIGN_CENTRE)
+        .appendField(new Blockly.FieldDropdown([["option","factor1"]]), "equipment");
     this.setInputsInline(false);
     this.setPreviousStatement(true, "playbook");
     this.setNextStatement(true, "playbook");
@@ -645,12 +647,22 @@ Blockly.Blocks['subtype'] = {
         .appendField(new Blockly.FieldCheckbox("FALSE"), "isRequired");
     this.appendDummyInput()
         .appendField("Subtypes? ")
-        .appendField(new Blockly.FieldCheckbox("FALSE"), "hasSubtypes");
+        .appendField(new Blockly.FieldCheckbox("FALSE", this.subtypeValidator), "hasSubtypes");
     this.setPreviousStatement(true, "subtype");
     this.setNextStatement(true, "subtype");
     this.setColour(315);
  this.setTooltip("A category of certain equipment items, as well as that category's pertinent factors for its items to be used, and what subtypes it may be divided into.");
  this.setHelpUrl("");
+  },
+  subtypeValidator: function(newValue){
+    var sourceBlock = this.getSourceBlock();
+    sourceBlock.showInput_ = newValue == 'TRUE';
+    sourceBlock.updateInput();
+    return newValue;
+  },
+  updateInput: function(){
+    this.removeInput('subtype', true);
+    if (this.showInput_) this.appendStatementInput('subtype').setCheck('subtype');
   }
 };
 
