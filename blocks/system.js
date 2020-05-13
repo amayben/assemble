@@ -6,11 +6,6 @@
 
 /**
  * @fileoverview PL blocks for PbtA pattern language.
- *
- * This file is scraped to extract a .json file of block definitions. The array
- * passed to defineBlocksWithJsonArray(..) must be strict JSON: double quotes
- * only, no outside references, no functions, no trailing commas, etc. The one
- * exception is end-of-line comments, which the scraper will remove.
  * @author amayben@ucsc.edu (Alexander Mayben)
  */
 'use strict';
@@ -19,6 +14,56 @@
 //goog.require('Blockly.Blocks');
 //goog.require('Blockly.FieldColour');
 //goog.require('Blockly.FieldLabel');
+
+//global arrays (shared between blocks for communication)
+var factorsList = [];
+
+//sets contents of "factor" dropdown fields
+//TODO: can this be generalized?
+var generateFactors = function() {
+  var options = [["<choose factor>","nofactor"]];
+  if (factorsList.length > 0) {
+    for (var i = 0; i < factorsList.length; i++) {
+      options.push(factorsList[i]);
+    }
+  }
+  console.log("generateFactors called with output: " + options.toString());
+  return options;
+};
+
+//takes array of blocks and their type as input (type is a string just used for error tracking)
+//updates all dropdown fields in each block based on the content of factorsList
+//TODO: apply to all factors dropdown fields within a block if/when there are multiple
+//TODO: can this be generalized to all dynamic dropdown types?
+var fixBlockFactors = function(blockList, type) {
+  if (blockList.length == 0) {
+    console.log("fixBlockFactors() called with empty array, block type: " + type);
+  } else if (factorsList.length == 0) {
+    console.log("fixBlockFactors() called with factorsList empty.");
+  } else {
+    var currField;
+    var currValue;
+    var inList = false;
+    for (var i = 0; i < blockList.length; i++) {
+      //TODO: currField as an array
+      currField = blockList[i].getField("factors");
+      currValue = currField.getValue();
+      console.log("currValue: " + currValue);
+      //if the stored ID is still in the dropdown, set current field to that ID
+      for (var j = 0; j < factorsList.length; j++) {
+        if (currValue == factorsList[j][1]) {
+          inList = true;
+          break;
+        }
+      }
+      //regenerates contents of currField (done internally with generateFactors(), based on factorsList)
+      currField.getOptions(false);
+      currField.setValue(currValue);
+      currField.forceRerender();
+      inList = false;
+    }
+  }
+};
 
 Blockly.Blocks['setting'] = {
   init: function() {
@@ -281,8 +326,29 @@ Blockly.Blocks['mechanics'] = {
     this.setInputsInline(false);
     this.setPreviousStatement(true, "mechanics");
     this.setColour(210);
- this.setTooltip("Defines the rules of a given RPG system.");
- this.setHelpUrl("");
+    this.setTooltip("Defines the rules of a given RPG system.");
+    this.setHelpUrl("");
+    this.setOnChange(function(changeEvent){
+      //if a block is moved into or out of the factor input of this block:
+      //TODO: OR the name of a factor is changed
+      if (changeEvent.type == Blockly.Events.BLOCK_MOVE
+        && changeEvent.oldInputName != changeEvent.newInputName
+        && (changeEvent.oldInputName == "factor" || changeEvent.newInputName == "factor")) {
+        //empty factorsList
+        factorsList.length = 0;
+        //repopulate factorsList with the factors currently within this input
+        var factorBlock = this.getInputTargetBlock("factor");
+        while (factorBlock) {
+          factorsList.push(new Array(factorBlock.getField("name").value_, factorBlock.id));
+          factorBlock = factorBlock.getNextBlock();
+        }
+        console.log("factorsList updated with content: " + factorsList.toString());
+        //acquire all blocks with "factors" fields and call our helper function, fixBlockFactors()
+        //sadly this has to be done one at a time for each block type that uses factors fields
+        fixBlockFactors(this.workspace.getBlocksByType("move"), "move");
+        //template: fixBlockFactors(this.workspace.getBlocksByType(<type>), <type>);
+      }
+    });
   }
 };
 
@@ -308,11 +374,13 @@ Blockly.Blocks['factor'] = {
     this.setPreviousStatement(true, "factor");
     this.setNextStatement(true, "factor");
     this.setColour(315);
- this.setTooltip("A situational variable that factors into the outcome of a move. (Types: Scalar factors give a value that add or subtract to a move, Reroll factors involve a rolling or rerolling of dice, Revision factors involve an immediate or pre-decided outcome, and Meta factors describe non-numerical qualities of the move or situation.) (Additive factors are effects that can result from move outcomes.)");
- this.setHelpUrl("");
+    this.setTooltip("A situational variable that factors into the outcome of a move. (Types: Scalar factors give a value that add or subtract to a move, Reroll factors involve a rolling or rerolling of dice, Revision factors involve an immediate or pre-decided outcome, and Meta factors describe non-numerical qualities of the move or situation.) (Additive factors are effects that can result from move outcomes.)");
+    this.setHelpUrl("");
   }
 };
 
+//factor dropdown used here
+//TODO: adds_factor checkbox validator
 Blockly.Blocks['move'] = {
   init: function() {
     this.appendDummyInput()
@@ -324,7 +392,7 @@ Blockly.Blocks['move'] = {
         .appendField("Factors:");
     this.appendDummyInput()
         .setAlign(Blockly.ALIGN_CENTRE)
-        .appendField(new Blockly.FieldDropdown([["option","factor1"]]), "factors");
+        .appendField(new Blockly.FieldDropdown(generateFactors), "factors");
     this.appendDummyInput()
         .setAlign(Blockly.ALIGN_CENTRE)
         .appendField("Description:")
@@ -337,8 +405,8 @@ Blockly.Blocks['move'] = {
     this.setPreviousStatement(true, "move");
     this.setNextStatement(true, "move");
     this.setColour(315);
- this.setTooltip("An action available to a player character.");
- this.setHelpUrl("todo: communication with factors");
+    this.setTooltip("An action available to a player character.");
+    this.setHelpUrl("");
   }
 };
 
@@ -461,7 +529,7 @@ Blockly.Blocks['creation_step'] = {
         .appendField("Factors: ");
     this.appendDummyInput()
         .setAlign(Blockly.ALIGN_CENTRE)
-        .appendField(new Blockly.FieldDropdown([["option","factor1"]]), "factors");
+        .appendField(new Blockly.FieldDropdown([["option","nofactor"]]), "factors");
     this.setInputsInline(false);
     this.setPreviousStatement(true, "creation_step");
     this.setNextStatement(true, "creation_step");
@@ -488,7 +556,7 @@ Blockly.Blocks['playbook'] = {
         .appendField("Starting Equipment:");
     this.appendDummyInput()
         .setAlign(Blockly.ALIGN_CENTRE)
-        .appendField(new Blockly.FieldDropdown([["option","factor1"]]), "equipment");
+        .appendField(new Blockly.FieldDropdown([["option","nofactor"]]), "equipment");
     this.setInputsInline(false);
     this.setPreviousStatement(true, "playbook");
     this.setNextStatement(true, "playbook");
@@ -538,7 +606,7 @@ Blockly.Blocks['resource'] = {
         .appendField("Factors: ");
     this.appendDummyInput()
         .setAlign(Blockly.ALIGN_CENTRE)
-        .appendField(new Blockly.FieldDropdown([["option","factor1"]]), "factors");
+        .appendField(new Blockly.FieldDropdown([["option","nofactor"]]), "factors");
     this.appendDummyInput()
         .setAlign(Blockly.ALIGN_CENTRE)
         .appendField("Range: ")
@@ -573,7 +641,7 @@ Blockly.Blocks['feature'] = {
         .appendField("Factors:");
     this.appendDummyInput()
         .setAlign(Blockly.ALIGN_CENTRE)
-        .appendField(new Blockly.FieldDropdown([["option","factor1"]]), "factors");
+        .appendField(new Blockly.FieldDropdown([["option","nofactor"]]), "factors");
     this.setInputsInline(false);
     this.setPreviousStatement(true, ["feature", "playbook_move"]);
     this.setNextStatement(true, ["feature", "playbook_move"]);
@@ -601,7 +669,7 @@ Blockly.Blocks['equipment_type'] = {
         .appendField("Factors: ");
     this.appendDummyInput()
         .setAlign(Blockly.ALIGN_CENTRE)
-        .appendField(new Blockly.FieldDropdown([["option","factor1"]]), "factors");
+        .appendField(new Blockly.FieldDropdown([["option","nofactor"]]), "factors");
     this.appendDummyInput()
         .setAlign(Blockly.ALIGN_CENTRE)
         .appendField("Subtypes? ")
@@ -640,7 +708,7 @@ Blockly.Blocks['subtype'] = {
         .appendField("Factors: ");
     this.appendDummyInput()
         .setAlign(Blockly.ALIGN_CENTRE)
-        .appendField(new Blockly.FieldDropdown([["option","factor1"]]), "factors");
+        .appendField(new Blockly.FieldDropdown([["option","nofactor"]]), "factors");
     this.appendDummyInput()
         .setAlign(Blockly.ALIGN_CENTRE)
         .appendField("Required by Parent Type? ")
@@ -681,7 +749,7 @@ Blockly.Blocks['extra_mechanic'] = {
         .appendField("Factors:");
     this.appendDummyInput()
         .setAlign(Blockly.ALIGN_CENTRE)
-        .appendField(new Blockly.FieldDropdown([["option","factor1"]]), "factors");
+        .appendField(new Blockly.FieldDropdown([["option","nofactor"]]), "factors");
     this.appendDummyInput()
         .setAlign(Blockly.ALIGN_CENTRE)
         .appendField("Special Resources?")
@@ -736,7 +804,7 @@ Blockly.Blocks['playbook_move'] = {
         .appendField("Factors:");
     this.appendDummyInput()
         .setAlign(Blockly.ALIGN_CENTRE)
-        .appendField(new Blockly.FieldDropdown([["option","dummy1"]]), "factors");
+        .appendField(new Blockly.FieldDropdown([["option","nofactor"]]), "factors");
     this.appendDummyInput()
         .setAlign(Blockly.ALIGN_CENTRE)
         .appendField("Adds Factor?")
