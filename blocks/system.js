@@ -346,6 +346,13 @@ Blockly.Blocks['mechanics'] = {
         //acquire all blocks with "factors" fields and call our helper function, fixBlockFactors()
         //sadly this has to be done one at a time for each block type that uses factors fields
         fixBlockFactors(this.workspace.getBlocksByType("move"), "move");
+        fixBlockFactors(this.workspace.getBlocksByType("creation_step"), "creation_step");
+        fixBlockFactors(this.workspace.getBlocksByType("resource"), "resource");
+        fixBlockFactors(this.workspace.getBlocksByType("feature"), "feature");
+        fixBlockFactors(this.workspace.getBlocksByType("equipment_type"), "equipment_type");
+        fixBlockFactors(this.workspace.getBlocksByType("subtype"), "subtype");
+        fixBlockFactors(this.workspace.getBlocksByType("extra_mechanic"), "extra_mechanic");
+        fixBlockFactors(this.workspace.getBlocksByType("playbook_move"), "playbook_move");
         //template: fixBlockFactors(this.workspace.getBlocksByType(<type>), <type>);
       }
     });
@@ -529,7 +536,7 @@ Blockly.Blocks['creation_step'] = {
         .appendField("Factors: ");
     this.appendDummyInput()
         .setAlign(Blockly.ALIGN_CENTRE)
-        .appendField(new Blockly.FieldDropdown([["option","nofactor"]]), "factors");
+        .appendField(new Blockly.FieldDropdown(generateFactors), "factors");
     this.setInputsInline(false);
     this.setPreviousStatement(true, "creation_step");
     this.setNextStatement(true, "creation_step");
@@ -606,7 +613,7 @@ Blockly.Blocks['resource'] = {
         .appendField("Factors: ");
     this.appendDummyInput()
         .setAlign(Blockly.ALIGN_CENTRE)
-        .appendField(new Blockly.FieldDropdown([["option","nofactor"]]), "factors");
+        .appendField(new Blockly.FieldDropdown(generateFactors), "factors");
     this.appendDummyInput()
         .setAlign(Blockly.ALIGN_CENTRE)
         .appendField("Range: ")
@@ -641,7 +648,7 @@ Blockly.Blocks['feature'] = {
         .appendField("Factors:");
     this.appendDummyInput()
         .setAlign(Blockly.ALIGN_CENTRE)
-        .appendField(new Blockly.FieldDropdown([["option","nofactor"]]), "factors");
+        .appendField(new Blockly.FieldDropdown(generateFactors), "factors");
     this.setInputsInline(false);
     this.setPreviousStatement(true, ["feature", "playbook_move"]);
     this.setNextStatement(true, ["feature", "playbook_move"]);
@@ -669,7 +676,7 @@ Blockly.Blocks['equipment_type'] = {
         .appendField("Factors: ");
     this.appendDummyInput()
         .setAlign(Blockly.ALIGN_CENTRE)
-        .appendField(new Blockly.FieldDropdown([["option","nofactor"]]), "factors");
+        .appendField(new Blockly.FieldDropdown(generateFactors), "factors");
     this.appendDummyInput()
         .setAlign(Blockly.ALIGN_CENTRE)
         .appendField("Subtypes? ")
@@ -708,7 +715,7 @@ Blockly.Blocks['subtype'] = {
         .appendField("Factors: ");
     this.appendDummyInput()
         .setAlign(Blockly.ALIGN_CENTRE)
-        .appendField(new Blockly.FieldDropdown([["option","nofactor"]]), "factors");
+        .appendField(new Blockly.FieldDropdown(generateFactors), "factors");
     this.appendDummyInput()
         .setAlign(Blockly.ALIGN_CENTRE)
         .appendField("Required by Parent Type? ")
@@ -749,7 +756,7 @@ Blockly.Blocks['extra_mechanic'] = {
         .appendField("Factors:");
     this.appendDummyInput()
         .setAlign(Blockly.ALIGN_CENTRE)
-        .appendField(new Blockly.FieldDropdown([["option","nofactor"]]), "factors");
+        .appendField(new Blockly.FieldDropdown(generateFactors), "factors");
     this.appendDummyInput()
         .setAlign(Blockly.ALIGN_CENTRE)
         .appendField("Special Resources?")
@@ -804,7 +811,7 @@ Blockly.Blocks['playbook_move'] = {
         .appendField("Factors:");
     this.appendDummyInput()
         .setAlign(Blockly.ALIGN_CENTRE)
-        .appendField(new Blockly.FieldDropdown([["option","nofactor"]]), "factors");
+        .appendField(new Blockly.FieldDropdown(generateFactors), "factors");
     this.appendDummyInput()
         .setAlign(Blockly.ALIGN_CENTRE)
         .appendField("Adds Factor?")
