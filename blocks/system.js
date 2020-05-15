@@ -65,6 +65,20 @@ var fixBlockFactors = function(blockList, type) {
   }
 };
 
+var fixAllFactors = function(workspace) {
+  //acquire all blocks with "factors" fields and call our helper function, fixBlockFactors()
+  //sadly this has to be done one at a time for each block type that uses factors fields
+  fixBlockFactors(workspace.getBlocksByType("move"), "move");
+  fixBlockFactors(workspace.getBlocksByType("creation_step"), "creation_step");
+  fixBlockFactors(workspace.getBlocksByType("resource"), "resource");
+  fixBlockFactors(workspace.getBlocksByType("feature"), "feature");
+  fixBlockFactors(workspace.getBlocksByType("equipment_type"), "equipment_type");
+  fixBlockFactors(workspace.getBlocksByType("subtype"), "subtype");
+  fixBlockFactors(workspace.getBlocksByType("extra_mechanic"), "extra_mechanic");
+  fixBlockFactors(workspace.getBlocksByType("playbook_move"), "playbook_move");
+  //template: fixBlockFactors(this.workspace.getBlocksByType(<type>), <type>);
+}
+
 Blockly.Blocks['setting'] = {
   init: function() {
     this.appendDummyInput()
@@ -332,28 +346,20 @@ Blockly.Blocks['mechanics'] = {
       //if a block is moved into or out of the factor input of this block:
       //TODO: OR the name of a factor is changed
       if (changeEvent.type == Blockly.Events.BLOCK_MOVE
-        && changeEvent.oldInputName != changeEvent.newInputName
-        && (changeEvent.oldInputName == "factor" || changeEvent.newInputName == "factor")) {
+        && changeEvent.oldParentId != changeEvent.newParentId
+        && (changeEvent.oldParentId == this.id || changeEvent.newParentId == this.id)) {
         //empty factorsList
-        factorsList.length = 0;
+        factorsList = [];
         //repopulate factorsList with the factors currently within this input
         var factorBlock = this.getInputTargetBlock("factor");
+        console.log("factorBlock's parent id is " + factorBlock.parentBlock_.id);
         while (factorBlock) {
-          factorsList.push(new Array(factorBlock.getField("name").value_, factorBlock.id));
+          if (factorBlock.getField("name").value_ != "<name>")
+            factorsList.push(new Array(factorBlock.getField("name").value_, factorBlock.id));
           factorBlock = factorBlock.getNextBlock();
         }
         console.log("factorsList updated with content: " + factorsList.toString());
-        //acquire all blocks with "factors" fields and call our helper function, fixBlockFactors()
-        //sadly this has to be done one at a time for each block type that uses factors fields
-        fixBlockFactors(this.workspace.getBlocksByType("move"), "move");
-        fixBlockFactors(this.workspace.getBlocksByType("creation_step"), "creation_step");
-        fixBlockFactors(this.workspace.getBlocksByType("resource"), "resource");
-        fixBlockFactors(this.workspace.getBlocksByType("feature"), "feature");
-        fixBlockFactors(this.workspace.getBlocksByType("equipment_type"), "equipment_type");
-        fixBlockFactors(this.workspace.getBlocksByType("subtype"), "subtype");
-        fixBlockFactors(this.workspace.getBlocksByType("extra_mechanic"), "extra_mechanic");
-        fixBlockFactors(this.workspace.getBlocksByType("playbook_move"), "playbook_move");
-        //template: fixBlockFactors(this.workspace.getBlocksByType(<type>), <type>);
+        fixAllFactors(this.workspace);
       }
     });
   }
@@ -383,6 +389,36 @@ Blockly.Blocks['factor'] = {
     this.setColour(315);
     this.setTooltip("A situational variable that factors into the outcome of a move. (Types: Scalar factors give a value that add or subtract to a move, Reroll factors involve a rolling or rerolling of dice, Revision factors involve an immediate or pre-decided outcome, and Meta factors describe non-numerical qualities of the move or situation.) (Additive factors are effects that can result from move outcomes.)");
     this.setHelpUrl("");
+    this.setOnChange(function(changeEvent) {
+        //if a new block moves below a factor block,
+      if ((changeEvent.type == Blockly.Events.BLOCK_MOVE
+          && changeEvent.oldParentId != changeEvent.newParentId
+          && (changeEvent.oldParentId == this.id || changeEvent.newParentId == this.id))
+        //or a factor block's name field is changed,
+        || (changeEvent.type == Blockly.Events.BLOCK_CHANGE
+          && changeEvent.name == "name")) {
+        //find first factor in the stack
+        var factorBlock = this;
+        var prevBlock = factorBlock.getPreviousBlock();
+        while (prevBlock && prevBlock.type == 'factor') {
+          factorBlock = prevBlock;
+          prevBlock = prevBlock.getPreviousBlock();
+        }
+        //if prevBlock stops at a mechanics block
+        if (prevBlock && prevBlock.type == "mechanics") {
+          //empty factorsList
+          factorsList = [];
+          console.log("factorBlock's parent id is " + factorBlock.parentBlock_.id);
+          while (factorBlock) {
+            if (factorBlock.getField("name").value_ != "<name>")
+              factorsList.push(new Array(factorBlock.getField("name").value_, factorBlock.id));
+            factorBlock = factorBlock.getNextBlock();
+          }
+          console.log("factorsList updated with content: " + factorsList.toString());
+          fixAllFactors(this.workspace);
+        }
+      }
+    });
   }
 };
 
