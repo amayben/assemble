@@ -346,22 +346,27 @@ Blockly.Blocks['mechanics'] = {
       //if a block is moved into or out of the factor input of this block:
       //TODO: OR the name of a factor is changed
       if (changeEvent.type == Blockly.Events.BLOCK_MOVE
+        && (this.workspace.getBlockById(changeEvent.blockId)
+          && this.workspace.getBlockById(changeEvent.blockId).type == "factor")
         && changeEvent.oldParentId != changeEvent.newParentId
         && (changeEvent.oldParentId == this.id || changeEvent.newParentId == this.id)) {
-        //empty factorsList
-        factorsList = [];
-        //repopulate factorsList with the factors currently within this input
-        var factorBlock = this.getInputTargetBlock("factor");
-        console.log("factorBlock's parent id is " + factorBlock.parentBlock_.id);
-        while (factorBlock) {
-          if (factorBlock.getField("name").value_ != "<name>")
-            factorsList.push(new Array(factorBlock.getField("name").value_, factorBlock.id));
-          factorBlock = factorBlock.getNextBlock();
-        }
-        console.log("factorsList updated with content: " + factorsList.toString());
-        fixAllFactors(this.workspace);
+        this.updateFactors();
       }
     });
+  },
+  updateFactors: function() {
+    //empty factorsList
+    factorsList = [];
+    //repopulate factorsList with the factors currently within this input
+    var factorBlock = this.getInputTargetBlock("factor");
+    console.log("factorBlock's parent id is " + factorBlock.parentBlock_.id);
+    while (factorBlock) {
+      if (factorBlock.getField("name").value_ != "<name>")
+        factorsList.push(new Array(factorBlock.getField("name").value_, factorBlock.id));
+      factorBlock = factorBlock.getNextBlock();
+    }
+    console.log("factorsList updated with content: " + factorsList.toString());
+    fixAllFactors(this.workspace);
   }
 };
 
@@ -392,33 +397,38 @@ Blockly.Blocks['factor'] = {
     this.setOnChange(function(changeEvent) {
         //if a new block moves below a factor block,
       if ((changeEvent.type == Blockly.Events.BLOCK_MOVE
+          && (this.workspace.getBlockById(changeEvent.blockId)
+            && this.workspace.getBlockById(changeEvent.blockId).type == "factor")
           && changeEvent.oldParentId != changeEvent.newParentId
           && (changeEvent.oldParentId == this.id || changeEvent.newParentId == this.id))
         //or a factor block's name field is changed,
         || (changeEvent.type == Blockly.Events.BLOCK_CHANGE
           && changeEvent.name == "name")) {
-        //find first factor in the stack
-        var factorBlock = this;
-        var prevBlock = factorBlock.getPreviousBlock();
-        while (prevBlock && prevBlock.type == 'factor') {
-          factorBlock = prevBlock;
-          prevBlock = prevBlock.getPreviousBlock();
-        }
-        //if prevBlock stops at a mechanics block
-        if (prevBlock && prevBlock.type == "mechanics") {
-          //empty factorsList
-          factorsList = [];
-          console.log("factorBlock's parent id is " + factorBlock.parentBlock_.id);
-          while (factorBlock) {
-            if (factorBlock.getField("name").value_ != "<name>")
-              factorsList.push(new Array(factorBlock.getField("name").value_, factorBlock.id));
-            factorBlock = factorBlock.getNextBlock();
-          }
-          console.log("factorsList updated with content: " + factorsList.toString());
-          fixAllFactors(this.workspace);
-        }
+        this.updateFactors();
       }
     });
+  },
+  updateFactors: function() {
+    //find first factor in the stack
+    var factorBlock = this;
+    var prevBlock = factorBlock.getPreviousBlock();
+    while (prevBlock && prevBlock.type == 'factor') {
+      factorBlock = prevBlock;
+      prevBlock = prevBlock.getPreviousBlock();
+    }
+    //if prevBlock stops at a mechanics block
+    if (prevBlock && prevBlock.type == "mechanics") {
+      //empty factorsList
+      factorsList = [];
+      console.log("factorBlock's parent id is " + factorBlock.parentBlock_.id);
+      while (factorBlock) {
+        if (factorBlock.getField("name").value_ != "<name>")
+          factorsList.push(new Array(factorBlock.getField("name").value_, factorBlock.id));
+        factorBlock = factorBlock.getNextBlock();
+      }
+      console.log("factorsList updated with content: " + factorsList.toString());
+      fixAllFactors(this.workspace);
+    }
   }
 };
 
