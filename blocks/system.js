@@ -101,8 +101,8 @@ Blockly.Blocks['setting'] = {
     this.setPreviousStatement(true, "setting");
     this.setNextStatement(true, "setting");
     this.setColour(60);
- this.setTooltip("Defines the world of a given RPG system.");
- this.setHelpUrl("");
+    this.setTooltip("Defines the world of a given RPG system.");
+    this.setHelpUrl("");
   }
 };
 
@@ -118,8 +118,8 @@ Blockly.Blocks['society'] = {
     this.setPreviousStatement(true, "society");
     this.setNextStatement(true, "society");
     this.setColour(75);
- this.setTooltip("What form does this society take?  How do people spend their lives?  What technology is used?");
- this.setHelpUrl("");
+    this.setTooltip("What form does this society take?  How do people spend their lives?  What technology is used?");
+    this.setHelpUrl("");
   }
 };
 
@@ -142,8 +142,8 @@ Blockly.Blocks['history'] = {
     this.setPreviousStatement(true, "history");
     this.setNextStatement(true, "history");
     this.setColour(75);
- this.setTooltip("What happened or is happening in the world that is relevant to the players?");
- this.setHelpUrl("");
+    this.setTooltip("What happened or is happening in the world that is relevant to the players?");
+    this.setHelpUrl("");
   }
 };
 
@@ -165,8 +165,8 @@ Blockly.Blocks['entity'] = {
     this.setPreviousStatement(true, "entity");
     this.setNextStatement(true, "entity");
     this.setColour(90);
- this.setTooltip("A relevant historical group or figure.");
- this.setHelpUrl("");
+    this.setTooltip("A relevant historical group or figure.");
+    this.setHelpUrl("");
   }
 };
 
@@ -188,8 +188,8 @@ Blockly.Blocks['event'] = {
     this.setPreviousStatement(true, "event");
     this.setNextStatement(true, "event");
     this.setColour(90);
- this.setTooltip("A relevant moment in history, and its significance to the world.");
- this.setHelpUrl("");
+    this.setTooltip("A relevant moment in history, and its significance to the world.");
+    this.setHelpUrl("");
   }
 };
 
@@ -207,8 +207,8 @@ Blockly.Blocks['mystery'] = {
     this.setPreviousStatement(true, "mystery");
     this.setNextStatement(true, "mystery");
     this.setColour(75);
- this.setTooltip("An unknown element that has been identified (but not defined) within the setting.");
- this.setHelpUrl("");
+    this.setTooltip("An unknown element that has been identified (but not defined) within the setting.");
+    this.setHelpUrl("");
   }
 };
 
@@ -229,8 +229,8 @@ Blockly.Blocks['region'] = {
     this.setPreviousStatement(true, "region");
     this.setNextStatement(true, "region");
     this.setColour(75);
- this.setTooltip("A notable region in which action of the game is set, or can be set.");
- this.setHelpUrl("");
+    this.setTooltip("A notable region in which action of the game is set, or can be set.");
+    this.setHelpUrl("");
   }
 };
 
@@ -252,8 +252,8 @@ Blockly.Blocks['landmark'] = {
     this.setPreviousStatement(true, "landmark");
     this.setNextStatement(true, "landmark");
     this.setColour(120);
- this.setTooltip("A notable feature within a given geographic region around which action may revolve.");
- this.setHelpUrl("");
+    this.setTooltip("A notable feature within a given geographic region around which action may revolve.");
+    this.setHelpUrl("");
   }
 };
 
@@ -274,8 +274,10 @@ Blockly.Blocks['system'] = {
         .appendField("Mechanics:");
     this.setInputsInline(false);
     this.setColour(30);
- this.setTooltip("The system you are composing.");
- this.setHelpUrl("");
+    this.setTooltip("The system you are composing.");
+    this.setHelpUrl("");
+    this.setDeletable(false);
+    this.setMovable(false);
   }
 };
 
@@ -296,8 +298,8 @@ Blockly.Blocks['theme'] = {
     this.setPreviousStatement(true, "theme");
     this.setNextStatement(true, "theme");
     this.setColour(0);
- this.setTooltip("What is one idea that will drive the design of the system, and what functions do you intend it to serve?");
- this.setHelpUrl("");
+    this.setTooltip("What is one idea that will drive the design of the system, and what functions do you intend it to serve?");
+    this.setHelpUrl("");
   }
 };
 
@@ -315,8 +317,8 @@ Blockly.Blocks['function'] = {
     this.setPreviousStatement(true, "function");
     this.setNextStatement(true, "function");
     this.setColour(345);
- this.setTooltip("A manifestation of a certain theme within a system's story, its mechanics, or both.");
- this.setHelpUrl("");
+    this.setTooltip("A manifestation of a certain theme within a system's story, its mechanics, or both.");
+    this.setHelpUrl("");
   }
 };
 
@@ -331,9 +333,10 @@ Blockly.Blocks['mechanics'] = {
     this.appendStatementInput("move")
         .setCheck("move")
         .appendField("Moves: ");
-    this.appendStatementInput("parameter")
-        .setCheck("parameter")
-        .appendField("Special Parameters: ");
+    this.appendDummyInput()
+        .setAlign(Blockly.ALIGN_CENTRE)
+        .appendField("Special Parameters? ")
+        .appendField(new Blockly.FieldCheckbox("FALSE", this.paramValidator), "hasParameters");
     this.appendStatementInput("player_rules")
         .setCheck("player_rules")
         .appendField("Player Rules: ");
@@ -369,6 +372,19 @@ Blockly.Blocks['mechanics'] = {
     console.log("factorsList updated with content: " + factorsList.toString());
     fixAllFactors(this.workspace);
     */
+  },
+  paramValidator: function(newValue) {
+    var sourceBlock = this.getSourceBlock();
+    sourceBlock.showInput_ = newValue == 'TRUE';
+    sourceBlock.updateInput();
+    return newValue;
+  },
+  updateInput: function() {
+    this.removeInput('parameter', true);
+    if (this.showInput_) {
+      this.appendStatementInput('parameter').setCheck('parameter');
+      this.moveInputBefore('parameter', 'player_rules');
+    }
   }
 };
 
@@ -491,8 +507,8 @@ Blockly.Blocks['parameter'] = {
     this.setPreviousStatement(true, "parameter");
     this.setNextStatement(true, "parameter");
     this.setColour(315);
- this.setTooltip("An outcome defined by a range of possible valid rolls.");
- this.setHelpUrl("");
+    this.setTooltip("An outcome defined by a range of possible valid rolls.");
+    this.setHelpUrl("");
   }
 };
 
@@ -510,8 +526,8 @@ Blockly.Blocks['era'] = {
     this.setPreviousStatement(true, "era");
     this.setNextStatement(true, "era");
     this.setColour(90);
- this.setTooltip("What historical period are you describing?");
- this.setHelpUrl("");
+    this.setTooltip("What historical period are you describing?");
+    this.setHelpUrl("");
   }
 };
 
@@ -532,14 +548,25 @@ Blockly.Blocks['player_rules'] = {
     this.appendStatementInput("equipment")
         .setCheck("equipment")
         .appendField("Equipment: ");
-    this.appendStatementInput("extra_mechanic")
-        .setCheck("extra_mechanic")
-        .appendField("Extra Mechanics: ");
+    this.appendDummyInput()
+        .setAlign(Blockly.ALIGN_CENTRE)
+        .appendField("Extra Mechanics? ")
+        .appendField(new Blockly.FieldCheckbox("FALSE", this.extraValidator), "hasExtras");
     this.setInputsInline(false);
     this.setPreviousStatement(true, "player_rules");
     this.setColour(225);
- this.setTooltip("How player decision-making is defined and bounded by the system.");
- this.setHelpUrl("");
+    this.setTooltip("How player decision-making is defined and bounded by the system.");
+    this.setHelpUrl("");
+  },
+  extraValidator: function(newValue){
+    var sourceBlock = this.getSourceBlock();
+    sourceBlock.showInput_ = newValue == 'TRUE';
+    sourceBlock.updateInput();
+    return newValue;
+  },
+  updateInput: function(){
+    this.removeInput('extra_mechanic', true);
+    if (this.showInput_) this.appendStatementInput('extra_mechanic').setCheck('extra_mechanic');
   }
 };
 
@@ -557,11 +584,12 @@ Blockly.Blocks['character_creation'] = {
     this.setInputsInline(false);
     this.setPreviousStatement(true, "character_creation");
     this.setColour(240);
- this.setTooltip("The step-by-step process by which players define their own characters.  The common \"creation process\" applies to all by default; special rules apply to certain playbooks.");
- this.setHelpUrl("TODO: connection with playbooks");
+    this.setTooltip("The step-by-step process by which players define their own characters.  The common \"creation process\" applies to all by default; special rules apply to certain playbooks.");
+    this.setHelpUrl("");
   }
 };
 
+//TODO: connection with playbooks
 Blockly.Blocks['playbook_creation'] = {
   init: function() {
     this.appendDummyInput()
@@ -574,8 +602,8 @@ Blockly.Blocks['playbook_creation'] = {
     this.setPreviousStatement(true, "playbook_creation");
     this.setNextStatement(true, "playbook_creation");
     this.setColour(225);
- this.setTooltip("A set of additional steps or revisions that must be made when creating a character of the specified playbook.");
- this.setHelpUrl("");
+    this.setTooltip("A set of additional steps or revisions that must be made when creating a character of the specified playbook.");
+    this.setHelpUrl("");
   }
 };
 
@@ -599,8 +627,8 @@ Blockly.Blocks['creation_step'] = {
     this.setPreviousStatement(true, "creation_step");
     this.setNextStatement(true, "creation_step");
     this.setColour(270);
- this.setTooltip("One step of the creation process.");
- this.setHelpUrl("");
+    this.setTooltip("One step of the creation process.");
+    this.setHelpUrl("");
   }
 };
 
@@ -626,8 +654,8 @@ Blockly.Blocks['playbook'] = {
     this.setPreviousStatement(true, "playbook");
     this.setNextStatement(true, "playbook");
     this.setColour(240);
- this.setTooltip("Defines a character playbook or class in the system.");
- this.setHelpUrl("");
+    this.setTooltip("Defines a character playbook or class in the system.");
+    this.setHelpUrl("");
   }
 };
 
@@ -651,8 +679,8 @@ Blockly.Blocks['playbook_introduction'] = {
     this.setInputsInline(false);
     this.setPreviousStatement(true, "playbook_introduction");
     this.setColour(270);
- this.setTooltip("A description of the playbook's role(s) in the system.");
- this.setHelpUrl("");
+    this.setTooltip("A description of the playbook's role(s) in the system.");
+    this.setHelpUrl("");
   }
 };
 
@@ -686,8 +714,8 @@ Blockly.Blocks['resource'] = {
     this.setPreviousStatement(true, "resource");
     this.setNextStatement(true, "resource");
     this.setColour(240);
- this.setTooltip("A statistic that a player tracks which can factor into certain moves.");
- this.setHelpUrl("");
+    this.setTooltip("A statistic that a player tracks which can factor into certain moves.");
+    this.setHelpUrl("");
   }
 };
 
@@ -711,16 +739,13 @@ Blockly.Blocks['feature'] = {
     this.setPreviousStatement(true, ["feature", "playbook_move"]);
     this.setNextStatement(true, ["feature", "playbook_move"]);
     this.setColour(270);
- this.setTooltip("An ability or effect unique to a certain playbook.");
- this.setHelpUrl("");
+    this.setTooltip("An ability or effect unique to a certain playbook.");
+    this.setHelpUrl("");
   }
 };
 
 Blockly.Blocks['equipment_type'] = {
-
   init: function() {
-    //validator for new statement input for subtype
-
     this.appendDummyInput()
         .setAlign(Blockly.ALIGN_CENTRE)
         .appendField("Equipment Type: ")
@@ -784,8 +809,8 @@ Blockly.Blocks['subtype'] = {
     this.setPreviousStatement(true, "subtype");
     this.setNextStatement(true, "subtype");
     this.setColour(315);
- this.setTooltip("A category of certain equipment items, as well as that category's pertinent factors for its items to be used, and what subtypes it may be divided into.");
- this.setHelpUrl("");
+    this.setTooltip("A category of certain equipment items, as well as that category's pertinent factors for its items to be used, and what subtypes it may be divided into.");
+    this.setHelpUrl("");
   },
   subtypeValidator: function(newValue){
     var sourceBlock = this.getSourceBlock();
@@ -819,15 +844,15 @@ Blockly.Blocks['extra_mechanic'] = {
         .setAlign(Blockly.ALIGN_CENTRE)
         .appendField("Special Resources?")
         .appendField(new Blockly.FieldCheckbox("FALSE", this.resourceValidator), "hasResources");
-    this.appendDummyInput('checkMoves')
+    this.appendDummyInput('checkMoves') //named for use by updateResourceInput
         .setAlign(Blockly.ALIGN_CENTRE)
         .appendField("Special Moves?")
         .appendField(new Blockly.FieldCheckbox("FALSE", this.moveValidator), "hasMoves");
     this.setPreviousStatement(true, "extra_mechanic");
     this.setNextStatement(true, "extra_mechanic");
     this.setColour(240);
- this.setTooltip("An additional mechanic relevant to player action.");
- this.setHelpUrl("");
+    this.setTooltip("An additional mechanic relevant to player action.");
+    this.setHelpUrl("");
   },
   resourceValidator: function(newValue){
     var sourceBlock = this.getSourceBlock();
@@ -878,8 +903,8 @@ Blockly.Blocks['playbook_move'] = {
     this.setPreviousStatement(true, ["playbook_move", "feature"]);
     this.setNextStatement(true, ["playbook_move", "feature"]);
     this.setColour(315);
- this.setTooltip("An action only available to a certain playbook.");
- this.setHelpUrl("todo: communication with factors");
+    this.setTooltip("An action only available to a certain playbook.");
+    this.setHelpUrl("todo: communication with factors");
   }
 };
 
@@ -897,8 +922,8 @@ Blockly.Blocks['equipment'] = {
     this.setInputsInline(false);
     this.setPreviousStatement(true, "equipment");
     this.setColour(240);
- this.setTooltip("Items usable by the players.");
- this.setHelpUrl("");
+    this.setTooltip("Items usable by the players.");
+    this.setHelpUrl("");
   }
 };
 
@@ -928,7 +953,7 @@ Blockly.Blocks['item'] = {
     this.setPreviousStatement(true, "item");
     this.setNextStatement(true, "item");
     this.setColour(270);
- this.setTooltip("A category of certain equipment items, as well as that category's pertinent factors for its items to be used, and what subtypes it may be divided into.");
- this.setHelpUrl("");
+    this.setTooltip("A category of certain equipment items, as well as that category's pertinent factors for its items to be used, and what subtypes it may be divided into.");
+    this.setHelpUrl("");
   }
 };

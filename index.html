@@ -45,7 +45,9 @@
 		    <block type="setting">
 		      <field name="name">&lt;name&gt;</field>
 		    </block>
-		    <block type="mechanics"></block>
+		    <block type="mechanics">
+		      <field name="hasParameters">FALSE</field>
+		    </block>
 		  </category>
 		  <category name="Setting" colour="#5ba55b">
 		    <block type="society">
@@ -103,7 +105,9 @@
 		    </block>
 		  </category>
 		  <category name="Players" colour="#5b67a5">
-		    <block type="player_rules"></block>
+		    <block type="player_rules">
+		    	<field name="hasExtras">FALSE</field>
+		    </block>
 		    <block type="character_creation"></block>
 		    <block type="creation_step">
 		      <field name="name">&lt;name&gt;</field>
@@ -268,13 +272,7 @@
 		            <field name="adds_factor">FALSE</field>
 		          </block>
 		        </statement>
-		        <statement name="parameter">
-		          <block type="parameter" id="NU%IN-yG$3X|rTSUsiA~">
-		            <field name="name">&lt;outcome&gt;</field>
-		            <field name="lrange">0</field>
-		            <field name="rrange">1</field>
-		          </block>
-		        </statement>
+		        <field name="hasParameters">FALSE</field>
 		        <statement name="player_rules">
 		          <block type="player_rules" id="{^09t?:+E+(PA|3l1xA{">
 		            <statement name="character_creation">
@@ -350,15 +348,7 @@
 		                </statement>
 		              </block>
 		            </statement>
-		            <statement name="extra_mechanic">
-		              <block type="extra_mechanic" id="d,=1)=3lULsNuIfpx!#!">
-		                <field name="name">&lt;name&gt;</field>
-		                <field name="desc">&lt;description&gt;</field>
-		                <field name="factors">nofactor</field>
-		                <field name="hasResources">FALSE</field>
-		                <field name="hasMoves">FALSE</field>
-		              </block>
-		            </statement>
+		            <field name="hasExtras">FALSE</field>
 		          </block>
 		        </statement>
 		      </block>
