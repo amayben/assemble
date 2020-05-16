@@ -345,14 +345,13 @@ Blockly.Blocks['mechanics'] = {
     this.setColour(210);
     this.setTooltip("Defines the rules of a given RPG system.");
     this.setHelpUrl("");
-    /* previous handling code for factor updates in mechanics; now done in factors but keeping for posterity
+    /* ""legacy"" handling code for factor updates in mechanics; now done in factors but keeping for posterity
     this.setOnChange(function(changeEvent){
       //if a block is moved into or out of the factor input of this block:
       //TODO: OR the name of a factor is changed
       if (changeEvent.type == Blockly.Events.BLOCK_MOVE
         && (this.workspace.getBlockById(changeEvent.blockId)
           && this.workspace.getBlockById(changeEvent.blockId).type == "factor")
-        && changeEvent.oldParentId != changeEvent.newParentId
         && (changeEvent.oldParentId == this.id || changeEvent.newParentId == this.id)) {
         this.updateFactors();
       }
@@ -418,10 +417,8 @@ Blockly.Blocks['factor'] = {
         && this.workspace.getBlockById(changeEvent.blockId).type == "factor")
         //moves
         && ((changeEvent.type == Blockly.Events.BLOCK_MOVE
-          && changeEvent.oldParentId != changeEvent.newParentId
         //below this block
-          && (changeEvent.oldParentId == this.id
-            || changeEvent.newParentId == this.id
+          && (changeEvent.newParentId == this.id
         //or this block moves below a mechanics block
             || (this.workspace.getBlockById(changeEvent.blockId) == this
               && ((this.workspace.getBlockById(changeEvent.oldParentId)
@@ -595,7 +592,7 @@ Blockly.Blocks['playbook_creation'] = {
     this.appendDummyInput()
         .setAlign(Blockly.ALIGN_CENTRE)
         .appendField("Steps for Playbook: ")
-        .appendField(new Blockly.FieldTextInput("<playbook>"), "name");
+        .appendField(new Blockly.FieldDropdown([["option","nofactor"]]), "name");
     this.appendStatementInput("creation_step")
         .setCheck("creation_step");
     this.setInputsInline(false);
