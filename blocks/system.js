@@ -345,6 +345,8 @@ Blockly.Blocks['mechanics'] = {
     this.setColour(210);
     this.setTooltip("Defines the rules of a given RPG system.");
     this.setHelpUrl("");
+    this.setDeletable(false);
+    this.setMovable(false);
     /* ""legacy"" handling code for factor updates in mechanics; now done in factors but keeping for posterity
     this.setOnChange(function(changeEvent){
       //if a block is moved into or out of the factor input of this block:
@@ -412,24 +414,42 @@ Blockly.Blocks['factor'] = {
     this.setTooltip("A situational variable that factors into the outcome of a move. (Types: Scalar factors give a value that add or subtract to a move, Reroll factors involve a rolling or rerolling of dice, Revision factors involve an immediate or pre-decided outcome, and Meta factors describe non-numerical qualities of the move or situation.) (Additive factors are effects that can result from move outcomes.)");
     this.setHelpUrl("");
     this.setOnChange(function(changeEvent) {
-        //if a factor block
-      if ((this.workspace.getBlockById(changeEvent.blockId)
-        && this.workspace.getBlockById(changeEvent.blockId).type == "factor")
-        //moves
-        && ((changeEvent.type == Blockly.Events.BLOCK_MOVE
-        //below this block
-          && (changeEvent.newParentId == this.id
-        //or this block moves below a mechanics block
+      //if a factor block
+      if (this.workspace.getBlockById(changeEvent.blockId)
+        && this.workspace.getBlockById(changeEvent.blockId).type == "factor") {
+      //moves
+        if (changeEvent.type == Blockly.Events.BLOCK_MOVE && changeEvent.oldParentId != changeEvent.newParentId) {
+      //below this block
+          if (changeEvent.newParentId == this.id
+      //or this block moves
             || (this.workspace.getBlockById(changeEvent.blockId) == this
-              && ((this.workspace.getBlockById(changeEvent.oldParentId)
-                  && this.workspace.getBlockById(changeEvent.oldParentId).type == "mechanics")
-                || (this.workspace.getBlockById(changeEvent.newParentId)
-                  && this.workspace.getBlockById(changeEvent.newParentId).type == "mechanics")))))
-        //or the factor block's name field is changed,
-        || (changeEvent.type == Blockly.Events.BLOCK_CHANGE
-          && changeEvent.name == "name"))) {
-        //update
-        this.updateFactors();
+      //below a mechanics block,
+              && (this.workspace.getBlockById(changeEvent.newParentId)
+                  && this.workspace.getBlockById(changeEvent.newParentId).type == "mechanics"))) {
+      //then update around this block
+            this.updateFactors();
+      //otherwise, if this block has moved but does not have a parent,
+          } else if (this.workspace.getBlockById(changeEvent.blockId) == this && !this.previousConnection.isConnected()) {
+      //find the block in the factors input of mechanics and call updateFactors() on it
+            var factorBlock;
+            var mechanicsSet = this.workspace.getBlocksByType("mechanics");
+            for (var i = 0; i < mechanicsSet.length; i++) {
+              if (mechanicsSet[i].getInput("factor").connection.isConnected()) {
+                factorBlock = mechanicsSet[i].getInput("factor").connection.targetConnection.sourceBlock_
+              }
+            }
+            if (factorBlock) {
+              factorBlock.updateFactors();
+      //if the block is null, then just empty factorsList and call fixAllFactors directly
+            } else {
+              factorsList = [];
+              fixAllFactors(this.workspace);
+            }
+          }
+      //alternatively, update if a block's name field is changed      
+        } else if (changeEvent.type == Blockly.Events.BLOCK_CHANGE && changeEvent.name == "name") {
+          this.updateFactors();
+        }
       }
     });
   },
