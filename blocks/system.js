@@ -420,60 +420,51 @@ Blockly.Blocks['factor'] = {
       //moves
         if (changeEvent.type == Blockly.Events.BLOCK_MOVE && changeEvent.oldParentId != changeEvent.newParentId) {
       //below this block
-          if (changeEvent.newParentId == this.id
-      //or this block moves
-            || (this.workspace.getBlockById(changeEvent.blockId) == this
-      //below a mechanics block,
-              && (this.workspace.getBlockById(changeEvent.newParentId)
-                  && this.workspace.getBlockById(changeEvent.newParentId).type == "mechanics"))) {
-      //then update around this block
+          if (changeEvent.newParentId == this.id) {
+            console.log("updateFactors() called because of block becoming parent")
             this.updateFactors();
-      //otherwise, if this block has moved but does not have a parent,
+      //or this block moves below a mechanics block,
+          } else if (this.workspace.getBlockById(changeEvent.blockId) == this
+            && this.workspace.getBlockById(changeEvent.newParentId)
+            && this.workspace.getBlockById(changeEvent.newParentId).type == "mechanics") {
+      //then update around this block
+            console.log("updateFactors() called because of block being moved below mechanics");
+            this.updateFactors();
+      //of if this block has moved but does not have a parent,
           } else if (this.workspace.getBlockById(changeEvent.blockId) == this && !this.previousConnection.isConnected()) {
-      //find the block in the factors input of mechanics and call updateFactors() on it
-            var factorBlock;
-            var mechanicsSet = this.workspace.getBlocksByType("mechanics");
-            for (var i = 0; i < mechanicsSet.length; i++) {
-              if (mechanicsSet[i].getInput("factor").connection.isConnected()) {
-                factorBlock = mechanicsSet[i].getInput("factor").connection.targetConnection.sourceBlock_
-              }
-            }
-            if (factorBlock) {
-              factorBlock.updateFactors();
-      //if the block is null, then just empty factorsList and call fixAllFactors directly
-            } else {
-              factorsList = [];
-              fixAllFactors(this.workspace);
-            }
+            console.log("updateFactors() called because of moved block becoming disconnected");
+            this.updateFactors(this);
           }
-      //alternatively, update if a block's name field is changed      
+      //of if a block's name field is changed      
         } else if (changeEvent.type == Blockly.Events.BLOCK_CHANGE && changeEvent.name == "name") {
+          console.log("updateFactors() called because of name change");
           this.updateFactors();
         }
       }
     });
   },
-  updateFactors: function() {
-    //find first factor in the stack
-    var factorBlock = this;
-    var prevBlock = factorBlock.getPreviousBlock();
-    while (prevBlock && prevBlock.type == 'factor') {
-      factorBlock = prevBlock;
-      prevBlock = prevBlock.getPreviousBlock();
-    }
-    //if prevBlock stops at a mechanics block
-    if (prevBlock && prevBlock.type == "mechanics") {
-      //empty factorsList
-      factorsList = [];
-      console.log("factorBlock's parent id is " + factorBlock.parentBlock_.id);
-      while (factorBlock) {
-        if (factorBlock.getField("name").value_ != "<name>")
-          factorsList.push(new Array(factorBlock.getField("name").value_, factorBlock.id));
-        factorBlock = factorBlock.getNextBlock();
+  updateFactors: function(frustratingBug) {
+    //empty factorsList since we're updating it
+    factorsList = [];
+    //find the first block in the factors input of mechanics
+    var factorBlock;
+    var mechanicsSet = this.workspace.getBlocksByType("mechanics");
+    for (var i = 0; i < mechanicsSet.length; i++) {
+      if (mechanicsSet[i].getInput("factor").connection.isConnected()) {
+        factorBlock = mechanicsSet[i].getInput("factor").connection.targetConnection.sourceBlock_;
       }
-      console.log("factorsList updated with content: " + factorsList.toString());
-      fixAllFactors(this.workspace);
     }
+    while (factorBlock) {
+      if (factorBlock.getField("name").value_ != "<name>"){
+        factorsList.push(new Array(factorBlock.getField("name").value_, factorBlock.id));
+      }
+      factorBlock = factorBlock.getNextBlock();
+    }
+    //if this function has an argument, then there will be one or some deleted blocks that must be removed from factorsList first
+    if (frustratingBug) factorsList.pop();
+    //then reset factors in workspace blocks
+    console.log("factorsList updated with content: " + factorsList.toString());
+    fixAllFactors(this.workspace);
   }
 };
 
