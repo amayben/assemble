@@ -19,7 +19,7 @@
 var factorsList = [];
 
 //sets contents of "factor" dropdown fields
-//TODO: can this be generalized?
+//TODO: generalize
 var generateFactors = function() {
   var options = [["<choose factor>","nofactor"]];
   if (factorsList.length > 0) {
@@ -27,40 +27,49 @@ var generateFactors = function() {
       options.push(factorsList[i]);
     }
   }
-  console.log("generateFactors called with output: " + options.toString());
+  //console.log("generateFactors called with output: " + options.toString());
   return options;
 };
 
 //takes array of blocks and their type as input (type is a string just used for error tracking)
 //updates all dropdown fields in each block based on the content of factorsList
 //TODO: apply to all factors dropdown fields within a block if/when there are multiple
-//TODO: can this be generalized to all dynamic dropdown types?
+//TODO: generalize to all dynamic dropdown types
 var fixBlockFactors = function(blockList, type) {
   if (blockList.length == 0) {
     console.log("fixBlockFactors() called with empty array, block type: " + type);
-  } else if (factorsList.length == 0) {
-    console.log("fixBlockFactors() called with factorsList empty.");
   } else {
     var currField;
-    var currValue;
-    var inList = false;
-    for (var i = 0; i < blockList.length; i++) {
-      //TODO: currField as an array
-      currField = blockList[i].getField("factors");
-      currValue = currField.getValue();
-      //console.log("currValue: " + currValue);
-      //if the stored ID is still in the dropdown, set current field to that ID
-      for (var j = 0; j < factorsList.length; j++) {
-        if (currValue == factorsList[j][1]) {
-          inList = true;
-          break;
-        }
+    if (factorsList.length == 0) {
+      console.log("fixBlockFactors() called with factorsList empty.");
+      for (var i = 0; i < blockList.length; i++) {
+        currField = blockList[i].getField("factors");
+        currField.getOptions(false);
+        currField.setValue("nofactor");
+        currField.forceRerender();
       }
-      //regenerates contents of currField (done internally with generateFactors(), based on factorsList)
-      currField.getOptions(false);
-      currField.setValue(currValue);
-      currField.forceRerender();
-      inList = false;
+    } else {
+      var currValue;
+      var inList = false;
+      for (var i = 0; i < blockList.length; i++) {
+        //TODO: currField as an array
+        currField = blockList[i].getField("factors");
+        currValue = currField.getValue();
+        //console.log("currValue: " + currValue);
+        //if the stored ID is still in the dropdown, set current field to that ID
+        for (var j = 0; j < factorsList.length; j++) {
+          if (currValue == factorsList[j][1]) {
+            inList = true;
+            break;
+          }
+        }
+        //regenerates contents of currField (done internally with generateFactors(), based on factorsList)
+        currField.getOptions(false);
+        console.log("factorsList length:" + factorsList.length);
+        if (!inList) currField.setValue("nofactor");
+        currField.forceRerender();
+        inList = false;
+      }
     }
   }
 };
