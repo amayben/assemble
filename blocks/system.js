@@ -16,7 +16,7 @@ var factorsList = [];
 //sets contents of "factor" dropdown fields
 //TODO: generalize
 var generateFactors = function() {
-  var options = [["<choose factor>","nofactor"]];
+  var options = [["<select>","nofactor"]];
   if (factorsList.length > 0) {
     for (var i = 0; i < factorsList.length; i++) {
       options.push(factorsList[i]);
@@ -60,13 +60,13 @@ var dropdownValidator = function(newValue) {
 //updates all dropdown fields in each block based on the content of factorsList
 //TODO: apply to all factors dropdown fields within a block if/when there are multiple
 //TODO: generalize to all dynamic dropdown types
-var fixBlockFactors = function(blockList, type) {
+var fixDropdown = function(blockList, type) {
   if (blockList.length == 0) {
-    console.log("fixBlockFactors() called with empty array, block type: " + type);
+    console.log("fixDropdown() called with empty array, block type: " + type);
   } else {
     var currField;
     if (factorsList.length == 0) {
-      console.log("fixBlockFactors() called with factorsList empty.");
+      console.log("fixDropdown() called with factorsList empty.");
       for (var i = 0; i < blockList.length; i++) {
         currField = blockList[i].getField("factors");
         currField.getOptions(false);
@@ -98,18 +98,19 @@ var fixBlockFactors = function(blockList, type) {
   }
 };
 
-var fixAllFactors = function(workspace) {
-  //acquire all blocks with "factors" fields and call our helper function, fixBlockFactors()
+//TODO: call function with dropdown type and separate with switch statement
+var fixDropdownsByType = function(workspace) {
+  //acquire all blocks with "factors" fields and call our helper function, fixDropdown()
   //sadly this has to be done one at a time for each block type that uses factors fields
-  fixBlockFactors(workspace.getBlocksByType("move"), "move");
-  fixBlockFactors(workspace.getBlocksByType("creation_step"), "creation_step");
-  fixBlockFactors(workspace.getBlocksByType("resource"), "resource");
-  fixBlockFactors(workspace.getBlocksByType("feature"), "feature");
-  fixBlockFactors(workspace.getBlocksByType("equipment_type"), "equipment_type");
-  fixBlockFactors(workspace.getBlocksByType("subtype"), "subtype");
-  fixBlockFactors(workspace.getBlocksByType("extra_mechanic"), "extra_mechanic");
-  fixBlockFactors(workspace.getBlocksByType("playbook_move"), "playbook_move");
-  //template: fixBlockFactors(this.workspace.getBlocksByType(<type>), <type>);
+  fixDropdown(workspace.getBlocksByType("move"), "move");
+  fixDropdown(workspace.getBlocksByType("creation_step"), "creation_step");
+  fixDropdown(workspace.getBlocksByType("resource"), "resource");
+  fixDropdown(workspace.getBlocksByType("feature"), "feature");
+  fixDropdown(workspace.getBlocksByType("equipment_type"), "equipment_type");
+  fixDropdown(workspace.getBlocksByType("subtype"), "subtype");
+  fixDropdown(workspace.getBlocksByType("extra_mechanic"), "extra_mechanic");
+  fixDropdown(workspace.getBlocksByType("playbook_move"), "playbook_move");
+  //template: fixDropdown(this.workspace.getBlocksByType(<type>), <type>);
 }
 
 Blockly.Blocks['setting'] = {
@@ -471,7 +472,7 @@ Blockly.Blocks['factor'] = {
     if (frustratingBug) factorsList.pop();
     //then reset factors in workspace blocks
     console.log("factorsList updated with content: " + factorsList.toString());
-    fixAllFactors(this.workspace);
+    fixDropdownsByType(this.workspace);
   }
 };
 
