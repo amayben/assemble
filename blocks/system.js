@@ -29,12 +29,25 @@ var generateFactors = function() {
 };
 
 //catch-all validator for dynamic dropdown fields
-//maintains a (double?) linked list for all dropdowns that is updated whenever the dropdown's value is set
+//maintains a double linked list for all dropdowns that is updated whenever the dropdown's value is set
 //head is getField("factors") for factors, getField("subtypes") for subtypes
 var dropdownValidator = function(newValue) {
   var sourceBlock = this.getSourceBlock();
-  //if the dropdown is changed when previous value was no_value and there is no dropdown below this one:
-  if (newValue != this.prevValue && this.prevValue == "no_value" && !this.next) {
+  sourceBlock.setWarningText();
+  if (newValue == "delete") {
+    if (this.next) {
+      //reset pointers and remove from block
+      this.prev.next = this.next;
+      this.next.prev = this.prev;
+      sourceBlock.removeInput(this.getParentInput().name);
+      this.dispose();
+      return newValue;
+    } else {
+      sourceBlock.setWarningText("Deleting the last item will prevent you from adding more!");
+      return "no_value";
+    }
+  //if the dropdown is changed when there is no dropdown below this one:
+  } else if (newValue != this.prevValue && !this.next) {
     //generate a random 8-char string to use as the new dummy input's name, and another for the field
     //string generator from https://stackoverflow.com/questions/1349404/generate-random-string-characters-in-javascript
     //field needs a unique name to play nice with Blockly
@@ -51,7 +64,7 @@ var dropdownValidator = function(newValue) {
       .setAlign(Blockly.ALIGN_CENTRE)
       .appendField(this.next = new Blockly.FieldDropdown(generateFactors, dropdownValidator), field_name);
     this.next.prevValue = "no_value";
-    //this.next.prev = this; //use if double linked list is needed
+    this.next.prev = this;
     if (sourceBlock.getInput("dropdown_end")) sourceBlock.moveInputBefore(name, "dropdown_end");
   }
   this.prevValue = newValue;
