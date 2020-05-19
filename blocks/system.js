@@ -654,7 +654,8 @@ Blockly.Blocks['creation_step'] = {
         .appendField("Factors: ");
     this.appendDummyInput()
         .setAlign(Blockly.ALIGN_CENTRE)
-        .appendField(new Blockly.FieldDropdown(generateFactors), "factors");
+        .appendField(new Blockly.FieldDropdown(generateFactors, dropdownValidator), "factors");
+        this.getField("factors").prevValue = "no_value";
     this.setInputsInline(false);
     this.setPreviousStatement(true, "creation_step");
     this.setNextStatement(true, "creation_step");
@@ -731,8 +732,9 @@ Blockly.Blocks['resource'] = {
         .appendField("Factors: ");
     this.appendDummyInput()
         .setAlign(Blockly.ALIGN_CENTRE)
-        .appendField(new Blockly.FieldDropdown(generateFactors), "factors");
-    this.appendDummyInput()
+        .appendField(new Blockly.FieldDropdown(generateFactors, dropdownValidator), "factors");
+        this.getField("factors").prevValue = "no_value";
+    this.appendDummyInput("dropdown_end")
         .setAlign(Blockly.ALIGN_CENTRE)
         .appendField("Range: ")
         .appendField(new Blockly.FieldNumber(0), "lrange")
@@ -766,7 +768,8 @@ Blockly.Blocks['feature'] = {
         .appendField("Factors:");
     this.appendDummyInput()
         .setAlign(Blockly.ALIGN_CENTRE)
-        .appendField(new Blockly.FieldDropdown(generateFactors), "factors");
+        .appendField(new Blockly.FieldDropdown(generateFactors, dropdownValidator), "factors");
+        this.getField("factors").prevValue = "no_value";
     this.setInputsInline(false);
     this.setPreviousStatement(true, ["feature", "playbook_move"]);
     this.setNextStatement(true, ["feature", "playbook_move"]);
@@ -791,8 +794,9 @@ Blockly.Blocks['equipment_type'] = {
         .appendField("Factors: ");
     this.appendDummyInput()
         .setAlign(Blockly.ALIGN_CENTRE)
-        .appendField(new Blockly.FieldDropdown(generateFactors), "factors");
-    this.appendDummyInput()
+        .appendField(new Blockly.FieldDropdown(generateFactors, dropdownValidator), "factors");
+        this.getField("factors").prevValue = "no_value";
+    this.appendDummyInput("dropdown_end")
         .setAlign(Blockly.ALIGN_CENTRE)
         .appendField("Subtypes? ")
         .appendField(new Blockly.FieldCheckbox("FALSE", this.subtypeValidator), "hasSubtypes");
@@ -830,8 +834,9 @@ Blockly.Blocks['subtype'] = {
         .appendField("Factors: ");
     this.appendDummyInput()
         .setAlign(Blockly.ALIGN_CENTRE)
-        .appendField(new Blockly.FieldDropdown(generateFactors), "factors");
-    this.appendDummyInput()
+        .appendField(new Blockly.FieldDropdown(generateFactors, dropdownValidator), "factors");
+        this.getField("factors").prevValue = "no_value";
+    this.appendDummyInput("dropdown_end")
         .setAlign(Blockly.ALIGN_CENTRE)
         .appendField("Required by Parent Type? ")
         .appendField(new Blockly.FieldCheckbox("FALSE"), "isRequired");
@@ -871,8 +876,9 @@ Blockly.Blocks['extra_mechanic'] = {
         .appendField("Factors:");
     this.appendDummyInput()
         .setAlign(Blockly.ALIGN_CENTRE)
-        .appendField(new Blockly.FieldDropdown(generateFactors), "factors");
-    this.appendDummyInput()
+        .appendField(new Blockly.FieldDropdown(generateFactors, dropdownValidator), "factors");
+        this.getField("factors").prevValue = "no_value";
+    this.appendDummyInput("dropdown_end")
         .setAlign(Blockly.ALIGN_CENTRE)
         .appendField("Special Resources?")
         .appendField(new Blockly.FieldCheckbox("FALSE", this.resourceValidator), "hasResources");
@@ -926,8 +932,9 @@ Blockly.Blocks['playbook_move'] = {
         .appendField("Factors:");
     this.appendDummyInput()
         .setAlign(Blockly.ALIGN_CENTRE)
-        .appendField(new Blockly.FieldDropdown(generateFactors), "factors");
-    this.appendDummyInput()
+        .appendField(new Blockly.FieldDropdown(generateFactors, dropdownValidator), "factors");
+        this.getField("factors").prevValue = "no_value";
+    this.appendDummyInput("dropdown_end")
         .setAlign(Blockly.ALIGN_CENTRE)
         .appendField("Adds Factor?")
         .appendField(new Blockly.FieldCheckbox("FALSE"), "addsFactor");
