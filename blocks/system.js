@@ -64,7 +64,7 @@ var generateOptions = function() {
 
 //catch-all validator for dynamic dropdown fields
 //maintains a double linked list for all dropdowns that is updated whenever the dropdown's value is set
-//head is getField("factors") for factors, getField("subtypes") for subtypes
+//head is getField("factors") for factors, getField("subtypes") for subtypes, etc
 var dropdownValidator = function(newValue) {
   var sourceBlock = this.getSourceBlock();
   sourceBlock.setWarningText();
@@ -139,7 +139,13 @@ var fixDropdown = function(blockList, type) {
           }
           //regenerates contents of currField (done internally with generateOptions(), based on factorsList)
           currField.getOptions(false);
-          if (!inList) currField.setValue("no_value");
+          if (!inList) {
+            if (currField.next && currField.prev) {
+              currField.setValue("delete");
+            } else {
+              currField.setValue("no_value");
+            }
+          }
           currField.forceRerender();
           inList = false;
           currField = currField.next;
