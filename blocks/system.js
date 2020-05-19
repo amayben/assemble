@@ -10,11 +10,6 @@
  */
 'use strict';
 
-//goog.require('Blockly');
-//goog.require('Blockly.Blocks');
-//goog.require('Blockly.FieldColour');
-//goog.require('Blockly.FieldLabel');
-
 //global arrays (shared between blocks for communication)
 var factorsList = [];
 
@@ -30,6 +25,36 @@ var generateFactors = function() {
   //console.log("generateFactors called with output: " + options.toString());
   return options;
 };
+
+//catch-all validator for dynamic dropdown fields
+//maintains a (double?) linked list for all dropdowns that is updated whenever the dropdown's value is set
+//head is getField("factors") for factors, getField("subtypes") for subtypes
+var dropdownValidator = function(newValue) {
+  var sourceBlock = this.getSourceBlock();
+  //if the dropdown is changed when previous value was nofactor and there is no dropdown below this one:
+  if (newValue != this.prevValue && this.prevValue == "nofactor" && !this.next) {
+    //generate a random 8-char string to use as the new dummy input's name, and another for the field
+    //string generator from https://stackoverflow.com/questions/1349404/generate-random-string-characters-in-javascript
+    //field needs a unique name to play nice with Blockly
+    //input needs a unique name to move it into the right place within the block;
+    //later we can just access it from the field it contains via the linked list
+    var name = Math.random().toString(36).replace(/[^a-z]+/g, '').substr(0, 8);
+    var field_name = Math.random().toString(36).replace(/[^a-z]+/g, '').substr(0, 8);
+    while (sourceBlock.getInput(name) || sourceBlock.getField(field_name)) {
+      //in the exceedingly rare case that we generated a non-unique string for the block, run the code again until it's unique
+      var name = Math.random().toString(36).replace(/[^a-z]+/g, '').substr(0, 8);
+      var field_name = Math.random().toString(36).replace(/[^a-z]+/g, '').substr(0, 8);
+    }
+    sourceBlock.appendDummyInput(name)
+      .setAlign(Blockly.ALIGN_CENTRE)
+      .appendField(this.next = new Blockly.FieldDropdown(generateFactors, dropdownValidator), field_name);
+    this.next.prevValue = "nofactor";
+    //this.next.prev = this; //use if double linked list is needed
+    if (sourceBlock.getInput("dropdown_end")) sourceBlock.moveInputBefore(name, "dropdown_end");
+  }
+  this.prevValue = newValue;
+  return newValue;
+}
 
 //takes array of blocks and their type as input (type is a string just used for error tracking)
 //updates all dropdown fields in each block based on the content of factorsList
@@ -65,7 +90,6 @@ var fixBlockFactors = function(blockList, type) {
         }
         //regenerates contents of currField (done internally with generateFactors(), based on factorsList)
         currField.getOptions(false);
-        console.log("factorsList length:" + factorsList.length);
         if (!inList) currField.setValue("nofactor");
         currField.forceRerender();
         inList = false;
@@ -356,32 +380,6 @@ Blockly.Blocks['mechanics'] = {
     this.setHelpUrl("");
     this.setDeletable(false);
     this.setMovable(false);
-    /* ""legacy"" handling code for factor updates in mechanics; now done in factors but keeping for posterity
-    this.setOnChange(function(changeEvent){
-      //if a block is moved into or out of the factor input of this block:
-      //TODO: OR the name of a factor is changed
-      if (changeEvent.type == Blockly.Events.BLOCK_MOVE
-        && (this.workspace.getBlockById(changeEvent.blockId)
-          && this.workspace.getBlockById(changeEvent.blockId).type == "factor")
-        && (changeEvent.oldParentId == this.id || changeEvent.newParentId == this.id)) {
-        this.updateFactors();
-      }
-    });
-  },
-  updateFactors: function() {
-    //empty factorsList
-    factorsList = [];
-    //repopulate factorsList with the factors currently within this input
-    var factorBlock = this.getInputTargetBlock("factor");
-    console.log("factorBlock's parent id is " + factorBlock.parentBlock_.id);
-    while (factorBlock) {
-      if (factorBlock.getField("name").value_ != "<name>")
-        factorsList.push(new Array(factorBlock.getField("name").value_, factorBlock.id));
-      factorBlock = factorBlock.getNextBlock();
-    }
-    console.log("factorsList updated with content: " + factorsList.toString());
-    fixAllFactors(this.workspace);
-    */
   },
   paramValidator: function(newValue) {
     var sourceBlock = this.getSourceBlock();
@@ -420,7 +418,7 @@ Blockly.Blocks['factor'] = {
     this.setPreviousStatement(true, "factor");
     this.setNextStatement(true, "factor");
     this.setColour(315);
-    this.setTooltip("A situational variable that factors into the outcome of a move. (Types: Scalar factors give a value that add or subtract to a move, Reroll factors involve a rolling or rerolling of dice, Revision factors involve an immediate or pre-decided outcome, and Meta factors describe non-numerical qualities of the move or situation.) (Additive factors are effects that can result from move outcomes.)");
+    this.setTooltip("A situational variable that factors into the outcome of a move.");
     this.setHelpUrl("");
     this.setOnChange(function(changeEvent) {
       //if a factor block
@@ -490,14 +488,15 @@ Blockly.Blocks['move'] = {
         .appendField("Factors:");
     this.appendDummyInput()
         .setAlign(Blockly.ALIGN_CENTRE)
-        .appendField(new Blockly.FieldDropdown(generateFactors), "factors");
-    this.appendDummyInput()
+        .appendField(new Blockly.FieldDropdown(generateFactors, dropdownValidator), "factors");
+        this.getField("factors").prevValue = "nofactor";
+    this.appendDummyInput("dropdown_end")
         .setAlign(Blockly.ALIGN_CENTRE)
         .appendField("Description:")
         .appendField(new Blockly.FieldTextInput("<description>"), "desc");
     this.appendDummyInput()
         .setAlign(Blockly.ALIGN_CENTRE)
-        .appendField("Adds Factor?")
+        .appendField("Adds Factor(s)?")
         .appendField(new Blockly.FieldCheckbox("FALSE"), "adds_factor");
     this.setInputsInline(false);
     this.setPreviousStatement(true, "move");
@@ -601,7 +600,7 @@ Blockly.Blocks['character_creation'] = {
     this.setInputsInline(false);
     this.setPreviousStatement(true, "character_creation");
     this.setColour(240);
-    this.setTooltip("The step-by-step process by which players define their own characters.  The common \"creation process\" applies to all by default; special rules apply to certain playbooks.");
+    this.setTooltip("The step-by-step process by which players define their own characters. The common \"creation process\" applies to all by default; special rules apply to certain playbooks.");
     this.setHelpUrl("");
   }
 };
@@ -826,7 +825,7 @@ Blockly.Blocks['subtype'] = {
     this.setPreviousStatement(true, "subtype");
     this.setNextStatement(true, "subtype");
     this.setColour(315);
-    this.setTooltip("A category of certain equipment items, as well as that category's pertinent factors for its items to be used, and what subtypes it may be divided into.");
+    this.setTooltip("A subcategory of equipment items with a given type.");
     this.setHelpUrl("");
   },
   subtypeValidator: function(newValue){
@@ -970,7 +969,7 @@ Blockly.Blocks['item'] = {
     this.setPreviousStatement(true, "item");
     this.setNextStatement(true, "item");
     this.setColour(270);
-    this.setTooltip("A category of certain equipment items, as well as that category's pertinent factors for its items to be used, and what subtypes it may be divided into.");
+    this.setTooltip("An item with predefined mechanics that can be acquired in the system.");
     this.setHelpUrl("");
   }
 };
