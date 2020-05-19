@@ -16,7 +16,7 @@ var factorsList = [];
 //sets contents of "factor" dropdown fields
 //TODO: generalize
 var generateFactors = function() {
-  var options = [["<select>","nofactor"]];
+  var options = [["<select>","no_value"]];
   if (factorsList.length > 0) {
     for (var i = 0; i < factorsList.length; i++) {
       options.push(factorsList[i]);
@@ -33,8 +33,8 @@ var generateFactors = function() {
 //head is getField("factors") for factors, getField("subtypes") for subtypes
 var dropdownValidator = function(newValue) {
   var sourceBlock = this.getSourceBlock();
-  //if the dropdown is changed when previous value was nofactor and there is no dropdown below this one:
-  if (newValue != this.prevValue && this.prevValue == "nofactor" && !this.next) {
+  //if the dropdown is changed when previous value was no_value and there is no dropdown below this one:
+  if (newValue != this.prevValue && this.prevValue == "no_value" && !this.next) {
     //generate a random 8-char string to use as the new dummy input's name, and another for the field
     //string generator from https://stackoverflow.com/questions/1349404/generate-random-string-characters-in-javascript
     //field needs a unique name to play nice with Blockly
@@ -50,7 +50,7 @@ var dropdownValidator = function(newValue) {
     sourceBlock.appendDummyInput(name)
       .setAlign(Blockly.ALIGN_CENTRE)
       .appendField(this.next = new Blockly.FieldDropdown(generateFactors, dropdownValidator), field_name);
-    this.next.prevValue = "nofactor";
+    this.next.prevValue = "no_value";
     //this.next.prev = this; //use if double linked list is needed
     if (sourceBlock.getInput("dropdown_end")) sourceBlock.moveInputBefore(name, "dropdown_end");
   }
@@ -72,7 +72,7 @@ var fixDropdown = function(blockList, type) {
       for (var i = 0; i < blockList.length; i++) {
         currField = blockList[i].getField("factors");
         currField.getOptions(false);
-        currField.setValue("nofactor");
+        currField.setValue("no_value");
         currField.forceRerender();
       }
     } else {
@@ -92,7 +92,7 @@ var fixDropdown = function(blockList, type) {
         }
         //regenerates contents of currField (done internally with generateFactors(), based on factorsList)
         currField.getOptions(false);
-        if (!inList) currField.setValue("nofactor");
+        if (!inList) currField.setValue("no_value");
         currField.forceRerender();
         inList = false;
       }
@@ -492,7 +492,7 @@ Blockly.Blocks['move'] = {
     this.appendDummyInput()
         .setAlign(Blockly.ALIGN_CENTRE)
         .appendField(new Blockly.FieldDropdown(generateFactors, dropdownValidator), "factors");
-        this.getField("factors").prevValue = "nofactor";
+        this.getField("factors").prevValue = "no_value";
     this.appendDummyInput("dropdown_end")
         .setAlign(Blockly.ALIGN_CENTRE)
         .appendField("Description:")
@@ -614,7 +614,7 @@ Blockly.Blocks['playbook_creation'] = {
     this.appendDummyInput()
         .setAlign(Blockly.ALIGN_CENTRE)
         .appendField("Steps for Playbook: ")
-        .appendField(new Blockly.FieldDropdown([["option","nofactor"]]), "name");
+        .appendField(new Blockly.FieldDropdown([["option","no_value"]]), "name");
     this.appendStatementInput("creation_step")
         .setCheck("creation_step");
     this.setInputsInline(false);
@@ -668,7 +668,7 @@ Blockly.Blocks['playbook'] = {
         .appendField("Starting Equipment:");
     this.appendDummyInput()
         .setAlign(Blockly.ALIGN_CENTRE)
-        .appendField(new Blockly.FieldDropdown([["option","nofactor"]]), "equipment");
+        .appendField(new Blockly.FieldDropdown([["option","no_value"]]), "equipment");
     this.setInputsInline(false);
     this.setPreviousStatement(true, "playbook");
     this.setNextStatement(true, "playbook");
