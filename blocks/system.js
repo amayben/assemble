@@ -22,6 +22,8 @@ var generateFactors = function() {
       options.push(factorsList[i]);
     }
   }
+  if (!["factors", "types", "subtypes", "items"].includes(this.name))
+    options.push(["<delete>","delete"]);
   //console.log("generateFactors called with output: " + options.toString());
   return options;
 };
