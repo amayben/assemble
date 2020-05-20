@@ -41,25 +41,18 @@ var updateList = function(block, noBug) {
 }
 
 //sets contents of "factor" dropdown fields
-//TODO: generalize optionsList
-var generateOptions = function() {
+//TODO: write additional generate functions for other dropdown types
+var generateFactors = function() {
   var optionsList = factorsList;
-  /*
-  switch (this.getSourceBlock().type) {
-    case "":
-      optionsList = factorsList;
-      break;
-  }
-  */
   var options = [["<select>","no_value"]];
   if (optionsList.length > 0) {
     for (var i = 0; i < optionsList.length; i++) {
       options.push(optionsList[i]);
     }
   }
-  if (!["factors", "types", "subtypes", "items"].includes(this.name))
+  if (this.name != "factors")
     options.push(["<delete>","delete"]);
-  //console.log("generateOptions called with output: " + options.toString());
+  //console.log("generateFactors called with output: " + options.toString());
   return options;
 };
 
@@ -98,7 +91,7 @@ var dropdownValidator = function(newValue) {
     }
     sourceBlock.appendDummyInput(name)
       .setAlign(Blockly.ALIGN_CENTRE)
-      .appendField(this.next = new Blockly.FieldDropdown(generateOptions, dropdownValidator), field_name);
+      .appendField(this.next = new Blockly.FieldDropdown(generateFactors, dropdownValidator), field_name);
     this.next.lastValue = "no_value";
     this.next.prev = this;
     if (sourceBlock.getInput("dropdown_end")) sourceBlock.moveInputBefore(name, "dropdown_end");
@@ -148,7 +141,7 @@ var fixDropdown = function(blockList, type) {
               break;
             }
           }
-          //regenerates contents of currField (done internally with generateOptions(), based on factorsList)
+          //regenerates contents of currField (done internally with generateFactors(), based on factorsList)
           currField.getOptions(false);
           if (!inList) {
             if (currField.prev) {
@@ -534,8 +527,8 @@ Blockly.Blocks['move'] = {
         .appendField("Factors:");
     this.appendDummyInput()
         .setAlign(Blockly.ALIGN_CENTRE)
-        .appendField(new Blockly.FieldDropdown(generateOptions, dropdownValidator), "factors");
-        //this.getField("factors").lastValue = "no_value";
+        .appendField(new Blockly.FieldDropdown(generateFactors, dropdownValidator), "factors");
+        this.getField("factors").type = "factors";
     this.appendDummyInput("dropdown_end")
         .setAlign(Blockly.ALIGN_CENTRE)
         .appendField("Description:")
@@ -684,8 +677,8 @@ Blockly.Blocks['creation_step'] = {
         .appendField("Factors: ");
     this.appendDummyInput()
         .setAlign(Blockly.ALIGN_CENTRE)
-        .appendField(new Blockly.FieldDropdown(generateOptions, dropdownValidator), "factors");
-        this.getField("factors").lastValue = "no_value";
+        .appendField(new Blockly.FieldDropdown(generateFactors, dropdownValidator), "factors");
+        this.getField("factors").type = "factors";
     this.setInputsInline(false);
     this.setPreviousStatement(true, "creation_step");
     this.setNextStatement(true, "creation_step");
@@ -762,8 +755,8 @@ Blockly.Blocks['resource'] = {
         .appendField("Factors: ");
     this.appendDummyInput()
         .setAlign(Blockly.ALIGN_CENTRE)
-        .appendField(new Blockly.FieldDropdown(generateOptions, dropdownValidator), "factors");
-        this.getField("factors").lastValue = "no_value";
+        .appendField(new Blockly.FieldDropdown(generateFactors, dropdownValidator), "factors");
+        this.getField("factors").type = "factors";
     this.appendDummyInput("dropdown_end")
         .setAlign(Blockly.ALIGN_CENTRE)
         .appendField("Range: ")
@@ -798,8 +791,8 @@ Blockly.Blocks['feature'] = {
         .appendField("Factors:");
     this.appendDummyInput()
         .setAlign(Blockly.ALIGN_CENTRE)
-        .appendField(new Blockly.FieldDropdown(generateOptions, dropdownValidator), "factors");
-        this.getField("factors").lastValue = "no_value";
+        .appendField(new Blockly.FieldDropdown(generateFactors, dropdownValidator), "factors");
+        this.getField("factors").type = "factors";
     this.setInputsInline(false);
     this.setPreviousStatement(true, ["feature", "playbook_move"]);
     this.setNextStatement(true, ["feature", "playbook_move"]);
@@ -824,8 +817,8 @@ Blockly.Blocks['equipment_type'] = {
         .appendField("Factors: ");
     this.appendDummyInput()
         .setAlign(Blockly.ALIGN_CENTRE)
-        .appendField(new Blockly.FieldDropdown(generateOptions, dropdownValidator), "factors");
-        this.getField("factors").lastValue = "no_value";
+        .appendField(new Blockly.FieldDropdown(generateFactors, dropdownValidator), "factors");
+        this.getField("factors").type = "factors";
     this.appendDummyInput("dropdown_end")
         .setAlign(Blockly.ALIGN_CENTRE)
         .appendField("Subtypes? ")
@@ -864,8 +857,8 @@ Blockly.Blocks['subtype'] = {
         .appendField("Factors: ");
     this.appendDummyInput()
         .setAlign(Blockly.ALIGN_CENTRE)
-        .appendField(new Blockly.FieldDropdown(generateOptions, dropdownValidator), "factors");
-        this.getField("factors").lastValue = "no_value";
+        .appendField(new Blockly.FieldDropdown(generateFactors, dropdownValidator), "factors");
+        this.getField("factors").type = "factors";
     this.appendDummyInput("dropdown_end")
         .setAlign(Blockly.ALIGN_CENTRE)
         .appendField("Required by Parent Type? ")
@@ -906,8 +899,8 @@ Blockly.Blocks['extra_mechanic'] = {
         .appendField("Factors:");
     this.appendDummyInput()
         .setAlign(Blockly.ALIGN_CENTRE)
-        .appendField(new Blockly.FieldDropdown(generateOptions, dropdownValidator), "factors");
-        this.getField("factors").lastValue = "no_value";
+        .appendField(new Blockly.FieldDropdown(generateFactors, dropdownValidator), "factors");
+        this.getField("factors").type = "factors";
     this.appendDummyInput("dropdown_end")
         .setAlign(Blockly.ALIGN_CENTRE)
         .appendField("Special Resources?")
@@ -962,8 +955,8 @@ Blockly.Blocks['playbook_move'] = {
         .appendField("Factors:");
     this.appendDummyInput()
         .setAlign(Blockly.ALIGN_CENTRE)
-        .appendField(new Blockly.FieldDropdown(generateOptions, dropdownValidator), "factors");
-        this.getField("factors").lastValue = "no_value";
+        .appendField(new Blockly.FieldDropdown(generateFactors, dropdownValidator), "factors");
+        this.getField("factors").type = "factors";
     this.appendDummyInput("dropdown_end")
         .setAlign(Blockly.ALIGN_CENTRE)
         .appendField("Adds Factor?")
