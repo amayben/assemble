@@ -94,6 +94,7 @@ var dropdownValidator = function(newValue) {
       .appendField(this.next = new Blockly.FieldDropdown(generateFactors, dropdownValidator), field_name);
     this.next.lastValue = "no_value";
     this.next.prev = this;
+    this.next.type = this.type;
     if (sourceBlock.getInput("dropdown_end")) sourceBlock.moveInputBefore(name, "dropdown_end");
   }
   this.lastValue = newValue;
