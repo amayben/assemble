@@ -1012,13 +1012,30 @@ Blockly.Blocks['playbook_move'] = {
     this.appendDummyInput("dropdown_end")
         .setAlign(Blockly.ALIGN_CENTRE)
         .appendField("Adds Factor?")
-        .appendField(new Blockly.FieldCheckbox("FALSE"), "addsFactor");
+        .appendField(new Blockly.FieldCheckbox("FALSE", this.additiveValidator), "addsFactor");
     this.setInputsInline(false);
     this.setPreviousStatement(true, ["playbook_move", "feature"]);
     this.setNextStatement(true, ["playbook_move", "feature"]);
     this.setColour(315);
     this.setTooltip("An action only available to a certain playbook.");
     this.setHelpUrl("todo: communication with factors");
+  },
+  additiveValidator: function(newValue) {
+    var sourceBlock = this.getSourceBlock();
+    sourceBlock.showInput_ = newValue == 'TRUE';
+    sourceBlock.updateInput();
+    return newValue;
+  },
+  updateInput: function() {
+    if (this.showInput_) {
+      this.appendDummyInput("addFactors")
+        .setAlign(Blockly.ALIGN_CENTRE)
+        .appendField("Additive Factors:")
+        .appendField(new Blockly.FieldDropdown(generateAddFactors/*, dropdownValidator*/), "addFactors");
+    } else {
+      this.removeInput("addFactors", true);
+      //TODO: and other inputs
+    }
   }
 };
 
