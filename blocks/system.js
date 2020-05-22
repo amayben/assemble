@@ -26,7 +26,7 @@ var updateList = function(block, noBug) {
   var parentSet = block.workspace.getBlocksByType("mechanics");
   for (var i = 0; i < parentSet.length; i++) {
     if (parentSet[i].getInput("factor").connection.isConnected()) {
-      currblock = parentSet[i].getInput("factor").connection.targetConnection.sourceBlock_;
+      currblock = parentSet[i].getInput("factor").connection.targetConnection.getSourceBlock();
     }
   }
   while (currblock) {
