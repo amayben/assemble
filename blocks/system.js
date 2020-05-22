@@ -11,23 +11,30 @@
 'use strict';
 
 //global arrays (shared between blocks for communication)
+//first value is always the name field, second value is the corresponding block id
 var factorsList = [];
+var addFactorsList = [];
 
 //called by blocks with global array representations to update those arrays when blocks are added or removed
+//TODO: generalize (switch statements or new functions?)
 var updateList = function(block, noBug) {
   //start with empty list
   var list = [];
+  var addList = [];
   //find the first block in the relevant input
   var currblock;
-  var mechanicsSet = block.workspace.getBlocksByType("mechanics");
-  for (var i = 0; i < mechanicsSet.length; i++) {
-    if (mechanicsSet[i].getInput("factor").connection.isConnected()) {
-      currblock = mechanicsSet[i].getInput("factor").connection.targetConnection.sourceBlock_;
+  var parentSet = block.workspace.getBlocksByType("mechanics");
+  for (var i = 0; i < parentSet.length; i++) {
+    if (parentSet[i].getInput("factor").connection.isConnected()) {
+      currblock = parentSet[i].getInput("factor").connection.targetConnection.sourceBlock_;
     }
   }
   while (currblock) {
-    if (currblock.getField("name").value_ != "<name>"){
-      list.push(new Array(currblock.getField("name").value_, currblock.id));
+    if (currblock.getField("name").getValue() != "<name>"){
+      list.push(new Array(currblock.getField("name").getValue(), currblock.id));
+      if (currblock.getField("isAdditive").getValue() == "TRUE") {
+        addList.push(new Array(currblock.getField("name").getValue(), currblock.id));
+      }
     }
     currblock = currblock.getNextBlock();
   }
@@ -36,9 +43,11 @@ var updateList = function(block, noBug) {
   if (!noBug) list.pop();
   //then reset factors in workspace blocks
   factorsList = list;
+  addFactorsList = addList;
   console.log("factorsList updated with content: " + factorsList.toString());
-  fixDropdownsByType(block.workspace);
-}
+  console.log("addFactorsList updated with content: " + addFactorsList.toString());
+  fixDropdownsByType(block.workspace, "factors");
+};
 
 //sets contents of "factor" dropdown fields
 //TODO: write additional generate functions for other dropdown types
@@ -56,12 +65,28 @@ var generateFactors = function() {
   return options;
 };
 
+var generateAddFactors = function() {
+  var optionsList = addFactorsList;
+  var options = [["<select>","no_value"]];
+  if (optionsList.length > 0) {
+    for (var i = 0; i < optionsList.length; i++) {
+      options.push(optionsList[i]);
+    }
+  }
+  if (this.name != "addFactors")
+    options.push(["<delete>","delete"]);
+  console.log("generateAddFactors called with output: " + options.toString());
+  return options;
+};
+
 //catch-all validator for dynamic dropdown fields
 //maintains a double linked list for all dropdowns that is updated whenever the dropdown's value is set
 //head is getField("factors") for factors, getField("subtypes") for subtypes, etc
+//TODO: reimplement with mutators
 var dropdownValidator = function(newValue) {
   var sourceBlock = this.getSourceBlock();
   sourceBlock.setWarningText();
+  //TODO: switch statement for generate function based on field type goes here
   if (!this.lastValue) this.lastValue = "no_value";
   if (newValue == "delete") {
     if (this.next) {
@@ -100,7 +125,7 @@ var dropdownValidator = function(newValue) {
   this.lastValue = newValue;
   console.log("lastValue of " + this.name + " changed to " + this.lastValue);
   return newValue;
-}
+};
 
 //takes array of blocks and their type as input (type is a string just used for error tracking)
 //updates all dropdown fields in each block based on the content of factorsList
@@ -161,19 +186,28 @@ var fixDropdown = function(blockList, type) {
 };
 
 //TODO: call function with dropdown type and separate with switch statement
-var fixDropdownsByType = function(workspace) {
-  //acquire all blocks with "factors" fields and call our helper function, fixDropdown()
-  //sadly this has to be done one at a time for each block type that uses factors fields
-  fixDropdown(workspace.getBlocksByType("move"), "move");
-  fixDropdown(workspace.getBlocksByType("creation_step"), "creation_step");
-  fixDropdown(workspace.getBlocksByType("resource"), "resource");
-  fixDropdown(workspace.getBlocksByType("feature"), "feature");
-  fixDropdown(workspace.getBlocksByType("equipment_type"), "equipment_type");
-  fixDropdown(workspace.getBlocksByType("subtype"), "subtype");
-  fixDropdown(workspace.getBlocksByType("extra_mechanic"), "extra_mechanic");
-  fixDropdown(workspace.getBlocksByType("playbook_move"), "playbook_move");
+var fixDropdownsByType = function(workspace, type) {
+  switch (type) {
+    //acquire all blocks with "factors" fields and call our helper function, fixDropdown()
+    //sadly this has to be done once at a time for each block type that uses factors fields
+    case ("factors"):
+      fixDropdown(workspace.getBlocksByType("move"), "move");
+      fixDropdown(workspace.getBlocksByType("creation_step"), "creation_step");
+      fixDropdown(workspace.getBlocksByType("resource"), "resource");
+      fixDropdown(workspace.getBlocksByType("feature"), "feature");
+      fixDropdown(workspace.getBlocksByType("equipment_type"), "equipment_type");
+      fixDropdown(workspace.getBlocksByType("subtype"), "subtype");
+      fixDropdown(workspace.getBlocksByType("extra_mechanic"), "extra_mechanic");
+      fixDropdown(workspace.getBlocksByType("playbook_move"), "playbook_move");
+      break;
+    /*
+    case ("addFactors"):
+      fixDropdown(workspace.getBlocksByType("move"), "move");
+      break;
+    */
+  }
   //template: fixDropdown(this.workspace.getBlocksByType(<type>), <type>);
-}
+};
 
 Blockly.Blocks['setting'] = {
   init: function() {
@@ -476,7 +510,7 @@ Blockly.Blocks['factor'] = {
     this.appendDummyInput()
         .setAlign(Blockly.ALIGN_CENTRE)
         .appendField("Additive?")
-        .appendField(new Blockly.FieldCheckbox("FALSE"), "isAdditive");
+        .appendField(new Blockly.FieldCheckbox("FALSE", this.addsListValidator), "isAdditive");
     this.setInputsInline(false);
     this.setPreviousStatement(true, "factor");
     this.setNextStatement(true, "factor");
@@ -506,7 +540,7 @@ Blockly.Blocks['factor'] = {
             updateList(this, false);
           }
       //of if a block's name field is changed      
-        } else if (changeEvent.type == Blockly.Events.BLOCK_CHANGE && changeEvent.name == "name") {
+        } else if (changeEvent.type == Blockly.Events.BLOCK_CHANGE && (changeEvent.name == "name" || changeEvent.name == "isAdditive")) {
           console.log("updateList() called because of name change");
           updateList(this, true);
         }
@@ -537,13 +571,30 @@ Blockly.Blocks['move'] = {
     this.appendDummyInput()
         .setAlign(Blockly.ALIGN_CENTRE)
         .appendField("Adds Factor(s)?")
-        .appendField(new Blockly.FieldCheckbox("FALSE"), "adds_factor");
+        .appendField(new Blockly.FieldCheckbox("FALSE", this.additiveValidator), "adds_factor");
     this.setInputsInline(false);
     this.setPreviousStatement(true, "move");
     this.setNextStatement(true, "move");
     this.setColour(315);
     this.setTooltip("An action available to a player character.");
     this.setHelpUrl("");
+  },
+  additiveValidator: function(newValue) {
+    var sourceBlock = this.getSourceBlock();
+    sourceBlock.showInput_ = newValue == 'TRUE';
+    sourceBlock.updateInput();
+    return newValue;
+  },
+  updateInput: function() {
+    if (this.showInput_) {
+      this.appendDummyInput("addFactors")
+        .setAlign(Blockly.ALIGN_CENTRE)
+        .appendField("Additive Factors:")
+        .appendField(new Blockly.FieldDropdown(generateAddFactors/*, dropdownValidator*/), "addFactors");
+    } else {
+      this.removeInput("addFactors", true);
+      //TODO: and other inputs
+    }
   }
 };
 
