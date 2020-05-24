@@ -83,10 +83,17 @@ var generateAddFactors = function() {
 //maintains a double linked list for all dropdowns that is updated whenever the dropdown's value is set
 //head is getField("factors") for factors, getField("subtypes") for subtypes, etc
 //TODO: reimplement with mutators
-var dropdownValidator = function(newValue) {
+var dropdownValidator = function(newValue) {  
   var sourceBlock = this.getSourceBlock();
   sourceBlock.setWarningText();
-  //TODO: switch statement for generate function based on field type goes here
+  var generateFunction = generateFactors;
+  /*
+  switch (this.type) { //set a case "null"
+    case "":
+      generateFunction = generateFactors;
+      break;
+  }
+  */
   if (!this.lastValue) this.lastValue = "no_value";
   if (newValue == "delete") {
     if (this.next) {
@@ -116,7 +123,7 @@ var dropdownValidator = function(newValue) {
     }
     sourceBlock.appendDummyInput(name)
       .setAlign(Blockly.ALIGN_CENTRE)
-      .appendField(this.next = new Blockly.FieldDropdown(generateFactors, dropdownValidator), field_name);
+      .appendField(this.next = new Blockly.FieldDropdown(generateFunction, dropdownValidator), field_name);
     this.next.lastValue = "no_value";
     this.next.prev = this;
     this.next.type = this.type;
@@ -130,13 +137,15 @@ var dropdownValidator = function(newValue) {
 //takes array of blocks and their type as input (type is a string just used for error tracking)
 //updates all dropdown fields in each block based on the content of factorsList
 //TODO: generalize to all dynamic dropdown types
-//TODO: change type to stand for dropdown type, not block type
+//TODO: change type to stand for dropdown field type, not block type
 var fixDropdown = function(blockList, type) {
   var globalList = factorsList;
+  var field_type = "factors";
   /*
   switch (this.getSourceBlock().type) {
     case "":
       globalList = factorsList;
+      field_type = "factors";
       break;
   }
   */
@@ -145,9 +154,9 @@ var fixDropdown = function(blockList, type) {
   } else {
     var currField;
     if (globalList.length == 0) {
-      console.log("fixDropdown() called with factorsList empty.");
+      console.log("fixDropdown() called with globalList empty.");
       for (var i = 0; i < blockList.length; i++) {
-        currField = blockList[i].getField("factors");
+        currField = blockList[i].getField(field_type);
         currField.getOptions(false);
         currField.setValue("no_value");
         currField.forceRerender();
@@ -156,7 +165,7 @@ var fixDropdown = function(blockList, type) {
       var currValue;
       var inList = false;
       for (var i = 0; i < blockList.length; i++) {
-        currField = blockList[i].getField("factors");
+        currField = blockList[i].getField(field_type);
         while (currField) {
           currValue = currField.getValue();
           //console.log("currValue: " + currValue);
