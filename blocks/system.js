@@ -94,8 +94,9 @@ var dropdownValidator = function(newValue) {
       break;
   }
   */
-  if (!this.lastValue) this.lastValue = "no_value";
-  if (newValue == "delete") {
+  if (newValue == "no_value") {
+    return newValue;
+  } else if (newValue == "delete") {
     if (this.next) {
       //reset pointers and remove from block
       this.prev.next = this.next;
@@ -108,7 +109,7 @@ var dropdownValidator = function(newValue) {
       return "no_value";
     }
   //if the dropdown is changed when there is no dropdown below this one:
-  } else if (newValue != this.lastValue && !this.next) {
+  } else if (!this.next) {
     //generate a random 8-char string to use as the new dummy input's name, and another for the field
     //string generator from https://stackoverflow.com/questions/1349404/generate-random-string-characters-in-javascript
     //field needs a unique name to play nice with Blockly
@@ -124,13 +125,10 @@ var dropdownValidator = function(newValue) {
     sourceBlock.appendDummyInput(name)
       .setAlign(Blockly.ALIGN_CENTRE)
       .appendField(this.next = new Blockly.FieldDropdown(generateFunction, dropdownValidator), field_name);
-    this.next.lastValue = "no_value";
     this.next.prev = this;
     this.next.type = this.type;
     if (sourceBlock.getInput("dropdown_end")) sourceBlock.moveInputBefore(name, "dropdown_end");
   }
-  this.lastValue = newValue;
-  console.log("lastValue of " + this.name + " changed to " + this.lastValue);
   return newValue;
 };
 
