@@ -14,25 +14,32 @@
 //first value is always the name field, second value is the corresponding block id
 var factorsList = [];
 var addFactorsList = [];
+var playbooksList = [];
 
 //called by blocks with global array representations to update those arrays when blocks are added or removed
-//TODO: generalize (switch statements or new functions?)
 var updateList = function(block, noBug) {
+  var parentSet = [];
+  switch (block.type) {
+    case "factor":
+      parentSet = block.workspace.getBlocksByType("mechanics");
+      break;
+    case "playbook":
+      parentSet = block.workspace.getBlocksByType("player_rules");
+  }
   //start with empty list
   var list = [];
   var addList = [];
   //find the first block in the relevant input
   var currblock;
-  var parentSet = block.workspace.getBlocksByType("mechanics");
   for (var i = 0; i < parentSet.length; i++) {
-    if (parentSet[i].getInput("factor").connection.isConnected()) {
-      currblock = parentSet[i].getInput("factor").connection.targetConnection.getSourceBlock();
+    if (parentSet[i].getInput(block.type).connection.isConnected()) {
+      currblock = parentSet[i].getInput(block.type).connection.targetConnection.getSourceBlock();
     }
   }
   while (currblock) {
     if (currblock.getField("name").getValue() != "<name>"){
       list.push(new Array(currblock.getField("name").getValue(), currblock.id));
-      if (currblock.getField("isAdditive").getValue() == "TRUE") {
+      if (currblock.getField("isAdditive") && currblock.getField("isAdditive").getValue() == "TRUE") {
         addList.push(new Array(currblock.getField("name").getValue(), currblock.id));
       }
     }
@@ -42,11 +49,20 @@ var updateList = function(block, noBug) {
   //we solve this with a simple array pop
   if (!noBug) list.pop();
   //then reset factors in workspace blocks
-  factorsList = list;
-  addFactorsList = addList;
-  console.log("factorsList updated with content: " + factorsList.toString());
-  console.log("addFactorsList updated with content: " + addFactorsList.toString());
-  fixDropdownsByType(block.workspace, "factors");
+  switch (block.type) {
+    case "factor":
+      factorsList = list;
+      addFactorsList = addList;
+      console.log("factorsList updated with content: " + factorsList.toString());
+      console.log("addFactorsList updated with content: " + addFactorsList.toString());
+      fixDropdownsByType(block.workspace, "factors");
+      break;
+    case "playbook":
+      playbooksList = list;
+      console.log("playbooksList updated with content: " + playbooksList.toString());
+      //fixDropdownsByType(block.workspace, "playbooks");
+      break;
+  }
 };
 
 //sets contents of "factor" dropdown fields
@@ -140,7 +156,7 @@ var fixDropdown = function(blockList, type) {
   var globalList = factorsList;
   var field_type = "factors";
   /*
-  switch (this.getSourceBlock().type) {
+  switch (type) {
     case "":
       globalList = factorsList;
       field_type = "factors";
@@ -148,7 +164,7 @@ var fixDropdown = function(blockList, type) {
   }
   */
   if (blockList.length == 0) {
-    console.log("fixDropdown() called with empty array, block type: " + type);
+    console.log("fixDropdown() called with empty array, field type: " + type);
   } else {
     var currField;
     if (globalList.length == 0) {
@@ -772,7 +788,6 @@ Blockly.Blocks['playbook'] = {
     this.setColour(240);
     this.setTooltip("Defines a character playbook or class in the system.");
     this.setHelpUrl("");
-    /*
     this.setOnChange(function(changeEvent) {
       //if a playbook block
       if (this.workspace.getBlockById(changeEvent.blockId)
@@ -783,26 +798,26 @@ Blockly.Blocks['playbook'] = {
           if (changeEvent.newParentId == this.id) {
             console.log("updateList() called because of block becoming parent")
             updateList(this, true);
-      //or this block moves below a player_rules block,
+      //or this block moves below a player_rules block
           } else if (this.workspace.getBlockById(changeEvent.blockId) == this
             && this.workspace.getBlockById(changeEvent.newParentId)
             && this.workspace.getBlockById(changeEvent.newParentId).type == "player_rules") {
-      //then update around this block
             console.log("updateList() called because of block being moved below player_rules");
             updateList(this, true);
-      //of if this block has moved but does not have a parent,
+      //or if this block has moved but does not have a parent
           } else if (this.workspace.getBlockById(changeEvent.blockId) == this && !this.previousConnection.isConnected()) {
             console.log("updateList() called because of moved block becoming disconnected");
             updateList(this, false);
           }
-      //of if a block's name field is changed      
-        } else if (changeEvent.type == Blockly.Events.BLOCK_CHANGE && (changeEvent.name == "name" || changeEvent.name == "isAdditive")) {
+      //or if this block's name field is changed      
+        } else if (changeEvent.type == Blockly.Events.BLOCK_CHANGE
+            && this.workspace.getBlockById(changeEvent.blockId) == this
+            && changeEvent.name == "name") {
           console.log("updateList() called because of name change");
           updateList(this, true);
         }
       }
     });
-    */
   }
 };
 
