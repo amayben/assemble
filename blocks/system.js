@@ -60,7 +60,6 @@ var updateList = function(block, noBug) {
     case "playbook":
       playbooksList = list;
       console.log("playbooksList updated with content: " + playbooksList.toString());
-      //fixDropdownsByType(block.workspace, "playbooks");
       break;
   }
 };
@@ -91,7 +90,19 @@ var generateAddFactors = function() {
   }
   if (this.name != "addFactors")
     options.push(["<delete>","delete"]);
-  console.log("generateAddFactors called with output: " + options.toString());
+  //console.log("generateAddFactors called with output: " + options.toString());
+  return options;
+};
+
+var generatePlaybooks = function() {
+  var optionsList = playbooksList;
+  var options = [["<select>","no_value"]];
+  if (optionsList.length > 0) {
+    for (var i = 0; i < optionsList.length; i++) {
+      options.push(optionsList[i]);
+    }
+  }
+  console.log("generatePlaybooks called with output: " + options.toString());
   return options;
 };
 
@@ -726,7 +737,7 @@ Blockly.Blocks['playbook_creation'] = {
     this.appendDummyInput()
         .setAlign(Blockly.ALIGN_CENTRE)
         .appendField("Steps for Playbook: ")
-        .appendField(new Blockly.FieldDropdown([["option","no_value"]]), "name");
+        .appendField(new Blockly.FieldDropdown(generatePlaybooks), "name");
     this.appendStatementInput("creation_step")
         .setCheck("creation_step");
     this.setInputsInline(false);
