@@ -534,20 +534,21 @@ Blockly.Blocks['factor'] = {
           if (changeEvent.newParentId == this.id) {
             console.log("updateList() called because of block becoming parent")
             updateList(this, true);
-      //or this block moves below a mechanics block,
+      //or this block moves below a mechanics block
           } else if (this.workspace.getBlockById(changeEvent.blockId) == this
             && this.workspace.getBlockById(changeEvent.newParentId)
             && this.workspace.getBlockById(changeEvent.newParentId).type == "mechanics") {
-      //then update around this block
             console.log("updateList() called because of block being moved below mechanics");
             updateList(this, true);
-      //of if this block has moved but does not have a parent,
+      //or if this block has moved but does not have a parent
           } else if (this.workspace.getBlockById(changeEvent.blockId) == this && !this.previousConnection.isConnected()) {
             console.log("updateList() called because of moved block becoming disconnected");
             updateList(this, false);
           }
-      //of if a block's name field is changed      
-        } else if (changeEvent.type == Blockly.Events.BLOCK_CHANGE && (changeEvent.name == "name" || changeEvent.name == "isAdditive")) {
+      //or if this block's name or additive field is changed      
+        } else if (changeEvent.type == Blockly.Events.BLOCK_CHANGE
+            && this.workspace.getBlockById(changeEvent.blockId) == this
+            && (changeEvent.name == "name" || changeEvent.name == "isAdditive")) {
           console.log("updateList() called because of name change");
           updateList(this, true);
         }
@@ -771,6 +772,37 @@ Blockly.Blocks['playbook'] = {
     this.setColour(240);
     this.setTooltip("Defines a character playbook or class in the system.");
     this.setHelpUrl("");
+    /*
+    this.setOnChange(function(changeEvent) {
+      //if a playbook block
+      if (this.workspace.getBlockById(changeEvent.blockId)
+        && this.workspace.getBlockById(changeEvent.blockId).type == "playbook") {
+      //moves
+        if (changeEvent.type == Blockly.Events.BLOCK_MOVE && changeEvent.oldParentId != changeEvent.newParentId) {
+      //below this block
+          if (changeEvent.newParentId == this.id) {
+            console.log("updateList() called because of block becoming parent")
+            updateList(this, true);
+      //or this block moves below a player_rules block,
+          } else if (this.workspace.getBlockById(changeEvent.blockId) == this
+            && this.workspace.getBlockById(changeEvent.newParentId)
+            && this.workspace.getBlockById(changeEvent.newParentId).type == "player_rules") {
+      //then update around this block
+            console.log("updateList() called because of block being moved below player_rules");
+            updateList(this, true);
+      //of if this block has moved but does not have a parent,
+          } else if (this.workspace.getBlockById(changeEvent.blockId) == this && !this.previousConnection.isConnected()) {
+            console.log("updateList() called because of moved block becoming disconnected");
+            updateList(this, false);
+          }
+      //of if a block's name field is changed      
+        } else if (changeEvent.type == Blockly.Events.BLOCK_CHANGE && (changeEvent.name == "name" || changeEvent.name == "isAdditive")) {
+          console.log("updateList() called because of name change");
+          updateList(this, true);
+        }
+      }
+    });
+    */
   }
 };
 
