@@ -126,7 +126,7 @@ var dropdownValidator = function(newValue) {
       console.log("dropdownValidator called while displayText is empty.");
     } else {
       sourceBlock.factors.push(displayText);
-      console.log("factors field updated with content: " sourceBlock.factors.toString());
+      console.log("factors field updated with content: " + sourceBlock.factors.toString());
       sourceBlock.updateFactors();
     }
   }
@@ -629,7 +629,7 @@ Blockly.Blocks['move'] = {
     this.updateFactors();
   },
   updateFactors: function() {
-    console.log("factors field read with content: " this.factors.toString());
+    console.log("factors field read with content: " + this.factors.toString());
     var name;
     for (var i = 0; i < this.factors.length; i++) {
       if (this.factors[i] != "") {
