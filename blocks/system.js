@@ -112,52 +112,32 @@ var generatePlaybooks = function() {
 //TODO: reimplement with mutators
 var dropdownValidator = function(newValue) {  
   var sourceBlock = this.getSourceBlock();
-  sourceBlock.setWarningText();
-  var generateFunction = generateFactors;
-  /*
-  switch (this.type) { //set a case "null"
-    case "":
-      generateFunction = generateFactors;
-      break;
-  }
-  */
-  if (newValue == "no_value") {
-    return newValue;
-  } else if (newValue == "delete") {
-    if (this.next) {
-      //reset pointers and remove from block
-      this.prev.next = this.next;
-      this.next.prev = this.prev;
-      sourceBlock.removeInput(this.getParentInput().name);
-      this.dispose();
-      return newValue;
-    } else {
-      sourceBlock.setWarningText("Deleting the last item will prevent you from adding more!");
-      return "no_value";
+  if (newValue != "no_value") {
+    var options = this.getOptions();
+    var displayText = "";
+    for (var i = 0; i < options.length; i++) {
+      if (options[i][1] == newValue) {
+        displayText = options[i][0];
+        break;
+      }
     }
-  //if the dropdown is changed when there is no dropdown below this one:
-  } else if (!this.next) {
-    //generate a random 8-char string to use as the new dummy input's name, and another for the field
-    //string generator from https://stackoverflow.com/questions/1349404/generate-random-string-characters-in-javascript
-    //field needs a unique name to play nice with Blockly
-    //input needs a unique name to move it into the right place within the block;
-    //later we can just access it from the field it contains via the linked list
-    var name = Math.random().toString(36).replace(/[^a-z]+/g, '').substr(0, 8);
-    var field_name = Math.random().toString(36).replace(/[^a-z]+/g, '').substr(0, 8);
-    while (sourceBlock.getInput(name) || sourceBlock.getField(field_name)) {
-      //in the exceedingly rare case that we generated a non-unique string for the block, run the code again until it's unique
-      var name = Math.random().toString(36).replace(/[^a-z]+/g, '').substr(0, 8);
-      var field_name = Math.random().toString(36).replace(/[^a-z]+/g, '').substr(0, 8);
-    }
-    sourceBlock.appendDummyInput(name)
+    sourceBlock.appendDummyInput(newValue)
       .setAlign(Blockly.ALIGN_CENTRE)
-      .appendField(this.next = new Blockly.FieldDropdown(generateFunction, dropdownValidator), field_name);
-    this.next.prev = this;
-    this.next.type = this.type;
-    if (sourceBlock.getInput("dropdown_end")) sourceBlock.moveInputBefore(name, "dropdown_end");
+      .appendField(displayText + " ")
+      .appendField(new Blockly.FieldCheckbox(true, deleteButtonValidator)/*.setCheckCharacter('X')*/, newValue);
+    sourceBlock.moveInputBefore(newValue, "dropdown");
+  }
+  return "no_value";
+};
+
+var deleteButtonValidator = function(newValue) {
+  var sourceBlock = this.getSourceBlock();
+  if (newValue == "FALSE") {
+    sourceBlock.removeInput(this.name);
+    this.dispose();
   }
   return newValue;
-};
+}
 
 //takes array of blocks and their type as input (type is a string just used for error tracking)
 //updates all dropdown fields in each block based on the content of factorsList
@@ -595,11 +575,11 @@ Blockly.Blocks['move'] = {
     this.appendDummyInput()
         .setAlign(Blockly.ALIGN_CENTRE)
         .appendField("Factors:");
-    this.appendDummyInput()
+    this.appendDummyInput("dropdown")
         .setAlign(Blockly.ALIGN_CENTRE)
         .appendField(new Blockly.FieldDropdown(generateFactors, dropdownValidator), "factors");
         this.getField("factors").type = "factors";
-    this.appendDummyInput("dropdown_end")
+    this.appendDummyInput()
         .setAlign(Blockly.ALIGN_CENTRE)
         .appendField("Description:")
         .appendField(new Blockly.FieldTextInput("<description>"), "desc");
