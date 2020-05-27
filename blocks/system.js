@@ -125,17 +125,9 @@ var dropdownValidator = function(newValue) {
     if (displayText == "") {
       console.log("dropdownValidator called while displayText is empty.");
     } else {
-      var name = Math.random().toString(36).replace(/[^a-z]+/g, '').substr(0, 8);
-      while (sourceBlock.getInput(name)) {
-        //in the exceedingly rare case that we generated a non-unique string for the block, run the code again until it's unique
-        name = Math.random().toString(36).replace(/[^a-z]+/g, '').substr(0, 8);
-      }
-      sourceBlock.appendDummyInput(name)
-        .setAlign(Blockly.ALIGN_CENTRE)
-        .appendField(displayText + " ")
-        .appendField(new Blockly.FieldCheckbox(true, deleteButtonValidator), name);
-      sourceBlock.moveInputBefore(name, "dropdown");
       sourceBlock.factors.push(displayText);
+      console.log("factors field updated with content: " sourceBlock.factors.toString());
+      sourceBlock.updateFactors();
     }
   }
   return "no_value";
@@ -143,8 +135,11 @@ var dropdownValidator = function(newValue) {
 
 var deleteButtonValidator = function(newValue) {
   var sourceBlock = this.getSourceBlock();
+  var arr = sourceBlock.factors;
+  var input = this.getParentInput();
   if (newValue == "FALSE") {
-    sourceBlock.removeInput(this.getParentInput().name);
+    arr.splice(input.index, 1);
+    sourceBlock.removeInput(input.name);
     this.dispose();
   }
   return newValue;
@@ -621,6 +616,35 @@ Blockly.Blocks['move'] = {
     } else {
       this.removeInput("addFactors", true);
       //TODO: and other inputs
+    }
+  },
+  mutationToDom: function() {
+    var container = document.createElement('mutation');
+    var factorString = (this.factors.toString());
+    container.setAttribute('factors', factorString);
+    return container;
+  },
+  domToMutation: function(xmlElement) {
+    this.factors = xmlElement.getAttribute('factors').split(",");
+    this.updateFactors();
+  },
+  updateFactors: function() {
+    console.log("factors field read with content: " this.factors.toString());
+    var name;
+    for (var i = 0; i < this.factors.length; i++) {
+      if (this.factors[i] != "") {
+        name = Math.random().toString(36).replace(/[^a-z]+/g, '').substr(0, 8);
+        while (this.getInput(name)) {
+          //in the exceedingly rare case that we generated a non-unique string for the block, run the code again until it's unique
+          name = Math.random().toString(36).replace(/[^a-z]+/g, '').substr(0, 8);
+        }
+        this.appendDummyInput(name)
+          .setAlign(Blockly.ALIGN_CENTRE)
+          .appendField(this.factors[i] + " ")
+          .appendField(new Blockly.FieldCheckbox(true, deleteButtonValidator), name);
+        this.getInput(name).index = i;
+        this.moveInputBefore(name, "dropdown");
+      }
     }
   }
 };
