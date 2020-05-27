@@ -9,6 +9,7 @@
  * @author amayben@ucsc.edu (Alexander Mayben)
  */
 'use strict';
+Blockly.FieldCheckbox.CHECK_CHAR = "X";
 
 //global arrays (shared between blocks for communication)
 //first value is always the name field, second value is the corresponding block id
@@ -121,11 +122,21 @@ var dropdownValidator = function(newValue) {
         break;
       }
     }
-    sourceBlock.appendDummyInput(newValue)
-      .setAlign(Blockly.ALIGN_CENTRE)
-      .appendField(displayText + " ")
-      .appendField(new Blockly.FieldCheckbox(true, deleteButtonValidator)/*.setCheckCharacter('X')*/, newValue);
-    sourceBlock.moveInputBefore(newValue, "dropdown");
+    if (displayText == "") {
+      console.log("dropdownValidator called while displayText is empty.");
+    } else {
+      var name = Math.random().toString(36).replace(/[^a-z]+/g, '').substr(0, 8);
+      while (sourceBlock.getInput(name)) {
+        //in the exceedingly rare case that we generated a non-unique string for the block, run the code again until it's unique
+        name = Math.random().toString(36).replace(/[^a-z]+/g, '').substr(0, 8);
+      }
+      sourceBlock.appendDummyInput(name)
+        .setAlign(Blockly.ALIGN_CENTRE)
+        .appendField(displayText + " ")
+        .appendField(new Blockly.FieldCheckbox(true, deleteButtonValidator), name);
+      sourceBlock.moveInputBefore(name, "dropdown");
+      sourceBlock.factors.push(displayText);
+    }
   }
   return "no_value";
 };
@@ -133,7 +144,7 @@ var dropdownValidator = function(newValue) {
 var deleteButtonValidator = function(newValue) {
   var sourceBlock = this.getSourceBlock();
   if (newValue == "FALSE") {
-    sourceBlock.removeInput(this.name);
+    sourceBlock.removeInput(this.getParentInput().name);
     this.dispose();
   }
   return newValue;
@@ -568,6 +579,7 @@ Blockly.Blocks['factor'] = {
 //TODO: adds_factor checkbox validator
 Blockly.Blocks['move'] = {
   init: function() {
+    this.factors = [];
     this.appendDummyInput()
         .setAlign(Blockly.ALIGN_CENTRE)
         .appendField("Move:")
