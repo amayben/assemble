@@ -631,19 +631,18 @@ Blockly.Blocks['move'] = {
   updateFactors: function() {
     console.log("factors field read with content: " + this.factors.toString());
     var name;
+    //now populate
     for (var i = 0; i < this.factors.length; i++) {
+      //remove existing factor from block first
+      this.removeInput("a" + i, true);
       if (this.factors[i] != "") {
-        name = Math.random().toString(36).replace(/[^a-z]+/g, '').substr(0, 8);
-        while (this.getInput(name)) {
-          //in the exceedingly rare case that we generated a non-unique string for the block, run the code again until it's unique
-          name = Math.random().toString(36).replace(/[^a-z]+/g, '').substr(0, 8);
-        }
-        this.appendDummyInput(name)
+        console.log("Appending new input a" + i);
+        this.appendDummyInput("a" + i)
           .setAlign(Blockly.ALIGN_CENTRE)
           .appendField(this.factors[i] + " ")
           .appendField(new Blockly.FieldCheckbox(true, deleteButtonValidator), name);
-        this.getInput(name).index = i;
-        this.moveInputBefore(name, "dropdown");
+        this.getInput("a" + i).index = i;
+        this.moveInputBefore("a" + i, "dropdown");
       }
     }
   }
