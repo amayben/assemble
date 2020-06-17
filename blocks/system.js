@@ -38,7 +38,8 @@ var updateList = function(block, noBug) {
     }
   }
   while (currblock) {
-    if (currblock.getField("name").getValue() != "<name>"){
+    if (currblock.getField("name").getValue() != "<name>"
+      && currblock.getField("name").getValue() != "-0-"){
       list.push(new Array(currblock.getField("name").getValue(), currblock.id));
       if (currblock.getField("isAdditive") && currblock.getField("isAdditive").getValue() == "TRUE") {
         addList.push(new Array(currblock.getField("name").getValue(), currblock.id));
@@ -138,7 +139,11 @@ var deleteButtonValidator = function(newValue) {
   var arr = sourceBlock.factors;
   var input = this.getParentInput();
   if (newValue == "FALSE") {
-    arr.splice(input.index, 1);
+    //replace element in array with a dummy statement
+    //tells updateFactors which inputs to remove before running mutator code
+    //will be removed from array by updateFactors
+    arr[input.index] = "-0-";
+    console.log("dbv: Removing input " + input.name);
     sourceBlock.removeInput(input.name);
     this.dispose();
   }
@@ -631,11 +636,28 @@ Blockly.Blocks['move'] = {
   updateFactors: function() {
     console.log("factors field read with content: " + this.factors.toString());
     var name;
+    //first scrub out extra inputs
+    for (var i = 0; i < this.factors.length; i++) {
+      if (this.factors[i] == "-0-") {
+        this.removeInput("a" + i, true);
+        console.log("cleanup: removed input a" + i);
+      }
+    }
+    //filter "-0-" from factors
+    this.factors = this.factors.filter(
+      function (e) {
+        return e != "-0-";
+      }
+    );
+    console.log("factors filtered, new content: " + this.factors.toString());
     //now populate
     for (var i = 0; i < this.factors.length; i++) {
       //remove existing factor from block first
-      this.removeInput("a" + i, true);
-      if (this.factors[i] != "") {
+      if (this.getInput("a" + i) != null) {
+        this.removeInput("a" + i, true);
+        console.log("input a" + i + " removed.");
+      }
+      if (this.factors[i] && this.factors[i] != "") {
         console.log("Appending new input a" + i);
         this.appendDummyInput("a" + i)
           .setAlign(Blockly.ALIGN_CENTRE)
@@ -766,6 +788,7 @@ Blockly.Blocks['playbook_creation'] = {
 
 Blockly.Blocks['creation_step'] = {
   init: function() {
+    this.factors = [];
     this.appendDummyInput()
         .setAlign(Blockly.ALIGN_CENTRE)
         .appendField("Step: ")
@@ -777,7 +800,7 @@ Blockly.Blocks['creation_step'] = {
     this.appendDummyInput()
         .setAlign(Blockly.ALIGN_CENTRE)
         .appendField("Factors: ");
-    this.appendDummyInput()
+    this.appendDummyInput("dropdown")
         .setAlign(Blockly.ALIGN_CENTRE)
         .appendField(new Blockly.FieldDropdown(generateFactors, dropdownValidator), "factors");
         this.getField("factors").type = "factors";
