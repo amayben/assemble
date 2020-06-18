@@ -111,7 +111,6 @@ var generatePlaybooks = function() {
 //catch-all validator for dynamic dropdown fields
 //maintains a double linked list for all dropdowns that is updated whenever the dropdown's value is set
 //head is getField("factors") for factors, getField("subtypes") for subtypes, etc
-//TODO: reimplement with mutators
 var dropdownValidator = function(newValue) {  
   var sourceBlock = this.getSourceBlock();
   if (newValue != "no_value") {
@@ -810,6 +809,51 @@ Blockly.Blocks['creation_step'] = {
     this.setColour(270);
     this.setTooltip("One step of the creation process.");
     this.setHelpUrl("");
+  },
+  mutationToDom: function() {
+    var container = document.createElement('mutation');
+    var factorString = (this.factors.toString());
+    container.setAttribute('factors', factorString);
+    return container;
+  },
+  domToMutation: function(xmlElement) {
+    this.factors = xmlElement.getAttribute('factors').split(",");
+    this.updateFactors();
+  },
+  updateFactors: function() {
+    console.log("factors field read with content: " + this.factors.toString());
+    var name;
+    //first scrub out extra inputs
+    for (var i = 0; i < this.factors.length; i++) {
+      if (this.factors[i] == "-0-") {
+        this.removeInput("a" + i, true);
+        console.log("cleanup: removed input a" + i);
+      }
+    }
+    //filter "-0-" from factors
+    this.factors = this.factors.filter(
+      function (e) {
+        return e != "-0-";
+      }
+    );
+    console.log("factors filtered, new content: " + this.factors.toString());
+    //now populate
+    for (var i = 0; i < this.factors.length; i++) {
+      //remove existing factor from block first
+      if (this.getInput("a" + i) != null) {
+        this.removeInput("a" + i, true);
+        console.log("input a" + i + " removed.");
+      }
+      if (this.factors[i] && this.factors[i] != "") {
+        console.log("Appending new input a" + i);
+        this.appendDummyInput("a" + i)
+          .setAlign(Blockly.ALIGN_CENTRE)
+          .appendField(this.factors[i] + " ")
+          .appendField(new Blockly.FieldCheckbox(true, deleteButtonValidator), name);
+        this.getInput("a" + i).index = i;
+        this.moveInputBefore("a" + i, "dropdown");
+      }
+    }
   }
 };
 
@@ -897,6 +941,7 @@ Blockly.Blocks['playbook_introduction'] = {
 
 Blockly.Blocks['resource'] = {
   init: function() {
+    this.factors = [];
     this.appendDummyInput()
         .setAlign(Blockly.ALIGN_CENTRE)
         .appendField("Resource: ")
@@ -908,11 +953,11 @@ Blockly.Blocks['resource'] = {
     this.appendDummyInput()
         .setAlign(Blockly.ALIGN_CENTRE)
         .appendField("Factors: ");
-    this.appendDummyInput()
+    this.appendDummyInput("dropdown")
         .setAlign(Blockly.ALIGN_CENTRE)
         .appendField(new Blockly.FieldDropdown(generateFactors, dropdownValidator), "factors");
         this.getField("factors").type = "factors";
-    this.appendDummyInput("dropdown_end")
+    this.appendDummyInput()
         .setAlign(Blockly.ALIGN_CENTRE)
         .appendField("Range: ")
         .appendField(new Blockly.FieldNumber(0), "lrange")
@@ -928,11 +973,57 @@ Blockly.Blocks['resource'] = {
     this.setColour(240);
     this.setTooltip("A statistic that a player tracks which can factor into certain moves.");
     this.setHelpUrl("");
+  },
+  mutationToDom: function() {
+    var container = document.createElement('mutation');
+    var factorString = (this.factors.toString());
+    container.setAttribute('factors', factorString);
+    return container;
+  },
+  domToMutation: function(xmlElement) {
+    this.factors = xmlElement.getAttribute('factors').split(",");
+    this.updateFactors();
+  },
+  updateFactors: function() {
+    console.log("factors field read with content: " + this.factors.toString());
+    var name;
+    //first scrub out extra inputs
+    for (var i = 0; i < this.factors.length; i++) {
+      if (this.factors[i] == "-0-") {
+        this.removeInput("a" + i, true);
+        console.log("cleanup: removed input a" + i);
+      }
+    }
+    //filter "-0-" from factors
+    this.factors = this.factors.filter(
+      function (e) {
+        return e != "-0-";
+      }
+    );
+    console.log("factors filtered, new content: " + this.factors.toString());
+    //now populate
+    for (var i = 0; i < this.factors.length; i++) {
+      //remove existing factor from block first
+      if (this.getInput("a" + i) != null) {
+        this.removeInput("a" + i, true);
+        console.log("input a" + i + " removed.");
+      }
+      if (this.factors[i] && this.factors[i] != "") {
+        console.log("Appending new input a" + i);
+        this.appendDummyInput("a" + i)
+          .setAlign(Blockly.ALIGN_CENTRE)
+          .appendField(this.factors[i] + " ")
+          .appendField(new Blockly.FieldCheckbox(true, deleteButtonValidator), name);
+        this.getInput("a" + i).index = i;
+        this.moveInputBefore("a" + i, "dropdown");
+      }
+    }
   }
 };
 
 Blockly.Blocks['feature'] = {
   init: function() {
+    this.factors = [];
     this.appendDummyInput()
         .setAlign(Blockly.ALIGN_CENTRE)
         .appendField("Feature: ")
@@ -944,7 +1035,7 @@ Blockly.Blocks['feature'] = {
     this.appendDummyInput()
         .setAlign(Blockly.ALIGN_CENTRE)
         .appendField("Factors:");
-    this.appendDummyInput()
+    this.appendDummyInput("dropdown")
         .setAlign(Blockly.ALIGN_CENTRE)
         .appendField(new Blockly.FieldDropdown(generateFactors, dropdownValidator), "factors");
         this.getField("factors").type = "factors";
@@ -954,11 +1045,57 @@ Blockly.Blocks['feature'] = {
     this.setColour(270);
     this.setTooltip("An ability or effect unique to a certain playbook.");
     this.setHelpUrl("");
+  },
+  mutationToDom: function() {
+    var container = document.createElement('mutation');
+    var factorString = (this.factors.toString());
+    container.setAttribute('factors', factorString);
+    return container;
+  },
+  domToMutation: function(xmlElement) {
+    this.factors = xmlElement.getAttribute('factors').split(",");
+    this.updateFactors();
+  },
+  updateFactors: function() {
+    console.log("factors field read with content: " + this.factors.toString());
+    var name;
+    //first scrub out extra inputs
+    for (var i = 0; i < this.factors.length; i++) {
+      if (this.factors[i] == "-0-") {
+        this.removeInput("a" + i, true);
+        console.log("cleanup: removed input a" + i);
+      }
+    }
+    //filter "-0-" from factors
+    this.factors = this.factors.filter(
+      function (e) {
+        return e != "-0-";
+      }
+    );
+    console.log("factors filtered, new content: " + this.factors.toString());
+    //now populate
+    for (var i = 0; i < this.factors.length; i++) {
+      //remove existing factor from block first
+      if (this.getInput("a" + i) != null) {
+        this.removeInput("a" + i, true);
+        console.log("input a" + i + " removed.");
+      }
+      if (this.factors[i] && this.factors[i] != "") {
+        console.log("Appending new input a" + i);
+        this.appendDummyInput("a" + i)
+          .setAlign(Blockly.ALIGN_CENTRE)
+          .appendField(this.factors[i] + " ")
+          .appendField(new Blockly.FieldCheckbox(true, deleteButtonValidator), name);
+        this.getInput("a" + i).index = i;
+        this.moveInputBefore("a" + i, "dropdown");
+      }
+    }
   }
 };
 
 Blockly.Blocks['equipment_type'] = {
   init: function() {
+    this.factors = [];
     this.appendDummyInput()
         .setAlign(Blockly.ALIGN_CENTRE)
         .appendField("Equipment Type: ")
@@ -970,11 +1107,11 @@ Blockly.Blocks['equipment_type'] = {
     this.appendDummyInput()
         .setAlign(Blockly.ALIGN_CENTRE)
         .appendField("Factors: ");
-    this.appendDummyInput()
+    this.appendDummyInput("dropdown")
         .setAlign(Blockly.ALIGN_CENTRE)
         .appendField(new Blockly.FieldDropdown(generateFactors, dropdownValidator), "factors");
         this.getField("factors").type = "factors";
-    this.appendDummyInput("dropdown_end")
+    this.appendDummyInput()
         .setAlign(Blockly.ALIGN_CENTRE)
         .appendField("Subtypes? ")
         .appendField(new Blockly.FieldCheckbox("FALSE", this.subtypeValidator), "hasSubtypes");
@@ -994,11 +1131,57 @@ Blockly.Blocks['equipment_type'] = {
   updateInput: function(){
     this.removeInput('subtype', true);
     if (this.showInput_) this.appendStatementInput('subtype').setCheck('subtype');
+  },
+  mutationToDom: function() {
+    var container = document.createElement('mutation');
+    var factorString = (this.factors.toString());
+    container.setAttribute('factors', factorString);
+    return container;
+  },
+  domToMutation: function(xmlElement) {
+    this.factors = xmlElement.getAttribute('factors').split(",");
+    this.updateFactors();
+  },
+  updateFactors: function() {
+    console.log("factors field read with content: " + this.factors.toString());
+    var name;
+    //first scrub out extra inputs
+    for (var i = 0; i < this.factors.length; i++) {
+      if (this.factors[i] == "-0-") {
+        this.removeInput("a" + i, true);
+        console.log("cleanup: removed input a" + i);
+      }
+    }
+    //filter "-0-" from factors
+    this.factors = this.factors.filter(
+      function (e) {
+        return e != "-0-";
+      }
+    );
+    console.log("factors filtered, new content: " + this.factors.toString());
+    //now populate
+    for (var i = 0; i < this.factors.length; i++) {
+      //remove existing factor from block first
+      if (this.getInput("a" + i) != null) {
+        this.removeInput("a" + i, true);
+        console.log("input a" + i + " removed.");
+      }
+      if (this.factors[i] && this.factors[i] != "") {
+        console.log("Appending new input a" + i);
+        this.appendDummyInput("a" + i)
+          .setAlign(Blockly.ALIGN_CENTRE)
+          .appendField(this.factors[i] + " ")
+          .appendField(new Blockly.FieldCheckbox(true, deleteButtonValidator), name);
+        this.getInput("a" + i).index = i;
+        this.moveInputBefore("a" + i, "dropdown");
+      }
+    }
   }
 };
 
 Blockly.Blocks['subtype'] = {
   init: function() {
+    this.factors = [];
     this.appendDummyInput()
         .setAlign(Blockly.ALIGN_CENTRE)
         .appendField("Subtype: ")
@@ -1010,11 +1193,11 @@ Blockly.Blocks['subtype'] = {
     this.appendDummyInput()
         .setAlign(Blockly.ALIGN_CENTRE)
         .appendField("Factors: ");
-    this.appendDummyInput()
+    this.appendDummyInput("dropdown")
         .setAlign(Blockly.ALIGN_CENTRE)
         .appendField(new Blockly.FieldDropdown(generateFactors, dropdownValidator), "factors");
         this.getField("factors").type = "factors";
-    this.appendDummyInput("dropdown_end")
+    this.appendDummyInput()
         .setAlign(Blockly.ALIGN_CENTRE)
         .appendField("Required by Parent Type? ")
         .appendField(new Blockly.FieldCheckbox("FALSE"), "isRequired");
@@ -1027,20 +1210,66 @@ Blockly.Blocks['subtype'] = {
     this.setTooltip("A subcategory of equipment items with a given type.");
     this.setHelpUrl("");
   },
-  subtypeValidator: function(newValue){
+  subtypeValidator: function(newValue) {
     var sourceBlock = this.getSourceBlock();
     sourceBlock.showInput_ = newValue == 'TRUE';
     sourceBlock.updateInput();
     return newValue;
   },
-  updateInput: function(){
+  updateInput: function() {
     this.removeInput('subtype', true);
     if (this.showInput_) this.appendStatementInput('subtype').setCheck('subtype');
+  },
+  mutationToDom: function() {
+    var container = document.createElement('mutation');
+    var factorString = (this.factors.toString());
+    container.setAttribute('factors', factorString);
+    return container;
+  },
+  domToMutation: function(xmlElement) {
+    this.factors = xmlElement.getAttribute('factors').split(",");
+    this.updateFactors();
+  },
+  updateFactors: function() {
+    console.log("factors field read with content: " + this.factors.toString());
+    var name;
+    //first scrub out extra inputs
+    for (var i = 0; i < this.factors.length; i++) {
+      if (this.factors[i] == "-0-") {
+        this.removeInput("a" + i, true);
+        console.log("cleanup: removed input a" + i);
+      }
+    }
+    //filter "-0-" from factors
+    this.factors = this.factors.filter(
+      function (e) {
+        return e != "-0-";
+      }
+    );
+    console.log("factors filtered, new content: " + this.factors.toString());
+    //now populate
+    for (var i = 0; i < this.factors.length; i++) {
+      //remove existing factor from block first
+      if (this.getInput("a" + i) != null) {
+        this.removeInput("a" + i, true);
+        console.log("input a" + i + " removed.");
+      }
+      if (this.factors[i] && this.factors[i] != "") {
+        console.log("Appending new input a" + i);
+        this.appendDummyInput("a" + i)
+          .setAlign(Blockly.ALIGN_CENTRE)
+          .appendField(this.factors[i] + " ")
+          .appendField(new Blockly.FieldCheckbox(true, deleteButtonValidator), name);
+        this.getInput("a" + i).index = i;
+        this.moveInputBefore("a" + i, "dropdown");
+      }
+    }
   }
 };
 
 Blockly.Blocks['extra_mechanic'] = {
   init: function() {
+    this.factors = [];
     this.appendDummyInput()
         .setAlign(Blockly.ALIGN_CENTRE)
         .appendField("Extra Mechanic:")
@@ -1052,11 +1281,11 @@ Blockly.Blocks['extra_mechanic'] = {
     this.appendDummyInput()
         .setAlign(Blockly.ALIGN_CENTRE)
         .appendField("Factors:");
-    this.appendDummyInput()
+    this.appendDummyInput("dropdown")
         .setAlign(Blockly.ALIGN_CENTRE)
         .appendField(new Blockly.FieldDropdown(generateFactors, dropdownValidator), "factors");
         this.getField("factors").type = "factors";
-    this.appendDummyInput("dropdown_end")
+    this.appendDummyInput()
         .setAlign(Blockly.ALIGN_CENTRE)
         .appendField("Special Resources?")
         .appendField(new Blockly.FieldCheckbox("FALSE", this.resourceValidator), "hasResources");
@@ -1092,11 +1321,57 @@ Blockly.Blocks['extra_mechanic'] = {
   updateMoveInput: function(){
     this.removeInput('move', true);
     if (this.showMoveInput_) this.appendStatementInput('move').setCheck('move');
+  },
+  mutationToDom: function() {
+    var container = document.createElement('mutation');
+    var factorString = (this.factors.toString());
+    container.setAttribute('factors', factorString);
+    return container;
+  },
+  domToMutation: function(xmlElement) {
+    this.factors = xmlElement.getAttribute('factors').split(",");
+    this.updateFactors();
+  },
+  updateFactors: function() {
+    console.log("factors field read with content: " + this.factors.toString());
+    var name;
+    //first scrub out extra inputs
+    for (var i = 0; i < this.factors.length; i++) {
+      if (this.factors[i] == "-0-") {
+        this.removeInput("a" + i, true);
+        console.log("cleanup: removed input a" + i);
+      }
+    }
+    //filter "-0-" from factors
+    this.factors = this.factors.filter(
+      function (e) {
+        return e != "-0-";
+      }
+    );
+    console.log("factors filtered, new content: " + this.factors.toString());
+    //now populate
+    for (var i = 0; i < this.factors.length; i++) {
+      //remove existing factor from block first
+      if (this.getInput("a" + i) != null) {
+        this.removeInput("a" + i, true);
+        console.log("input a" + i + " removed.");
+      }
+      if (this.factors[i] && this.factors[i] != "") {
+        console.log("Appending new input a" + i);
+        this.appendDummyInput("a" + i)
+          .setAlign(Blockly.ALIGN_CENTRE)
+          .appendField(this.factors[i] + " ")
+          .appendField(new Blockly.FieldCheckbox(true, deleteButtonValidator), name);
+        this.getInput("a" + i).index = i;
+        this.moveInputBefore("a" + i, "dropdown");
+      }
+    }
   }
 };
 
 Blockly.Blocks['playbook_move'] = {
   init: function() {
+    this.factors = [];
     this.appendDummyInput()
         .setAlign(Blockly.ALIGN_CENTRE)
         .appendField("Playbook Move:")
@@ -1108,11 +1383,11 @@ Blockly.Blocks['playbook_move'] = {
     this.appendDummyInput()
         .setAlign(Blockly.ALIGN_CENTRE)
         .appendField("Factors:");
-    this.appendDummyInput()
+    this.appendDummyInput("dropdown")
         .setAlign(Blockly.ALIGN_CENTRE)
         .appendField(new Blockly.FieldDropdown(generateFactors, dropdownValidator), "factors");
         this.getField("factors").type = "factors";
-    this.appendDummyInput("dropdown_end")
+    this.appendDummyInput()
         .setAlign(Blockly.ALIGN_CENTRE)
         .appendField("Adds Factor?")
         .appendField(new Blockly.FieldCheckbox("FALSE", this.additiveValidator), "addsFactor");
