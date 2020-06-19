@@ -57,7 +57,6 @@ var updateList = function(block, noBug) {
       addFactorsList = addList;
       console.log("factorsList updated with content: " + factorsList.toString());
       console.log("addFactorsList updated with content: " + addFactorsList.toString());
-      fixDropdownsByType(block.workspace, "factors");
       break;
     case "playbook":
       playbooksList = list;
@@ -148,90 +147,6 @@ var deleteButtonValidator = function(newValue) {
   }
   return newValue;
 }
-
-//takes array of blocks and their type as input (type is a string just used for error tracking)
-//updates all dropdown fields in each block based on the content of factorsList
-//TODO: generalize to all dynamic dropdown types
-//TODO: change type to stand for dropdown field type, not block type
-var fixDropdown = function(blockList, type) {
-  var globalList = factorsList;
-  var field_type = "factors";
-  /*
-  switch (type) {
-    case "":
-      globalList = factorsList;
-      field_type = "factors";
-      break;
-  }
-  */
-  if (blockList.length == 0) {
-    console.log("fixDropdown() called with empty array, field type: " + type);
-  } else {
-    var currField;
-    if (globalList.length == 0) {
-      console.log("fixDropdown() called with globalList empty.");
-      for (var i = 0; i < blockList.length; i++) {
-        currField = blockList[i].getField(field_type);
-        currField.getOptions(false);
-        currField.setValue("no_value");
-        currField.forceRerender();
-      }
-    } else {
-      var currValue;
-      var inList = false;
-      for (var i = 0; i < blockList.length; i++) {
-        currField = blockList[i].getField(field_type);
-        while (currField) {
-          currValue = currField.getValue();
-          //console.log("currValue: " + currValue);
-          //if the stored ID is still in the dropdown, set current field to that ID
-          for (var j = 0; j < globalList.length; j++) {
-            if (currValue == globalList[j][1]) {
-              inList = true;
-              break;
-            }
-          }
-          //regenerates contents of currField (done internally with generateFactors(), based on factorsList)
-          currField.getOptions(false);
-          if (!inList) {
-            if (currField.prev) {
-              currField.setValue("delete");
-            } else {
-              currField.setValue("no_value");
-            }
-          }
-          currField.forceRerender();
-          inList = false;
-          currField = currField.next;
-        }
-      }
-    }
-  }
-};
-
-//TODO: call function with dropdown type and separate with switch statement
-var fixDropdownsByType = function(workspace, type) {
-  switch (type) {
-    //acquire all blocks with "factors" fields and call our helper function, fixDropdown()
-    //sadly this has to be done once at a time for each block type that uses factors fields
-    case ("factors"):
-      fixDropdown(workspace.getBlocksByType("move"), "move");
-      fixDropdown(workspace.getBlocksByType("creation_step"), "creation_step");
-      fixDropdown(workspace.getBlocksByType("resource"), "resource");
-      fixDropdown(workspace.getBlocksByType("feature"), "feature");
-      fixDropdown(workspace.getBlocksByType("equipment_type"), "equipment_type");
-      fixDropdown(workspace.getBlocksByType("subtype"), "subtype");
-      fixDropdown(workspace.getBlocksByType("extra_mechanic"), "extra_mechanic");
-      fixDropdown(workspace.getBlocksByType("playbook_move"), "playbook_move");
-      break;
-    /*
-    case ("addFactors"):
-      fixDropdown(workspace.getBlocksByType("move"), "move");
-      break;
-    */
-  }
-  //template: fixDropdown(this.workspace.getBlocksByType(<type>), <type>);
-};
 
 Blockly.Blocks['setting'] = {
   init: function() {
