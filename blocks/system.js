@@ -16,7 +16,8 @@ Blockly.FieldCheckbox.CHECK_CHAR = "X";
 var factorsList = [];
 var addFactorsList = [];
 var playbooksList = [];
-var itemsList = []
+var typesList = [];
+var itemsList = [];
 
 //called by blocks with global array representations to update those arrays when blocks are added or removed
 var updateList = function(block, noBug) {
@@ -28,6 +29,7 @@ var updateList = function(block, noBug) {
     case "playbook":
       parentSet = block.workspace.getBlocksByType("player_rules");
       break;
+    case "equipment_type":
     case "item":
       parentSet = block.workspace.getBlocksByType("equipment");
       break;
@@ -67,9 +69,13 @@ var updateList = function(block, noBug) {
       playbooksList = list;
       console.log("playbooksList updated with " + playbooksList.toString());
       break;
+    case "equipment_type":
+      typesList = list;
+      console.log("typesList updated with " + typesList.toString());
+      break;
     case "item":
       itemsList = list;
-      console.log("itemsList updated with " + playbooksList.toString());
+      console.log("itemsList updated with " + itemsList.toString());
       break;
   }
 };
@@ -84,7 +90,6 @@ var generateFactors = function() {
       options.push(optionsList[i]);
     }
   }
-  //console.log("generateFactors called with output: " + options.toString());
   return options;
 };
 
@@ -96,7 +101,6 @@ var generateAddFactors = function() {
       options.push(optionsList[i]);
     }
   }
-  //console.log("generateAddFactors called with output: " + options.toString());
   return options;
 };
 
@@ -108,7 +112,17 @@ var generatePlaybooks = function() {
       options.push(optionsList[i]);
     }
   }
-  //console.log("generatePlaybooks called with output: " + options.toString());
+  return options;
+};
+
+var generateTypes = function() {
+  var optionsList = typesList;
+  var options = [["<select>","no_value"]];
+  if (optionsList.length > 0) {
+    for (var i = 0; i < optionsList.length; i++) {
+      options.push(optionsList[i]);
+    }
+  }
   return options;
 };
 
@@ -120,7 +134,6 @@ var generateItems = function() {
       options.push(optionsList[i]);
     }
   }
-  //console.log("generatePlaybooks called with output: " + options.toString());
   return options;
 };
 
@@ -142,7 +155,7 @@ var dropdownValidator = function(newValue) {
       console.log("dropdownValidator called on empty displayText");
     } else {
       sourceBlock.factors.push(displayText);
-      console.log("factors field updated with " + sourceBlock.factors.toString());
+      console.log(sourceBlock.type + " dropdown updated with " + sourceBlock.factors.toString());
       sourceBlock.updateFactors();
     }
   }
@@ -523,7 +536,6 @@ Blockly.Blocks['move'] = {
     this.appendDummyInput("dropdown")
         .setAlign(Blockly.ALIGN_CENTRE)
         .appendField(new Blockly.FieldDropdown(generateFactors, dropdownValidator), "factors");
-        this.getField("factors").type = "factors";
     this.appendDummyInput()
         .setAlign(Blockly.ALIGN_CENTRE)
         .appendField("Description:")
@@ -736,7 +748,6 @@ Blockly.Blocks['creation_step'] = {
     this.appendDummyInput("dropdown")
         .setAlign(Blockly.ALIGN_CENTRE)
         .appendField(new Blockly.FieldDropdown(generateFactors, dropdownValidator), "factors");
-        this.getField("factors").type = "factors";
     this.setInputsInline(false);
     this.setPreviousStatement(true, "creation_step");
     this.setNextStatement(true, "creation_step");
@@ -938,7 +949,6 @@ Blockly.Blocks['resource'] = {
     this.appendDummyInput("dropdown")
         .setAlign(Blockly.ALIGN_CENTRE)
         .appendField(new Blockly.FieldDropdown(generateFactors, dropdownValidator), "factors");
-        this.getField("factors").type = "factors";
     this.appendDummyInput()
         .setAlign(Blockly.ALIGN_CENTRE)
         .appendField("Range: ")
@@ -1020,7 +1030,6 @@ Blockly.Blocks['feature'] = {
     this.appendDummyInput("dropdown")
         .setAlign(Blockly.ALIGN_CENTRE)
         .appendField(new Blockly.FieldDropdown(generateFactors, dropdownValidator), "factors");
-        this.getField("factors").type = "factors";
     this.setInputsInline(false);
     this.setPreviousStatement(true, ["feature", "playbook_move"]);
     this.setNextStatement(true, ["feature", "playbook_move"]);
@@ -1092,7 +1101,6 @@ Blockly.Blocks['equipment_type'] = {
     this.appendDummyInput("dropdown")
         .setAlign(Blockly.ALIGN_CENTRE)
         .appendField(new Blockly.FieldDropdown(generateFactors, dropdownValidator), "factors");
-        this.getField("factors").type = "factors";
     this.appendDummyInput()
         .setAlign(Blockly.ALIGN_CENTRE)
         .appendField("Subtypes? ")
@@ -1103,6 +1111,38 @@ Blockly.Blocks['equipment_type'] = {
     this.setColour(270);
     this.setTooltip("A category of certain equipment items, as well as that category's pertinent factors for its items to be used, and what subtypes it may be divided into.");
     this.setHelpUrl("");
+    this.setOnChange(function(changeEvent) {
+      //if an equipment_type block
+      if (this.workspace.getBlockById(changeEvent.blockId)
+        && this.workspace.getBlockById(changeEvent.blockId).type == "equipment_type") {
+      //moves
+        if (changeEvent.type == Blockly.Events.BLOCK_MOVE
+          && changeEvent.oldParentId != changeEvent.newParentId) {
+      //below this block
+          if (changeEvent.newParentId == this.id) {
+            console.log("updateList() called because of block becoming parent")
+            updateList(this, true);
+      //or this block moves below an equipment block
+          } else if (this.workspace.getBlockById(changeEvent.blockId) == this
+            && this.workspace.getBlockById(changeEvent.newParentId)
+            && this.workspace.getBlockById(changeEvent.newParentId).type == "equipment") {
+            console.log("updateList() called because of block being moved below equipment");
+            updateList(this, true);
+      //or if this block has moved but does not have a parent
+          } else if (this.workspace.getBlockById(changeEvent.blockId) == this
+            && !this.previousConnection.isConnected()) {
+            console.log("updateList() called because of moved block becoming disconnected");
+            updateList(this, false);
+          }
+      //or if this block's name field is changed      
+        } else if (changeEvent.type == Blockly.Events.BLOCK_CHANGE
+            && this.workspace.getBlockById(changeEvent.blockId) == this
+            && changeEvent.name == "name") {
+          console.log("updateList() called because of name change");
+          updateList(this, true);
+        }
+      }
+    });
   },
   subtypeValidator: function(newValue){
     var sourceBlock = this.getSourceBlock();
@@ -1178,7 +1218,6 @@ Blockly.Blocks['subtype'] = {
     this.appendDummyInput("dropdown")
         .setAlign(Blockly.ALIGN_CENTRE)
         .appendField(new Blockly.FieldDropdown(generateFactors, dropdownValidator), "factors");
-        this.getField("factors").type = "factors";
     this.appendDummyInput()
         .setAlign(Blockly.ALIGN_CENTRE)
         .appendField("Required by Parent Type? ")
@@ -1266,7 +1305,6 @@ Blockly.Blocks['extra_mechanic'] = {
     this.appendDummyInput("dropdown")
         .setAlign(Blockly.ALIGN_CENTRE)
         .appendField(new Blockly.FieldDropdown(generateFactors, dropdownValidator), "factors");
-        this.getField("factors").type = "factors";
     this.appendDummyInput()
         .setAlign(Blockly.ALIGN_CENTRE)
         .appendField("Special Resources?")
@@ -1368,7 +1406,6 @@ Blockly.Blocks['playbook_move'] = {
     this.appendDummyInput("dropdown")
         .setAlign(Blockly.ALIGN_CENTRE)
         .appendField(new Blockly.FieldDropdown(generateFactors, dropdownValidator), "factors");
-        this.getField("factors").type = "factors";
     this.appendDummyInput()
         .setAlign(Blockly.ALIGN_CENTRE)
         .appendField("Adds Factor?")
@@ -1420,6 +1457,7 @@ Blockly.Blocks['equipment'] = {
 
 Blockly.Blocks['item'] = {
   init: function() {
+    this.types = [];
     this.appendDummyInput()
         .setAlign(Blockly.ALIGN_CENTRE)
         .appendField("Item: ")
@@ -1431,9 +1469,9 @@ Blockly.Blocks['item'] = {
     this.appendDummyInput()
         .setAlign(Blockly.ALIGN_CENTRE)
         .appendField("Types: ");
-    this.appendDummyInput()
+    this.appendDummyInput("dropdown1")
         .setAlign(Blockly.ALIGN_CENTRE)
-        .appendField(new Blockly.FieldDropdown([["option","type1"]]), "types");
+        .appendField(new Blockly.FieldDropdown(generateTypes, this.typeDropdownValidator), "types");
     this.appendDummyInput()
         .setAlign(Blockly.ALIGN_CENTRE)
         .appendField("Subtypes:");
@@ -1478,5 +1516,86 @@ Blockly.Blocks['item'] = {
         }
       }
     });
+  },
+  typeDropdownValidator: function(newValue) {  
+    var sourceBlock = this.getSourceBlock();
+    if (newValue != "no_value") {
+      var options = this.getOptions();
+      var displayText = "";
+      for (var i = 0; i < options.length; i++) {
+        if (options[i][1] == newValue) {
+          displayText = options[i][0];
+          break;
+        }
+      }
+      if (displayText == "") {
+        console.log("typeDropdownValidator called on empty displayText");
+      } else {
+        sourceBlock.types.push(displayText);
+        console.log("types field updated with " + sourceBlock.types.toString());
+        sourceBlock.updateTypes();
+      }
+    }
+    return "no_value";
+  },
+  typeDeleteValidator: function(newValue) {
+    var sourceBlock = this.getSourceBlock();
+    var arr = sourceBlock.types;
+    var input = this.getParentInput();
+    if (newValue == "FALSE") {
+      //replace element in array with a dummy statement
+      //tells updateTypes which inputs to remove before running mutator code
+      //will be removed from array by updateTypes
+      arr[input.index] = "-0-";
+      console.log("tdv: Removing input " + input.name);
+      sourceBlock.removeInput(input.name);
+      this.dispose();
+    }
+    return newValue;
+  },
+  mutationToDom: function() {
+    var container = document.createElement('mutation');
+    var typeString = (this.types.toString());
+    container.setAttribute('types', typeString);
+    return container;
+  },
+  domToMutation: function(xmlElement) {
+    this.types = xmlElement.getAttribute('types').split(",");
+    this.updateTypes();
+  },
+  updateTypes: function() {
+    console.log("types field read with content: " + this.types.toString());
+    var name;
+    //first scrub out extra inputs
+    for (var i = 0; i < this.types.length; i++) {
+      if (this.types[i] == "-0-") {
+        this.removeInput("a" + i, true);
+        console.log("cleanup: removed input a" + i);
+      }
+    }
+    //filter "-0-" from typess
+    this.types = this.types.filter(
+      function (e) {
+        return e != "-0-";
+      }
+    );
+    console.log("types filtered, new content: " + this.types.toString());
+    //now populate
+    for (var i = 0; i < this.types.length; i++) {
+      //remove existing type from block first
+      if (this.getInput("a" + i) != null) {
+        this.removeInput("a" + i, true);
+        console.log("input a" + i + " removed.");
+      }
+      if (this.types[i] && this.types[i] != "") {
+        console.log("Appending new input a" + i);
+        this.appendDummyInput("a" + i)
+          .setAlign(Blockly.ALIGN_CENTRE)
+          .appendField(this.types[i] + " ")
+          .appendField(new Blockly.FieldCheckbox(true, this.typeDeleteValidator), name);
+        this.getInput("a" + i).index = i;
+        this.moveInputBefore("a" + i, "dropdown1");
+      }
+    }
   }
 };
