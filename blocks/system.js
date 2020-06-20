@@ -16,6 +16,7 @@ Blockly.FieldCheckbox.CHECK_CHAR = "X";
 var factorsList = [];
 var addFactorsList = [];
 var playbooksList = [];
+var itemsList = []
 
 //called by blocks with global array representations to update those arrays when blocks are added or removed
 var updateList = function(block, noBug) {
@@ -26,6 +27,10 @@ var updateList = function(block, noBug) {
       break;
     case "playbook":
       parentSet = block.workspace.getBlocksByType("player_rules");
+      break;
+    case "item":
+      parentSet = block.workspace.getBlocksByType("equipment");
+      break;
   }
   //start with empty list
   var list = [];
@@ -55,17 +60,21 @@ var updateList = function(block, noBug) {
     case "factor":
       factorsList = list;
       addFactorsList = addList;
-      console.log("factorsList updated with content: " + factorsList.toString());
-      console.log("addFactorsList updated with content: " + addFactorsList.toString());
+      console.log("factorsList updated with " + factorsList.toString());
+      console.log("addFactorsList updated with " + addFactorsList.toString());
       break;
     case "playbook":
       playbooksList = list;
-      console.log("playbooksList updated with content: " + playbooksList.toString());
+      console.log("playbooksList updated with " + playbooksList.toString());
+      break;
+    case "item":
+      itemsList = list;
+      console.log("itemsList updated with " + playbooksList.toString());
       break;
   }
 };
 
-//sets contents of "factor" dropdown fields
+//sets contents of dropdown fields
 //TODO: write additional generate functions for other dropdown types
 var generateFactors = function() {
   var optionsList = factorsList;
@@ -75,8 +84,6 @@ var generateFactors = function() {
       options.push(optionsList[i]);
     }
   }
-  if (this.name != "factors")
-    options.push(["<delete>","delete"]);
   //console.log("generateFactors called with output: " + options.toString());
   return options;
 };
@@ -89,8 +96,6 @@ var generateAddFactors = function() {
       options.push(optionsList[i]);
     }
   }
-  if (this.name != "addFactors")
-    options.push(["<delete>","delete"]);
   //console.log("generateAddFactors called with output: " + options.toString());
   return options;
 };
@@ -103,7 +108,19 @@ var generatePlaybooks = function() {
       options.push(optionsList[i]);
     }
   }
-  console.log("generatePlaybooks called with output: " + options.toString());
+  //console.log("generatePlaybooks called with output: " + options.toString());
+  return options;
+};
+
+var generateItems = function() {
+  var optionsList = itemsList;
+  var options = [["<select>","no_value"]];
+  if (optionsList.length > 0) {
+    for (var i = 0; i < optionsList.length; i++) {
+      options.push(optionsList[i]);
+    }
+  }
+  //console.log("generatePlaybooks called with output: " + options.toString());
   return options;
 };
 
@@ -122,10 +139,10 @@ var dropdownValidator = function(newValue) {
       }
     }
     if (displayText == "") {
-      console.log("dropdownValidator called while displayText is empty.");
+      console.log("dropdownValidator called on empty displayText");
     } else {
       sourceBlock.factors.push(displayText);
-      console.log("factors field updated with content: " + sourceBlock.factors.toString());
+      console.log("factors field updated with " + sourceBlock.factors.toString());
       sourceBlock.updateFactors();
     }
   }
@@ -461,7 +478,8 @@ Blockly.Blocks['factor'] = {
       if (this.workspace.getBlockById(changeEvent.blockId)
         && this.workspace.getBlockById(changeEvent.blockId).type == "factor") {
       //moves
-        if (changeEvent.type == Blockly.Events.BLOCK_MOVE && changeEvent.oldParentId != changeEvent.newParentId) {
+        if (changeEvent.type == Blockly.Events.BLOCK_MOVE
+          && changeEvent.oldParentId != changeEvent.newParentId) {
       //below this block
           if (changeEvent.newParentId == this.id) {
             console.log("updateList() called because of block becoming parent")
@@ -473,7 +491,8 @@ Blockly.Blocks['factor'] = {
             console.log("updateList() called because of block being moved below mechanics");
             updateList(this, true);
       //or if this block has moved but does not have a parent
-          } else if (this.workspace.getBlockById(changeEvent.blockId) == this && !this.previousConnection.isConnected()) {
+          } else if (this.workspace.getBlockById(changeEvent.blockId) == this
+            && !this.previousConnection.isConnected()) {
             console.log("updateList() called because of moved block becoming disconnected");
             updateList(this, false);
           }
@@ -774,6 +793,7 @@ Blockly.Blocks['creation_step'] = {
 
 Blockly.Blocks['playbook'] = {
   init: function() {
+    this.factors = [];
     this.appendDummyInput()
         .setAlign(Blockly.ALIGN_CENTRE)
         .appendField("Playbook: ")
@@ -787,9 +807,9 @@ Blockly.Blocks['playbook'] = {
     this.appendDummyInput()
         .setAlign(Blockly.ALIGN_CENTRE)
         .appendField("Starting Equipment:");
-    this.appendDummyInput()
+    this.appendDummyInput("dropdown")
         .setAlign(Blockly.ALIGN_CENTRE)
-        .appendField(new Blockly.FieldDropdown([["option","no_value"]]), "equipment");
+        .appendField(new Blockly.FieldDropdown(generateItems, dropdownValidator), "equipment");
     this.setInputsInline(false);
     this.setPreviousStatement(true, "playbook");
     this.setNextStatement(true, "playbook");
@@ -801,7 +821,8 @@ Blockly.Blocks['playbook'] = {
       if (this.workspace.getBlockById(changeEvent.blockId)
         && this.workspace.getBlockById(changeEvent.blockId).type == "playbook") {
       //moves
-        if (changeEvent.type == Blockly.Events.BLOCK_MOVE && changeEvent.oldParentId != changeEvent.newParentId) {
+        if (changeEvent.type == Blockly.Events.BLOCK_MOVE
+          && changeEvent.oldParentId != changeEvent.newParentId) {
       //below this block
           if (changeEvent.newParentId == this.id) {
             console.log("updateList() called because of block becoming parent")
@@ -813,7 +834,8 @@ Blockly.Blocks['playbook'] = {
             console.log("updateList() called because of block being moved below player_rules");
             updateList(this, true);
       //or if this block has moved but does not have a parent
-          } else if (this.workspace.getBlockById(changeEvent.blockId) == this && !this.previousConnection.isConnected()) {
+          } else if (this.workspace.getBlockById(changeEvent.blockId) == this
+            && !this.previousConnection.isConnected()) {
             console.log("updateList() called because of moved block becoming disconnected");
             updateList(this, false);
           }
@@ -826,6 +848,51 @@ Blockly.Blocks['playbook'] = {
         }
       }
     });
+  },
+  mutationToDom: function() {
+    var container = document.createElement('mutation');
+    var factorString = (this.factors.toString());
+    container.setAttribute('items', factorString);
+    return container;
+  },
+  domToMutation: function(xmlElement) {
+    this.factors = xmlElement.getAttribute('items').split(",");
+    this.updateFactors();
+  },
+  updateFactors: function() {
+    console.log("items field read with content: " + this.factors.toString());
+    var name;
+    //first scrub out extra inputs
+    for (var i = 0; i < this.factors.length; i++) {
+      if (this.factors[i] == "-0-") {
+        this.removeInput("a" + i, true);
+        console.log("cleanup: removed input a" + i);
+      }
+    }
+    //filter "-0-" from factors
+    this.factors = this.factors.filter(
+      function (e) {
+        return e != "-0-";
+      }
+    );
+    console.log("items filtered, new content: " + this.factors.toString());
+    //now populate
+    for (var i = 0; i < this.factors.length; i++) {
+      //remove existing factor from block first
+      if (this.getInput("a" + i) != null) {
+        this.removeInput("a" + i, true);
+        console.log("input a" + i + " removed.");
+      }
+      if (this.factors[i] && this.factors[i] != "") {
+        console.log("Appending new input a" + i);
+        this.appendDummyInput("a" + i)
+          .setAlign(Blockly.ALIGN_CENTRE)
+          .appendField(this.factors[i] + " ")
+          .appendField(new Blockly.FieldCheckbox(true, deleteButtonValidator), name);
+        this.getInput("a" + i).index = i;
+        this.moveInputBefore("a" + i, "dropdown");
+      }
+    }
   }
 };
 
@@ -1379,5 +1446,37 @@ Blockly.Blocks['item'] = {
     this.setColour(270);
     this.setTooltip("An item with predefined mechanics that can be acquired in the system.");
     this.setHelpUrl("");
+    this.setOnChange(function(changeEvent) {
+      //if an item block
+      if (this.workspace.getBlockById(changeEvent.blockId)
+        && this.workspace.getBlockById(changeEvent.blockId).type == "item") {
+      //moves
+        if (changeEvent.type == Blockly.Events.BLOCK_MOVE
+          && changeEvent.oldParentId != changeEvent.newParentId) {
+      //below this block
+          if (changeEvent.newParentId == this.id) {
+            console.log("updateList() called because of block becoming parent")
+            updateList(this, true);
+      //or this block moves below an equipment block
+          } else if (this.workspace.getBlockById(changeEvent.blockId) == this
+            && this.workspace.getBlockById(changeEvent.newParentId)
+            && this.workspace.getBlockById(changeEvent.newParentId).type == "equipment") {
+            console.log("updateList() called because of block being moved below equipment");
+            updateList(this, true);
+      //or if this block has moved but does not have a parent
+          } else if (this.workspace.getBlockById(changeEvent.blockId) == this
+            && !this.previousConnection.isConnected()) {
+            console.log("updateList() called because of moved block becoming disconnected");
+            updateList(this, false);
+          }
+      //or if this block's name field is changed      
+        } else if (changeEvent.type == Blockly.Events.BLOCK_CHANGE
+            && this.workspace.getBlockById(changeEvent.blockId) == this
+            && changeEvent.name == "name") {
+          console.log("updateList() called because of name change");
+          updateList(this, true);
+        }
+      }
+    });
   }
 };
