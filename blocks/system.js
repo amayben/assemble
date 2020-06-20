@@ -81,7 +81,6 @@ var updateList = function(block, noBug) {
 };
 
 //sets contents of dropdown fields
-//TODO: write additional generate functions for other dropdown types
 var generateFactors = function() {
   var optionsList = factorsList;
   var options = [["<select>","no_value"]];
@@ -138,8 +137,6 @@ var generateItems = function() {
 };
 
 //catch-all validator for dynamic dropdown fields
-//maintains a double linked list for all dropdowns that is updated whenever the dropdown's value is set
-//head is getField("factors") for factors, getField("subtypes") for subtypes, etc
 var dropdownValidator = function(newValue) {  
   var sourceBlock = this.getSourceBlock();
   if (newValue != "no_value") {
