@@ -45,9 +45,9 @@ var updateList = function(block, noBug) {
     }
   }
   while (currblock) {
-    if (currblock.getField("name").getValue() != "<name>"
-      && currblock.getField("name").getValue() != "-0-"){
-      list.push(new Array(currblock.getField("name").getValue(), currblock.id));
+    var name = currblock.getField("name").getValue();
+    if (name != "" && name != "<name>" && name != "-0-"){
+      list.push(new Array(name, currblock.id));
       if (currblock.getField("isAdditive") && currblock.getField("isAdditive").getValue() == "TRUE") {
         addList.push(new Array(currblock.getField("name").getValue(), currblock.id));
       }
