@@ -46,9 +46,10 @@ var updateList = function(block, noBug) {
   }
   while (currblock) {
     var name = currblock.getField("name").getValue();
-    if (name != "" && name != "<name>" && name != "-0-"){
+    if (name != "" && name != "<name>" && !name.includes("-0-") && !name.includes('|')){
       list.push(new Array(name, currblock.id));
-      if (currblock.getField("isAdditive") && currblock.getField("isAdditive").getValue() == "TRUE") {
+      if (currblock.getField("isAdditive")
+        && currblock.getField("isAdditive").getValue() == "TRUE") {
         addList.push(new Array(name, currblock.id));
       }
     }
@@ -542,6 +543,8 @@ Blockly.Blocks['move'] = {
         .setAlign(Blockly.ALIGN_CENTRE)
         .appendField("Additive Factor(s)?")
         .appendField(new Blockly.FieldCheckbox("FALSE", this.additiveValidator), "adds_factor");
+    this.appendDummyInput("dropdown2")
+        .setVisible(false);
     this.setInputsInline(false);
     this.setPreviousStatement(true, "move");
     this.setNextStatement(true, "move");
@@ -557,11 +560,11 @@ Blockly.Blocks['move'] = {
   },
   updateInput: function() {
     if (this.showInput_) {
-      this.appendDummyInput("dropdown2")
+      this.appendDummyInput("addFactorDropdown")
         .setAlign(Blockly.ALIGN_CENTRE)
         .appendField(new Blockly.FieldDropdown(generateAddFactors, this.addDropdownValidator), "addFactors");
     } else {
-      this.removeInput("dropdown2", true);
+      this.removeInput("addFactorDropdown", true);
       if (this.addFactors.length > 1
         || (this.addFactors.length = 1 && this.addFactors[0] != "")) {
         for (var i = 0; i < this.addFactors.length; i++) {
@@ -569,7 +572,7 @@ Blockly.Blocks['move'] = {
           this.addFactors[i] = "-0-";
           console.log(this.addFactors.toString());
         }
-        this.updateAddFactors();
+        this.updateFactors();
       }
     }
   },
@@ -589,7 +592,7 @@ Blockly.Blocks['move'] = {
       } else {
         sourceBlock.addFactors.push(displayText);
         console.log(sourceBlock.type + " dropdown updated with " + sourceBlock.addFactors.toString());
-        sourceBlock.updateAddFactors();
+        sourceBlock.updateFactors();
       }
     }
     return "no_value";
@@ -622,11 +625,10 @@ Blockly.Blocks['move'] = {
     this.factors = mutArrs[0].split(",");
     this.addFactors = mutArrs[1].split(",");
     this.updateFactors();
-    if (this.getInput("dropdown2") != null) this.updateAddFactors();
   },
   updateFactors: function() {
+    //update regular factors
     console.log("factors field read with content: " + this.factors.toString());
-    var name;
     //first scrub out extra inputs
     for (var i = 0; i < this.factors.length; i++) {
       if (this.factors[i] == "-0-") {
@@ -653,15 +655,14 @@ Blockly.Blocks['move'] = {
         this.appendDummyInput("a" + i)
           .setAlign(Blockly.ALIGN_CENTRE)
           .appendField(this.factors[i] + " ")
-          .appendField(new Blockly.FieldCheckbox(true, deleteButtonValidator), name);
+          .appendField(new Blockly.FieldCheckbox(true, deleteButtonValidator), "a" + i);
         this.getInput("a" + i).index = i;
         this.moveInputBefore("a" + i, "dropdown1");
       }
     }
-  },
-  updateAddFactors: function() {
+
+    //update additive factors
     console.log("addFactors field read with content: " + this.addFactors.toString());
-    var name;
     //first scrub out extra inputs
     for (var i = 0; i < this.addFactors.length; i++) {
       if (this.addFactors[i] == "-0-") {
@@ -677,20 +678,22 @@ Blockly.Blocks['move'] = {
     );
     console.log("addFactors filtered, new content: " + this.addFactors.toString());
     //now populate
-    for (var i = 0; i < this.addFactors.length; i++) {
-      //remove existing factor from block first
-      if (this.getInput("b" + i) != null) {
-        this.removeInput("b" + i, true);
-        console.log("input b" + i + " removed.");
-      }
-      if (this.addFactors[i] && this.addFactors[i] != "") {
-        console.log("Appending new input b" + i);
-        this.appendDummyInput("b" + i)
-          .setAlign(Blockly.ALIGN_CENTRE)
-          .appendField(this.addFactors[i] + " ")
-          .appendField(new Blockly.FieldCheckbox(true, this.addDBV), name);
-        this.getInput("b" + i).index = i;
-        this.moveInputBefore("b" + i, "dropdown2");
+    if (!(this.addFactors.length == 1 && this.addFactors[0]=="")) {
+      for (var i = 0; i < this.addFactors.length; i++) {
+        //remove existing factor from block first
+        if (this.getInput("b" + i) != null) {
+          this.removeInput("b" + i, true);
+          console.log("input b" + i + " removed.");
+        }
+        if (this.addFactors[i] && this.addFactors[i] != "") {
+          console.log("Appending new input b" + i);
+          this.appendDummyInput("b" + i)
+            .setAlign(Blockly.ALIGN_CENTRE)
+            .appendField(this.addFactors[i] + " ")
+            .appendField(new Blockly.FieldCheckbox(true, this.addDBV), "b" + i);
+          this.getInput("b" + i).index = i;
+          this.moveInputBefore("b" + i, "dropdown2");
+        }
       }
     }
   }
