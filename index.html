@@ -88,7 +88,14 @@
 		    </block>
 		    <block type="move">
 		      <field name="name">&lt;name&gt;</field>
-		      <mutation factors=""></mutation>
+		      <mutation factors="|"></mutation>
+		      <field name="factors">no_value</field>
+		      <field name="desc">&lt;description&gt;</field>
+		      <field name="adds_factor">FALSE</field>
+		    </block>
+		    <block type="playbook_move">
+		      <field name="name">&lt;name&gt;</field>
+		      <mutation factors="|"></mutation>
 		      <field name="factors">no_value</field>
 		      <field name="desc">&lt;description&gt;</field>
 		      <field name="adds_factor">FALSE</field>
@@ -137,24 +144,9 @@
 		      <mutation factors=""></mutation>
 		      <field name="factors">no_value</field>
 		    </block>
-		    <block type="playbook_move">
-		      <field name="name">&lt;name&gt;</field>
-		      <field name="desc">&lt;description&gt;</field>
-		      <field name="factors">no_value</field>
-		      <field name="addsFactor">FALSE</field>
-		    </block>
 		   </category>
-		   <category name="Other Mechanics" colour="#dd4444">
-		    <block type="resource">
-		      <field name="name">&lt;name&gt;</field>
-		      <field name="desc">&lt;description&gt;</field>
-		      <mutation factors=""></mutation>
-		      <field name="factors">no_value</field>
-		      <field name="lrange">0</field>
-		      <field name="rrange">1</field>
-		      <field name="init">0</field>
-		    </block>
-		    <block type="equipment"></block>
+		   <category name="Equipment" colour="#dd4444">
+		   	<block type="equipment"></block>
 		    <block type="equipment_type">
 		      <field name="name">&lt;name&gt;</field>
 		      <field name="desc">&lt;description&gt;</field>
@@ -177,6 +169,17 @@
 		      <field name="types">no_value</field>
 		      <field name="subtypes">subtype1</field>
 		  	</block>
+		   </category>
+		   <category name="Other Mechanics" colour="#a5a55b">
+		    <block type="resource">
+		      <field name="name">&lt;name&gt;</field>
+		      <field name="desc">&lt;description&gt;</field>
+		      <mutation factors=""></mutation>
+		      <field name="factors">no_value</field>
+		      <field name="lrange">0</field>
+		      <field name="rrange">1</field>
+		      <field name="init">0</field>
+		    </block>
 		    <block type="extra_mechanic">
 		      <field name="name">&lt;name&gt;</field>
 		      <field name="desc">&lt;description&gt;</field>
@@ -271,7 +274,7 @@
 		        <statement name="move">
 		          <block type="move" id="[c~k9@9[i;wcs?#)z7m~">
 		            <field name="name">&lt;name&gt;</field>
-		            <mutation factors=""></mutation>
+		            <mutation factors="|"></mutation>
 		            <field name="factors">no_value</field>
 		            <field name="desc">&lt;description&gt;</field>
 		            <field name="adds_factor">FALSE</field>
