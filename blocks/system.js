@@ -211,7 +211,7 @@ Blockly.Blocks['society'] = {
     this.appendDummyInput()
         .setAlign(Blockly.ALIGN_CENTRE)
         .appendField("Society of ")
-        .appendField(new Blockly.FieldTextInput("<region, race, social group, etc.>"), "name");
+        .appendField(new Blockly.FieldTextInput("<region, social group, etc.>"), "name");
     this.appendDummyInput()
         .appendField(new Blockly.FieldTextInput("<Describe how people in this social group live.>"), "desc");
     this.setInputsInline(false);
@@ -1238,94 +1238,7 @@ Blockly.Blocks['equipment_type'] = {
   },
   updateInput: function(){
     this.removeInput('subtype', true);
-    if (this.showInput_) this.appendStatementInput('subtype').setCheck('subtype');
-  },
-  mutationToDom: function() {
-    var container = document.createElement('mutation');
-    var factorString = (this.factors.toString());
-    container.setAttribute('factors', factorString);
-    return container;
-  },
-  domToMutation: function(xmlElement) {
-    this.factors = xmlElement.getAttribute('factors').split(",");
-    this.updateFactors();
-  },
-  updateFactors: function() {
-    console.log("factors field read with content: " + this.factors.toString());
-    var name;
-    //first scrub out extra inputs
-    for (var i = 0; i < this.factors.length; i++) {
-      if (this.factors[i] == "-0-") {
-        this.removeInput("a" + i, true);
-        console.log("cleanup: removed input a" + i);
-      }
-    }
-    //filter "-0-" from factors
-    this.factors = this.factors.filter(
-      function (e) {
-        return e != "-0-";
-      }
-    );
-    console.log("factors filtered, new content: " + this.factors.toString());
-    //now populate
-    for (var i = 0; i < this.factors.length; i++) {
-      //remove existing factor from block first
-      if (this.getInput("a" + i) != null) {
-        this.removeInput("a" + i, true);
-        console.log("input a" + i + " removed.");
-      }
-      if (this.factors[i] && this.factors[i] != "") {
-        console.log("Appending new input a" + i);
-        this.appendDummyInput("a" + i)
-          .setAlign(Blockly.ALIGN_CENTRE)
-          .appendField(this.factors[i] + " ")
-          .appendField(new Blockly.FieldCheckbox(true, deleteButtonValidator), name);
-        this.getInput("a" + i).index = i;
-        this.moveInputBefore("a" + i, "dropdown");
-      }
-    }
-  }
-};
-
-Blockly.Blocks['subtype'] = {
-  init: function() {
-    this.factors = [];
-    this.appendDummyInput()
-        .setAlign(Blockly.ALIGN_CENTRE)
-        .appendField("Subtype: ")
-        .appendField(new Blockly.FieldTextInput("<name>"), "name");
-    this.appendDummyInput()
-        .setAlign(Blockly.ALIGN_CENTRE)
-        .appendField("Description:")
-        .appendField(new Blockly.FieldTextInput("<description>"), "desc");
-    this.appendDummyInput()
-        .setAlign(Blockly.ALIGN_CENTRE)
-        .appendField("Factors: ");
-    this.appendDummyInput("dropdown")
-        .setAlign(Blockly.ALIGN_CENTRE)
-        .appendField(new Blockly.FieldDropdown(generateFactors, dropdownValidator), "factors");
-    this.appendDummyInput()
-        .setAlign(Blockly.ALIGN_CENTRE)
-        .appendField("Required by Parent Type? ")
-        .appendField(new Blockly.FieldCheckbox("FALSE"), "isRequired");
-    this.appendDummyInput()
-        .appendField("Subtypes? ")
-        .appendField(new Blockly.FieldCheckbox("FALSE", this.subtypeValidator), "hasSubtypes");
-    this.setPreviousStatement(true, "subtype");
-    this.setNextStatement(true, "subtype");
-    this.setColour(315);
-    this.setTooltip("A subcategory of equipment items with a given type.");
-    this.setHelpUrl("");
-  },
-  subtypeValidator: function(newValue) {
-    var sourceBlock = this.getSourceBlock();
-    sourceBlock.showInput_ = newValue == 'TRUE';
-    sourceBlock.updateInput();
-    return newValue;
-  },
-  updateInput: function() {
-    this.removeInput('subtype', true);
-    if (this.showInput_) this.appendStatementInput('subtype').setCheck('subtype');
+    if (this.showInput_) this.appendStatementInput('subtype').setCheck('equipment_type');
   },
   mutationToDom: function() {
     var container = document.createElement('mutation');
@@ -1791,7 +1704,7 @@ Blockly.Blocks['item'] = {
     optionsList = [];
     if (this.subtypes != null) optionsList = this.subtypes;
     if (optionsList.length > 0) {
-      blockArr = this.workspace.getBlocksByType("subtype");
+      blockArr = this.workspace.getBlocksByType("equipment_type"); //extra; fix later
       for (var i = 0; i < optionsList.length; i++) {
         if (optionsList[i] != "") {
           for (var j = 0; j < blockArr.length; j++) {
