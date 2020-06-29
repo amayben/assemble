@@ -46,7 +46,10 @@ var updateList = function(block, noBug) {
   }
   while (currblock) {
     var name = currblock.getField("name").getValue();
-    if (name != "" && name != "<name>" && !name.includes("-0-") && !name.includes('|')){
+    if (name != ""
+      && name != "<name>"
+      && !name.includes("-0-")
+      && !name.includes('|')){
       list.push(new Array(name, currblock.id));
       if (currblock.getField("isAdditive")
         && currblock.getField("isAdditive").getValue() == "TRUE") {
@@ -599,13 +602,12 @@ Blockly.Blocks['move'] = {
   },
   addDBV: function (newValue) {
     var sourceBlock = this.getSourceBlock();
-    var arr = sourceBlock.addFactors;
     var input = this.getParentInput();
     if (newValue == "FALSE") {
       //replace element in array with a dummy statement
       //tells updateFactors which inputs to remove before running mutator code
       //will be removed from array by updateFactors
-      arr[input.index] = "-0-";
+      sourceBlock.addFactors[input.index] = "-0-";
       console.log("dbv: Removing input " + input.name);
       sourceBlock.removeInput(input.name);
       this.dispose();
@@ -670,7 +672,7 @@ Blockly.Blocks['move'] = {
         console.log("cleanup: removed input b" + i);
       }
     }
-    //filter "-0-" from factors
+    //filter "-0-" from addFactors
     this.addFactors = this.addFactors.filter(
       function (e) {
         return e != "-0-";
@@ -1673,14 +1675,11 @@ Blockly.Blocks['equipment'] = {
 Blockly.Blocks['item'] = {
   init: function() {
     this.types = [];
+    this.subtypes = [];
     this.appendDummyInput()
         .setAlign(Blockly.ALIGN_CENTRE)
         .appendField("Item: ")
         .appendField(new Blockly.FieldTextInput("<name>"), "name");
-    this.appendDummyInput()
-        .setAlign(Blockly.ALIGN_CENTRE)
-        .appendField("Description:")
-        .appendField(new Blockly.FieldTextInput("<description>"), "desc");
     this.appendDummyInput()
         .setAlign(Blockly.ALIGN_CENTRE)
         .appendField("Types: ");
@@ -1690,9 +1689,13 @@ Blockly.Blocks['item'] = {
     this.appendDummyInput()
         .setAlign(Blockly.ALIGN_CENTRE)
         .appendField("Subtypes:");
+    this.appendDummyInput("dropdown2")
+        .setAlign(Blockly.ALIGN_CENTRE)
+        .appendField(new Blockly.FieldDropdown(this.generateSubtypes, this.subtypeDropdownValidator), "subtypes");
     this.appendDummyInput()
         .setAlign(Blockly.ALIGN_CENTRE)
-        .appendField(new Blockly.FieldDropdown([["option","subtype1"]]), "subtypes");
+        .appendField("Description:")
+        .appendField(new Blockly.FieldTextInput("<description>"), "desc");
     this.setInputsInline(false);
     this.setPreviousStatement(true, "item");
     this.setNextStatement(true, "item");
@@ -1753,16 +1756,112 @@ Blockly.Blocks['item'] = {
     }
     return "no_value";
   },
+  generateSubtypes: function() {
+    var optionsList = [];
+    var options = [["<select>","no_value"]];
+    var blockArr;
+    var currBlock;
+    if (this.types != null) optionsList = this.types;
+    if (optionsList.length > 0) {
+      blockArr = this.workspace.getBlocksByType("equipment_type");
+      for (var i = 0; i < optionsList.length; i++) {
+        if (optionsList[i] != "") {
+          for (var j = 0; j < blockArr.length; j++) {
+            if (blockArr[j].getInput("name")
+              && blockArr[j].getInput("name").value == optionsList[i]
+              && blockArr[j].getInput("subtype")
+              && blockArr[j].getInput("subtype").connection.isConnected()) {
+              currBlock = blockArr[j].getInput("subtype")
+                .connection.targetConnection.getSourceBlock();
+              while (currBlock) {
+                var name = currblock.getField("name").getValue();
+                if (name != ""
+                  && name != "<name>"
+                  && !name.includes("-0-")
+                  && !name.includes('|')){
+                  list.push(new Array(name, currblock.id));
+                }
+                currblock = currblock.getNextBlock();
+              }
+            }
+          }
+        }
+      }
+    }
+    optionsList = [];
+    if (this.subtypes != null) optionsList = this.subtypes;
+    if (optionsList.length > 0) {
+      blockArr = this.workspace.getBlocksByType("subtype");
+      for (var i = 0; i < optionsList.length; i++) {
+        if (optionsList[i] != "") {
+          for (var j = 0; j < blockArr.length; j++) {
+            if (blockArr[j].getInput("name")
+              && blockArr[j].getInput("name").value == optionsList[i]
+              && blockArr[j].getInput("subtype")
+              && blockArr[j].getInput("subtype").connection.isConnected()) {
+              currBlock = blockArr[j].getInput("subtype")
+                .connection.targetConnection.getSourceBlock();
+              while (currBlock) {
+                var name = currblock.getField("name").getValue();
+                if (name != ""
+                  && name != "<name>"
+                  && !name.includes("-0-")
+                  && !name.includes('|')){
+                  list.push(new Array(name, currblock.id));
+                }
+                currblock = currblock.getNextBlock();
+              }
+            }
+          }
+        }
+      }
+    }
+    return options;
+  },
+  subtypeDropdownValidator: function(newValue) {
+    var sourceBlock = this.getSourceBlock();
+    if (newValue != "no_value") {
+      var options = this.getOptions();
+      var displayText = "";
+      for (var i = 0; i < options.length; i++) {
+        if (options[i][1] == newValue) {
+          displayText = options[i][0];
+          break;
+        }
+      }
+      if (displayText == "") {
+        console.log("typeDropdownValidator called on empty displayText");
+      } else {
+        sourceBlock.subtypes.push(displayText);
+        console.log("subtypes field updated with " + sourceBlock.subtypes.toString());
+        sourceBlock.updateTypes();
+      }
+    }
+    return "no_value";
+  },
   typeDeleteValidator: function(newValue) {
     var sourceBlock = this.getSourceBlock();
-    var arr = sourceBlock.types;
     var input = this.getParentInput();
     if (newValue == "FALSE") {
       //replace element in array with a dummy statement
       //tells updateTypes which inputs to remove before running mutator code
       //will be removed from array by updateTypes
-      arr[input.index] = "-0-";
+      sourceBlock.types[input.index] = "-0-";
       console.log("tdv: Removing input " + input.name);
+      sourceBlock.removeInput(input.name);
+      this.dispose();
+    }
+    return newValue;
+  },
+  subtypeDeleteValidator: function(newValue) {
+    var sourceBlock = this.getSourceBlock();
+    var input = this.getParentInput();
+    if (newValue == "FALSE") {
+      //replace element in array with a dummy statement
+      //tells updateTypes which inputs to remove before running mutator code
+      //will be removed from array by updateTypes
+      sourceBlock.subtypes[input.index] = "-0-";
+      console.log("sdv: Removing input " + input.name);
       sourceBlock.removeInput(input.name);
       this.dispose();
     }
@@ -1771,16 +1870,20 @@ Blockly.Blocks['item'] = {
   mutationToDom: function() {
     var container = document.createElement('mutation');
     var typeString = (this.types.toString());
-    container.setAttribute('types', typeString);
+    var subtypeString = (this.subtypes.toString());
+    container.setAttribute('types', (typeString+'|'+subtypeString));
+    console.log("types field set to " + (typeString+'|'+subtypeString));
     return container;
   },
   domToMutation: function(xmlElement) {
-    this.types = xmlElement.getAttribute('types').split(",");
+    var mutArrs = xmlElement.getAttribute('types').split("|");
+    this.types = mutArrs[0].split(",");
+    this.subtypes = mutArrs[1].split(",");
     this.updateTypes();
   },
   updateTypes: function() {
+    //update regular types
     console.log("types field read with content: " + this.types.toString());
-    var name;
     //first scrub out extra inputs
     for (var i = 0; i < this.types.length; i++) {
       if (this.types[i] == "-0-") {
@@ -1810,6 +1913,42 @@ Blockly.Blocks['item'] = {
           .appendField(new Blockly.FieldCheckbox(true, this.typeDeleteValidator), name);
         this.getInput("a" + i).index = i;
         this.moveInputBefore("a" + i, "dropdown1");
+      }
+    }
+
+    //update subtypes
+    console.log("subtypes field read with content: " + this.subtypes.toString());
+    //first scrub out extra inputs
+    for (var i = 0; i < this.subtypes.length; i++) {
+      if (this.subtypes[i] == "-0-") {
+        this.removeInput("b" + i, true);
+        console.log("cleanup: removed input b" + i);
+      }
+    }
+    //filter "-0-" from subtypes
+    this.subtypes = this.subtypes.filter(
+      function (e) {
+        return e != "-0-";
+      }
+    );
+    console.log("subtypes filtered, new content: " + this.subtypes.toString());
+    //now populate
+    if (!(this.subtypes.length == 1 && this.subtypes[0]=="")) {
+      for (var i = 0; i < this.subtypes.length; i++) {
+        //remove existing factor from block first
+        if (this.getInput("b" + i) != null) {
+          this.removeInput("b" + i, true);
+          console.log("input b" + i + " removed.");
+        }
+        if (this.subtypes[i] && this.subtypes[i] != "") {
+          console.log("Appending new input b" + i);
+          this.appendDummyInput("b" + i)
+            .setAlign(Blockly.ALIGN_CENTRE)
+            .appendField(this.subtypes[i] + " ")
+            .appendField(new Blockly.FieldCheckbox(true, this.subtypeDeleteValidator), "b" + i);
+          this.getInput("b" + i).index = i;
+          this.moveInputBefore("b" + i, "dropdown2");
+        }
       }
     }
   }
