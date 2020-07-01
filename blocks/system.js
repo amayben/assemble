@@ -38,25 +38,25 @@ var updateList = function(block, noBug) {
   var list = [];
   var addList = [];
   //find the first block in the relevant input
-  var currblock;
+  var currBlock;
   for (var i = 0; i < parentSet.length; i++) {
     if (parentSet[i].getInput(block.type).connection.isConnected()) {
-      currblock = parentSet[i].getInput(block.type).connection.targetConnection.getSourceBlock();
+      currBlock = parentSet[i].getInput(block.type).connection.targetConnection.getSourceBlock();
     }
   }
-  while (currblock) {
-    var name = currblock.getField("name").getValue();
+  while (currBlock) {
+    var name = currBlock.getField("name").getValue();
     if (name != ""
       && name != "<name>"
       && !name.includes("-0-")
       && !name.includes('|')){
-      list.push(new Array(name, currblock.id));
-      if (currblock.getField("isAdditive")
-        && currblock.getField("isAdditive").getValue() == "TRUE") {
-        addList.push(new Array(name, currblock.id));
+      list.push(new Array(name, currBlock.id));
+      if (currBlock.getField("isAdditive")
+        && currBlock.getField("isAdditive").getValue() == "TRUE") {
+        addList.push(new Array(name, currBlock.id));
       }
     }
-    currblock = currblock.getNextBlock();
+    currBlock = currBlock.getNextBlock();
   }
   //for whatever reason this array includes the head of the set of blocks that is removed
   //we solve this with a simple array pop
@@ -1197,7 +1197,7 @@ Blockly.Blocks['equipment_type'] = {
     this.setColour(270);
     this.setTooltip("A category of certain equipment items, as well as that category's pertinent factors for its items to be used, and what subtypes it may be divided into.");
     this.setHelpUrl("");
-    this.setOnChange(function(changeEvent) {
+    this.setOnChange(function(changeEvent) { //tighten event params? subtypes don't affect arr
       //if an equipment_type block
       if (this.workspace.getBlockById(changeEvent.blockId)
         && this.workspace.getBlockById(changeEvent.blockId).type == "equipment_type") {
@@ -1580,7 +1580,7 @@ Blockly.Blocks['equipment'] = {
     this.setInputsInline(false);
     this.setPreviousStatement(true, "equipment");
     this.setColour(240);
-    this.setTooltip("Items usable by the players.");
+    this.setTooltip("Items usable by players.");
     this.setHelpUrl("");
   }
 };
@@ -1589,6 +1589,7 @@ Blockly.Blocks['item'] = {
   init: function() {
     this.types = [];
     this.subtypes = [];
+    this.subtypeOptions = []; //add to mutator
     this.appendDummyInput()
         .setAlign(Blockly.ALIGN_CENTRE)
         .appendField("Item: ")
@@ -1664,70 +1665,42 @@ Blockly.Blocks['item'] = {
       } else {
         sourceBlock.types.push(displayText);
         console.log("types field updated with " + sourceBlock.types.toString());
+        var parentBlock = sourceBlock.workspace.getBlockById(newValue);
+        var currBlock;
+        //needs recursive implementation
+        if (parentBlock.getInput("subtype")
+          && parentBlock.getInput("subtype").connection.isConnected()) {
+          currBlock = parentBlock.getInput("subtype").connection.targetConnection.getSourceBlock();
+          while (currBlock) {
+            var name = currBlock.getField("name").getValue();
+            if (name != ""
+              && name != "<name>"
+              && !name.includes("-0-")
+              && !name.includes('|')){
+              sourceBlock.subtypeOptions.push(new Array(name, currBlock.id));
+              console.log("Pushing type with name " + name + " to subtypeOptions.");
+            }
+            currBlock = currBlock.getNextBlock();
+          }
+        }
         sourceBlock.updateTypes();
       }
     }
     return "no_value";
   },
+  //update types before generate? (could be getting called anyway)
   generateSubtypes: function() {
-    var optionsList = [];
     var options = [["<select>","no_value"]];
-    var blockArr;
-    var currBlock;
-    if (this.types != null) optionsList = this.types;
-    if (optionsList.length > 0) {
-      blockArr = this.workspace.getBlocksByType("equipment_type");
-      for (var i = 0; i < optionsList.length; i++) {
-        if (optionsList[i] != "") {
-          for (var j = 0; j < blockArr.length; j++) {
-            if (blockArr[j].getInput("name")
-              && blockArr[j].getInput("name").value == optionsList[i]
-              && blockArr[j].getInput("subtype")
-              && blockArr[j].getInput("subtype").connection.isConnected()) {
-              currBlock = blockArr[j].getInput("subtype")
-                .connection.targetConnection.getSourceBlock();
-              while (currBlock) {
-                var name = currblock.getField("name").getValue();
-                if (name != ""
-                  && name != "<name>"
-                  && !name.includes("-0-")
-                  && !name.includes('|')){
-                  list.push(new Array(name, currblock.id));
-                }
-                currblock = currblock.getNextBlock();
-              }
-            }
-          }
+    var sourceBlock = this.getSourceBlock();
+    if (sourceBlock) {
+      console.log("gs: parent block acquired");
+      if (sourceBlock.subtypeOptions && sourceBlock.subtypeOptions.length > 0) {
+        for (var i = 0; i < sourceBlock.subtypeOptions.length; i++) {
+          options.push(sourceBlock.subtypeOptions[i]);
         }
-      }
-    }
-    optionsList = [];
-    if (this.subtypes != null) optionsList = this.subtypes;
-    if (optionsList.length > 0) {
-      blockArr = this.workspace.getBlocksByType("equipment_type"); //extra; fix later
-      for (var i = 0; i < optionsList.length; i++) {
-        if (optionsList[i] != "") {
-          for (var j = 0; j < blockArr.length; j++) {
-            if (blockArr[j].getInput("name")
-              && blockArr[j].getInput("name").value == optionsList[i]
-              && blockArr[j].getInput("subtype")
-              && blockArr[j].getInput("subtype").connection.isConnected()) {
-              currBlock = blockArr[j].getInput("subtype")
-                .connection.targetConnection.getSourceBlock();
-              while (currBlock) {
-                var name = currblock.getField("name").getValue();
-                if (name != ""
-                  && name != "<name>"
-                  && !name.includes("-0-")
-                  && !name.includes('|')){
-                  list.push(new Array(name, currblock.id));
-                }
-                currblock = currblock.getNextBlock();
-              }
-            }
-          }
-        }
-      }
+      } else if (!sourceBlock.subtypeOptions) console.log("subtypeOptions returned null!");
+    } else {
+      console.log("gs: parent block not acquired");
     }
     return options;
   },
@@ -1747,6 +1720,24 @@ Blockly.Blocks['item'] = {
       } else {
         sourceBlock.subtypes.push(displayText);
         console.log("subtypes field updated with " + sourceBlock.subtypes.toString());
+        var parentBlock = sourceBlock.workspace.getBlockById(newValue);
+        var currBlock;
+        //needs recursive implementation
+        if (parentBlock.getInput("subtype")
+          && parentBlock.getInput("subtype").connection.isConnected()) {
+          currBlock = parentBlock.getInput("subtype").connection.targetConnection.getSourceBlock();
+          while (currBlock) {
+            var name = currBlock.getField("name").getValue();
+            if (name != ""
+              && name != "<name>"
+              && !name.includes("-0-")
+              && !name.includes('|')){
+              sourceBlock.subtypeOptions.push(new Array(name, currBlock.id));
+              console.log("Pushing type with name " + name + " to subtypeOptions.");
+            }
+            currBlock = currBlock.getNextBlock();
+          }
+        }
         sourceBlock.updateTypes();
       }
     }
@@ -1782,18 +1773,23 @@ Blockly.Blocks['item'] = {
   },
   mutationToDom: function() {
     var container = document.createElement('mutation');
-    var typeString = (this.types.toString());
-    var subtypeString = (this.subtypes.toString());
-    container.setAttribute('types', (typeString+'|'+subtypeString));
-    console.log("types field set to " + (typeString+'|'+subtypeString));
+    var mutObj = {types: this.types, subtypes: this.subtypes, options: this.subtypeOptions};
+    var mutJSON = JSON.stringify(mutObj);
+    container.setAttribute('types', mutJSON);
+    console.log("types field set to " + mutJSON);
     return container;
   },
   domToMutation: function(xmlElement) {
-    var mutArrs = xmlElement.getAttribute('types').split("|");
-    this.types = mutArrs[0].split(",");
-    this.subtypes = mutArrs[1].split(",");
+    var mutJSON = xmlElement.getAttribute('types');
+    if (mutJSON != "") {
+      var mutObj = JSON.parse(mutJSON);
+      this.types = mutObj.types;
+      this.subtypes = mutObj.subtypes;
+      this.subtypeOptions = mutObj.options;
+    }
     this.updateTypes();
   },
+  //TODO: filter subtypeOptions
   updateTypes: function() {
     //update regular types
     console.log("types field read with content: " + this.types.toString());
@@ -1804,7 +1800,7 @@ Blockly.Blocks['item'] = {
         console.log("cleanup: removed input a" + i);
       }
     }
-    //filter "-0-" from typess
+    //filter "-0-" from types
     this.types = this.types.filter(
       function (e) {
         return e != "-0-";
@@ -1864,5 +1860,7 @@ Blockly.Blocks['item'] = {
         }
       }
     }
+
+    //TODO: subtype options filter goes here
   }
 };
