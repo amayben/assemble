@@ -118,17 +118,6 @@ var generatePlaybooks = function() {
   return options;
 };
 
-var generateTypes = function() {
-  var optionsList = typesList;
-  var options = [["<select>","no_value"]];
-  if (optionsList.length > 0) {
-    for (var i = 0; i < optionsList.length; i++) {
-      options.push(optionsList[i]);
-    }
-  }
-  return options;
-};
-
 var generateItems = function() {
   var optionsList = itemsList;
   var options = [["<select>","no_value"]];
@@ -1599,7 +1588,7 @@ Blockly.Blocks['item'] = {
         .appendField("Types: ");
     this.appendDummyInput("dropdown1")
         .setAlign(Blockly.ALIGN_CENTRE)
-        .appendField(new Blockly.FieldDropdown(generateTypes, this.typeDropdownValidator), "types");
+        .appendField(new Blockly.FieldDropdown(this.generateTypes, this.typeDropdownValidator), "types");
     this.appendDummyInput()
         .setAlign(Blockly.ALIGN_CENTRE)
         .appendField("Subtypes:");
@@ -1649,6 +1638,28 @@ Blockly.Blocks['item'] = {
       }
     });
   },
+  generateTypes: function() {
+    var optionsList = typesList;
+    var sourceBlock = this.getSourceBlock();
+    //filter types from generated list if already in block
+    if (sourceBlock) {
+      optionsList = optionsList.filter(
+        function (e) {
+          for (var i = 0; i < sourceBlock.types.length; i++) {
+            if (e[0] == sourceBlock.types[i]) return false;
+          }
+          return true;
+        }
+      );
+    }
+    var options = [["<select>","no_value"]];
+    if (optionsList.length > 0) {
+      for (var i = 0; i < optionsList.length; i++) {
+        options.push(optionsList[i]);
+      }
+    }
+    return options;
+  },
   typeDropdownValidator: function(newValue) {  
     var sourceBlock = this.getSourceBlock();
     if (newValue != "no_value") {
@@ -1667,7 +1678,6 @@ Blockly.Blocks['item'] = {
         console.log("types field updated with " + sourceBlock.types.toString());
         var parentBlock = sourceBlock.workspace.getBlockById(newValue);
         var currBlock;
-        //needs recursive implementation
         if (parentBlock.getInput("subtype")
           && parentBlock.getInput("subtype").connection.isConnected()) {
           currBlock = parentBlock.getInput("subtype").connection.targetConnection.getSourceBlock();
@@ -1688,15 +1698,24 @@ Blockly.Blocks['item'] = {
     }
     return "no_value";
   },
-  //update types before generate? (could be getting called anyway)
   generateSubtypes: function() {
     var options = [["<select>","no_value"]];
     var sourceBlock = this.getSourceBlock();
     if (sourceBlock) {
       console.log("gs: parent block acquired");
       if (sourceBlock.subtypeOptions && sourceBlock.subtypeOptions.length > 0) {
-        for (var i = 0; i < sourceBlock.subtypeOptions.length; i++) {
-          options.push(sourceBlock.subtypeOptions[i]);
+        var optionsList = sourceBlock.subtypeOptions;
+        //filter subtypes from generated list if already in block
+        optionsList = optionsList.filter(
+          function (e) {
+            for (var i = 0; i < sourceBlock.subtypes.length; i++) {
+              if (e[0] == sourceBlock.subtypes[i]) return false;
+            }
+            return true;
+          }
+        );
+        for (var i = 0; i < optionsList.length; i++) {
+          options.push(optionsList[i]);
         }
       } else if (!sourceBlock.subtypeOptions) console.log("subtypeOptions returned null!");
     } else {
@@ -1722,7 +1741,6 @@ Blockly.Blocks['item'] = {
         console.log("subtypes field updated with " + sourceBlock.subtypes.toString());
         var parentBlock = sourceBlock.workspace.getBlockById(newValue);
         var currBlock;
-        //needs recursive implementation
         if (parentBlock.getInput("subtype")
           && parentBlock.getInput("subtype").connection.isConnected()) {
           currBlock = parentBlock.getInput("subtype").connection.targetConnection.getSourceBlock();
@@ -1743,6 +1761,7 @@ Blockly.Blocks['item'] = {
     }
     return "no_value";
   },
+  //TODO: also delete associated subtypes from block and remove them from subtypeOptions
   typeDeleteValidator: function(newValue) {
     var sourceBlock = this.getSourceBlock();
     var input = this.getParentInput();
@@ -1757,6 +1776,7 @@ Blockly.Blocks['item'] = {
     }
     return newValue;
   },
+  //TODO: also delete associated subtypes from block and remove them from subtypeOptions
   subtypeDeleteValidator: function(newValue) {
     var sourceBlock = this.getSourceBlock();
     var input = this.getParentInput();
@@ -1860,7 +1880,5 @@ Blockly.Blocks['item'] = {
         }
       }
     }
-
-    //TODO: subtype options filter goes here
   }
 };
