@@ -1781,6 +1781,26 @@ Blockly.Blocks['item'] = {
     var sourceBlock = this.getSourceBlock();
     var input = this.getParentInput();
     if (newValue == "FALSE") {
+      //remove subtypes if any
+      /* can this be done in generateSubtypes instead?
+      var deleteArr = [];
+      var typeBlocks = sourceBlock.workspace.getBlocksByType("equipment_type");
+      for (var i = 0; i < typeBlocks.length; i++) {
+        if (typeBlocks[i].getField("name").getValue() + " "
+          == sourceBlock.getField(input.name).getValue()) {
+          var currBlock;
+          if (typeBlocks[i].getInput("subtype")
+            && typeBlocks[i].getInput("subtype").connection.isConnected()) {
+            currBlock = typeBlocks[i].getInput("subtype")
+              .connection.targetConnection.getSourceBlock();
+            while (currBlock) {
+              deleteArr.push(currBlock.id);
+              sourceBlock.subtypes[i] = "-0-";
+            }
+          }
+        }
+      }
+      */
       //replace element in array with a dummy statement
       //tells updateTypes which inputs to remove before running mutator code
       //will be removed from array by updateTypes
@@ -1809,7 +1829,6 @@ Blockly.Blocks['item'] = {
     }
     this.updateTypes();
   },
-  //TODO: filter subtypeOptions
   updateTypes: function() {
     //update regular types
     console.log("types field read with content: " + this.types.toString());
@@ -1838,8 +1857,8 @@ Blockly.Blocks['item'] = {
         console.log("Appending new input a" + i);
         this.appendDummyInput("a" + i)
           .setAlign(Blockly.ALIGN_CENTRE)
-          .appendField(this.types[i] + " ")
-          .appendField(new Blockly.FieldCheckbox(true, this.typeDeleteValidator), name);
+          .appendField(this.types[i] + " ", "a" + i)
+          .appendField(new Blockly.FieldCheckbox(true, this.typeDeleteValidator));
         this.getInput("a" + i).index = i;
         this.moveInputBefore("a" + i, "dropdown1");
       }
@@ -1873,8 +1892,8 @@ Blockly.Blocks['item'] = {
           console.log("Appending new input b" + i);
           this.appendDummyInput("b" + i)
             .setAlign(Blockly.ALIGN_CENTRE)
-            .appendField(this.subtypes[i] + " ")
-            .appendField(new Blockly.FieldCheckbox(true, this.subtypeDeleteValidator), "b" + i);
+            .appendField(this.subtypes[i] + " ", "b" + i)
+            .appendField(new Blockly.FieldCheckbox(true, this.subtypeDeleteValidator));
           this.getInput("b" + i).index = i;
           this.moveInputBefore("b" + i, "dropdown2");
         }
