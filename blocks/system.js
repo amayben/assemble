@@ -1772,6 +1772,7 @@ Blockly.Blocks['item'] = {
       //tells updateTypes which inputs to remove before running mutator code
       //will be removed from array by updateTypes
       sourceBlock.types[input.index][0] = "-0-";
+      sourceBlock.types[input.index][1] = "";
       console.log("tdv: Removing input " + input.name);
       sourceBlock.removeInput(input.name);
       this.dispose();
@@ -1821,6 +1822,7 @@ Blockly.Blocks['item'] = {
       //tells updateTypes which inputs to remove before running mutator code
       //will be removed from array by updateTypes
       sourceBlock.subtypes[input.index][0] = "-0-";
+      sourceBlock.subtypes[input.index][1] = "";
       console.log("sdv: Removing input " + input.name);
       sourceBlock.removeInput(input.name);
       this.dispose();
