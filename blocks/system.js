@@ -1703,8 +1703,61 @@ Blockly.Blocks['item'] = {
   generateSubtypes: function() {
     var options = [["<select>","no_value"]];
     var sourceBlock = this.getSourceBlock();
-    if (sourceBlock) {
+    if (sourceBlock && sourceBlock.workspace) {
       console.log("gs: parent block acquired");
+      var currBlock;
+      var name;
+      //populate optionsList with all subtypes not in block
+      //done by traversing equipment types in block tree
+      for (var i = 0; i < sourceBlock.types.length; i++) {
+        if (sourceBlock.types[i][1]
+          && sourceBlock.types[i][1] != "") {
+          currBlock = sourceBlock.workspace.getBlockById(sourceBlock.types[i][1]);
+          if (currBlock
+            && currBlock.getInput("subtype")
+            && currBlock.getInput("subtype").connection.isConnected()) {
+            currBlock = currBlock.getInput("subtype")
+              .connection.targetConnection.getSourceBlock();
+            //currBlock is now the first subtype of the top-level type block
+            while (currBlock) {
+              name = currBlock.getField("name").getValue();
+              if (!sourceBlock.subtypes.includes(currBlock.id) //doesn't work
+                && name != ""
+                && name != "<name>"
+                && !name.includes("-0-")
+                && !name.includes('|')) {
+                options.push(new Array(name, currBlock.id));
+              }
+              currBlock = currBlock.getNextBlock();
+            }
+          }
+        }
+      }
+      for (var i = 0; i < sourceBlock.subtypes.length; i++) {
+        if (sourceBlock.subtypes[i][1]
+          && sourceBlock.subtypes[i][1] != "") {
+          currBlock = sourceBlock.workspace.getBlockById(sourceBlock.subtypes[i][1]);
+          if (currBlock
+            && currBlock.getInput("subtype")
+            && currBlock.getInput("subtype").connection.isConnected()) {
+            currBlock = currBlock.getInput("subtype")
+              .connection.targetConnection.getSourceBlock();
+            //currBlock is now the first subtype of the current selected subtype
+            while (currBlock) {
+              name = currBlock.getField("name").getValue();
+              if (!sourceBlock.subtypes.includes(currBlock.id) //doesn't work
+                && name != ""
+                && name != "<name>"
+                && !name.includes("-0-")
+                && !name.includes('|')) {
+                options.push(new Array(name, currBlock.id));
+              }
+              currBlock = currBlock.getNextBlock();
+            }
+          }
+        }
+      }
+      /*
       if (sourceBlock.subtypeOptions && sourceBlock.subtypeOptions.length > 0) {
         var optionsList = sourceBlock.subtypeOptions;
         //filter subtypes from generated list if already in block
@@ -1720,8 +1773,9 @@ Blockly.Blocks['item'] = {
           options.push(optionsList[i]);
         }
       } else if (!sourceBlock.subtypeOptions) console.log("subtypeOptions returned null!");
+      */
     } else {
-      console.log("gs: parent block not acquired");
+      console.log("gs: parent block/workspace not acquired");
     }
     return options;
   },
@@ -1895,7 +1949,7 @@ Blockly.Blocks['item'] = {
     //filter "-0-" from subtypes
     this.subtypes = this.subtypes.filter(
       function (e) {
-        return e != "-0-";
+        return e[0] != "-0-";
       }
     );
     console.log("subtypes filtered, new content: " + this.subtypes.toString());
