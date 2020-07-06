@@ -1707,6 +1707,7 @@ Blockly.Blocks['item'] = {
       console.log("gs: parent block acquired");
       var currBlock;
       var name;
+      var inSubtypes;
       //populate optionsList with all subtypes not in block
       //done by traversing equipment types in block tree
       for (var i = 0; i < sourceBlock.types.length; i++) {
@@ -1721,7 +1722,14 @@ Blockly.Blocks['item'] = {
             //currBlock is now the first subtype of the top-level type block
             while (currBlock) {
               name = currBlock.getField("name").getValue();
-              if (!sourceBlock.subtypes.includes(currBlock.id) //doesn't work
+              inSubtypes = false;
+              for (var j = 0; j < sourceBlock.subtypes.length; j++) {
+                if (currBlock.id == sourceBlock.subtypes[j][1]) {
+                  inSubtypes = true;
+                  break;
+                }
+              }
+              if (!inSubtypes
                 && name != ""
                 && name != "<name>"
                 && !name.includes("-0-")
@@ -1745,7 +1753,14 @@ Blockly.Blocks['item'] = {
             //currBlock is now the first subtype of the current selected subtype
             while (currBlock) {
               name = currBlock.getField("name").getValue();
-              if (!sourceBlock.subtypes.includes(currBlock.id) //doesn't work
+              inSubtypes = false;
+              for (var j = 0; j < sourceBlock.subtypes.length; j++) {
+                if (currBlock.id == sourceBlock.subtypes[j][1]) {
+                  inSubtypes = true;
+                  break;
+                }
+              }
+              if (!inSubtypes
                 && name != ""
                 && name != "<name>"
                 && !name.includes("-0-")
