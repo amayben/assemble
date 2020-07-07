@@ -558,7 +558,7 @@ Blockly.Blocks['move'] = {
     } else {
       this.removeInput("addFactorDropdown", true);
       if (this.addFactors.length > 1
-        || (this.addFactors.length = 1 && this.addFactors[0] != "")) {
+        || (this.addFactors.length == 1 && this.addFactors[0] != "")) {
         for (var i = 0; i < this.addFactors.length; i++) {
           console.log("ui: adding -0-!");
           this.addFactors[i] = "-0-";
@@ -1661,27 +1661,6 @@ Blockly.Blocks['item'] = {
     }
     return options;
   },
-  typeDropdownValidator: function(newValue) {  
-    var sourceBlock = this.getSourceBlock();
-    if (newValue != "no_value") {
-      var options = this.getOptions();
-      var displayText = "";
-      for (var i = 0; i < options.length; i++) {
-        if (options[i][1] == newValue) {
-          displayText = options[i][0];
-          break;
-        }
-      }
-      if (displayText == "") {
-        console.log("typeDropdownValidator called on empty displayText");
-      } else {
-        sourceBlock.types.push(new Array(displayText, newValue));
-        console.log("types field updated with " + sourceBlock.types.toString());
-        sourceBlock.updateTypes();
-      }
-    }
-    return "no_value";
-  },
   generateSubtypes: function() {
     var options = [["<select>","no_value"]];
     var sourceBlock = this.getSourceBlock();
@@ -1759,6 +1738,27 @@ Blockly.Blocks['item'] = {
     }
     return options;
   },
+  typeDropdownValidator: function(newValue) {  
+    var sourceBlock = this.getSourceBlock();
+    if (newValue != "no_value") {
+      var options = this.getOptions();
+      var displayText = "";
+      for (var i = 0; i < options.length; i++) {
+        if (options[i][1] == newValue) {
+          displayText = options[i][0];
+          break;
+        }
+      }
+      if (displayText == "") {
+        console.log("typeDropdownValidator called on empty displayText");
+      } else {
+        sourceBlock.types.push(new Array(displayText, newValue));
+        console.log("types field updated with " + sourceBlock.types.toString());
+        sourceBlock.updateTypes();
+      }
+    }
+    return "no_value";
+  },
   subtypeDropdownValidator: function(newValue) {
     var sourceBlock = this.getSourceBlock();
     if (newValue != "no_value") {
@@ -1780,35 +1780,137 @@ Blockly.Blocks['item'] = {
     }
     return "no_value";
   },
-  //TODO: also delete associated subtypes from block and remove them from subtypeOptions
   typeDeleteValidator: function(newValue) {
     var sourceBlock = this.getSourceBlock();
     var input = this.getParentInput();
     if (newValue == "FALSE") {
-      //replace element in array with a dummy statement
-      //tells updateTypes which inputs to remove before running mutator code
-      //will be removed from array by updateTypes
+      if (sourceBlock.workspace
+        && (sourceBlock.subtypes.length > 1
+          || (sourceBlock.subtypes.length == 1
+            && sourceBlock.subtypes[0][0] != ""))) {
+        console.log("tdv: workspace found and subtypes array is not empty");
+        var deleteArr = [];
+        var currBlock = sourceBlock.workspace.getBlockById(
+          sourceBlock.types[input.index][1]);
+        //currBlock set to the corresponding block of the deleted type
+        if (currBlock
+          && currBlock.getInput("subtype")
+          && currBlock.getInput("subtype").connection.isConnected()) {
+          //lookArr: array of all first-subtype block ids of current level
+          //nextArr: same, but with next level (set to lookArr when for loop terminates)
+          //initialize lookArr with the subtype directly connected to the deleted block
+          var lookArr = [currBlock.getInput("subtype")
+            .connection.targetConnection.getSourceBlock().id];
+          var nextArr = [];
+          while (lookArr.length != 0) {
+            for (var i = 0; i < lookArr.length; i++) {
+              currBlock = sourceBlock.workspace.getBlockById(lookArr[i]);
+              while (currBlock) {
+                deleteArr.push(currBlock.id);
+                if (currBlock.getInput("subtype")
+                    && currBlock.getInput("subtype").connection.isConnected()) {
+                  nextArr.push(currBlock.getInput("subtype")
+                    .connection.targetConnection.getSourceBlock().id);
+                }
+                currBlock = currBlock.getNextBlock();
+              }
+              console.log("tdv: while loop terminated for lookArr index " + i);
+            }
+            console.log("tdv: for loop terminated.");
+            console.log("lookArr: " + lookArr.toString() + ", nextArr: " + nextArr.toString());
+            lookArr = Array.from(nextArr);
+            nextArr.length = 0;
+            console.log("reset; lookArr: " + lookArr.toString() + ", nextArr: " + nextArr.toString());
+          }
+          console.log("tdv: outer loop terminated with deleteArr: " + deleteArr.toString());
+          //once we know all the subtypes of the deleted block,
+          //purge refs from subtypes array     
+          for (var i = 0; i < sourceBlock.subtypes.length; i++) {
+            //if a block id stored in subtypes array is also in deleteArr,
+            //meaning it's a descendant of the deleted block,
+            //remove its reference from subtypes and it will be deleted with updateTypes
+            if (deleteArr.includes(sourceBlock.subtypes[i][1])) {
+              sourceBlock.subtypes[i][0] = "-0-";
+              sourceBlock.subtypes[i][1] = "";
+            }
+          }
+        }
+      }
       sourceBlock.types[input.index][0] = "-0-";
       sourceBlock.types[input.index][1] = "";
+      sourceBlock.updateTypes();
+      /*
       console.log("tdv: Removing input " + input.name);
       sourceBlock.removeInput(input.name);
       this.dispose();
+      */
     }
     return newValue;
   },
-  //TODO: also delete associated subtypes from block and remove them from subtypeOptions
   subtypeDeleteValidator: function(newValue) {
     var sourceBlock = this.getSourceBlock();
     var input = this.getParentInput();
     if (newValue == "FALSE") {
-      //replace element in array with a dummy statement
-      //tells updateTypes which inputs to remove before running mutator code
-      //will be removed from array by updateTypes
+      if (sourceBlock.workspace
+        && (sourceBlock.subtypes.length > 1
+          || (sourceBlock.subtypes.length == 1
+            && sourceBlock.subtypes[0][0] != ""))) {
+        console.log("sdv: workspace found and subtypes array is not empty");
+        var deleteArr = [];
+        var currBlock = sourceBlock.workspace.getBlockById(
+          sourceBlock.subtypes[input.index][1]);
+        //currBlock set to the corresponding block of the deleted type
+        if (currBlock
+          && currBlock.getInput("subtype")
+          && currBlock.getInput("subtype").connection.isConnected()) {
+          //lookArr: array of all first-subtype block ids of current level
+          //nextArr: same, but with next level (set to lookArr when for loop terminates)
+          //initialize lookArr with the subtype directly connected to the deleted block
+          var lookArr = [currBlock.getInput("subtype")
+            .connection.targetConnection.getSourceBlock().id];
+          var nextArr = [];
+          while (lookArr.length != 0) {
+            for (var i = 0; i < lookArr.length; i++) {
+              currBlock = sourceBlock.workspace.getBlockById(lookArr[i]);
+              while (currBlock) {
+                deleteArr.push(currBlock.id);
+                if (currBlock.getInput("subtype")
+                    && currBlock.getInput("subtype").connection.isConnected()) {
+                  nextArr.push(currBlock.getInput("subtype")
+                    .connection.targetConnection.getSourceBlock().id);
+                }
+                currBlock = currBlock.getNextBlock();
+              }
+              console.log("sdv: while loop terminated for lookArr index " + i);
+            }
+            console.log("sdv: for loop terminated.");
+            console.log("lookArr: " + lookArr.toString() + ", nextArr: " + nextArr.toString());
+            lookArr = Array.from(nextArr);
+            nextArr.length = 0;
+            console.log("reset; lookArr: " + lookArr.toString() + ", nextArr: " + nextArr.toString());
+          }
+          console.log("sdv: outer loop terminated with deleteArr: " + deleteArr.toString());
+          //once we know all the subtypes of the deleted block,
+          //purge refs from subtypes array     
+          for (var i = 0; i < sourceBlock.subtypes.length; i++) {
+            //if a block id stored in subtypes array is also in deleteArr,
+            //meaning it's a descendant of the deleted block,
+            //remove its reference from subtypes and it will be deleted with updateTypes
+            if (deleteArr.includes(sourceBlock.subtypes[i][1])) {
+              sourceBlock.subtypes[i][0] = "-0-";
+              sourceBlock.subtypes[i][1] = "";
+            }
+          }
+        }
+      }
       sourceBlock.subtypes[input.index][0] = "-0-";
       sourceBlock.subtypes[input.index][1] = "";
+      sourceBlock.updateTypes();
+      /*
       console.log("sdv: Removing input " + input.name);
       sourceBlock.removeInput(input.name);
       this.dispose();
+      */
     }
     return newValue;
   },
