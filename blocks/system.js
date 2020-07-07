@@ -605,16 +605,19 @@ Blockly.Blocks['move'] = {
   },
   mutationToDom: function() {
     var container = document.createElement('mutation');
-    var factorString = this.factors.toString();
-    var addFactorString = this.addFactors.toString();
-    container.setAttribute('factors', (factorString+'|'+addFactorString));
-    console.log("factors field set to " + (factorString+'|'+addFactorString));
+    var mutObj = {factors: this.factors, addFactors: this.addFactors};
+    var mutJSON = JSON.stringify(mutObj);
+    container.setAttribute('factors', mutJSON);
+    console.log("factors field set to " + mutJSON);
     return container;
   },
   domToMutation: function(xmlElement) {
-    var mutArrs = xmlElement.getAttribute('factors').split("|");
-    this.factors = mutArrs[0].split(",");
-    this.addFactors = mutArrs[1].split(",");
+    var mutJSON = xmlElement.getAttribute('factors');
+    if (mutJSON != "") {
+      var mutObj = JSON.parse(mutJSON);
+      this.factors = mutObj.factors;
+      this.addFactors = mutObj.addFactors;
+    }
     this.updateFactors();
   },
   updateFactors: function() {
@@ -1470,16 +1473,19 @@ Blockly.Blocks['playbook_move'] = {
   },
   mutationToDom: function() {
     var container = document.createElement('mutation');
-    var factorString = this.factors.toString();
-    var addFactorString = this.addFactors.toString();
-    container.setAttribute('factors', (factorString+'|'+addFactorString));
-    console.log("factors field set to " + (factorString+'|'+addFactorString));
+    var mutObj = {factors: this.factors, addFactors: this.addFactors};
+    var mutJSON = JSON.stringify(mutObj);
+    container.setAttribute('factors', mutJSON);
+    console.log("factors field set to " + mutJSON);
     return container;
   },
   domToMutation: function(xmlElement) {
-    var mutArrs = xmlElement.getAttribute('factors').split("|");
-    this.factors = mutArrs[0].split(",");
-    this.addFactors = mutArrs[1].split(",");
+    var mutJSON = xmlElement.getAttribute('factors');
+    if (mutJSON != "") {
+      var mutObj = JSON.parse(mutJSON);
+      this.factors = mutObj.factors;
+      this.addFactors = mutObj.addFactors;
+    }
     this.updateFactors();
   },
   updateFactors: function() {
