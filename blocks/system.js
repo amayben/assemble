@@ -168,6 +168,71 @@ var deleteButtonValidator = function(newValue) {
   return newValue;
 }
 
+Blockly.Blocks['system'] = {
+  init: function() {
+    this.appendDummyInput()
+        .setAlign(Blockly.ALIGN_CENTRE)
+        .appendField("System:")
+        .appendField(new Blockly.FieldTextInput("<system name>"), "name");
+    this.appendStatementInput("theme")
+        .setCheck("theme")
+        .appendField("Themes:");
+    this.appendStatementInput("setting")
+        .setCheck("setting")
+        .appendField("Setting: ");
+    this.appendStatementInput("mechanics")
+        .setCheck("mechanics")
+        .appendField("Mechanics:");
+    this.setInputsInline(false);
+    this.setColour(30);
+    this.setTooltip("The system you are composing.");
+    this.setHelpUrl("");
+    this.setDeletable(false);
+    this.setMovable(false);
+  }
+};
+
+Blockly.Blocks['theme'] = {
+  init: function() {
+    this.appendDummyInput()
+        .setAlign(Blockly.ALIGN_CENTRE)
+        .appendField("Theme:")
+        .appendField(new Blockly.FieldTextInput("<name>"), "name");
+    this.appendDummyInput()
+        .setAlign(Blockly.ALIGN_CENTRE)
+        .appendField("Description:")
+        .appendField(new Blockly.FieldTextInput("<description>"), "desc");
+    this.appendStatementInput("function")
+        .setCheck("function")
+        .appendField("Functions:");
+    this.setInputsInline(false);
+    this.setPreviousStatement(true, "theme");
+    this.setNextStatement(true, "theme");
+    this.setColour(0);
+    this.setTooltip("What is one idea that will drive the design of the system, and what functions do you intend it to serve?");
+    this.setHelpUrl("");
+  }
+};
+
+Blockly.Blocks['function'] = {
+  init: function() {
+    this.appendDummyInput()
+        .setAlign(Blockly.ALIGN_CENTRE)
+        .appendField("Function:")
+        .appendField(new Blockly.FieldTextInput("<name>"), "name");
+    this.appendDummyInput()
+        .setAlign(Blockly.ALIGN_CENTRE)
+        .appendField("Description:")
+        .appendField(new Blockly.FieldTextInput("<description>"), "desc");
+    this.setInputsInline(false);
+    this.setPreviousStatement(true, "function");
+    this.setNextStatement(true, "function");
+    this.setColour(345);
+    this.setTooltip("A manifestation of a certain theme within a system's story, its mechanics, or both.");
+    this.setHelpUrl("");
+  }
+};
+
 Blockly.Blocks['setting'] = {
   init: function() {
     this.appendDummyInput()
@@ -232,6 +297,25 @@ Blockly.Blocks['history'] = {
     this.setNextStatement(true, "history");
     this.setColour(75);
     this.setTooltip("What happened or is happening in the world that is relevant to the players?");
+    this.setHelpUrl("");
+  }
+};
+
+Blockly.Blocks['era'] = {
+  init: function() {
+    this.appendDummyInput()
+        .setAlign(Blockly.ALIGN_CENTRE)
+        .appendField("Era: ")
+        .appendField(new Blockly.FieldTextInput("<era name>"), "name");
+    this.appendDummyInput()
+        .setAlign(Blockly.ALIGN_CENTRE)
+        .appendField("Current Era? ")
+        .appendField(new Blockly.FieldCheckbox("TRUE"), "isCurrent");
+    this.setInputsInline(false);
+    this.setPreviousStatement(true, "era");
+    this.setNextStatement(true, "era");
+    this.setColour(90);
+    this.setTooltip("What historical period are you describing?");
     this.setHelpUrl("");
   }
 };
@@ -342,71 +426,6 @@ Blockly.Blocks['landmark'] = {
     this.setNextStatement(true, "landmark");
     this.setColour(120);
     this.setTooltip("A notable feature within a given geographic region around which action may revolve.");
-    this.setHelpUrl("");
-  }
-};
-
-Blockly.Blocks['system'] = {
-  init: function() {
-    this.appendDummyInput()
-        .setAlign(Blockly.ALIGN_CENTRE)
-        .appendField("System:")
-        .appendField(new Blockly.FieldTextInput("<system name>"), "name");
-    this.appendStatementInput("theme")
-        .setCheck("theme")
-        .appendField("Themes:");
-    this.appendStatementInput("setting")
-        .setCheck("setting")
-        .appendField("Setting: ");
-    this.appendStatementInput("mechanics")
-        .setCheck("mechanics")
-        .appendField("Mechanics:");
-    this.setInputsInline(false);
-    this.setColour(30);
-    this.setTooltip("The system you are composing.");
-    this.setHelpUrl("");
-    this.setDeletable(false);
-    this.setMovable(false);
-  }
-};
-
-Blockly.Blocks['theme'] = {
-  init: function() {
-    this.appendDummyInput()
-        .setAlign(Blockly.ALIGN_CENTRE)
-        .appendField("Theme:")
-        .appendField(new Blockly.FieldTextInput("<name>"), "name");
-    this.appendDummyInput()
-        .setAlign(Blockly.ALIGN_CENTRE)
-        .appendField("Description:")
-        .appendField(new Blockly.FieldTextInput("<description>"), "desc");
-    this.appendStatementInput("function")
-        .setCheck("function")
-        .appendField("Functions:");
-    this.setInputsInline(false);
-    this.setPreviousStatement(true, "theme");
-    this.setNextStatement(true, "theme");
-    this.setColour(0);
-    this.setTooltip("What is one idea that will drive the design of the system, and what functions do you intend it to serve?");
-    this.setHelpUrl("");
-  }
-};
-
-Blockly.Blocks['function'] = {
-  init: function() {
-    this.appendDummyInput()
-        .setAlign(Blockly.ALIGN_CENTRE)
-        .appendField("Function:")
-        .appendField(new Blockly.FieldTextInput("<name>"), "name");
-    this.appendDummyInput()
-        .setAlign(Blockly.ALIGN_CENTRE)
-        .appendField("Description:")
-        .appendField(new Blockly.FieldTextInput("<description>"), "desc");
-    this.setInputsInline(false);
-    this.setPreviousStatement(true, "function");
-    this.setNextStatement(true, "function");
-    this.setColour(345);
-    this.setTooltip("A manifestation of a certain theme within a system's story, its mechanics, or both.");
     this.setHelpUrl("");
   }
 };
@@ -693,6 +712,187 @@ Blockly.Blocks['move'] = {
   }
 };
 
+Blockly.Blocks['playbook_move'] = {
+  init: function() {
+    this.factors = [];
+    this.addFactors = [];
+    this.appendDummyInput()
+        .setAlign(Blockly.ALIGN_CENTRE)
+        .appendField("Playbook Move:")
+        .appendField(new Blockly.FieldTextInput("<name>"), "name");
+    this.appendDummyInput()
+        .setAlign(Blockly.ALIGN_CENTRE)
+        .appendField("Factors:");
+    this.appendDummyInput("dropdown1")
+        .setAlign(Blockly.ALIGN_CENTRE)
+        .appendField(new Blockly.FieldDropdown(generateFactors, dropdownValidator), "factors");
+    this.appendDummyInput()
+        .setAlign(Blockly.ALIGN_CENTRE)
+        .appendField("Description:")
+        .appendField(new Blockly.FieldTextInput("<description>"), "desc");
+    this.appendDummyInput()
+        .setAlign(Blockly.ALIGN_CENTRE)
+        .appendField("Additive Factor(s)?")
+        .appendField(new Blockly.FieldCheckbox("FALSE", this.additiveValidator), "adds_factor");
+    this.appendDummyInput("dropdown2")
+        .setVisible(false);
+    this.setInputsInline(false);
+    this.setPreviousStatement(true, ["playbook_move", "feature"]);
+    this.setNextStatement(true, ["playbook_move", "feature"]);
+    this.setColour(315);
+    this.setTooltip("An action only available to a certain playbook.");
+    this.setHelpUrl("");
+  },
+  additiveValidator: function(newValue) {
+    var sourceBlock = this.getSourceBlock();
+    sourceBlock.showInput_ = newValue == 'TRUE';
+    sourceBlock.updateInput();
+    return newValue;
+  },
+  updateInput: function() {
+    if (this.showInput_) {
+      this.appendDummyInput("addFactorDropdown")
+        .setAlign(Blockly.ALIGN_CENTRE)
+        .appendField(new Blockly.FieldDropdown(generateAddFactors, this.addDropdownValidator), "addFactors");
+    } else {
+      this.removeInput("addFactorDropdown", true);
+      if (this.addFactors.length > 1
+        || (this.addFactors.length = 1 && this.addFactors[0] != "")) {
+        for (var i = 0; i < this.addFactors.length; i++) {
+          console.log("ui: adding -0-!");
+          this.addFactors[i] = "-0-";
+          console.log(this.addFactors.toString());
+        }
+        this.updateFactors();
+      }
+    }
+  },
+  addDropdownValidator: function(newValue) {
+    var sourceBlock = this.getSourceBlock();
+    if (newValue != "no_value") {
+      var options = this.getOptions();
+      var displayText = "";
+      for (var i = 0; i < options.length; i++) {
+        if (options[i][1] == newValue) {
+          displayText = options[i][0];
+          break;
+        }
+      }
+      if (displayText == "") {
+        console.log("dropdownValidator called on empty displayText");
+      } else {
+        sourceBlock.addFactors.push(displayText);
+        console.log(sourceBlock.type + " dropdown updated with " + sourceBlock.addFactors.toString());
+        sourceBlock.updateFactors();
+      }
+    }
+    return "no_value";
+  },
+  addDBV: function (newValue) {
+    var sourceBlock = this.getSourceBlock();
+    var arr = sourceBlock.addFactors;
+    var input = this.getParentInput();
+    if (newValue == "FALSE") {
+      //replace element in array with a dummy statement
+      //tells updateFactors which inputs to remove before running mutator code
+      //will be removed from array by updateFactors
+      arr[input.index] = "-0-";
+      console.log("dbv: Removing input " + input.name);
+      sourceBlock.removeInput(input.name);
+      this.dispose();
+    }
+    return newValue;
+  },
+  mutationToDom: function() {
+    var container = document.createElement('mutation');
+    var mutObj = {factors: this.factors, addFactors: this.addFactors};
+    var mutJSON = JSON.stringify(mutObj);
+    container.setAttribute('factors', mutJSON);
+    console.log("factors field set to " + mutJSON);
+    return container;
+  },
+  domToMutation: function(xmlElement) {
+    var mutJSON = xmlElement.getAttribute('factors');
+    if (mutJSON != "") {
+      var mutObj = JSON.parse(mutJSON);
+      this.factors = mutObj.factors;
+      this.addFactors = mutObj.addFactors;
+    }
+    this.updateFactors();
+  },
+  updateFactors: function() {
+    //update regular factors
+    console.log("factors field read with content: " + this.factors.toString());
+    //first scrub out extra inputs
+    for (var i = 0; i < this.factors.length; i++) {
+      if (this.factors[i] == "-0-") {
+        this.removeInput("a" + i, true);
+        console.log("cleanup: removed input a" + i);
+      }
+    }
+    //filter "-0-" from factors
+    this.factors = this.factors.filter(
+      function (e) {
+        return e != "-0-";
+      }
+    );
+    console.log("factors filtered, new content: " + this.factors.toString());
+    //now populate
+    for (var i = 0; i < this.factors.length; i++) {
+      //remove existing factor from block first
+      if (this.getInput("a" + i) != null) {
+        this.removeInput("a" + i, true);
+        console.log("input a" + i + " removed.");
+      }
+      if (this.factors[i] && this.factors[i] != "") {
+        console.log("Appending new input a" + i);
+        this.appendDummyInput("a" + i)
+          .setAlign(Blockly.ALIGN_CENTRE)
+          .appendField(this.factors[i] + " ")
+          .appendField(new Blockly.FieldCheckbox(true, deleteButtonValidator), "a" + i);
+        this.getInput("a" + i).index = i;
+        this.moveInputBefore("a" + i, "dropdown1");
+      }
+    }
+
+    //update additive factors
+    console.log("addFactors field read with content: " + this.addFactors.toString());
+    //first scrub out extra inputs
+    for (var i = 0; i < this.addFactors.length; i++) {
+      if (this.addFactors[i] == "-0-") {
+        this.removeInput("b" + i, true);
+        console.log("cleanup: removed input b" + i);
+      }
+    }
+    //filter "-0-" from factors
+    this.addFactors = this.addFactors.filter(
+      function (e) {
+        return e != "-0-";
+      }
+    );
+    console.log("addFactors filtered, new content: " + this.addFactors.toString());
+    //now populate
+    if (!(this.addFactors.length == 1 && this.addFactors[0]=="")) {
+      for (var i = 0; i < this.addFactors.length; i++) {
+        //remove existing factor from block first
+        if (this.getInput("b" + i) != null) {
+          this.removeInput("b" + i, true);
+          console.log("input b" + i + " removed.");
+        }
+        if (this.addFactors[i] && this.addFactors[i] != "") {
+          console.log("Appending new input b" + i);
+          this.appendDummyInput("b" + i)
+            .setAlign(Blockly.ALIGN_CENTRE)
+            .appendField(this.addFactors[i] + " ")
+            .appendField(new Blockly.FieldCheckbox(true, this.addDBV), "b" + i);
+          this.getInput("b" + i).index = i;
+          this.moveInputBefore("b" + i, "dropdown2");
+        }
+      }
+    }
+  }
+};
+
 Blockly.Blocks['parameter'] = {
   init: function() {
     this.appendDummyInput()
@@ -710,25 +910,6 @@ Blockly.Blocks['parameter'] = {
     this.setNextStatement(true, "parameter");
     this.setColour(315);
     this.setTooltip("An outcome defined by a range of possible valid rolls.");
-    this.setHelpUrl("");
-  }
-};
-
-Blockly.Blocks['era'] = {
-  init: function() {
-    this.appendDummyInput()
-        .setAlign(Blockly.ALIGN_CENTRE)
-        .appendField("Era: ")
-        .appendField(new Blockly.FieldTextInput("<era name>"), "name");
-    this.appendDummyInput()
-        .setAlign(Blockly.ALIGN_CENTRE)
-        .appendField("Current Era? ")
-        .appendField(new Blockly.FieldCheckbox("TRUE"), "isCurrent");
-    this.setInputsInline(false);
-    this.setPreviousStatement(true, "era");
-    this.setNextStatement(true, "era");
-    this.setColour(90);
-    this.setTooltip("What historical period are you describing?");
     this.setHelpUrl("");
   }
 };
@@ -1010,87 +1191,6 @@ Blockly.Blocks['playbook_introduction'] = {
   }
 };
 
-Blockly.Blocks['resource'] = {
-  init: function() {
-    this.factors = [];
-    this.appendDummyInput()
-        .setAlign(Blockly.ALIGN_CENTRE)
-        .appendField("Resource: ")
-        .appendField(new Blockly.FieldTextInput("<name>"), "name");
-    this.appendDummyInput()
-        .setAlign(Blockly.ALIGN_CENTRE)
-        .appendField("Description: ")
-        .appendField(new Blockly.FieldTextInput("<description>"), "desc");
-    this.appendDummyInput()
-        .setAlign(Blockly.ALIGN_CENTRE)
-        .appendField("Factors: ");
-    this.appendDummyInput("dropdown")
-        .setAlign(Blockly.ALIGN_CENTRE)
-        .appendField(new Blockly.FieldDropdown(generateFactors, dropdownValidator), "factors");
-    this.appendDummyInput()
-        .setAlign(Blockly.ALIGN_CENTRE)
-        .appendField("Range: ")
-        .appendField(new Blockly.FieldNumber(0), "lrange")
-        .appendField(" to ")
-        .appendField(new Blockly.FieldNumber(1), "rrange");
-    this.appendDummyInput()
-        .setAlign(Blockly.ALIGN_CENTRE)
-        .appendField("Initial Value: ")
-        .appendField(new Blockly.FieldNumber(0), "init");
-    this.setInputsInline(false);
-    this.setPreviousStatement(true, "resource");
-    this.setNextStatement(true, "resource");
-    this.setColour(240);
-    this.setTooltip("A statistic that a player tracks which can factor into certain moves.");
-    this.setHelpUrl("");
-  },
-  mutationToDom: function() {
-    var container = document.createElement('mutation');
-    var factorString = (this.factors.toString());
-    container.setAttribute('factors', factorString);
-    return container;
-  },
-  domToMutation: function(xmlElement) {
-    this.factors = xmlElement.getAttribute('factors').split(",");
-    this.updateFactors();
-  },
-  updateFactors: function() {
-    console.log("factors field read with content: " + this.factors.toString());
-    var name;
-    //first scrub out extra inputs
-    for (var i = 0; i < this.factors.length; i++) {
-      if (this.factors[i] == "-0-") {
-        this.removeInput("a" + i, true);
-        console.log("cleanup: removed input a" + i);
-      }
-    }
-    //filter "-0-" from factors
-    this.factors = this.factors.filter(
-      function (e) {
-        return e != "-0-";
-      }
-    );
-    console.log("factors filtered, new content: " + this.factors.toString());
-    //now populate
-    for (var i = 0; i < this.factors.length; i++) {
-      //remove existing factor from block first
-      if (this.getInput("a" + i) != null) {
-        this.removeInput("a" + i, true);
-        console.log("input a" + i + " removed.");
-      }
-      if (this.factors[i] && this.factors[i] != "") {
-        console.log("Appending new input a" + i);
-        this.appendDummyInput("a" + i)
-          .setAlign(Blockly.ALIGN_CENTRE)
-          .appendField(this.factors[i] + " ")
-          .appendField(new Blockly.FieldCheckbox(true, deleteButtonValidator), name);
-        this.getInput("a" + i).index = i;
-        this.moveInputBefore("a" + i, "dropdown");
-      }
-    }
-  }
-};
-
 Blockly.Blocks['feature'] = {
   init: function() {
     this.factors = [];
@@ -1159,6 +1259,25 @@ Blockly.Blocks['feature'] = {
         this.moveInputBefore("a" + i, "dropdown");
       }
     }
+  }
+};
+
+Blockly.Blocks['equipment'] = {
+  init: function() {
+    this.appendDummyInput()
+        .setAlign(Blockly.ALIGN_CENTRE)
+        .appendField("Equipment");
+    this.appendStatementInput("equipment_type")
+        .setCheck("equipment_type")
+        .appendField("Equipment Types:");
+    this.appendStatementInput("item")
+        .setCheck("item")
+        .appendField("Item List:");
+    this.setInputsInline(false);
+    this.setPreviousStatement(true, "equipment");
+    this.setColour(240);
+    this.setTooltip("Items usable by players.");
+    this.setHelpUrl("");
   }
 };
 
@@ -1276,307 +1395,6 @@ Blockly.Blocks['equipment_type'] = {
         this.moveInputBefore("a" + i, "dropdown");
       }
     }
-  }
-};
-
-Blockly.Blocks['extra_mechanic'] = {
-  init: function() {
-    this.factors = [];
-    this.appendDummyInput()
-        .setAlign(Blockly.ALIGN_CENTRE)
-        .appendField("Extra Mechanic:")
-        .appendField(new Blockly.FieldTextInput("<name>"), "name");
-    this.appendDummyInput()
-        .setAlign(Blockly.ALIGN_CENTRE)
-        .appendField("Description: ")
-        .appendField(new Blockly.FieldTextInput("<description>"), "desc");
-    this.appendDummyInput()
-        .setAlign(Blockly.ALIGN_CENTRE)
-        .appendField("Factors:");
-    this.appendDummyInput("dropdown")
-        .setAlign(Blockly.ALIGN_CENTRE)
-        .appendField(new Blockly.FieldDropdown(generateFactors, dropdownValidator), "factors");
-    this.appendDummyInput()
-        .setAlign(Blockly.ALIGN_CENTRE)
-        .appendField("Special Resources?")
-        .appendField(new Blockly.FieldCheckbox("FALSE", this.resourceValidator), "hasResources");
-    this.appendDummyInput('checkMoves') //named for use by updateResourceInput
-        .setAlign(Blockly.ALIGN_CENTRE)
-        .appendField("Special Moves?")
-        .appendField(new Blockly.FieldCheckbox("FALSE", this.moveValidator), "hasMoves");
-    this.setPreviousStatement(true, "extra_mechanic");
-    this.setNextStatement(true, "extra_mechanic");
-    this.setColour(240);
-    this.setTooltip("An additional mechanic relevant to player action.");
-    this.setHelpUrl("");
-  },
-  resourceValidator: function(newValue){
-    var sourceBlock = this.getSourceBlock();
-    sourceBlock.showResourceInput_ = newValue == 'TRUE';
-    sourceBlock.updateResourceInput();
-    return newValue;
-  },
-  moveValidator: function(newValue){
-    var sourceBlock = this.getSourceBlock();
-    sourceBlock.showMoveInput_ = newValue == 'TRUE';
-    sourceBlock.updateMoveInput();
-    return newValue;
-  },
-  updateResourceInput: function(){
-    this.removeInput('resource', true);
-    if (this.showResourceInput_) {
-      this.appendStatementInput('resource').setCheck('resource');
-      this.moveInputBefore('resource', 'checkMoves');
-    }
-  },
-  updateMoveInput: function(){
-    this.removeInput('move', true);
-    if (this.showMoveInput_) this.appendStatementInput('move').setCheck('move');
-  },
-  mutationToDom: function() {
-    var container = document.createElement('mutation');
-    var factorString = (this.factors.toString());
-    container.setAttribute('factors', factorString);
-    return container;
-  },
-  domToMutation: function(xmlElement) {
-    this.factors = xmlElement.getAttribute('factors').split(",");
-    this.updateFactors();
-  },
-  updateFactors: function() {
-    console.log("factors field read with content: " + this.factors.toString());
-    var name;
-    //first scrub out extra inputs
-    for (var i = 0; i < this.factors.length; i++) {
-      if (this.factors[i] == "-0-") {
-        this.removeInput("a" + i, true);
-        console.log("cleanup: removed input a" + i);
-      }
-    }
-    //filter "-0-" from factors
-    this.factors = this.factors.filter(
-      function (e) {
-        return e != "-0-";
-      }
-    );
-    console.log("factors filtered, new content: " + this.factors.toString());
-    //now populate
-    for (var i = 0; i < this.factors.length; i++) {
-      //remove existing factor from block first
-      if (this.getInput("a" + i) != null) {
-        this.removeInput("a" + i, true);
-        console.log("input a" + i + " removed.");
-      }
-      if (this.factors[i] && this.factors[i] != "") {
-        console.log("Appending new input a" + i);
-        this.appendDummyInput("a" + i)
-          .setAlign(Blockly.ALIGN_CENTRE)
-          .appendField(this.factors[i] + " ")
-          .appendField(new Blockly.FieldCheckbox(true, deleteButtonValidator), name);
-        this.getInput("a" + i).index = i;
-        this.moveInputBefore("a" + i, "dropdown");
-      }
-    }
-  }
-};
-
-Blockly.Blocks['playbook_move'] = {
-  init: function() {
-    this.factors = [];
-    this.addFactors = [];
-    this.appendDummyInput()
-        .setAlign(Blockly.ALIGN_CENTRE)
-        .appendField("Playbook Move:")
-        .appendField(new Blockly.FieldTextInput("<name>"), "name");
-    this.appendDummyInput()
-        .setAlign(Blockly.ALIGN_CENTRE)
-        .appendField("Factors:");
-    this.appendDummyInput("dropdown1")
-        .setAlign(Blockly.ALIGN_CENTRE)
-        .appendField(new Blockly.FieldDropdown(generateFactors, dropdownValidator), "factors");
-    this.appendDummyInput()
-        .setAlign(Blockly.ALIGN_CENTRE)
-        .appendField("Description:")
-        .appendField(new Blockly.FieldTextInput("<description>"), "desc");
-    this.appendDummyInput()
-        .setAlign(Blockly.ALIGN_CENTRE)
-        .appendField("Additive Factor(s)?")
-        .appendField(new Blockly.FieldCheckbox("FALSE", this.additiveValidator), "adds_factor");
-    this.appendDummyInput("dropdown2")
-        .setVisible(false);
-    this.setInputsInline(false);
-    this.setPreviousStatement(true, ["playbook_move", "feature"]);
-    this.setNextStatement(true, ["playbook_move", "feature"]);
-    this.setColour(315);
-    this.setTooltip("An action only available to a certain playbook.");
-    this.setHelpUrl("");
-  },
-  additiveValidator: function(newValue) {
-    var sourceBlock = this.getSourceBlock();
-    sourceBlock.showInput_ = newValue == 'TRUE';
-    sourceBlock.updateInput();
-    return newValue;
-  },
-  updateInput: function() {
-    if (this.showInput_) {
-      this.appendDummyInput("addFactorDropdown")
-        .setAlign(Blockly.ALIGN_CENTRE)
-        .appendField(new Blockly.FieldDropdown(generateAddFactors, this.addDropdownValidator), "addFactors");
-    } else {
-      this.removeInput("addFactorDropdown", true);
-      if (this.addFactors.length > 1
-        || (this.addFactors.length = 1 && this.addFactors[0] != "")) {
-        for (var i = 0; i < this.addFactors.length; i++) {
-          console.log("ui: adding -0-!");
-          this.addFactors[i] = "-0-";
-          console.log(this.addFactors.toString());
-        }
-        this.updateFactors();
-      }
-    }
-  },
-  addDropdownValidator: function(newValue) {
-    var sourceBlock = this.getSourceBlock();
-    if (newValue != "no_value") {
-      var options = this.getOptions();
-      var displayText = "";
-      for (var i = 0; i < options.length; i++) {
-        if (options[i][1] == newValue) {
-          displayText = options[i][0];
-          break;
-        }
-      }
-      if (displayText == "") {
-        console.log("dropdownValidator called on empty displayText");
-      } else {
-        sourceBlock.addFactors.push(displayText);
-        console.log(sourceBlock.type + " dropdown updated with " + sourceBlock.addFactors.toString());
-        sourceBlock.updateFactors();
-      }
-    }
-    return "no_value";
-  },
-  addDBV: function (newValue) {
-    var sourceBlock = this.getSourceBlock();
-    var arr = sourceBlock.addFactors;
-    var input = this.getParentInput();
-    if (newValue == "FALSE") {
-      //replace element in array with a dummy statement
-      //tells updateFactors which inputs to remove before running mutator code
-      //will be removed from array by updateFactors
-      arr[input.index] = "-0-";
-      console.log("dbv: Removing input " + input.name);
-      sourceBlock.removeInput(input.name);
-      this.dispose();
-    }
-    return newValue;
-  },
-  mutationToDom: function() {
-    var container = document.createElement('mutation');
-    var mutObj = {factors: this.factors, addFactors: this.addFactors};
-    var mutJSON = JSON.stringify(mutObj);
-    container.setAttribute('factors', mutJSON);
-    console.log("factors field set to " + mutJSON);
-    return container;
-  },
-  domToMutation: function(xmlElement) {
-    var mutJSON = xmlElement.getAttribute('factors');
-    if (mutJSON != "") {
-      var mutObj = JSON.parse(mutJSON);
-      this.factors = mutObj.factors;
-      this.addFactors = mutObj.addFactors;
-    }
-    this.updateFactors();
-  },
-  updateFactors: function() {
-    //update regular factors
-    console.log("factors field read with content: " + this.factors.toString());
-    //first scrub out extra inputs
-    for (var i = 0; i < this.factors.length; i++) {
-      if (this.factors[i] == "-0-") {
-        this.removeInput("a" + i, true);
-        console.log("cleanup: removed input a" + i);
-      }
-    }
-    //filter "-0-" from factors
-    this.factors = this.factors.filter(
-      function (e) {
-        return e != "-0-";
-      }
-    );
-    console.log("factors filtered, new content: " + this.factors.toString());
-    //now populate
-    for (var i = 0; i < this.factors.length; i++) {
-      //remove existing factor from block first
-      if (this.getInput("a" + i) != null) {
-        this.removeInput("a" + i, true);
-        console.log("input a" + i + " removed.");
-      }
-      if (this.factors[i] && this.factors[i] != "") {
-        console.log("Appending new input a" + i);
-        this.appendDummyInput("a" + i)
-          .setAlign(Blockly.ALIGN_CENTRE)
-          .appendField(this.factors[i] + " ")
-          .appendField(new Blockly.FieldCheckbox(true, deleteButtonValidator), "a" + i);
-        this.getInput("a" + i).index = i;
-        this.moveInputBefore("a" + i, "dropdown1");
-      }
-    }
-
-    //update additive factors
-    console.log("addFactors field read with content: " + this.addFactors.toString());
-    //first scrub out extra inputs
-    for (var i = 0; i < this.addFactors.length; i++) {
-      if (this.addFactors[i] == "-0-") {
-        this.removeInput("b" + i, true);
-        console.log("cleanup: removed input b" + i);
-      }
-    }
-    //filter "-0-" from factors
-    this.addFactors = this.addFactors.filter(
-      function (e) {
-        return e != "-0-";
-      }
-    );
-    console.log("addFactors filtered, new content: " + this.addFactors.toString());
-    //now populate
-    if (!(this.addFactors.length == 1 && this.addFactors[0]=="")) {
-      for (var i = 0; i < this.addFactors.length; i++) {
-        //remove existing factor from block first
-        if (this.getInput("b" + i) != null) {
-          this.removeInput("b" + i, true);
-          console.log("input b" + i + " removed.");
-        }
-        if (this.addFactors[i] && this.addFactors[i] != "") {
-          console.log("Appending new input b" + i);
-          this.appendDummyInput("b" + i)
-            .setAlign(Blockly.ALIGN_CENTRE)
-            .appendField(this.addFactors[i] + " ")
-            .appendField(new Blockly.FieldCheckbox(true, this.addDBV), "b" + i);
-          this.getInput("b" + i).index = i;
-          this.moveInputBefore("b" + i, "dropdown2");
-        }
-      }
-    }
-  }
-};
-
-Blockly.Blocks['equipment'] = {
-  init: function() {
-    this.appendDummyInput()
-        .setAlign(Blockly.ALIGN_CENTRE)
-        .appendField("Equipment");
-    this.appendStatementInput("equipment_type")
-        .setCheck("equipment_type")
-        .appendField("Equipment Types:");
-    this.appendStatementInput("item")
-        .setCheck("item")
-        .appendField("Item List:");
-    this.setInputsInline(false);
-    this.setPreviousStatement(true, "equipment");
-    this.setColour(240);
-    this.setTooltip("Items usable by players.");
-    this.setHelpUrl("");
   }
 };
 
@@ -2007,6 +1825,188 @@ Blockly.Blocks['item'] = {
           this.getInput("b" + i).info = this.subtypes[i][1];
           this.moveInputBefore("b" + i, "dropdown2");
         }
+      }
+    }
+  }
+};
+
+Blockly.Blocks['resource'] = {
+  init: function() {
+    this.factors = [];
+    this.appendDummyInput()
+        .setAlign(Blockly.ALIGN_CENTRE)
+        .appendField("Resource: ")
+        .appendField(new Blockly.FieldTextInput("<name>"), "name");
+    this.appendDummyInput()
+        .setAlign(Blockly.ALIGN_CENTRE)
+        .appendField("Description: ")
+        .appendField(new Blockly.FieldTextInput("<description>"), "desc");
+    this.appendDummyInput()
+        .setAlign(Blockly.ALIGN_CENTRE)
+        .appendField("Factors: ");
+    this.appendDummyInput("dropdown")
+        .setAlign(Blockly.ALIGN_CENTRE)
+        .appendField(new Blockly.FieldDropdown(generateFactors, dropdownValidator), "factors");
+    this.appendDummyInput()
+        .setAlign(Blockly.ALIGN_CENTRE)
+        .appendField("Range: ")
+        .appendField(new Blockly.FieldNumber(0), "lrange")
+        .appendField(" to ")
+        .appendField(new Blockly.FieldNumber(1), "rrange");
+    this.appendDummyInput()
+        .setAlign(Blockly.ALIGN_CENTRE)
+        .appendField("Initial Value: ")
+        .appendField(new Blockly.FieldNumber(0), "init");
+    this.setInputsInline(false);
+    this.setPreviousStatement(true, "resource");
+    this.setNextStatement(true, "resource");
+    this.setColour(240);
+    this.setTooltip("A statistic that a player tracks which can factor into certain moves.");
+    this.setHelpUrl("");
+  },
+  mutationToDom: function() {
+    var container = document.createElement('mutation');
+    var factorString = (this.factors.toString());
+    container.setAttribute('factors', factorString);
+    return container;
+  },
+  domToMutation: function(xmlElement) {
+    this.factors = xmlElement.getAttribute('factors').split(",");
+    this.updateFactors();
+  },
+  updateFactors: function() {
+    console.log("factors field read with content: " + this.factors.toString());
+    var name;
+    //first scrub out extra inputs
+    for (var i = 0; i < this.factors.length; i++) {
+      if (this.factors[i] == "-0-") {
+        this.removeInput("a" + i, true);
+        console.log("cleanup: removed input a" + i);
+      }
+    }
+    //filter "-0-" from factors
+    this.factors = this.factors.filter(
+      function (e) {
+        return e != "-0-";
+      }
+    );
+    console.log("factors filtered, new content: " + this.factors.toString());
+    //now populate
+    for (var i = 0; i < this.factors.length; i++) {
+      //remove existing factor from block first
+      if (this.getInput("a" + i) != null) {
+        this.removeInput("a" + i, true);
+        console.log("input a" + i + " removed.");
+      }
+      if (this.factors[i] && this.factors[i] != "") {
+        console.log("Appending new input a" + i);
+        this.appendDummyInput("a" + i)
+          .setAlign(Blockly.ALIGN_CENTRE)
+          .appendField(this.factors[i] + " ")
+          .appendField(new Blockly.FieldCheckbox(true, deleteButtonValidator), name);
+        this.getInput("a" + i).index = i;
+        this.moveInputBefore("a" + i, "dropdown");
+      }
+    }
+  }
+};
+
+Blockly.Blocks['extra_mechanic'] = {
+  init: function() {
+    this.factors = [];
+    this.appendDummyInput()
+        .setAlign(Blockly.ALIGN_CENTRE)
+        .appendField("Extra Mechanic:")
+        .appendField(new Blockly.FieldTextInput("<name>"), "name");
+    this.appendDummyInput()
+        .setAlign(Blockly.ALIGN_CENTRE)
+        .appendField("Description: ")
+        .appendField(new Blockly.FieldTextInput("<description>"), "desc");
+    this.appendDummyInput()
+        .setAlign(Blockly.ALIGN_CENTRE)
+        .appendField("Factors:");
+    this.appendDummyInput("dropdown")
+        .setAlign(Blockly.ALIGN_CENTRE)
+        .appendField(new Blockly.FieldDropdown(generateFactors, dropdownValidator), "factors");
+    this.appendDummyInput()
+        .setAlign(Blockly.ALIGN_CENTRE)
+        .appendField("Special Resources?")
+        .appendField(new Blockly.FieldCheckbox("FALSE", this.resourceValidator), "hasResources");
+    this.appendDummyInput('checkMoves') //named for use by updateResourceInput
+        .setAlign(Blockly.ALIGN_CENTRE)
+        .appendField("Special Moves?")
+        .appendField(new Blockly.FieldCheckbox("FALSE", this.moveValidator), "hasMoves");
+    this.setPreviousStatement(true, "extra_mechanic");
+    this.setNextStatement(true, "extra_mechanic");
+    this.setColour(240);
+    this.setTooltip("An additional mechanic relevant to player action.");
+    this.setHelpUrl("");
+  },
+  resourceValidator: function(newValue){
+    var sourceBlock = this.getSourceBlock();
+    sourceBlock.showResourceInput_ = newValue == 'TRUE';
+    sourceBlock.updateResourceInput();
+    return newValue;
+  },
+  moveValidator: function(newValue){
+    var sourceBlock = this.getSourceBlock();
+    sourceBlock.showMoveInput_ = newValue == 'TRUE';
+    sourceBlock.updateMoveInput();
+    return newValue;
+  },
+  updateResourceInput: function(){
+    this.removeInput('resource', true);
+    if (this.showResourceInput_) {
+      this.appendStatementInput('resource').setCheck('resource');
+      this.moveInputBefore('resource', 'checkMoves');
+    }
+  },
+  updateMoveInput: function(){
+    this.removeInput('move', true);
+    if (this.showMoveInput_) this.appendStatementInput('move').setCheck('move');
+  },
+  mutationToDom: function() {
+    var container = document.createElement('mutation');
+    var factorString = (this.factors.toString());
+    container.setAttribute('factors', factorString);
+    return container;
+  },
+  domToMutation: function(xmlElement) {
+    this.factors = xmlElement.getAttribute('factors').split(",");
+    this.updateFactors();
+  },
+  updateFactors: function() {
+    console.log("factors field read with content: " + this.factors.toString());
+    var name;
+    //first scrub out extra inputs
+    for (var i = 0; i < this.factors.length; i++) {
+      if (this.factors[i] == "-0-") {
+        this.removeInput("a" + i, true);
+        console.log("cleanup: removed input a" + i);
+      }
+    }
+    //filter "-0-" from factors
+    this.factors = this.factors.filter(
+      function (e) {
+        return e != "-0-";
+      }
+    );
+    console.log("factors filtered, new content: " + this.factors.toString());
+    //now populate
+    for (var i = 0; i < this.factors.length; i++) {
+      //remove existing factor from block first
+      if (this.getInput("a" + i) != null) {
+        this.removeInput("a" + i, true);
+        console.log("input a" + i + " removed.");
+      }
+      if (this.factors[i] && this.factors[i] != "") {
+        console.log("Appending new input a" + i);
+        this.appendDummyInput("a" + i)
+          .setAlign(Blockly.ALIGN_CENTRE)
+          .appendField(this.factors[i] + " ")
+          .appendField(new Blockly.FieldCheckbox(true, deleteButtonValidator), name);
+        this.getInput("a" + i).index = i;
+        this.moveInputBefore("a" + i, "dropdown");
       }
     }
   }
