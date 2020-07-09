@@ -531,7 +531,6 @@ Blockly.Blocks['factor'] = {
 };
 
 //factor dropdown used here
-//TODO: adds_factor checkbox validator
 Blockly.Blocks['move'] = {
   init: function() {
     this.factors = [];
@@ -972,7 +971,6 @@ Blockly.Blocks['character_creation'] = {
   }
 };
 
-//TODO: connection with playbooks
 Blockly.Blocks['playbook_creation'] = {
   init: function() {
     this.appendDummyInput()
