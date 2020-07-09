@@ -632,7 +632,7 @@ Blockly.Blocks['move'] = {
   },
   domToMutation: function(xmlElement) {
     var mutJSON = xmlElement.getAttribute('factors');
-    if (mutJSON != "") {
+    if (mutJSON) {
       var mutObj = JSON.parse(mutJSON);
       this.factors = mutObj.factors;
       this.addFactors = mutObj.addFactors;
@@ -813,7 +813,7 @@ Blockly.Blocks['playbook_move'] = {
   },
   domToMutation: function(xmlElement) {
     var mutJSON = xmlElement.getAttribute('factors');
-    if (mutJSON != "") {
+    if (mutJSON) {
       var mutObj = JSON.parse(mutJSON);
       this.factors = mutObj.factors;
       this.addFactors = mutObj.addFactors;
@@ -1016,12 +1016,17 @@ Blockly.Blocks['creation_step'] = {
   },
   mutationToDom: function() {
     var container = document.createElement('mutation');
-    var factorString = (this.factors.toString());
-    container.setAttribute('factors', factorString);
+    var mutObj = {factors: this.factors};
+    var mutJSON = JSON.stringify(mutObj);
+    container.setAttribute('factors', mutJSON);
     return container;
   },
   domToMutation: function(xmlElement) {
-    this.factors = xmlElement.getAttribute('factors').split(",");
+    var mutJSON = xmlElement.getAttribute('factors');
+    if (mutJSON) {
+      var mutObj = JSON.parse(mutJSON);
+      this.factors = mutObj.factors;
+    }
     this.updateFactors();
   },
   updateFactors: function() {
@@ -1063,7 +1068,7 @@ Blockly.Blocks['creation_step'] = {
 
 Blockly.Blocks['playbook'] = {
   init: function() {
-    this.factors = [];
+    this.items = [];
     this.appendDummyInput()
         .setAlign(Blockly.ALIGN_CENTRE)
         .appendField("Playbook: ")
@@ -1079,7 +1084,7 @@ Blockly.Blocks['playbook'] = {
         .appendField("Starting Equipment:");
     this.appendDummyInput("dropdown")
         .setAlign(Blockly.ALIGN_CENTRE)
-        .appendField(new Blockly.FieldDropdown(generateItems, dropdownValidator), "equipment");
+        .appendField(new Blockly.FieldDropdown(generateItems, this.dropdownValidator), "equipment");
     this.setInputsInline(false);
     this.setPreviousStatement(true, "playbook");
     this.setNextStatement(true, "playbook");
@@ -1119,46 +1124,87 @@ Blockly.Blocks['playbook'] = {
       }
     });
   },
+  dropdownValidator: function(newValue) {  
+    var sourceBlock = this.getSourceBlock();
+    if (newValue != "no_value") {
+      var options = this.getOptions();
+      var displayText = "";
+      for (var i = 0; i < options.length; i++) {
+        if (options[i][1] == newValue) {
+          displayText = options[i][0];
+          break;
+        }
+      }
+      if (displayText == "") {
+        console.log("dropdownValidator called on empty displayText");
+      } else {
+        sourceBlock.items.push(displayText);
+        console.log(sourceBlock.type + " dropdown updated with " + sourceBlock.items.toString());
+        sourceBlock.updateItems();
+      }
+    }
+    return "no_value";
+  },
+  deleteButtonValidator: function(newValue) {
+    var sourceBlock = this.getSourceBlock();
+    var arr = sourceBlock.items;
+    var input = this.getParentInput();
+    if (newValue == "FALSE") {
+      //replace element in array with a dummy statement
+      //tells updateFactors which inputs to remove before running mutator code
+      //will be removed from array by updateFactors
+      arr[input.index] = "-0-";
+      console.log("dbv: Removing input " + input.name);
+      sourceBlock.removeInput(input.name);
+      this.dispose();
+    }
+    return newValue;
+  },
   mutationToDom: function() {
     var container = document.createElement('mutation');
-    var factorString = (this.factors.toString());
-    container.setAttribute('items', factorString);
+    var mutObj = {items: this.items};
+    var mutJSON = JSON.stringify(mutObj);
+    container.setAttribute('items', mutJSON);
     return container;
   },
   domToMutation: function(xmlElement) {
-    this.factors = xmlElement.getAttribute('items').split(",");
-    this.updateFactors();
+    var mutJSON = xmlElement.getAttribute('items');
+    if (mutJSON) {
+      var mutObj = JSON.parse(mutJSON);
+      this.items = mutObj.items;
+    }
+    this.updateItems();
   },
-  updateFactors: function() {
-    console.log("items field read with content: " + this.factors.toString());
+  updateItems: function() {
+    console.log("items field read with content: " + this.items.toString());
     var name;
     //first scrub out extra inputs
-    for (var i = 0; i < this.factors.length; i++) {
-      if (this.factors[i] == "-0-") {
+    for (var i = 0; i < this.items.length; i++) {
+      if (this.items[i] == "-0-") {
         this.removeInput("a" + i, true);
         console.log("cleanup: removed input a" + i);
       }
     }
-    //filter "-0-" from factors
-    this.factors = this.factors.filter(
+    //filter "-0-" from items
+    this.items = this.items.filter(
       function (e) {
         return e != "-0-";
       }
     );
-    console.log("items filtered, new content: " + this.factors.toString());
+    console.log("items filtered, new content: " + this.items.toString());
     //now populate
-    for (var i = 0; i < this.factors.length; i++) {
+    for (var i = 0; i < this.items.length; i++) {
       //remove existing factor from block first
       if (this.getInput("a" + i) != null) {
         this.removeInput("a" + i, true);
         console.log("input a" + i + " removed.");
       }
-      if (this.factors[i] && this.factors[i] != "") {
+      if (this.items[i] && this.items[i] != "") {
         console.log("Appending new input a" + i);
         this.appendDummyInput("a" + i)
           .setAlign(Blockly.ALIGN_CENTRE)
-          .appendField(this.factors[i] + " ")
-          .appendField(new Blockly.FieldCheckbox(true, deleteButtonValidator), name);
+          .appendField(this.items[i] + " ")
+          .appendField(new Blockly.FieldCheckbox(true, this.deleteButtonValidator), name);
         this.getInput("a" + i).index = i;
         this.moveInputBefore("a" + i, "dropdown");
       }
@@ -1217,12 +1263,17 @@ Blockly.Blocks['feature'] = {
   },
   mutationToDom: function() {
     var container = document.createElement('mutation');
-    var factorString = (this.factors.toString());
-    container.setAttribute('factors', factorString);
+    var mutObj = {factors: this.factors};
+    var mutJSON = JSON.stringify(mutObj);
+    container.setAttribute('factors', mutJSON);
     return container;
   },
   domToMutation: function(xmlElement) {
-    this.factors = xmlElement.getAttribute('factors').split(",");
+    var mutJSON = xmlElement.getAttribute('factors');
+    if (mutJSON) {
+      var mutObj = JSON.parse(mutJSON);
+      this.factors = mutObj.factors;
+    }
     this.updateFactors();
   },
   updateFactors: function() {
@@ -1353,12 +1404,17 @@ Blockly.Blocks['equipment_type'] = {
   },
   mutationToDom: function() {
     var container = document.createElement('mutation');
-    var factorString = (this.factors.toString());
-    container.setAttribute('factors', factorString);
+    var mutObj = {factors: this.factors};
+    var mutJSON = JSON.stringify(mutObj);
+    container.setAttribute('factors', mutJSON);
     return container;
   },
   domToMutation: function(xmlElement) {
-    this.factors = xmlElement.getAttribute('factors').split(",");
+    var mutJSON = xmlElement.getAttribute('factors');
+    if (mutJSON) {
+      var mutObj = JSON.parse(mutJSON);
+      this.factors = mutObj.factors;
+    }
     this.updateFactors();
   },
   updateFactors: function() {
@@ -1748,7 +1804,7 @@ Blockly.Blocks['item'] = {
   },
   domToMutation: function(xmlElement) {
     var mutJSON = xmlElement.getAttribute('types');
-    if (mutJSON != "") {
+    if (mutJSON) {
       var mutObj = JSON.parse(mutJSON);
       this.types = mutObj.types;
       this.subtypes = mutObj.subtypes;
@@ -1866,12 +1922,17 @@ Blockly.Blocks['resource'] = {
   },
   mutationToDom: function() {
     var container = document.createElement('mutation');
-    var factorString = (this.factors.toString());
-    container.setAttribute('factors', factorString);
+    var mutObj = {factors: this.factors};
+    var mutJSON = JSON.stringify(mutObj);
+    container.setAttribute('factors', mutJSON);
     return container;
   },
   domToMutation: function(xmlElement) {
-    this.factors = xmlElement.getAttribute('factors').split(",");
+    var mutJSON = xmlElement.getAttribute('factors');
+    if (mutJSON) {
+      var mutObj = JSON.parse(mutJSON);
+      this.factors = mutObj.factors;
+    }
     this.updateFactors();
   },
   updateFactors: function() {
@@ -1967,12 +2028,17 @@ Blockly.Blocks['extra_mechanic'] = {
   },
   mutationToDom: function() {
     var container = document.createElement('mutation');
-    var factorString = (this.factors.toString());
-    container.setAttribute('factors', factorString);
+    var mutObj = {factors: this.factors};
+    var mutJSON = JSON.stringify(mutObj);
+    container.setAttribute('factors', mutJSON);
     return container;
   },
   domToMutation: function(xmlElement) {
-    this.factors = xmlElement.getAttribute('factors').split(",");
+    var mutJSON = xmlElement.getAttribute('factors');
+    if (mutJSON) {
+      var mutObj = JSON.parse(mutJSON);
+      this.factors = mutObj.factors;
+    }
     this.updateFactors();
   },
   updateFactors: function() {
