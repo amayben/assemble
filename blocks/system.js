@@ -16,8 +16,6 @@ Blockly.FieldCheckbox.CHECK_CHAR = "X";
 var factorsList = [];
 var addFactorsList = [];
 var playbooksList = [];
-var typesList = [];
-var itemsList = [];
 
 //called by blocks with global array representations
 //updates those arrays when blocks are added or removed
@@ -1122,7 +1120,7 @@ Blockly.Blocks['playbook'] = {
     var options = [["<select>","no_value"]];
     var sourceBlock = this.getSourceBlock();
     if (sourceBlock && sourceBlock.workspace) {
-      console.log("gi: parent block acquired");
+      console.log("gi: parent block/workspace acquired");
       var currBlock;
       var name;
       //var inItems; //TODO?: implement with item count feature
@@ -1384,38 +1382,6 @@ Blockly.Blocks['equipment_type'] = {
     this.setColour(270);
     this.setTooltip("A category of certain equipment items, as well as that category's pertinent factors for its items to be used, and what subtypes it may be divided into.");
     this.setHelpUrl("");
-    this.setOnChange(function(changeEvent) { //tighten event params? subtypes don't affect arr
-      //if an equipment_type block
-      if (this.workspace.getBlockById(changeEvent.blockId)
-        && this.workspace.getBlockById(changeEvent.blockId).type == "equipment_type") {
-      //moves
-        if (changeEvent.type == Blockly.Events.BLOCK_MOVE
-          && changeEvent.oldParentId != changeEvent.newParentId) {
-      //below this block
-          if (changeEvent.newParentId == this.id) {
-            console.log("updateList() called because of block becoming parent")
-            updateList(this, true);
-      //or this block moves below an equipment block
-          } else if (this.workspace.getBlockById(changeEvent.blockId) == this
-            && this.workspace.getBlockById(changeEvent.newParentId)
-            && this.workspace.getBlockById(changeEvent.newParentId).type == "equipment") {
-            console.log("updateList() called because of block being moved below equipment");
-            updateList(this, true);
-      //or if this block has moved but does not have a parent
-          } else if (this.workspace.getBlockById(changeEvent.blockId) == this
-            && !this.previousConnection.isConnected()) {
-            console.log("updateList() called because of moved block becoming disconnected");
-            updateList(this, false);
-          }
-      //or if this block's name field is changed      
-        } else if (changeEvent.type == Blockly.Events.BLOCK_CHANGE
-            && this.workspace.getBlockById(changeEvent.blockId) == this
-            && changeEvent.name == "name") {
-          console.log("updateList() called because of name change");
-          updateList(this, true);
-        }
-      }
-    });
   },
   subtypeValidator: function(newValue){
     var sourceBlock = this.getSourceBlock();
@@ -1513,11 +1479,32 @@ Blockly.Blocks['item'] = {
     this.setHelpUrl("");
   },
   generateTypes: function() {
-    var optionsList = typesList;
+    var options = [["<select>","no_value"]];
     var sourceBlock = this.getSourceBlock();
-    //filter types from generated list if already in block
-    if (sourceBlock) {
-      optionsList = optionsList.filter(
+    if (sourceBlock && sourceBlock.workspace) {
+      console.log("gt: parent block/workspace acquired");
+      var currBlock;
+      var name;
+      var parentSet = sourceBlock.workspace.getBlocksByType("equipment");
+      for (var i = 0; i < parentSet.length; i++) {
+        if (parentSet[i].previousConnection.isConnected()
+          && parentSet[i].getInput("equipment_type").connection.isConnected()) {
+          currBlock = parentSet[i].getInput("equipment_type")
+            .connection.targetConnection.getSourceBlock();
+          break;
+        }
+      }
+      while (currBlock) {
+        name = currBlock.getField("name").getValue();
+        if (name != ""
+          && name != "<name>"
+          && !name.includes("-0-")){
+          options.push(new Array(name, currBlock.id));
+        }
+        currBlock = currBlock.getNextBlock();
+      }
+      //filter types from generated list if already in block
+      options = options.filter(
         function (e) {
           for (var i = 0; i < sourceBlock.types.length; i++) {
             if (e[1] == sourceBlock.types[i][1]) return false;
@@ -1525,12 +1512,8 @@ Blockly.Blocks['item'] = {
           return true;
         }
       );
-    }
-    var options = [["<select>","no_value"]];
-    if (optionsList.length > 0) {
-      for (var i = 0; i < optionsList.length; i++) {
-        options.push(optionsList[i]);
-      }
+    } else {
+      console.log("gt: parent block/workspace not acquired");
     }
     return options;
   },
@@ -1538,7 +1521,7 @@ Blockly.Blocks['item'] = {
     var options = [["<select>","no_value"]];
     var sourceBlock = this.getSourceBlock();
     if (sourceBlock && sourceBlock.workspace) {
-      console.log("gs: parent block acquired");
+      console.log("gs: parent block/workspace acquired");
       var currBlock;
       var name;
       var inSubtypes;
