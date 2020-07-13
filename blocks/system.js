@@ -50,8 +50,7 @@ var updateList = function(block, noBug) {
     var name = currBlock.getField("name").getValue();
     if (name != ""
       && name != "<name>"
-      && !name.includes("-0-")
-      && !name.includes('|')){
+      && !name.includes("-0-")){
       list.push(new Array(name, currBlock.id));
       if (currBlock.getField("isAdditive")
         && currBlock.getField("isAdditive").getValue() == "TRUE") {
@@ -111,17 +110,6 @@ var generateAddFactors = function() {
 
 var generatePlaybooks = function() {
   var optionsList = playbooksList;
-  var options = [["<select>","no_value"]];
-  if (optionsList.length > 0) {
-    for (var i = 0; i < optionsList.length; i++) {
-      options.push(optionsList[i]);
-    }
-  }
-  return options;
-};
-
-var generateItems = function() {
-  var optionsList = itemsList;
   var options = [["<select>","no_value"]];
   if (optionsList.length > 0) {
     for (var i = 0; i < optionsList.length; i++) {
@@ -1089,7 +1077,7 @@ Blockly.Blocks['playbook'] = {
         .appendField("Starting Equipment:");
     this.appendDummyInput("dropdown")
         .setAlign(Blockly.ALIGN_CENTRE)
-        .appendField(new Blockly.FieldDropdown(generateItems, this.dropdownValidator), "equipment");
+        .appendField(new Blockly.FieldDropdown(this.generateItems, this.dropdownValidator), "equipment");
     this.setInputsInline(false);
     this.setPreviousStatement(true, "playbook");
     this.setNextStatement(true, "playbook");
@@ -1128,6 +1116,38 @@ Blockly.Blocks['playbook'] = {
         }
       }
     });
+  },
+  generateItems: function() {
+    //var optionsList = itemsList;
+    var options = [["<select>","no_value"]];
+    var sourceBlock = this.getSourceBlock();
+    if (sourceBlock && sourceBlock.workspace) {
+      console.log("gi: parent block acquired");
+      var currBlock;
+      var name;
+      //var inItems; //TODO?: implement with item count feature
+      var parentSet = sourceBlock.workspace.getBlocksByType("equipment");
+      for (var i = 0; i < parentSet.length; i++) {
+        if (parentSet[i].previousConnection.isConnected()
+          && parentSet[i].getInput("item").connection.isConnected()) {
+          currBlock = parentSet[i].getInput("item")
+            .connection.targetConnection.getSourceBlock();
+          break;
+        }
+      }
+      while (currBlock) {
+        name = currBlock.getField("name").getValue();
+        if (name != ""
+          && name != "<name>"
+          && !name.includes("-0-")){
+          options.push(new Array(name, currBlock.id));
+        }
+        currBlock = currBlock.getNextBlock();
+      }
+    } else {
+      console.log("gi: parent block/workspace not acquired");
+    }
+    return options;
   },
   dropdownValidator: function(newValue) {  
     var sourceBlock = this.getSourceBlock();
@@ -1491,38 +1511,6 @@ Blockly.Blocks['item'] = {
     this.setColour(270);
     this.setTooltip("An item with predefined mechanics that can be acquired in the system.");
     this.setHelpUrl("");
-    this.setOnChange(function(changeEvent) {
-      //if an item block
-      if (this.workspace.getBlockById(changeEvent.blockId)
-        && this.workspace.getBlockById(changeEvent.blockId).type == "item") {
-      //moves
-        if (changeEvent.type == Blockly.Events.BLOCK_MOVE
-          && changeEvent.oldParentId != changeEvent.newParentId) {
-      //below this block
-          if (changeEvent.newParentId == this.id) {
-            console.log("updateList() called because of block becoming parent")
-            updateList(this, true);
-      //or this block moves below an equipment block
-          } else if (this.workspace.getBlockById(changeEvent.blockId) == this
-            && this.workspace.getBlockById(changeEvent.newParentId)
-            && this.workspace.getBlockById(changeEvent.newParentId).type == "equipment") {
-            console.log("updateList() called because of block being moved below equipment");
-            updateList(this, true);
-      //or if this block has moved but does not have a parent
-          } else if (this.workspace.getBlockById(changeEvent.blockId) == this
-            && !this.previousConnection.isConnected()) {
-            console.log("updateList() called because of moved block becoming disconnected");
-            updateList(this, false);
-          }
-      //or if this block's name field is changed      
-        } else if (changeEvent.type == Blockly.Events.BLOCK_CHANGE
-            && this.workspace.getBlockById(changeEvent.blockId) == this
-            && changeEvent.name == "name") {
-          console.log("updateList() called because of name change");
-          updateList(this, true);
-        }
-      }
-    });
   },
   generateTypes: function() {
     var optionsList = typesList;
