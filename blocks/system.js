@@ -15,7 +15,6 @@ Blockly.FieldCheckbox.CHECK_CHAR = "X";
 //first value is always the name field, second value is the corresponding block id
 var factorsList = [];
 var addFactorsList = [];
-var playbooksList = [];
 
 //called by blocks with global array representations
 //updates those arrays when blocks are added or removed
@@ -106,18 +105,7 @@ var generateAddFactors = function() {
   return options;
 };
 
-var generatePlaybooks = function() {
-  var optionsList = playbooksList;
-  var options = [["<select>","no_value"]];
-  if (optionsList.length > 0) {
-    for (var i = 0; i < optionsList.length; i++) {
-      options.push(optionsList[i]);
-    }
-  }
-  return options;
-};
-
-//catch-all validator for dynamic dropdown fields
+//catch-all validator for dynamic dropdown fields in factor blocks
 var dropdownValidator = function(newValue) {  
   var sourceBlock = this.getSourceBlock();
   if (newValue != "no_value") {
@@ -140,6 +128,7 @@ var dropdownValidator = function(newValue) {
   return "no_value";
 };
 
+//catch-all validator for delete operations in factor blocks
 var deleteButtonValidator = function(newValue) {
   var sourceBlock = this.getSourceBlock();
   var arr = sourceBlock.factors;
@@ -969,7 +958,7 @@ Blockly.Blocks['playbook_creation'] = {
     this.appendDummyInput()
         .setAlign(Blockly.ALIGN_CENTRE)
         .appendField("Steps for Playbook: ")
-        .appendField(new Blockly.FieldDropdown(generatePlaybooks), "name");
+        .appendField(new Blockly.FieldDropdown(this.generatePlaybooks), "name");
     this.appendStatementInput("creation_step")
         .setCheck("creation_step");
     this.setInputsInline(false);
@@ -978,6 +967,35 @@ Blockly.Blocks['playbook_creation'] = {
     this.setColour(225);
     this.setTooltip("A set of additional steps or revisions that must be made when creating a character of the specified playbook.");
     this.setHelpUrl("");
+  },
+  generatePlaybooks: function() {
+    var options = [["<select>","no_value"]];
+    var sourceBlock = this.getSourceBlock();
+    if (sourceBlock && sourceBlock.workspace) {
+      console.log("gp: parent block/workspace acquired");
+      var currBlock;
+      var name;
+      var parentSet = sourceBlock.workspace.getBlocksByType("player_rules");
+      for (var i = 0; i < parentSet.length; i++) {
+        if (parentSet[i].previousConnection.isConnected()
+          && parentSet[i].getInput("playbook").connection.isConnected()) {
+          currBlock = parentSet[i].getInput("playbook")
+            .connection.targetConnection.getSourceBlock();
+          break;
+        }
+      }
+      while (currBlock) {
+        name = currBlock.getField("name").getValue();
+        if (name != ""
+          && name != "<name>"){
+          options.push(new Array(name, currBlock.id));
+        }
+        currBlock = currBlock.getNextBlock();
+      }
+    } else {
+      console.log("gp: parent block/workspace not acquired");
+    }
+    return options;
   }
 };
 
@@ -1082,41 +1100,8 @@ Blockly.Blocks['playbook'] = {
     this.setColour(240);
     this.setTooltip("Defines a character playbook or class in the system.");
     this.setHelpUrl("");
-    this.setOnChange(function(changeEvent) {
-      //if a playbook block
-      if (this.workspace.getBlockById(changeEvent.blockId)
-        && this.workspace.getBlockById(changeEvent.blockId).type == "playbook") {
-      //moves
-        if (changeEvent.type == Blockly.Events.BLOCK_MOVE
-          && changeEvent.oldParentId != changeEvent.newParentId) {
-      //below this block
-          if (changeEvent.newParentId == this.id) {
-            console.log("updateList() called because of block becoming parent")
-            updateList(this, true);
-      //or this block moves below a player_rules block
-          } else if (this.workspace.getBlockById(changeEvent.blockId) == this
-            && this.workspace.getBlockById(changeEvent.newParentId)
-            && this.workspace.getBlockById(changeEvent.newParentId).type == "player_rules") {
-            console.log("updateList() called because of block being moved below player_rules");
-            updateList(this, true);
-      //or if this block has moved but does not have a parent
-          } else if (this.workspace.getBlockById(changeEvent.blockId) == this
-            && !this.previousConnection.isConnected()) {
-            console.log("updateList() called because of moved block becoming disconnected");
-            updateList(this, false);
-          }
-      //or if this block's name field is changed      
-        } else if (changeEvent.type == Blockly.Events.BLOCK_CHANGE
-            && this.workspace.getBlockById(changeEvent.blockId) == this
-            && changeEvent.name == "name") {
-          console.log("updateList() called because of name change");
-          updateList(this, true);
-        }
-      }
-    });
   },
   generateItems: function() {
-    //var optionsList = itemsList;
     var options = [["<select>","no_value"]];
     var sourceBlock = this.getSourceBlock();
     if (sourceBlock && sourceBlock.workspace) {
