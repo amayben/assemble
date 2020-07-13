@@ -11,8 +11,7 @@
 		<table style="height: 98vh; width: 98vw;">
 			<tbody>
 				<tr>
-					<td id="blocklyArea" style="text-align: center">
-					</td>
+					<td id="blocklyArea" style="text-align: center"></td>
 				</tr>
 			</tbody>
 		</table>	
@@ -392,7 +391,32 @@
 	  var workspace = Blockly.inject(blocklyDiv, options);
 	  var workspaceBlocks = document.getElementById("workspaceBlocks"); 
 		/* Load blocks to workspace. */
+	  //TODO: if cookie is present, load XML from cookie instead of workspaceBlocks
 	  Blockly.Xml.domToWorkspace(workspaceBlocks, workspace);
+	  //TODO: exports workspace to text and allows user to download it
+	  /*
+	  var exportworkspace = function() {
+
+	  };
+	  */
+	  //TODO: loads workspace from xml file
+	  /*
+	  var loadworkspace = function() {
+	
+	  };
+	  */
+	  //TODO: returns workspace to default state
+	  /*
+	  var resetworkspace = function() {
+
+	  };
+	  */
+	  //TODO: saves workspace to cookie (automatic?)
+	  /*
+	  var workspacetocookie = function() {
+
+	  };
+	  */
 	  var onresize = function(e) {
 	    // Compute the absolute coordinates and dimensions of blocklyArea.
 	    var element = blocklyArea;

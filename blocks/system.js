@@ -19,7 +19,8 @@ var playbooksList = [];
 var typesList = [];
 var itemsList = [];
 
-//called by blocks with global array representations to update those arrays when blocks are added or removed
+//called by blocks with global array representations
+//updates those arrays when blocks are added or removed
 var updateList = function(block, noBug) {
   var parentSet = [];
   switch (block.type) {
@@ -41,7 +42,8 @@ var updateList = function(block, noBug) {
   var currBlock;
   for (var i = 0; i < parentSet.length; i++) {
     if (parentSet[i].getInput(block.type).connection.isConnected()) {
-      currBlock = parentSet[i].getInput(block.type).connection.targetConnection.getSourceBlock();
+      currBlock = parentSet[i].getInput(block.type)
+        .connection.targetConnection.getSourceBlock();
     }
   }
   while (currBlock) {
@@ -480,7 +482,12 @@ Blockly.Blocks['factor'] = {
     this.appendDummyInput()
         .setAlign(Blockly.ALIGN_CENTRE)
         .appendField("Type:")
-        .appendField(new Blockly.FieldDropdown([["Scalar","Scalar"], ["Reroll","Reroll"], ["Revision","Revision"], ["Meta","Meta"]]), "type");
+        .appendField(new Blockly.FieldDropdown(
+          [["Scalar","Scalar"],
+          ["Reroll","Reroll"],
+          ["Revision","Revision"],
+          ["Meta","Meta"]]
+          ), "type");
     this.appendDummyInput()
         .setAlign(Blockly.ALIGN_CENTRE)
         .appendField("Effect:")
