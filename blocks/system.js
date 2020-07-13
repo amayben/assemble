@@ -11,101 +11,72 @@
 'use strict';
 Blockly.FieldCheckbox.CHECK_CHAR = "X";
 
-//global arrays (shared between blocks for communication)
-//first value is always the name field, second value is the corresponding block id
-var factorsList = [];
-var addFactorsList = [];
-
-//called by blocks with global array representations
-//updates those arrays when blocks are added or removed
-var updateList = function(block, noBug) {
-  var parentSet = [];
-  switch (block.type) {
-    case "factor":
-      parentSet = block.workspace.getBlocksByType("mechanics");
-      break;
-    case "playbook":
-      parentSet = block.workspace.getBlocksByType("player_rules");
-      break;
-    case "equipment_type":
-    case "item":
-      parentSet = block.workspace.getBlocksByType("equipment");
-      break;
-  }
-  //start with empty list
-  var list = [];
-  var addList = [];
-  //find the first block in the relevant input
-  var currBlock;
-  for (var i = 0; i < parentSet.length; i++) {
-    if (parentSet[i].getInput(block.type).connection.isConnected()) {
-      currBlock = parentSet[i].getInput(block.type)
-        .connection.targetConnection.getSourceBlock();
-    }
-  }
-  while (currBlock) {
-    var name = currBlock.getField("name").getValue();
-    if (name != ""
-      && name != "<name>"
-      && !name.includes("-0-")){
-      list.push(new Array(name, currBlock.id));
-      if (currBlock.getField("isAdditive")
-        && currBlock.getField("isAdditive").getValue() == "TRUE") {
-        addList.push(new Array(name, currBlock.id));
+//sets contents of dropdown fields for factors
+var generateFactors = function() {
+  var options = [["<select>","no_value"]];
+  var sourceBlock = this.getSourceBlock();
+  if (sourceBlock && sourceBlock.workspace) {
+    console.log("gf: parent block/workspace acquired");
+    var currBlock;
+    var name;
+    var parentSet = sourceBlock.workspace.getBlocksByType("mechanics");
+    for (var i = 0; i < parentSet.length; i++) {
+      if (parentSet[i].previousConnection.isConnected()
+        && parentSet[i].getInput("factor").connection.isConnected()) {
+        currBlock = parentSet[i].getInput("factor")
+          .connection.targetConnection.getSourceBlock();
+        break;
       }
     }
-    currBlock = currBlock.getNextBlock();
-  }
-  //for whatever reason this array includes the head of the set of blocks that is removed
-  //we solve this with a simple array pop
-  if (!noBug) list.pop();
-  //then reset factors in workspace blocks
-  switch (block.type) {
-    case "factor":
-      factorsList = list;
-      addFactorsList = addList;
-      console.log("factorsList updated with " + factorsList.toString());
-      console.log("addFactorsList updated with " + addFactorsList.toString());
-      break;
-    case "playbook":
-      playbooksList = list;
-      console.log("playbooksList updated with " + playbooksList.toString());
-      break;
-    case "equipment_type":
-      typesList = list;
-      console.log("typesList updated with " + typesList.toString());
-      break;
-    case "item":
-      itemsList = list;
-      console.log("itemsList updated with " + itemsList.toString());
-      break;
-  }
-};
-
-//sets contents of dropdown fields
-var generateFactors = function() {
-  var optionsList = factorsList;
-  var options = [["<select>","no_value"]];
-  if (optionsList.length > 0) {
-    for (var i = 0; i < optionsList.length; i++) {
-      options.push(optionsList[i]);
+    while (currBlock) {
+      name = currBlock.getField("name").getValue();
+      if (name != ""
+        && name != "<name>"
+        && !name.includes("-0-")){
+        options.push(new Array(name, currBlock.id));
+      }
+      currBlock = currBlock.getNextBlock();
     }
+  } else {
+    console.log("gf: parent block/workspace not acquired");
   }
   return options;
 };
 
+//does the same for factors marked as additive
 var generateAddFactors = function() {
-  var optionsList = addFactorsList;
   var options = [["<select>","no_value"]];
-  if (optionsList.length > 0) {
-    for (var i = 0; i < optionsList.length; i++) {
-      options.push(optionsList[i]);
+  var sourceBlock = this.getSourceBlock();
+  if (sourceBlock && sourceBlock.workspace) {
+    console.log("gaf: parent block/workspace acquired");
+    var currBlock;
+    var name;
+    var parentSet = sourceBlock.workspace.getBlocksByType("mechanics");
+    for (var i = 0; i < parentSet.length; i++) {
+      if (parentSet[i].previousConnection.isConnected()
+        && parentSet[i].getInput("factor").connection.isConnected()) {
+        currBlock = parentSet[i].getInput("factor")
+          .connection.targetConnection.getSourceBlock();
+        break;
+      }
     }
+    while (currBlock) {
+      name = currBlock.getField("name").getValue();
+      if (name != ""
+        && name != "<name>"
+        && !name.includes("-0-")
+        && currBlock.getField("isAdditive").getValue() == "TRUE"){
+        options.push(new Array(name, currBlock.id));
+      }
+      currBlock = currBlock.getNextBlock();
+    }
+  } else {
+    console.log("gaf: parent block/workspace not acquired");
   }
   return options;
 };
 
-//catch-all validator for dynamic dropdown fields in factor blocks
+//catch-all validator for dynamic dropdown fields involving factor blocks
 var dropdownValidator = function(newValue) {  
   var sourceBlock = this.getSourceBlock();
   if (newValue != "no_value") {
@@ -128,7 +99,7 @@ var dropdownValidator = function(newValue) {
   return "no_value";
 };
 
-//catch-all validator for delete operations in factor blocks
+//catch-all validator for delete operations involving factor blocks
 var deleteButtonValidator = function(newValue) {
   var sourceBlock = this.getSourceBlock();
   var arr = sourceBlock.factors;
@@ -477,38 +448,6 @@ Blockly.Blocks['factor'] = {
     this.setColour(315);
     this.setTooltip("A situational variable that factors into the outcome of a move.");
     this.setHelpUrl("");
-    this.setOnChange(function(changeEvent) {
-      //if a factor block
-      if (this.workspace.getBlockById(changeEvent.blockId)
-        && this.workspace.getBlockById(changeEvent.blockId).type == "factor") {
-      //moves
-        if (changeEvent.type == Blockly.Events.BLOCK_MOVE
-          && changeEvent.oldParentId != changeEvent.newParentId) {
-      //below this block
-          if (changeEvent.newParentId == this.id) {
-            console.log("updateList() called because of block becoming parent")
-            updateList(this, true);
-      //or this block moves below a mechanics block
-          } else if (this.workspace.getBlockById(changeEvent.blockId) == this
-            && this.workspace.getBlockById(changeEvent.newParentId)
-            && this.workspace.getBlockById(changeEvent.newParentId).type == "mechanics") {
-            console.log("updateList() called because of block being moved below mechanics");
-            updateList(this, true);
-      //or if this block has moved but does not have a parent
-          } else if (this.workspace.getBlockById(changeEvent.blockId) == this
-            && !this.previousConnection.isConnected()) {
-            console.log("updateList() called because of moved block becoming disconnected");
-            updateList(this, false);
-          }
-      //or if this block's name or additive field is changed      
-        } else if (changeEvent.type == Blockly.Events.BLOCK_CHANGE
-            && this.workspace.getBlockById(changeEvent.blockId) == this
-            && (changeEvent.name == "name" || changeEvent.name == "isAdditive")) {
-          console.log("updateList() called because of name change");
-          updateList(this, true);
-        }
-      }
-    });
   }
 };
 
