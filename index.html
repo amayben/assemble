@@ -2,6 +2,7 @@
 <html>
 	<head>
 		<meta charset="UTF-8"><title>amayben's PbtA Pattern Language in Blockly</title>
+		<script src="http://danml.com/js/download.js"></script>
 		<script src="blockly_compressed.js"></script>
 		<script src="blocks_compressed.js"></script>
 		<script src="msg/js/en.js"></script>
@@ -31,7 +32,7 @@
 						</tr>
 						<tr>
 							<td style="height: 4%; text-align: right">
-								<button class="button">Export Blocks</button> <!--needs onclick-->
+								<button class="button" onclick="exportworkspace()">Export Blocks</button>
 								<button class="button">Import Blocks</button> <!--needs onclick-->
 							</td>
 						</tr>
@@ -51,7 +52,8 @@
 		  <block type="text_print"></block>
 		</xml>
 		-->
-		<xml xmlns="https://developers.google.com/blockly/xml" id="toolbox" style="display: none">
+		<xml xmlns="https://developers.google.com/blockly/xml"
+			id="toolbox" style="display: none">
 		  <category name="System" colour="#a5745b">
 		    <block type="theme">
 		      <field name="name">&lt;name&gt;</field>
@@ -205,7 +207,8 @@
 		  </category>
 		</xml>
 		
-		<xml xmlns="https://developers.google.com/blockly/xml" id="workspaceBlocks" style="display: none">
+		<xml xmlns="https://developers.google.com/blockly/xml"
+			id="workspaceBlocks" style="display: none">
 		  <block type="system" id="t9Hqtr^5eqhn0iO=Kg)*" x="113" y="162">
 		    <field name="name">&lt;system name&gt;</field>
 		    <statement name="theme">
@@ -418,11 +421,14 @@
 	  //TODO: if cookie is present, load XML from cookie instead of workspaceBlocks
 	  Blockly.Xml.domToWorkspace(workspaceBlocks, workspace);
 	  //TODO: exports workspace to text and allows user to download it
-	  /*
 	  var exportworkspace = function() {
-
+	  	var filename = prompt("Filename for workspace XML:", "system.xml");
+			if (filename.endsWith(".xml")) {
+			  var xml = Blockly.Xml.workspaceToDom(workspace);
+				var xml_text = Blockly.Xml.domToPrettyText(xml);
+				download(xml_text, filename, "text/plain");
+			}
 	  };
-	  */
 	  //TODO: loads workspace from xml file
 	  /*
 	  var loadworkspace = function() {
