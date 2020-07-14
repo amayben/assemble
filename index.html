@@ -6,15 +6,39 @@
 		<script src="blocks_compressed.js"></script>
 		<script src="msg/js/en.js"></script>
 		<script src="blocks/system.js"></script>
+		<style>
+			.button {
+			  border: none;
+			  padding: 10px 20px;
+			  text-align: center;
+			  text-decoration: none;
+			  display: inline-block;
+			  font-size: 20px;
+			  margin: 4px 2px;
+			}
+		</style>
 	</head>
 	<body>
-		<table style="height: 98vh; width: 98vw;">
-			<tbody>
-				<tr>
-					<td id="blocklyArea" style="text-align: center"></td>
-				</tr>
-			</tbody>
-		</table>	
+		<div class="row">
+			<div style="float: left; width: 20%">
+				<p style="text-align: center;">some text</p>
+			</div>
+			<div style="float: left; width: 80%">
+				<table style="height: 99vh; width: 79vw;">
+					<tbody>
+						<tr>
+							<td id="blocklyArea" style="text-align: center"></td>
+						</tr>
+						<tr>
+							<td style="height: 4%; text-align: right">
+								<button class="button">Export Blocks</button> <!--needs onclick-->
+								<button class="button">Import Blocks</button> <!--needs onclick-->
+							</td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+		</div>
 		<div id="blocklyDiv" style="position: absolute"></div>
 		<!--
 		<xml id="toolbox" style="display: none">
@@ -364,32 +388,32 @@
 	<script>
 	  var blocklyArea = document.getElementById('blocklyArea');
 	  var blocklyDiv = document.getElementById('blocklyDiv');
-	  var options = { 
-		toolbox : document.getElementById('toolbox'), 
-		collapse : true, 
-		comments : true, 
-		disable : true, 
-		maxBlocks : Infinity, 
-		trashcan : true, 
-		horizontalLayout : false, 
-		toolboxPosition : 'start', 
-		css : true, 
-		media : 'https://blockly-demo.appspot.com/static/media/', 
-		rtl : false, 
-		scrollbars : true, 
-		sounds : true, 
-		oneBasedIndex : true, 
+	  var options = {
+		toolbox : document.getElementById('toolbox'),
+		collapse : true,
+		comments : true,
+		disable : true,
+		maxBlocks : Infinity,
+		trashcan : true,
+		horizontalLayout : false,
+		toolboxPosition : 'start',
+		css : true,
+		media : 'https://blockly-demo.appspot.com/static/media/',
+		rtl : false,
+		scrollbars : true,
+		sounds : true,
+		oneBasedIndex : true,
 		zoom : {
-			controls : true, 
-			wheel : true, 
-			startScale : 1, 
-			maxScale : 3, 
-			minScale : 0.3, 
-			scaleSpeed : 1.2
+			controls : true,
+			wheel : true,
+			startScale : 0.5,
+			maxScale : 3,
+			minScale : 0.3,
+			scaleSpeed : 1.1
 		}
 	  };
 	  var workspace = Blockly.inject(blocklyDiv, options);
-	  var workspaceBlocks = document.getElementById("workspaceBlocks"); 
+	  var workspaceBlocks = document.getElementById("workspaceBlocks");
 		/* Load blocks to workspace. */
 	  //TODO: if cookie is present, load XML from cookie instead of workspaceBlocks
 	  Blockly.Xml.domToWorkspace(workspaceBlocks, workspace);
@@ -438,4 +462,4 @@
 	  onresize();
 	  Blockly.svgResize(workspace);
 	</script>
-</html> 
+</html>
