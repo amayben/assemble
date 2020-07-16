@@ -979,7 +979,6 @@ Blockly.Blocks['creation_step'] = {
   },
   updateFactors: function() {
     console.log("factors field read with content: " + this.factors.toString());
-    var name;
     //first scrub out extra inputs
     for (var i = 0; i < this.factors.length; i++) {
       if (this.factors[i] == "-0-") {
@@ -1006,7 +1005,7 @@ Blockly.Blocks['creation_step'] = {
         this.appendDummyInput("a" + i)
           .setAlign(Blockly.ALIGN_CENTRE)
           .appendField(this.factors[i] + " ")
-          .appendField(new Blockly.FieldCheckbox(true, deleteButtonValidator), name);
+          .appendField(new Blockly.FieldCheckbox(true, deleteButtonValidator));
         this.getInput("a" + i).index = i;
         this.moveInputBefore("a" + i, "dropdown");
       }
@@ -1085,7 +1084,7 @@ Blockly.Blocks['playbook'] = {
       if (displayText == "") {
         console.log("dropdownValidator called on empty displayText");
       } else {
-        sourceBlock.items.push(displayText);
+        sourceBlock.items.push(new Array(displayText, 1));
         console.log(sourceBlock.type + " dropdown updated with " + sourceBlock.items.toString());
         sourceBlock.updateItems();
       }
@@ -1107,6 +1106,21 @@ Blockly.Blocks['playbook'] = {
     }
     return newValue;
   },
+  countValidator: function(newValue) {
+    var sourceBlock = this.getSourceBlock();
+    if (sourceBlock) {
+      var input = this.getParentInput();
+      if (newValue > 0) {
+        sourceBlock.items[input.index][1] = newValue;
+        return newValue;
+      } else {
+        sourceBlock.items[input.index][1] = 1;
+        return 1;
+      }
+    } else {
+      return newValue;
+    }
+  },
   mutationToDom: function() {
     var container = document.createElement('mutation');
     var mutObj = {items: this.items};
@@ -1124,10 +1138,9 @@ Blockly.Blocks['playbook'] = {
   },
   updateItems: function() {
     console.log("items field read with content: " + this.items.toString());
-    var name;
     //first scrub out extra inputs
     for (var i = 0; i < this.items.length; i++) {
-      if (this.items[i] == "-0-") {
+      if (this.items[i][0] == "-0-") {
         this.removeInput("a" + i, true);
         console.log("cleanup: removed input a" + i);
       }
@@ -1135,7 +1148,7 @@ Blockly.Blocks['playbook'] = {
     //filter "-0-" from items
     this.items = this.items.filter(
       function (e) {
-        return e != "-0-";
+        return e[0] != "-0-";
       }
     );
     console.log("items filtered, new content: " + this.items.toString());
@@ -1146,12 +1159,13 @@ Blockly.Blocks['playbook'] = {
         this.removeInput("a" + i, true);
         console.log("input a" + i + " removed.");
       }
-      if (this.items[i] && this.items[i] != "") {
+      if (this.items[i][0] && this.items[i][0] != "") {
         console.log("Appending new input a" + i);
         this.appendDummyInput("a" + i)
           .setAlign(Blockly.ALIGN_CENTRE)
-          .appendField(this.items[i] + " ")
-          .appendField(new Blockly.FieldCheckbox(true, this.deleteButtonValidator), name);
+          .appendField(new Blockly.FieldNumber(this.items[i][1], 1, Infinity, 1, this.countValidator))
+          .appendField(" × " + this.items[i][0] + " ")
+          .appendField(new Blockly.FieldCheckbox(true, this.deleteButtonValidator));
         this.getInput("a" + i).index = i;
         this.moveInputBefore("a" + i, "dropdown");
       }
@@ -1225,7 +1239,6 @@ Blockly.Blocks['feature'] = {
   },
   updateFactors: function() {
     console.log("factors field read with content: " + this.factors.toString());
-    var name;
     //first scrub out extra inputs
     for (var i = 0; i < this.factors.length; i++) {
       if (this.factors[i] == "-0-") {
@@ -1252,7 +1265,7 @@ Blockly.Blocks['feature'] = {
         this.appendDummyInput("a" + i)
           .setAlign(Blockly.ALIGN_CENTRE)
           .appendField(this.factors[i] + " ")
-          .appendField(new Blockly.FieldCheckbox(true, deleteButtonValidator), name);
+          .appendField(new Blockly.FieldCheckbox(true, deleteButtonValidator));
         this.getInput("a" + i).index = i;
         this.moveInputBefore("a" + i, "dropdown");
       }
@@ -1334,7 +1347,6 @@ Blockly.Blocks['equipment_type'] = {
   },
   updateFactors: function() {
     console.log("factors field read with content: " + this.factors.toString());
-    var name;
     //first scrub out extra inputs
     for (var i = 0; i < this.factors.length; i++) {
       if (this.factors[i] == "-0-") {
@@ -1361,7 +1373,7 @@ Blockly.Blocks['equipment_type'] = {
         this.appendDummyInput("a" + i)
           .setAlign(Blockly.ALIGN_CENTRE)
           .appendField(this.factors[i] + " ")
-          .appendField(new Blockly.FieldCheckbox(true, deleteButtonValidator), name);
+          .appendField(new Blockly.FieldCheckbox(true, deleteButtonValidator));
         this.getInput("a" + i).index = i;
         this.moveInputBefore("a" + i, "dropdown");
       }
@@ -1742,7 +1754,6 @@ Blockly.Blocks['item'] = {
           .appendField(this.types[i][0] + " ", "a" + i)
           .appendField(new Blockly.FieldCheckbox(true, this.typeDeleteValidator));
         this.getInput("a" + i).index = i;
-        this.getInput("a" + i).info = this.types[i][1];
         this.moveInputBefore("a" + i, "dropdown1");
       }
     }
@@ -1778,7 +1789,6 @@ Blockly.Blocks['item'] = {
             .appendField(this.subtypes[i][0] + " ", "b" + i)
             .appendField(new Blockly.FieldCheckbox(true, this.subtypeDeleteValidator));
           this.getInput("b" + i).index = i;
-          this.getInput("b" + i).info = this.subtypes[i][1];
           this.moveInputBefore("b" + i, "dropdown2");
         }
       }
@@ -1837,7 +1847,6 @@ Blockly.Blocks['resource'] = {
   },
   updateFactors: function() {
     console.log("factors field read with content: " + this.factors.toString());
-    var name;
     //first scrub out extra inputs
     for (var i = 0; i < this.factors.length; i++) {
       if (this.factors[i] == "-0-") {
@@ -1864,7 +1873,7 @@ Blockly.Blocks['resource'] = {
         this.appendDummyInput("a" + i)
           .setAlign(Blockly.ALIGN_CENTRE)
           .appendField(this.factors[i] + " ")
-          .appendField(new Blockly.FieldCheckbox(true, deleteButtonValidator), name);
+          .appendField(new Blockly.FieldCheckbox(true, deleteButtonValidator));
         this.getInput("a" + i).index = i;
         this.moveInputBefore("a" + i, "dropdown");
       }
@@ -1943,7 +1952,6 @@ Blockly.Blocks['extra_mechanic'] = {
   },
   updateFactors: function() {
     console.log("factors field read with content: " + this.factors.toString());
-    var name;
     //first scrub out extra inputs
     for (var i = 0; i < this.factors.length; i++) {
       if (this.factors[i] == "-0-") {
@@ -1970,7 +1978,7 @@ Blockly.Blocks['extra_mechanic'] = {
         this.appendDummyInput("a" + i)
           .setAlign(Blockly.ALIGN_CENTRE)
           .appendField(this.factors[i] + " ")
-          .appendField(new Blockly.FieldCheckbox(true, deleteButtonValidator), name);
+          .appendField(new Blockly.FieldCheckbox(true, deleteButtonValidator));
         this.getInput("a" + i).index = i;
         this.moveInputBefore("a" + i, "dropdown");
       }
