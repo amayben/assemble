@@ -1084,7 +1084,19 @@ Blockly.Blocks['playbook'] = {
       if (displayText == "") {
         console.log("dropdownValidator called on empty displayText");
       } else {
-        sourceBlock.items.push(new Array(displayText, 1));
+        var index = -1;
+        //if selection is already part of playbook, increment count of that item
+        for (var i = 0; i < sourceBlock.items.length; i++) {
+          if (sourceBlock.items[i][0] == displayText) {
+            sourceBlock.items[i][1]++;
+            index = i;
+            break;
+          }
+        }
+        //else it's a new item, so push it
+        if (index == -1) {
+          sourceBlock.items.push(new Array(displayText, 1));
+        }
         console.log(sourceBlock.type + " dropdown updated with " + sourceBlock.items.toString());
         sourceBlock.updateItems();
       }
@@ -1099,7 +1111,8 @@ Blockly.Blocks['playbook'] = {
       //replace element in array with a dummy statement
       //tells updateFactors which inputs to remove before running mutator code
       //will be removed from array by updateFactors
-      arr[input.index] = "-0-";
+      arr[input.index][0] = "-0-";
+      arr[input.index][1] = 0;
       console.log("dbv: Removing input " + input.name);
       sourceBlock.removeInput(input.name);
       this.dispose();
@@ -1164,7 +1177,7 @@ Blockly.Blocks['playbook'] = {
         this.appendDummyInput("a" + i)
           .setAlign(Blockly.ALIGN_CENTRE)
           .appendField(new Blockly.FieldNumber(this.items[i][1], 1, Infinity, 1, this.countValidator))
-          .appendField(" × " + this.items[i][0] + " ")
+          .appendField("× " + this.items[i][0] + "   ")
           .appendField(new Blockly.FieldCheckbox(true, this.deleteButtonValidator));
         this.getInput("a" + i).index = i;
         this.moveInputBefore("a" + i, "dropdown");
