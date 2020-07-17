@@ -562,12 +562,10 @@ Blockly.Blocks['move'] = {
   updateFactors: function() {
     //update regular factors
     console.log("factors field read with content: " + this.factors.toString());
-    //first scrub out extra inputs
+    //first scrub out all inputs
     for (var i = 0; i < this.factors.length; i++) {
-      if (this.factors[i] == "-0-") {
-        this.removeInput("a" + i, true);
-        console.log("cleanup: removed input a" + i);
-      }
+      this.removeInput("a" + i, true);
+      console.log("cleanup: removed input a" + i);
     }
     //filter "-0-" from factors
     this.factors = this.factors.filter(
@@ -576,7 +574,7 @@ Blockly.Blocks['move'] = {
       }
     );
     console.log("factors filtered, new content: " + this.factors.toString());
-    //now populate
+    //now populate block with only current inputs
     for (var i = 0; i < this.factors.length; i++) {
       //remove existing factor from block first
       if (this.getInput("a" + i) != null) {
@@ -596,12 +594,10 @@ Blockly.Blocks['move'] = {
 
     //update additive factors
     console.log("addFactors field read with content: " + this.addFactors.toString());
-    //first scrub out extra inputs
+    //first scrub out all inputs
     for (var i = 0; i < this.addFactors.length; i++) {
-      if (this.addFactors[i] == "-0-") {
-        this.removeInput("b" + i, true);
-        console.log("cleanup: removed input b" + i);
-      }
+      this.removeInput("b" + i, true);
+      console.log("cleanup: removed input b" + i);
     }
     //filter "-0-" from addFactors
     this.addFactors = this.addFactors.filter(
@@ -610,7 +606,7 @@ Blockly.Blocks['move'] = {
       }
     );
     console.log("addFactors filtered, new content: " + this.addFactors.toString());
-    //now populate
+    //now populate block with only current inputs
     if (!(this.addFactors.length == 1 && this.addFactors[0]=="")) {
       for (var i = 0; i < this.addFactors.length; i++) {
         //remove existing factor from block first
@@ -743,12 +739,10 @@ Blockly.Blocks['playbook_move'] = {
   updateFactors: function() {
     //update regular factors
     console.log("factors field read with content: " + this.factors.toString());
-    //first scrub out extra inputs
+    //first scrub out all inputs
     for (var i = 0; i < this.factors.length; i++) {
-      if (this.factors[i] == "-0-") {
-        this.removeInput("a" + i, true);
-        console.log("cleanup: removed input a" + i);
-      }
+      this.removeInput("a" + i, true);
+      console.log("cleanup: removed input a" + i);
     }
     //filter "-0-" from factors
     this.factors = this.factors.filter(
@@ -757,7 +751,7 @@ Blockly.Blocks['playbook_move'] = {
       }
     );
     console.log("factors filtered, new content: " + this.factors.toString());
-    //now populate
+    //now populate block with only current inputs
     for (var i = 0; i < this.factors.length; i++) {
       //remove existing factor from block first
       if (this.getInput("a" + i) != null) {
@@ -777,12 +771,10 @@ Blockly.Blocks['playbook_move'] = {
 
     //update additive factors
     console.log("addFactors field read with content: " + this.addFactors.toString());
-    //first scrub out extra inputs
+    //first scrub out all inputs
     for (var i = 0; i < this.addFactors.length; i++) {
-      if (this.addFactors[i] == "-0-") {
-        this.removeInput("b" + i, true);
-        console.log("cleanup: removed input b" + i);
-      }
+      this.removeInput("b" + i, true);
+      console.log("cleanup: removed input b" + i);
     }
     //filter "-0-" from factors
     this.addFactors = this.addFactors.filter(
@@ -791,7 +783,7 @@ Blockly.Blocks['playbook_move'] = {
       }
     );
     console.log("addFactors filtered, new content: " + this.addFactors.toString());
-    //now populate
+    //now populate block with only current inputs
     if (!(this.addFactors.length == 1 && this.addFactors[0]=="")) {
       for (var i = 0; i < this.addFactors.length; i++) {
         //remove existing factor from block first
@@ -979,12 +971,10 @@ Blockly.Blocks['creation_step'] = {
   },
   updateFactors: function() {
     console.log("factors field read with content: " + this.factors.toString());
-    //first scrub out extra inputs
+    //first scrub out all inputs
     for (var i = 0; i < this.factors.length; i++) {
-      if (this.factors[i] == "-0-") {
-        this.removeInput("a" + i, true);
-        console.log("cleanup: removed input a" + i);
-      }
+      this.removeInput("a" + i, true);
+      console.log("cleanup: removed input a" + i);
     }
     //filter "-0-" from factors
     this.factors = this.factors.filter(
@@ -993,7 +983,7 @@ Blockly.Blocks['creation_step'] = {
       }
     );
     console.log("factors filtered, new content: " + this.factors.toString());
-    //now populate
+    //now populate block with only current inputs
     for (var i = 0; i < this.factors.length; i++) {
       //remove existing factor from block first
       if (this.getInput("a" + i) != null) {
@@ -1151,12 +1141,10 @@ Blockly.Blocks['playbook'] = {
   },
   updateItems: function() {
     console.log("items field read with content: " + this.items.toString());
-    //first scrub out extra inputs
+    //first scrub out all inputs
     for (var i = 0; i < this.items.length; i++) {
-      if (this.items[i][0] == "-0-") {
-        this.removeInput("a" + i, true);
-        console.log("cleanup: removed input a" + i);
-      }
+      this.removeInput("a" + i, true);
+      console.log("cleanup: removed input a" + i);
     }
     //filter "-0-" from items
     this.items = this.items.filter(
@@ -1165,7 +1153,7 @@ Blockly.Blocks['playbook'] = {
       }
     );
     console.log("items filtered, new content: " + this.items.toString());
-    //now populate
+    //now populate block with only current inputs
     for (var i = 0; i < this.items.length; i++) {
       //remove existing factor from block first
       if (this.getInput("a" + i) != null) {
@@ -1252,12 +1240,10 @@ Blockly.Blocks['feature'] = {
   },
   updateFactors: function() {
     console.log("factors field read with content: " + this.factors.toString());
-    //first scrub out extra inputs
+    //first scrub out all inputs
     for (var i = 0; i < this.factors.length; i++) {
-      if (this.factors[i] == "-0-") {
-        this.removeInput("a" + i, true);
-        console.log("cleanup: removed input a" + i);
-      }
+      this.removeInput("a" + i, true);
+      console.log("cleanup: removed input a" + i);
     }
     //filter "-0-" from factors
     this.factors = this.factors.filter(
@@ -1266,7 +1252,7 @@ Blockly.Blocks['feature'] = {
       }
     );
     console.log("factors filtered, new content: " + this.factors.toString());
-    //now populate
+    //now populate block with only current inputs
     for (var i = 0; i < this.factors.length; i++) {
       //remove existing factor from block first
       if (this.getInput("a" + i) != null) {
@@ -1360,12 +1346,10 @@ Blockly.Blocks['equipment_type'] = {
   },
   updateFactors: function() {
     console.log("factors field read with content: " + this.factors.toString());
-    //first scrub out extra inputs
+    //first scrub out all inputs
     for (var i = 0; i < this.factors.length; i++) {
-      if (this.factors[i] == "-0-") {
-        this.removeInput("a" + i, true);
-        console.log("cleanup: removed input a" + i);
-      }
+      this.removeInput("a" + i, true);
+      console.log("cleanup: removed input a" + i);
     }
     //filter "-0-" from factors
     this.factors = this.factors.filter(
@@ -1374,7 +1358,7 @@ Blockly.Blocks['equipment_type'] = {
       }
     );
     console.log("factors filtered, new content: " + this.factors.toString());
-    //now populate
+    //now populate block with only current inputs
     for (var i = 0; i < this.factors.length; i++) {
       //remove existing factor from block first
       if (this.getInput("a" + i) != null) {
@@ -1739,12 +1723,10 @@ Blockly.Blocks['item'] = {
   updateTypes: function() {
     //update regular types
     console.log("types field read with content: " + this.types.toString());
-    //first scrub out extra inputs
+    //first scrub out all inputs
     for (var i = 0; i < this.types.length; i++) {
-      if (this.types[i][0] == "-0-") {
-        this.removeInput("a" + i, true);
-        console.log("cleanup: removed input a" + i);
-      }
+      this.removeInput("a" + i, true);
+      console.log("cleanup: removed input a" + i);
     }
     //filter "-0-" from types
     this.types = this.types.filter(
@@ -1753,7 +1735,7 @@ Blockly.Blocks['item'] = {
       }
     );
     console.log("types filtered, new content: " + this.types.toString());
-    //now populate
+    //now populate block with only current inputs
     for (var i = 0; i < this.types.length; i++) {
       //remove existing type from block first
       if (this.getInput("a" + i) != null) {
@@ -1773,12 +1755,10 @@ Blockly.Blocks['item'] = {
 
     //update subtypes
     console.log("subtypes field read with content: " + this.subtypes.toString());
-    //first scrub out extra inputs
+    //first scrub out all inputs
     for (var i = 0; i < this.subtypes.length; i++) {
-      if (this.subtypes[i][0] == "-0-") {
-        this.removeInput("b" + i, true);
-        console.log("cleanup: removed input b" + i);
-      }
+      this.removeInput("b" + i, true);
+      console.log("cleanup: removed input b" + i);
     }
     //filter "-0-" from subtypes
     this.subtypes = this.subtypes.filter(
@@ -1787,7 +1767,7 @@ Blockly.Blocks['item'] = {
       }
     );
     console.log("subtypes filtered, new content: " + this.subtypes.toString());
-    //now populate
+    //now populate block with only current inputs
     if (!(this.subtypes.length == 1 && this.subtypes[0][0] == "")) {
       for (var i = 0; i < this.subtypes.length; i++) {
         //remove existing factor from block first
@@ -1860,12 +1840,10 @@ Blockly.Blocks['resource'] = {
   },
   updateFactors: function() {
     console.log("factors field read with content: " + this.factors.toString());
-    //first scrub out extra inputs
+    //first scrub out all inputs
     for (var i = 0; i < this.factors.length; i++) {
-      if (this.factors[i] == "-0-") {
-        this.removeInput("a" + i, true);
-        console.log("cleanup: removed input a" + i);
-      }
+      this.removeInput("a" + i, true);
+      console.log("cleanup: removed input a" + i);
     }
     //filter "-0-" from factors
     this.factors = this.factors.filter(
@@ -1874,7 +1852,7 @@ Blockly.Blocks['resource'] = {
       }
     );
     console.log("factors filtered, new content: " + this.factors.toString());
-    //now populate
+    //now populate block with only current inputs
     for (var i = 0; i < this.factors.length; i++) {
       //remove existing factor from block first
       if (this.getInput("a" + i) != null) {
@@ -1965,12 +1943,10 @@ Blockly.Blocks['extra_mechanic'] = {
   },
   updateFactors: function() {
     console.log("factors field read with content: " + this.factors.toString());
-    //first scrub out extra inputs
+    //first scrub out all inputs
     for (var i = 0; i < this.factors.length; i++) {
-      if (this.factors[i] == "-0-") {
-        this.removeInput("a" + i, true);
-        console.log("cleanup: removed input a" + i);
-      }
+      this.removeInput("a" + i, true);
+      console.log("cleanup: removed input a" + i);
     }
     //filter "-0-" from factors
     this.factors = this.factors.filter(
@@ -1979,7 +1955,7 @@ Blockly.Blocks['extra_mechanic'] = {
       }
     );
     console.log("factors filtered, new content: " + this.factors.toString());
-    //now populate
+    //now populate block with only current inputs
     for (var i = 0; i < this.factors.length; i++) {
       //remove existing factor from block first
       if (this.getInput("a" + i) != null) {
