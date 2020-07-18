@@ -32,8 +32,10 @@
 						</tr>
 						<tr>
 							<td style="height: 4%; text-align: right">
+								<input type="file" id="workspaceUpload" accept="text/xml"
+									onchange="openFile(event)" style="opacity: 0"/>
 								<button class="button" onclick="exportworkspace()">Export Blocks</button>
-								<button class="button">Import Blocks</button> <!--needs onclick-->
+								<button class="button" onclick="loadworkspace()">Import Blocks</button>
 							</td>
 						</tr>
 					</tbody>
@@ -417,6 +419,7 @@
 	  };
 	  var workspace = Blockly.inject(blocklyDiv, options);
 	  var workspaceBlocks = document.getElementById("workspaceBlocks");
+		var workspaceUpload = document.getElementById("workspaceUpload");
 		/* Load blocks to workspace. */
 	  //TODO: if cookie is present, load XML from cookie instead of workspaceBlocks
 	  Blockly.Xml.domToWorkspace(workspaceBlocks, workspace);
@@ -430,11 +433,19 @@
 			}
 	  };
 	  //TODO: loads workspace from xml file
-	  /*
 	  var loadworkspace = function() {
-	
+	  	workspaceUpload.click();
 	  };
-	  */
+	  var openFile = function(event) {
+	  	var input = event.target;
+	  	var reader = new FileReader();
+	  	reader.onload = function() {
+	  		workspace.clear();
+	  		var xml = Blockly.Xml.textToDom(reader.result);
+	  		Blockly.Xml.domToWorkspace(xml, workspace);
+	  	};
+	  	reader.readAsText(input.files[0]);
+	  };
 	  //TODO: returns workspace to default state
 	  /*
 	  var resetworkspace = function() {
