@@ -1,7 +1,8 @@
 <!DOCTYPE html>
 <html>
 	<head>
-		<meta charset="UTF-8"><title>amayben's PbtA Pattern Language in Blockly</title>
+		<meta charset="UTF-8">
+		<title>amayben's PbtA Pattern Language in Blockly</title>
 		<script src="http://danml.com/js/download.js"></script>
 		<script src="blockly_compressed.js"></script>
 		<script src="blocks_compressed.js"></script>
@@ -43,17 +44,6 @@
 			</div>
 		</div>
 		<div id="blocklyDiv" style="position: absolute"></div>
-		<!--
-		<xml id="toolbox" style="display: none">
-		  <block type="controls_if"></block>
-		  <block type="controls_repeat_ext"></block>
-		  <block type="logic_compare"></block>
-		  <block type="math_number"></block>
-		  <block type="math_arithmetic"></block>
-		  <block type="text"></block>
-		  <block type="text_print"></block>
-		</xml>
-		-->
 		<xml xmlns="https://developers.google.com/blockly/xml"
 			id="toolbox" style="display: none">
 		  <category name="System" colour="#a5745b">
@@ -423,7 +413,6 @@
 		/* Load blocks to workspace. */
 	  //TODO: if cookie is present, load XML from cookie instead of workspaceBlocks
 	  Blockly.Xml.domToWorkspace(workspaceBlocks, workspace);
-	  //TODO: exports workspace to text and allows user to download it
 	  var exportworkspace = function() {
 	  	var filename = prompt("Filename for workspace XML:", "system.xml");
 			if (filename.endsWith(".xml")) {
@@ -432,7 +421,6 @@
 				download(xml_text, filename, "text/plain");
 			}
 	  };
-	  //TODO: loads workspace from xml file
 	  var loadworkspace = function() {
 	  	workspaceUpload.click();
 	  };
