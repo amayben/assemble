@@ -254,7 +254,11 @@ Blockly.Blocks['era'] = {
     this.appendDummyInput()
         .setAlign(Blockly.ALIGN_CENTRE)
         .appendField("Era: ")
-        .appendField(new Blockly.FieldTextInput("<era name>"), "name");
+        .appendField(new Blockly.FieldTextInput("<name>"), "name");
+    this.appendDummyInput()
+        .setAlign(Blockly.ALIGN_CENTRE)
+        .appendField("Description:")
+        .appendField(new Blockly.FieldTextInput("<description>"), "desc");
     this.appendDummyInput()
         .setAlign(Blockly.ALIGN_CENTRE)
         .appendField("Current Era? ")
