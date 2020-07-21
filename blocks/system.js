@@ -326,7 +326,7 @@ Blockly.Blocks['mystery'] = {
         .appendField(new Blockly.FieldTextInput("<name>"), "name");
     this.appendDummyInput()
         .setAlign(Blockly.ALIGN_CENTRE)
-        .appendField("Description:")
+        .appendField("Questions:")
         .appendField(new Blockly.FieldTextInput("<description>"), "desc");
     this.setInputsInline(false);
     this.setPreviousStatement(true, "mystery");
@@ -347,15 +347,26 @@ Blockly.Blocks['region'] = {
         .setAlign(Blockly.ALIGN_CENTRE)
         .appendField("Description:")
         .appendField(new Blockly.FieldTextInput("<description>"), "desc");
-    this.appendStatementInput("landmark")
-        .setCheck("landmark")
-        .appendField("Landmarks:");
+    this.appendDummyInput()
+        .setAlign(Blockly.ALIGN_CENTRE)
+        .appendField("Landmarks? ")
+        .appendField(new Blockly.FieldCheckbox("FALSE", this.landmarkValidator), "hasLandmarks");
     this.setInputsInline(false);
     this.setPreviousStatement(true, "region");
     this.setNextStatement(true, "region");
     this.setColour(75);
     this.setTooltip("A notable region in which action of the game is set, or can be set.");
     this.setHelpUrl("");
+  },
+  landmarkValidator: function(newValue) {
+    var sourceBlock = this.getSourceBlock();
+    sourceBlock.showInput_ = newValue == 'TRUE';
+    sourceBlock.updateInput();
+    return newValue;
+  },
+  updateInput: function() {
+    this.removeInput('landmark', true);
+    if (this.showInput_) this.appendStatementInput('landmark').setCheck('landmark');
   }
 };
 
@@ -444,7 +455,7 @@ Blockly.Blocks['factor'] = {
         .appendField(new Blockly.FieldTextInput("<description>"), "desc");
     this.appendDummyInput()
         .setAlign(Blockly.ALIGN_CENTRE)
-        .appendField("Additive?")
+        .appendField("Additive? ")
         .appendField(new Blockly.FieldCheckbox("FALSE", this.addsListValidator), "isAdditive");
     this.setInputsInline(false);
     this.setPreviousStatement(true, "factor");
@@ -476,7 +487,7 @@ Blockly.Blocks['move'] = {
         .appendField(new Blockly.FieldTextInput("<description>"), "desc");
     this.appendDummyInput()
         .setAlign(Blockly.ALIGN_CENTRE)
-        .appendField("Additive Factor(s)?")
+        .appendField("Additive Factor(s)? ")
         .appendField(new Blockly.FieldCheckbox("FALSE", this.additiveValidator), "adds_factor");
     this.appendDummyInput("dropdown2")
         .setVisible(false);
