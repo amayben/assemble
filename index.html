@@ -34,7 +34,7 @@
 						<tr>
 							<td style="height: 4%; text-align: right">
 								<button class="button" onclick="exportworkspace()">Export Blocks</button>
-								<button class="button" onclick="loadworkspace()">Import Blocks</button>
+								<button class="button" onclick="check()">Import Blocks</button>
 								<input type="file" id="workspaceUpload" accept="text/xml"
 									onchange="openFile(event)" style="display: none"/>
 							</td>
@@ -201,6 +201,8 @@
 		  </category>
 		  <category name="" colour="#dddddd"></category>
 		  <category name="Examples:" colour="#dddddd"></category>
+		  <category name="Apocalypse World" colour="#666666">
+		  </category>
 		</xml>
 		
 		<xml xmlns="https://developers.google.com/blockly/xml"
@@ -420,6 +422,12 @@
 				download(xml_text, filename, "text/plain");
 			}
 	  };
+	  var check = function() {
+	  	var answer = confirm("Import workspace? (WARNING: This will delete your current workspace)");
+	  	if (answer) {
+	  		loadworkspace();
+	  	}
+	  }
 	  var loadworkspace = function() {
 	  	workspaceUpload.click();
 	  };
