@@ -2,7 +2,7 @@
 <html>
 	<head>
 		<meta charset="UTF-8">
-		<title>amayben's PbtA Pattern Language in Blockly</title>
+		<title>Assemble</title>
 		<script src="http://danml.com/js/download.js"></script>
 		<script src="blockly_compressed.js"></script>
 		<script src="blocks_compressed.js"></script>
@@ -22,8 +22,12 @@
 	</head>
 	<body>
 		<div class="row">
-			<div style="float: left; width: 20%">
-				<p style="text-align: center;">some text</p>
+			<div style="float: left; width: 16%; margin: 1%; font-family: Ebrima, Helvetica, sans-serif;">
+				<h1>Assemble</h1>
+				<h2>Introduction</h2>
+				<p>Welcome to Assemble!</p>
+				<p>Designed at the outset for role-playing system designers, Assemble is a content-authorship tool which allows for RPG designers to plan and write <i>Powered by the Apocalypse</i> (PbtA) systems.</p>
+				<p style="font-size: small;">Assemble is an open-source web application written in JavaScript and <a href="https://developers.google.com/blockly">Built with Blockly</a>.  View Assemble on <a href="https://github.com/amayben/assemble">Github</a>!</p>
 			</div>
 			<div style="float: left; width: 80%">
 				<table style="height: 99vh; width: 79vw;">
@@ -202,12 +206,94 @@
 		  <category name="" colour="#dddddd"></category>
 		  <category name="Examples:" colour="#dddddd"></category>
 		  <category name="Apocalypse World" colour="#666666">
+	      <block type="theme">
+	        <field name="name">Post-Apocalypse</field>
+	        <field name="desc">The game is set in a post-apocalyptic wasteland.</field>
+	        <statement name="function">
+	          <block type="function">
+	            <field name="name">Scarcity</field>
+	            <field name="desc">The motivations of characters are driven by want due to a lack of resources.</field>
+	            <next>
+	              <block type="function">
+	                <field name="name">Technology</field>
+	                <field name="desc">Most technology in the setting is based on the use of scrap metal, or jury-rigging artifacts from the world before.</field>
+	                <next>
+	                  <block type="function">
+	                    <field name="name">The Unknown</field>
+	                    <field name="desc">The apocalypse makes both the past and present uncertain, reducing the players' overall sense of security.</field>
+	                  </block>
+	                </next>
+	              </block>
+	            </next>
+	          </block>
+	        </statement>
+	      </block>
+	      <block type="setting">
+	        <field name="name">The Wasteland</field>
+	        <statement name="society">
+	          <block type="society">
+	            <field name="name">The Wasteland</field>
+	            <field name="desc">Sparsely populated, struggling, scavenging, built from scraps.</field>
+	          </block>
+	        </statement>
+	        <statement name="history">
+	          <block type="history">
+	            <field name="name">The Wasteland</field>
+	            <statement name="era">
+	              <block type="era">
+	                <field name="name">The Future</field>
+	                <field name="desc">Within a century of an unknown cataclysm.</field>
+	                <field name="isCurrent">TRUE</field>
+	                <next>
+	                  <block type="era">
+	                    <field name="name">The Past</field>
+	                    <field name="desc">The world as we know it-- or knew it before.</field>
+	                    <field name="isCurrent">FALSE</field>
+	                  </block>
+	                </next>
+	              </block>
+	            </statement>
+	            <statement name="entity">
+	              <block type="entity">
+	                <field name="name">The Psychic Maelstrom</field>
+	                <field name="role">Omnipresent psychic force that has existed ever since the world was changed.</field>
+	                <field name="status">Extant and looming</field>
+	              </block>
+	            </statement>
+	            <statement name="event">
+	              <block type="event">
+	                <field name="name">The Apocalypse</field>
+	                <field name="desc">An unknown event that devastated society, killed countless people, and gave rise to the Psychic Maelstrom.</field>
+	                <field name="significance">Created the wasteland in which the story is set.</field>
+	              </block>
+	            </statement>
+	          </block>
+	        </statement>
+	        <statement name="mystery">
+	          <block type="mystery">
+	            <field name="name">The Apocalypse</field>
+	            <field name="desc">What caused it?</field>
+	            <next>
+	              <block type="mystery">
+	                <field name="name">The Psychic Maelstrom</field>
+	                <field name="desc">Where did it come from?  What does it want?</field>
+	              </block>
+	            </next>
+	          </block>
+	        </statement>
+	        <statement name="region">
+	          <block type="region">
+	            <field name="name">The Wasteland</field>
+	            <field name="desc">Barren, dry, and empty. Scattered communities.</field>
+	            <field name="hasLandmarks">FALSE</field>
+	          </block>
+	        </statement>
+	      </block>
 		  </category>
 		</xml>
-		
 		<xml xmlns="https://developers.google.com/blockly/xml"
 			id="workspaceBlocks" style="display: none">
-		  <block type="system" x="113" y="162">
+		  <block type="system">
 		    <field name="name">&lt;system name&gt;</field>
 		    <statement name="theme">
 		      <block type="theme">
