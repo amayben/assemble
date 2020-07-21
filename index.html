@@ -2,7 +2,7 @@
 <html>
 	<head>
 		<meta charset="UTF-8">
-		<title>amayben's PbtA Pattern Language in Blockly</title>
+		<title>Assemble</title>
 		<script src="http://danml.com/js/download.js"></script>
 		<script src="blockly_compressed.js"></script>
 		<script src="blocks_compressed.js"></script>
@@ -22,8 +22,12 @@
 	</head>
 	<body>
 		<div class="row">
-			<div style="float: left; width: 20%">
-				<p style="text-align: center;">some text</p>
+			<div style="float: left; width: 16%; margin: 1%; font-family: Ebrima, Helvetica, sans-serif;">
+				<h1>Assemble</h1>
+				<h2>Introduction</h2>
+				<p>Welcome to Assemble!</p>
+				<p>Designed at the outset for role-playing system designers, Assemble is a content-authorship tool which allows for RPG designers to plan and write <i>Powered by the Apocalypse</i> (PbtA) systems.</p>
+				<p style="font-size: small;">Assemble is an open-source web application written in JavaScript and <a href="https://developers.google.com/blockly">Built with Blockly</a>.  View Assemble on <a href="https://github.com/amayben/assemble">Github</a>!</p>
 			</div>
 			<div style="float: left; width: 80%">
 				<table style="height: 99vh; width: 79vw;">
@@ -202,19 +206,101 @@
 		  <category name="" colour="#dddddd"></category>
 		  <category name="Examples:" colour="#dddddd"></category>
 		  <category name="Apocalypse World" colour="#666666">
+	      <block type="theme">
+	        <field name="name">Post-Apocalypse</field>
+	        <field name="desc">The game is set in a post-apocalyptic wasteland.</field>
+	        <statement name="function">
+	          <block type="function">
+	            <field name="name">Scarcity</field>
+	            <field name="desc">The motivations of characters are driven by want due to a lack of resources.</field>
+	            <next>
+	              <block type="function">
+	                <field name="name">Technology</field>
+	                <field name="desc">Most technology in the setting is based on the use of scrap metal, or jury-rigging artifacts from the world before.</field>
+	                <next>
+	                  <block type="function">
+	                    <field name="name">The Unknown</field>
+	                    <field name="desc">The apocalypse makes both the past and present uncertain, reducing the players' overall sense of security.</field>
+	                  </block>
+	                </next>
+	              </block>
+	            </next>
+	          </block>
+	        </statement>
+	      </block>
+	      <block type="setting">
+	        <field name="name">The Wasteland</field>
+	        <statement name="society">
+	          <block type="society">
+	            <field name="name">The Wasteland</field>
+	            <field name="desc">Sparsely populated, struggling, scavenging, built from scraps.</field>
+	          </block>
+	        </statement>
+	        <statement name="history">
+	          <block type="history">
+	            <field name="name">The Wasteland</field>
+	            <statement name="era">
+	              <block type="era">
+	                <field name="name">The Future</field>
+	                <field name="desc">Within a century of an unknown cataclysm.</field>
+	                <field name="isCurrent">TRUE</field>
+	                <next>
+	                  <block type="era">
+	                    <field name="name">The Past</field>
+	                    <field name="desc">The world as we know it-- or knew it before.</field>
+	                    <field name="isCurrent">FALSE</field>
+	                  </block>
+	                </next>
+	              </block>
+	            </statement>
+	            <statement name="entity">
+	              <block type="entity">
+	                <field name="name">The Psychic Maelstrom</field>
+	                <field name="role">Omnipresent psychic force that has existed ever since the world was changed.</field>
+	                <field name="status">Extant and looming</field>
+	              </block>
+	            </statement>
+	            <statement name="event">
+	              <block type="event">
+	                <field name="name">The Apocalypse</field>
+	                <field name="desc">An unknown event that devastated society, killed countless people, and gave rise to the Psychic Maelstrom.</field>
+	                <field name="significance">Created the wasteland in which the story is set.</field>
+	              </block>
+	            </statement>
+	          </block>
+	        </statement>
+	        <statement name="mystery">
+	          <block type="mystery">
+	            <field name="name">The Apocalypse</field>
+	            <field name="desc">What caused it?</field>
+	            <next>
+	              <block type="mystery">
+	                <field name="name">The Psychic Maelstrom</field>
+	                <field name="desc">Where did it come from?  What does it want?</field>
+	              </block>
+	            </next>
+	          </block>
+	        </statement>
+	        <statement name="region">
+	          <block type="region">
+	            <field name="name">The Wasteland</field>
+	            <field name="desc">Barren, dry, and empty. Scattered communities.</field>
+	            <field name="hasLandmarks">FALSE</field>
+	          </block>
+	        </statement>
+	      </block>
 		  </category>
 		</xml>
-		
 		<xml xmlns="https://developers.google.com/blockly/xml"
 			id="workspaceBlocks" style="display: none">
-		  <block type="system" id="t9Hqtr^5eqhn0iO=Kg)*" x="113" y="162">
+		  <block type="system">
 		    <field name="name">&lt;system name&gt;</field>
 		    <statement name="theme">
-		      <block type="theme" id="J]Y7-V-,/EGRlSf(Q;dQ">
+		      <block type="theme">
 		        <field name="name">&lt;name&gt;</field>
 		        <field name="desc">&lt;description&gt;</field>
 		        <statement name="function">
-		          <block type="function" id="i[0._WAM`!U_[NN:K!VW">
+		          <block type="function">
 		            <field name="name">&lt;name&gt;</field>
 		            <field name="desc">&lt;description&gt;</field>
 		          </block>
@@ -222,33 +308,33 @@
 		      </block>
 		    </statement>
 		    <statement name="setting">
-		      <block type="setting" id="vx1k=m;p9jqmIm*g|HLz">
+		      <block type="setting">
 		        <field name="name">&lt;name&gt;</field>
 		        <statement name="society">
-		          <block type="society" id="3dQWk]LAWnFXshmf?shb">
+		          <block type="society">
 		            <field name="name">&lt;region, social group, etc.&gt;</field>
 		            <field name="desc">&lt;Describe how people in this social group live.&gt;</field>
 		          </block>
 		        </statement>
 		        <statement name="history">
-		          <block type="history" id="c1Dpv+jT2xwrZnKVQ;^p">
+		          <block type="history">
 		            <field name="name">&lt;subject&gt;</field>
 		            <statement name="era">
-		              <block type="era" id="=c1$UzyfQv/q63S_TT15">
+		              <block type="era">
 		                <field name="name">&lt;name&gt;</field>
 		                <field name="desc">&lt;description&gt;</field>
 		                <field name="isCurrent">TRUE</field>
 		              </block>
 		            </statement>
 		            <statement name="entity">
-		              <block type="entity" id=".;XC-7+Ug.%=+nTGt3|j">
+		              <block type="entity">
 		                <field name="name">&lt;name&gt;</field>
 		                <field name="role">&lt;description&gt;</field>
 		                <field name="status">&lt;description&gt;</field>
 		              </block>
 		            </statement>
 		            <statement name="event">
-		              <block type="event" id=")g*rs0W{87!*o%.;6/-S">
+		              <block type="event">
 		                <field name="name">&lt;name&gt;</field>
 		                <field name="desc">&lt;description&gt;</field>
 		                <field name="significance">&lt;significance&gt;</field>
@@ -257,13 +343,13 @@
 		          </block>
 		        </statement>
 		        <statement name="mystery">
-		          <block type="mystery" id="/KTr;5`}4gzKD3AuTU#@">
+		          <block type="mystery">
 		            <field name="name">&lt;name&gt;</field>
 		            <field name="desc">&lt;description&gt;</field>
 		          </block>
 		        </statement>
 		        <statement name="region">
-		          <block type="region" id="kIGNwWi06.;I$bfc6{Qs">
+		          <block type="region">
 		            <field name="name">&lt;name&gt;</field>
 		            <field name="desc">&lt;description&gt;</field>
 		            <field name="hasLandmarks">FALSE</field>
@@ -272,9 +358,9 @@
 		      </block>
 		    </statement>
 		    <statement name="mechanics">
-		      <block type="mechanics" id="t08ex37tCRQsY33cPyBe">
+		      <block type="mechanics">
 		        <statement name="factor">
-		          <block type="factor" id="|Qp--pqF[#[d6iW=jnPG">
+		          <block type="factor">
 		            <field name="name">&lt;name&gt;</field>
 		            <field name="type">Scalar</field>
 		            <field name="desc">&lt;description&gt;</field>
@@ -282,7 +368,7 @@
 		          </block>
 		        </statement>
 		        <statement name="move">
-		          <block type="move" id="[c~k9@9[i;wcs?#)z7m~">
+		          <block type="move">
 		            <field name="name">&lt;name&gt;</field>
 		            <mutation factors=""></mutation>
 		            <field name="factors">no_value</field>
@@ -292,11 +378,11 @@
 		        </statement>
 		        <field name="hasParameters">FALSE</field>
 		        <statement name="player_rules">
-		          <block type="player_rules" id="{^09t?:+E+(PA|3l1xA{">
+		          <block type="player_rules">
 		            <statement name="character_creation">
-		              <block type="character_creation" id=";Vb/VDwXDx_#XI:vOMy?">
+		              <block type="character_creation">
 		                <statement name="creation_step">
-		                  <block type="creation_step" id="0f7.PM=cl]P=N%6Ms`?}">
+		                  <block type="creation_step">
 		                    <field name="name">&lt;name&gt;</field>
 		                    <field name="desc">&lt;description&gt;</field>
 		                    <mutation factors=""></mutation>
@@ -304,10 +390,10 @@
 		                  </block>
 		                </statement>
 		                <statement name="playbook_creation">
-		                  <block type="playbook_creation" id="d2cLg(!46(48N+fWLCLT">
+		                  <block type="playbook_creation">
 		                    <field name="name">no_value</field>
 		                    <statement name="creation_step">
-		                      <block type="creation_step" id="]:q%4mx5qC|x#/$wBKc_">
+		                      <block type="creation_step">
 		                        <field name="name">&lt;name&gt;</field>
 		                        <field name="desc">&lt;description&gt;</field>
 		                        <mutation factors=""></mutation>
@@ -319,19 +405,19 @@
 		              </block>
 		            </statement>
 		            <statement name="playbook">
-		              <block type="playbook" id="Cg:j;^I3_FQ-RJ8JGNW6">
+		              <block type="playbook">
 		                <field name="name">&lt;name&gt;</field>
 		                <mutation items=""></mutation>
 		                <field name="equipment">no_value</field>
 		                <statement name="playbook_introduction">
-		                  <block type="playbook_introduction" id="Vdi}DOa:uXUE#Q0e0_bB">
+		                  <block type="playbook_introduction">
 		                    <field name="pitch">&lt;description for players&gt;</field>
 		                    <field name="soc_role">&lt;personality/social interactions&gt;</field>
 		                    <field name="mech_role">&lt;system/mechanical interactions&gt;</field>
 		                  </block>
 		                </statement>
 		                <statement name="feature">
-		                  <block type="feature" id="L}yAt=.#(J|VQUPNuqqY">
+		                  <block type="feature">
 		                    <field name="name">&lt;name&gt;</field>
 		                    <field name="desc">&lt;description&gt;</field>
 		                    <mutation factors=""></mutation>
@@ -341,7 +427,7 @@
 		              </block>
 		            </statement>
 		            <statement name="resource">
-		              <block type="resource" id="+DFRZm9vkTLitW%+;TX#">
+		              <block type="resource">
 		                <field name="name">&lt;name&gt;</field>
 		                <field name="desc">&lt;description&gt;</field>
 		                <mutation factors=""></mutation>
@@ -352,9 +438,9 @@
 		              </block>
 		            </statement>
 		            <statement name="equipment">
-		              <block type="equipment" id="!/[Q6T:sS8?h@~#G9ii|">
+		              <block type="equipment">
 		                <statement name="equipment_type">
-		                  <block type="equipment_type" id="@CQaeb:,ovfPDi0E9qfk">
+		                  <block type="equipment_type">
 		                    <field name="name">&lt;name&gt;</field>
 		                    <field name="desc">&lt;description&gt;</field>
 		                    <mutation factors=""></mutation>
@@ -363,7 +449,7 @@
 		                  </block>
 		                </statement>
 		                <statement name="item">
-		                  <block type="item" id="sap4C%+sxsjyuBoL^%D@">
+		                  <block type="item">
 		                    <field name="name">&lt;name&gt;</field>
 		                    <mutation types=""></mutation>
 		                    <field name="types">no_value</field>
@@ -424,9 +510,7 @@
 	  };
 	  var check = function() {
 	  	var answer = confirm("Import workspace? (WARNING: This will delete your current workspace)");
-	  	if (answer) {
-	  		loadworkspace();
-	  	}
+	  	if (answer) loadworkspace();
 	  }
 	  var loadworkspace = function() {
 	  	workspaceUpload.click();
