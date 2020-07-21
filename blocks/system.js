@@ -1019,7 +1019,7 @@ Blockly.Blocks['playbook'] = {
         .appendField("Introduction: ");
     this.appendStatementInput("feature")
         .setCheck(["playbook_move", "feature"])
-        .appendField("Playbook Moves and Features:");
+        .appendField("Playbook Moves/Features:");
     this.appendDummyInput()
         .setAlign(Blockly.ALIGN_CENTRE)
         .appendField("Starting Equipment:");
@@ -1182,7 +1182,7 @@ Blockly.Blocks['playbook_introduction'] = {
   init: function() {
     this.appendDummyInput()
         .setAlign(Blockly.ALIGN_CENTRE)
-        .appendField("Introduction");
+        .appendField("Playbook Introduction");
     this.appendDummyInput()
         .setAlign(Blockly.ALIGN_CENTRE)
         .appendField("Flavor Pitch:")
@@ -1208,7 +1208,7 @@ Blockly.Blocks['feature'] = {
     this.factors = [];
     this.appendDummyInput()
         .setAlign(Blockly.ALIGN_CENTRE)
-        .appendField("Feature: ")
+        .appendField("Playbook Feature: ")
         .appendField(new Blockly.FieldTextInput("<name>"), "name");
     this.appendDummyInput()
         .setAlign(Blockly.ALIGN_CENTRE)
