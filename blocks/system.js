@@ -455,7 +455,7 @@ Blockly.Blocks['factor'] = {
         .appendField(new Blockly.FieldTextInput("<description>"), "desc");
     this.appendDummyInput()
         .setAlign(Blockly.ALIGN_CENTRE)
-        .appendField("Additive? ")
+        .appendField("Result? ")
         .appendField(new Blockly.FieldCheckbox("FALSE", this.addsListValidator), "isAdditive");
     this.setInputsInline(false);
     this.setPreviousStatement(true, "factor");
@@ -491,7 +491,7 @@ Blockly.Blocks['move'] = {
         .appendField(new Blockly.FieldTextInput("<description>"), "desc");
     this.appendDummyInput()
         .setAlign(Blockly.ALIGN_CENTRE)
-        .appendField("Additive Factor(s)? ")
+        .appendField("Result Factor(s)? ")
         .appendField(new Blockly.FieldCheckbox("FALSE", this.additiveValidator), "adds_factor");
     this.appendDummyInput("dropdown2")
         .setVisible(false);
@@ -671,7 +671,7 @@ Blockly.Blocks['playbook_move'] = {
         .appendField(new Blockly.FieldTextInput("<description>"), "desc");
     this.appendDummyInput()
         .setAlign(Blockly.ALIGN_CENTRE)
-        .appendField("Additive Factor(s)?")
+        .appendField("Result Factor(s)?")
         .appendField(new Blockly.FieldCheckbox("FALSE", this.additiveValidator), "adds_factor");
     this.appendDummyInput("dropdown2")
         .setVisible(false);
