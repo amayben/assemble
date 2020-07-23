@@ -477,6 +477,10 @@ Blockly.Blocks['move'] = {
         .appendField(new Blockly.FieldTextInput("<name>"), "name");
     this.appendDummyInput()
         .setAlign(Blockly.ALIGN_CENTRE)
+        .appendField("Effect:")
+        .appendField(new Blockly.FieldTextInput("<effect>"), "effect");
+    this.appendDummyInput()
+        .setAlign(Blockly.ALIGN_CENTRE)
         .appendField("Factors:");
     this.appendDummyInput("dropdown1")
         .setAlign(Blockly.ALIGN_CENTRE)
@@ -651,6 +655,10 @@ Blockly.Blocks['playbook_move'] = {
         .setAlign(Blockly.ALIGN_CENTRE)
         .appendField("Playbook Move:")
         .appendField(new Blockly.FieldTextInput("<name>"), "name");
+    this.appendDummyInput()
+        .setAlign(Blockly.ALIGN_CENTRE)
+        .appendField("Effect:")
+        .appendField(new Blockly.FieldTextInput("<effect>"), "effect");
     this.appendDummyInput()
         .setAlign(Blockly.ALIGN_CENTRE)
         .appendField("Factors:");
