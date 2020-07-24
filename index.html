@@ -515,7 +515,7 @@
 	  var workspaceBlocks = document.getElementById("workspaceBlocks");
 		var workspaceUpload = document.getElementById("workspaceUpload");
 		/* Load blocks to workspace. */
-	  //TODO: if cookie is present, load XML from cookie instead of workspaceBlocks
+	  //BACKLOG: if cookie is present, load XML from cookie instead of workspaceBlocks
 	  Blockly.Xml.domToWorkspace(workspaceBlocks, workspace);
 	  var exportworkspace = function() {
 	  	var filename = prompt("Filename for workspace XML:", "system.xml");
@@ -542,13 +542,13 @@
 	  	};
 	  	reader.readAsText(input.files[0]);
 	  };
-	  //TODO: returns workspace to default state
+	  //BACKLOG: returns workspace to default state
 	  /*
 	  var resetworkspace = function() {
 
 	  };
 	  */
-	  //TODO: saves workspace to cookie (automatic?)
+	  //BACKLOG: saves workspace to cookie (automatic?)
 	  /*
 	  var workspacetocookie = function() {
 
