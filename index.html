@@ -18,19 +18,33 @@
 			  font-size: 20px;
 			  margin: 4px 2px;
 			}
+			.sidebar {
+				float: left;
+				position: fixed;
+				width: 23%;
+				overflow-y: auto;
+				top: 0;
+    		bottom: 0;
+    		margin: 1%;
+    		padding-right: 8px;
+    		font-family: Ebrima, Helvetica, sans-serif;
+			}
+			body {
+				overflow: hidden;
+			}
 		</style>
 	</head>
 	<body>
 		<div class="row">
-			<div style="float: left; width: 16%; margin: 1%; font-family: Ebrima, Helvetica, sans-serif;">
+			<div class= "sidebar">
 				<h1>Assemble</h1>
 				<h2>Introduction</h2>
 				<p>Welcome to Assemble!</p>
 				<p>Designed at the outset for role-playing system designers, Assemble is a content-authorship tool which allows for RPG designers to plan and write <i>Powered by the Apocalypse</i> (PbtA) systems.</p>
 				<p style="font-size: small;">Assemble is an open-source web application written in JavaScript and <a href="https://developers.google.com/blockly">Built with Blockly</a>.  View Assemble on <a href="https://github.com/amayben/assemble">Github</a>!</p>
 			</div>
-			<div style="float: left; width: 80%">
-				<table style="height: 99vh; width: 79vw;">
+			<div style="float: right; width: 74%">
+				<table style="height: 99vh; width: 73vw;">
 					<tbody>
 						<tr>
 							<td id="blocklyArea" style="text-align: center"></td>
