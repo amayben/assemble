@@ -42,6 +42,7 @@
 				<p>Welcome to Assemble!</p>
 				<p>Designed at the outset for role-playing system designers, Assemble is a content-authorship tool which allows for RPG designers to plan and write <i>Powered by the Apocalypse</i> (PbtA) systems.</p>
 				<p style="font-size: small;">Assemble is an open-source web application written in JavaScript and <a href="https://developers.google.com/blockly">Built with Blockly</a>.  View Assemble on <a href="https://github.com/amayben/assemble">Github</a>!</p>
+				<p style="font-size: small;"><a href="https://www.google.com/chrome/">Chrome</a> is recommended to most effectively display Assemble.</p>
 			</div>
 			<div style="float: right; width: 74%">
 				<table style="height: 99vh; width: 73vw;">
@@ -305,6 +306,758 @@
 	          </block>
 	        </statement>
 	      </block>
+	      <block type="factor">
+				  <field name="name">Cool</field>
+				  <field name="type">Scalar</field>
+				  <field name="desc">A stat describing the "coolness" of a character.</field>
+				  <field name="isAdditive">FALSE</field>
+				</block>
+				<block type="factor">
+				  <field name="name">Hard</field>
+				  <field name="type">Scalar</field>
+				  <field name="desc">A stat describing a character's toughness.</field>
+				  <field name="isAdditive">FALSE</field>
+				</block>
+				<block type="factor">
+				  <field name="name">Hot</field>
+				  <field name="type">Scalar</field>
+				  <field name="desc">A stat describing how attractive a character is.</field>
+				  <field name="isAdditive">FALSE</field>
+				</block>
+				<block type="factor">
+				  <field name="name">Sharp</field>
+				  <field name="type">Scalar</field>
+				  <field name="desc">A stat describing a character's intelligence.</field>
+				  <field name="isAdditive">FALSE</field>
+				</block>
+				<block type="factor">
+				  <field name="name">Weird</field>
+				  <field name="type">Scalar</field>
+				  <field name="desc">A stat describing a character's psychic affinity.</field>
+				  <field name="isAdditive">FALSE</field>
+				</block>
+				<block type="factor">
+				  <field name="name">Player Choice</field>
+				  <field name="type">Meta</field>
+				  <field name="desc">The player makes a decision.</field>
+				  <field name="isAdditive">FALSE</field>
+				</block>
+				<block type="factor">
+				  <field name="name">Target Choice</field>
+				  <field name="type">Meta</field>
+				  <field name="desc">A given target makes a decision for the player.</field>
+				  <field name="isAdditive">FALSE</field>
+				</block>
+				<block type="factor">
+				  <field name="name">MC Choice</field>
+				  <field name="type">Meta</field>
+				  <field name="desc">The MC decides for the player.</field>
+				  <field name="isAdditive">FALSE</field>
+				</block>
+				<block type="factor">
+				  <field name="name">Argument</field>
+				  <field name="type">Meta</field>
+				  <field name="desc">The player must make a convincing argument.</field>
+				  <field name="isAdditive">FALSE</field>
+				</block>
+				<block type="factor">
+				  <field name="name">NPC or PC?</field>
+				  <field name="type">Meta</field>
+				  <field name="desc">Does the character belong to the MC or a player?</field>
+				  <field name="isAdditive">FALSE</field>
+				</block>
+				<block type="factor">
+				  <field name="name">Advantage</field>
+				  <field name="type">Scalar</field>
+				  <field name="desc">A bonus to a future move.</field>
+				  <field name="isAdditive">TRUE</field>
+				</block>
+				<block type="factor">
+				  <field name="name">Disadvantage</field>
+				  <field name="type">Scalar</field>
+				  <field name="desc">A penalty to a future move.</field>
+				  <field name="isAdditive">TRUE</field>
+				</block>
+				<block type="factor">
+				  <field name="name">Hx</field>
+				  <field name="type">Scalar</field>
+				  <field name="desc">A stat reflecting the bond between two characters.</field>
+				  <field name="isAdditive">TRUE</field>
+				</block>
+				<block type="factor">
+				  <field name="name">Player Question</field>
+				  <field name="type">Meta</field>
+				  <field name="desc">A question is asked of the player.</field>
+				  <field name="isAdditive">FALSE</field>
+				</block>
+				<block type="factor">
+				  <field name="name">Target Question</field>
+				  <field name="type">Meta</field>
+				  <field name="desc">A question is asked of the move's target.</field>
+				  <field name="isAdditive">FALSE</field>
+				</block>
+				<block type="factor">
+				  <field name="name">MC Question</field>
+				  <field name="type">Scalar</field>
+				  <field name="desc">The player asks a question from the MC.</field>
+				  <field name="isAdditive">FALSE</field>
+				</block>
+				<block type="factor">
+				  <field name="name">Hold</field>
+				  <field name="type">Meta</field>
+				  <field name="desc">A move-associated value allowing for future action.</field>
+				  <field name="isAdditive">FALSE</field>
+				</block>
+				<block type="factor">
+				  <field name="name">Barter</field>
+				  <field name="type">Meta</field>
+				  <field name="desc">Barter (currency) is spent or received.</field>
+				  <field name="isAdditive">TRUE</field>
+				</block>
+				<block type="factor">
+				  <field name="name">Automatic</field>
+				  <field name="type">Meta</field>
+				  <field name="desc">Occurs automatically if conditions are met.</field>
+				  <field name="isAdditive">FALSE</field>
+				</block>
+				<block type="factor">
+				  <field name="name">Playbook</field>
+				  <field name="type">Meta</field>
+				  <field name="desc">Options depend on the character's playbook.</field>
+				  <field name="isAdditive">FALSE</field>
+				</block>
+				<block type="factor">
+				  <field name="name">Experience</field>
+				  <field name="type">Meta</field>
+				  <field name="desc">Influences player experience.</field>
+				  <field name="isAdditive">TRUE</field>
+				</block>
+				<block type="factor">
+				  <field name="name">Harm</field>
+				  <field name="type">Scalar</field>
+				  <field name="desc">How much harm has been taken or healed.</field>
+				  <field name="isAdditive">TRUE</field>
+				</block>
+				<block type="factor">
+				  <field name="name">Armor</field>
+				  <field name="type">Scalar</field>
+				  <field name="desc">Blocks against harm when suffered.</field>
+				  <field name="isAdditive">FALSE</field>
+				</block>
+				<block type="factor">
+				  <field name="name">Substitution</field>
+				  <field name="type">Revision</field>
+				  <field name="desc">Another move is used to resolve the current move.</field>
+				  <field name="isAdditive">FALSE</field>
+				</block>
+				<block type="factor">
+				  <field name="name">Immediate Success</field>
+				  <field name="type">Revision</field>
+				  <field name="desc">An outcome is immediately successful.</field>
+				  <field name="isAdditive">FALSE</field>
+				</block>
+				<block type="factor">
+				  <field name="name">Immediate Partial Success</field>
+				  <field name="type">Revision</field>
+				  <field name="desc">An outcome is immediately partially successful.</field>
+				  <field name="isAdditive">FALSE</field>
+				</block>
+				<block type="factor">
+				  <field name="name">Immediate Failure</field>
+				  <field name="type">Revision</field>
+				  <field name="desc">An outcome is immediately failed.</field>
+				  <field name="isAdditive">FALSE</field>
+				</block>
+				<block type="factor">
+				  <field name="name">Once Per Session</field>
+				  <field name="type">Meta</field>
+				  <field name="desc">The associated action can only be done once per game session.</field>
+				  <field name="isAdditive">FALSE</field>
+				</block>
+				<block type="factor">
+				  <field name="name">Highlight</field>
+				  <field name="type">Meta</field>
+				  <field name="desc">Affects marks for moves which give experience when rolled.</field>
+				  <field name="isAdditive">TRUE</field>
+				</block>
+				<block type="factor">
+				  <field name="name">Weapon</field>
+				  <field name="type">Meta</field>
+				  <field name="desc">Specifies harm and situational application based on subtype.</field>
+				  <field name="isAdditive">FALSE</field>
+				</block>
+				<block type="factor">
+				  <field name="name">Repeat</field>
+				  <field name="type">Reroll</field>
+				  <field name="desc">A move is taken again.</field>
+				  <field name="isAdditive">FALSE</field>
+				</block>
+				<block type="factor">
+				  <field name="name">Added Choice</field>
+				  <field name="type">Meta</field>
+				  <field name="desc">A player is given an additional choice for certain moves.</field>
+				  <field name="isAdditive">TRUE</field>
+				</block>
+				<block type="factor">
+				  <field name="name">Denial</field>
+				  <field name="type">Meta</field>
+				  <field name="desc">A player is prevented from making certain moves.</field>
+				  <field name="isAdditive">TRUE</field>
+				</block>
+				<block type="factor">
+				  <field name="name">Interaction</field>
+				  <field name="type">Scalar</field>
+				  <field name="desc">Has there been a certain interaction with the target?</field>
+				  <field name="isAdditive">FALSE</field>
+				</block>
+				<block type="factor">
+				  <field name="name">Forward</field>
+				  <field name="type">Scalar</field>
+				  <field name="desc">A previous, nonspecific situational boon that is consumed when used.</field>
+				  <field name="isAdditive">TRUE</field>
+				</block>
+				<block type="factor">
+				  <field name="name">Vehicle Speed</field>
+				  <field name="type">Scalar</field>
+				  <field name="desc">The speed of a vehicle.</field>
+				  <field name="isAdditive">FALSE</field>
+				</block>
+				<block type="factor">
+				  <field name="name">Vehicle Handling</field>
+				  <field name="type">Scalar</field>
+				  <field name="desc">The handling of a vehicle.</field>
+				  <field name="isAdditive">FALSE</field>
+				</block>
+				<block type="factor">
+				  <field name="name">Vehicle Massive</field>
+				  <field name="type">Scalar</field>
+				  <field name="desc">The size of a vehicle.</field>
+				  <field name="isAdditive">FALSE</field>
+				</block>
+				<block type="factor">
+				  <field name="name">Vehicle Armor</field>
+				  <field name="type">Scalar</field>
+				  <field name="desc">The physical integrity of a vehicle.</field>
+				  <field name="isAdditive">FALSE</field>
+				</block>
+				<block type="factor">
+				  <field name="name">V-Harm</field>
+				  <field name="type">Scalar</field>
+				  <field name="desc">Harm suffered by a vehicle.</field>
+				  <field name="isAdditive">TRUE</field>
+				</block>
+				<block type="factor">
+				  <field name="name">V-Harm as Established</field>
+				  <field name="type">Scalar</field>
+				  <field name="desc">The difference of an attacking car's massive stat and the defending car's massive or handling stat.</field>
+				  <field name="isAdditive">TRUE</field>
+				</block>
+				<block type="move">
+				  <mutation xmlns="http://www.w3.org/1999/xhtml" factors="{&quot;factors&quot;:[&quot;Cool&quot;],&quot;addFactors&quot;:[]}"></mutation>
+				  <field name="name">Do something under fire</field>
+				  <field name="effect">Dig in to endure fire, or make a risky manuever.</field>
+				  <field name="a0">TRUE</field>
+				  <field name="factors">no_value</field>
+				  <field name="desc">Success: You do it. Partial Success: You flinch, hesitate, or stall. Miss: Be prepared for the worst.</field>
+				  <field name="adds_factor">FALSE</field>
+				</block>
+				<block type="move">
+				  <mutation xmlns="http://www.w3.org/1999/xhtml" factors="{&quot;factors&quot;:[&quot;Hard&quot;,&quot;Target Choice&quot;],&quot;addFactors&quot;:[]}"></mutation>
+				  <field name="name">Go aggro on someone</field>
+				  <field name="effect">Show force toward somebody.</field>
+				  <field name="a0">TRUE</field>
+				  <field name="a1">TRUE</field>
+				  <field name="factors">no_value</field>
+				  <field name="desc">Success: They have to choose: -Force your hand and suck it up. -Cave and do what you want. Partial Success: They can choose one of the above, or one of the following: -Get the hell out of your way. -Barricade themselves securely in. -Give you something they think you want, or tell you what you want to hear. -Back off calmly, hands where you can see. Miss: Be prepared for the worst.</field>
+				  <field name="adds_factor">FALSE</field>
+				</block>
+				<block type="move">
+				  <mutation xmlns="http://www.w3.org/1999/xhtml" factors="{&quot;factors&quot;:[&quot;MC Choice&quot;,&quot;Hard&quot;],&quot;addFactors&quot;:[]}"></mutation>
+				  <field name="name">Sucker someone</field>
+				  <field name="effect">Attack someone unsuspecting or helpless.</field>
+				  <field name="a0">TRUE</field>
+				  <field name="a1">TRUE</field>
+				  <field name="factors">no_value</field>
+				  <field name="desc">Ask the MC if you could miss. If you could, treat it as going aggro, but your victim has no chance to cave or do what you want. If you couldn't, you simply inflict harm as established.</field>
+				  <field name="adds_factor">FALSE</field>
+				</block>
+				<block type="move">
+				  <mutation xmlns="http://www.w3.org/1999/xhtml" factors="{&quot;factors&quot;:[&quot;Argument&quot;,&quot;Hot&quot;,&quot;NPC or PC?&quot;,&quot;Target Choice&quot;],&quot;addFactors&quot;:[&quot;Experience&quot;,&quot;Highlight&quot;]}"></mutation>
+				  <field name="name">Seduce or manipulate someone</field>
+				  <field name="effect">Try to seduce, manipulate, bluff, fast-talk, or lie to someone.</field>
+				  <field name="a0">TRUE</field>
+				  <field name="a1">TRUE</field>
+				  <field name="a2">TRUE</field>
+				  <field name="a3">TRUE</field>
+				  <field name="factors">no_value</field>
+				  <field name="desc">Tell them what you want them to do, give them a reason, and roll+hot. For NPCs: Success: They'll go along with you, unless or until some fact or action betrays the reason you gave them. Partial Success: They'll go along with you, but they need some concrete assurance, corroboration, or evidence first. For PCs: Success: Both. Partial Success: Choose 1: -If they go along with you, they mark experience. -If they refuse, erase one of their stat highlights for the remainder of the session. On a miss, for either NPCs or PCs, be prepared for the worst.</field>
+				  <field name="adds_factor">TRUE</field>
+				  <field name="b0">TRUE</field>
+				  <field name="b1">TRUE</field>
+				  <field name="addFactors">no_value</field>
+				</block>
+				<block type="move">
+				  <mutation xmlns="http://www.w3.org/1999/xhtml" factors="{&quot;factors&quot;:[&quot;Hx&quot;],&quot;addFactors&quot;:[&quot;Advantage&quot;,&quot;Disadvantage&quot;]}"></mutation>
+				  <field name="name">Help or interfere with someone</field>
+				  <field name="effect">Help or hinder another player's move roll.</field>
+				  <field name="a0">TRUE</field>
+				  <field name="factors">no_value</field>
+				  <field name="desc">Success: Give +2 or -2 to the target's roll. Partial Success: Give +1 or -1 to the target's roll. Miss: Be prepared for the worst.</field>
+				  <field name="adds_factor">TRUE</field>
+				  <field name="b0">TRUE</field>
+				  <field name="b1">TRUE</field>
+				  <field name="addFactors">no_value</field>
+				</block>
+				<block type="move">
+				  <mutation xmlns="http://www.w3.org/1999/xhtml" factors="{&quot;factors&quot;:[&quot;Sharp&quot;,&quot;Player Question&quot;],&quot;addFactors&quot;:[&quot;Advantage&quot;,&quot;Disadvantage&quot;]}"></mutation>
+				  <field name="name">Read a sitch</field>
+				  <field name="effect">Read a charged situation.</field>
+				  <field name="a0">TRUE</field>
+				  <field name="a1">TRUE</field>
+				  <field name="factors">no_value</field>
+				  <field name="desc">Hit: You can ask the MC questions. Whenever you use a move to act on one of the MC's answers, take +1 to the roll for that move. Success: Ask three questions. Partial Success: Ask one. Miss: Ask one anyway, but be prepared for the worst.</field>
+				  <field name="adds_factor">TRUE</field>
+				  <field name="b0">TRUE</field>
+				  <field name="b1">TRUE</field>
+				  <field name="addFactors">no_value</field>
+				</block>
+				<block type="move">
+				  <mutation xmlns="http://www.w3.org/1999/xhtml" factors="{&quot;factors&quot;:[&quot;Sharp&quot;,&quot;Hold&quot;,&quot;Player Question&quot;],&quot;addFactors&quot;:[]}"></mutation>
+				  <field name="name">Read a person</field>
+				  <field name="effect">Read a person in a charged interaction.</field>
+				  <field name="a0">TRUE</field>
+				  <field name="a1">TRUE</field>
+				  <field name="a2">TRUE</field>
+				  <field name="factors">no_value</field>
+				  <field name="desc">Success: Hold 3. Partial Success: Hold 1. While you're interacting with your target, spend your hold to ask their player questions, one hold per question. Miss: Ask one anyway, but be prepared for the worst.</field>
+				  <field name="adds_factor">FALSE</field>
+				</block>
+				<block type="move">
+				  <mutation xmlns="http://www.w3.org/1999/xhtml" factors="{&quot;factors&quot;:[&quot;Weird&quot;,&quot;MC Question&quot;],&quot;addFactors&quot;:[]}"></mutation>
+				  <field name="name">Open your brain to the world's psychic maelstrom</field>
+				  <field name="effect">Gain knowledge from the psychic maelstrom about your situation.</field>
+				  <field name="a0">TRUE</field>
+				  <field name="a1">TRUE</field>
+				  <field name="factors">no_value</field>
+				  <field name="desc">Hit: The MC tells you something new and interesting about the current situation, and might ask you a question or two; answer them. Success: The MC gives you good detail. Partial Success: The MC gives you an impression. If you already know all there is to know, the MC will tell you that. Miss: Be prepared for the worst.</field>
+				  <field name="adds_factor">FALSE</field>
+				</block>
+				<block type="move">
+				  <mutation xmlns="http://www.w3.org/1999/xhtml" factors="{&quot;factors&quot;:[&quot;Automatic&quot;,&quot;MC Question&quot;,&quot;Playbook&quot;],&quot;addFactors&quot;:[&quot;Barter&quot;]}"></mutation>
+				  <field name="name">Lifestyle</field>
+				  <field name="effect">Spend barter according to the lifestyle of a player character between sessions.</field>
+				  <field name="a0">TRUE</field>
+				  <field name="a1">TRUE</field>
+				  <field name="a2">TRUE</field>
+				  <field name="factors">no_value</field>
+				  <field name="desc">At the beginning of the session, spend one or two barter for your lifestyle.  If you can't or won't, tell the MC and answer their questions.  (A Hardholder's holding and a Maestro D's establishment provides for each's day-to-day living. While there, they need not spend barter for their lifestyle.)</field>
+				  <field name="adds_factor">TRUE</field>
+				  <field name="b0">TRUE</field>
+				  <field name="addFactors">no_value</field>
+				</block>
+				<block type="move">
+				  <mutation xmlns="http://www.w3.org/1999/xhtml" factors="{&quot;factors&quot;:[&quot;Playbook&quot;,&quot;Player Choice&quot;],&quot;addFactors&quot;:[&quot;Barter&quot;]}"></mutation>
+				  <field name="name">Work a gig</field>
+				  <field name="effect">Allows players to earn barter.</field>
+				  <field name="a0">TRUE</field>
+				  <field name="a1">TRUE</field>
+				  <field name="factors">no_value</field>
+				  <field name="desc">If you need jingle during a session, tell the MC you'd like to work a gig. Available gigs are based on your playbook. Angel: -Tend to the health of a dozen families or more. -Serve a wealthy NPC as angel on call. -Serve a warlord NPC as combat medic. -Others, as you negotiate them. Battlebabe/Chopper/Gunlugger: -Extort, raid, or rob a wealthy population. -Serve a wealthy NPC as a bodyguard. -Execute a murder on behalf of a wealthy NPC. -Others, as you negotiate them. Brainer: -Interrogate a warlord NPC's prisoners. -Serve a wealthy NPC as kept brainer. -Extort or blackmail a wealthy NPC. -Others, as you negotiate them. Driver: -Serve a wealthy NPC as driver. -Serve a wealthy NPC as courier. -Others, as you negotiate them. Hardholder: N/A Hocus: -Serve a wealthy NPC as auger and advisor. -Serve a wealthy NPC as ceremonist. -Serve a population as counselor and ceremonist. -Others, as you negotiate them. Savvyhead: -Maintain a wealthy NPC's finicky or fragile tech. -Conduct research for a wealthy NPC. -Repair a wealthy NPC's hi-tech equipment. -Others, as you negotiate them. Skinner: -Perform for a public audience. -Perform for a private audience. -Appear at the side of a wealthy NPC. -Others, as you negotiate them.</field>
+				  <field name="adds_factor">TRUE</field>
+				  <field name="b0">TRUE</field>
+				  <field name="addFactors">no_value</field>
+				</block>
+				<block type="move">
+				  <mutation xmlns="http://www.w3.org/1999/xhtml" factors="{&quot;factors&quot;:[&quot;Player Choice&quot;],&quot;addFactors&quot;:[&quot;Hx&quot;,&quot;Experience&quot;]}"></mutation>
+				  <field name="name">Session end</field>
+				  <field name="effect">Change Hx with player experience.</field>
+				  <field name="a0">TRUE</field>
+				  <field name="factors">no_value</field>
+				  <field name="desc">At the end of every session, choose a character who knows you better than they used to.  If there's more than one, choose one at your whim.  Tell that player to add +1 to their Hx with you on their sheet.  If this brings them to Hx +4, they reset to Hx +1 (and therefore mark experience). If no one knows you better, choose a character who doesn't know you as well as they thought, or choose any character at your whim. Tell that player to take -1 to their Hx with you on their sheet. If this brings them to Hx -3, they reset to Hx = 0 (and therefore mark experience).</field>
+				  <field name="adds_factor">TRUE</field>
+				  <field name="b0">TRUE</field>
+				  <field name="b1">TRUE</field>
+				  <field name="addFactors">no_value</field>
+				</block>
+				<block type="move">
+				  <mutation xmlns="http://www.w3.org/1999/xhtml" factors="{&quot;factors&quot;:[&quot;Automatic&quot;,&quot;Harm&quot;,&quot;Armor&quot;,&quot;MC Choice&quot;],&quot;addFactors&quot;:[&quot;Harm&quot;]}"></mutation>
+				  <field name="name">Suffer or inflict harm</field>
+				  <field name="effect">Suffer or inflict harm.</field>
+				  <field name="a0">TRUE</field>
+				  <field name="a1">TRUE</field>
+				  <field name="a2">TRUE</field>
+				  <field name="a3">TRUE</field>
+				  <field name="factors">no_value</field>
+				  <field name="desc">Suffer harm: Roll +harm suffered (after armor, if you're wearing any). Success:  The MC can choose one: -You're out of action: unconscious, trapped, incoherent, or panicked. -It's worse than it seemed.  Take an additional 1-harm. -Choose two from the partial success list below. Partial Success:  The MC can choose one: -You lose your footing. -You lose your grip on whatever you're holding. -You lose track of someone or something you're attending to. -You miss noticing something important. Miss:  The MC can nevertheless choose something from the 7-9 list above.  If they do, though, it's instead of some of the harm you're suffering, so you take -1 harm. Inflict harm: The target suffers harm.</field>
+				  <field name="adds_factor">TRUE</field>
+				  <field name="b0">TRUE</field>
+				  <field name="addFactors">no_value</field>
+				</block>
+				<block type="move">
+				  <mutation xmlns="http://www.w3.org/1999/xhtml" factors="{&quot;factors&quot;:[&quot;Automatic&quot;,&quot;Substitution&quot;],&quot;addFactors&quot;:[&quot;Hx&quot;,&quot;Experience&quot;]}"></mutation>
+				  <field name="name">Inflict harm on another player's character</field>
+				  <field name="effect">The other player gets a Hx bonus for being damaged.</field>
+				  <field name="a0">TRUE</field>
+				  <field name="a1">TRUE</field>
+				  <field name="factors">no_value</field>
+				  <field name="desc">When you inflict harm on another player's character, the other player gets +Hx with you (on their sheet) for every segment of harm you inflict.  If this brings them to Hx+4, they reset to Hx+1 as usual, and therefore mark experience.</field>
+				  <field name="adds_factor">TRUE</field>
+				  <field name="b0">TRUE</field>
+				  <field name="b1">TRUE</field>
+				  <field name="addFactors">no_value</field>
+				</block>
+				<block type="move">
+				  <mutation xmlns="http://www.w3.org/1999/xhtml" factors="{&quot;factors&quot;:[&quot;Automatic&quot;,&quot;Harm&quot;],&quot;addFactors&quot;:[&quot;Hx&quot;,&quot;Experience&quot;]}"></mutation>
+				  <field name="name">Heal another player's character's harm</field>
+				  <field name="effect">Get a Hx bonus for healing another character.</field>
+				  <field name="a0">TRUE</field>
+				  <field name="a1">TRUE</field>
+				  <field name="factors">no_value</field>
+				  <field name="desc">When you heal another player's character's harm, you get +Hx with them (on their sheet) for every segment of harm you heal.  If this brings you to Hx+4, you reset to Hx+1 as usual, and therefore mark experience.</field>
+				  <field name="adds_factor">TRUE</field>
+				  <field name="b0">TRUE</field>
+				  <field name="b1">TRUE</field>
+				  <field name="addFactors">no_value</field>
+				</block>
+				<block type="move">
+				  <mutation xmlns="http://www.w3.org/1999/xhtml" factors="{&quot;factors&quot;:[&quot;Substitution&quot;,&quot;Immediate Success&quot;],&quot;addFactors&quot;:[&quot;Barter&quot;]}"></mutation>
+				  <field name="name">Give 1-barter to someone, but with strings attached</field>
+				  <field name="effect">Manipulates someone using barter.</field>
+				  <field name="a0">TRUE</field>
+				  <field name="a1">TRUE</field>
+				  <field name="factors">no_value</field>
+				  <field name="desc">When you give 1-barter to someone, but with strings attached, it counts as manipulating them and hitting the roll with a success, no leverage or roll required.</field>
+				  <field name="adds_factor">TRUE</field>
+				  <field name="b0">TRUE</field>
+				  <field name="addFactors">no_value</field>
+				</block>
+				<block type="move">
+				  <mutation xmlns="http://www.w3.org/1999/xhtml" factors="{&quot;factors&quot;:[&quot;Sharp&quot;,&quot;MC Choice&quot;,&quot;Barter&quot;],&quot;addFactors&quot;:[&quot;Barter&quot;]}"></mutation>
+				  <field name="name">Go into a holding's bustling market, looking for some particular thing to buy</field>
+				  <field name="effect">Look for something to buy that is not obvious whether you should be able to just go buy one like that</field>
+				  <field name="a0">TRUE</field>
+				  <field name="a1">TRUE</field>
+				  <field name="a2">TRUE</field>
+				  <field name="factors">no_value</field>
+				  <field name="desc">Success: Yes, you can just go buy it like that. Partial Success: The MC chooses 1: -It costs 1-barter more than what you'd expect -It's not openly for sale, but you find someone who can lead you to someone selling it. -It's not openly for sale, but you find someone who sold it recently, who may be willing to introduce you to their previous buyer. -It's not available for sale, but you find something similar.  Will it do?</field>
+				  <field name="adds_factor">TRUE</field>
+				  <field name="b0">TRUE</field>
+				  <field name="addFactors">no_value</field>
+				</block>
+				<block type="move">
+				  <mutation xmlns="http://www.w3.org/1999/xhtml" factors="{&quot;factors&quot;:[&quot;Barter&quot;],&quot;addFactors&quot;:[&quot;Barter&quot;]}"></mutation>
+				  <field name="name">Make known that you want a thing and drop jingle to speed it on its way</field>
+				  <field name="effect">Spend barter to get something easier.</field>
+				  <field name="a0">TRUE</field>
+				  <field name="factors">no_value</field>
+				  <field name="desc">Success: It comes to you, no strings attached. Partial Success: It comes to you, or something very close. Miss: It comes to you, but with strings very much attached.</field>
+				  <field name="adds_factor">TRUE</field>
+				  <field name="b0">TRUE</field>
+				  <field name="addFactors">no_value</field>
+				</block>
+				<block type="move">
+				  <mutation xmlns="http://www.w3.org/1999/xhtml" factors="{&quot;factors&quot;:[&quot;Player Question&quot;,&quot;Player Choice&quot;],&quot;addFactors&quot;:[&quot;Advantage&quot;,&quot;Experience&quot;]}"></mutation>
+				  <field name="name">Insight</field>
+				  <field name="effect">Go to someone for insight</field>
+				  <field name="a0">TRUE</field>
+				  <field name="a1">TRUE</field>
+				  <field name="factors">no_value</field>
+				  <field name="desc">Ask them what they think your best course is, and the MC will tell you. If you pursue that course, take +1 to any rolls you make in the pursuit. If you pursue that course, but don't accomplish your ends, you mark experience.</field>
+				  <field name="adds_factor">TRUE</field>
+				  <field name="b0">TRUE</field>
+				  <field name="b1">TRUE</field>
+				  <field name="addFactors">no_value</field>
+				</block>
+				<block type="move">
+				  <mutation xmlns="http://www.w3.org/1999/xhtml" factors="{&quot;factors&quot;:[&quot;Weird&quot;,&quot;Player Choice&quot;,&quot;Player Choice&quot;],&quot;addFactors&quot;:[]}"></mutation>
+				  <field name="name">Augury</field>
+				  <field name="effect">Try to use something for augury.</field>
+				  <field name="a0">TRUE</field>
+				  <field name="a1">TRUE</field>
+				  <field name="a2">TRUE</field>
+				  <field name="factors">no_value</field>
+				  <field name="desc">Hit: Choose 1: -Reach through the world's psychic maelstrom to something or someone connected to it. -Isolate and protect a person or thing from the world's psychic maelstrom. -Isolate and contain a fragment of the world's psychic maelstrom itself. -Insert information into the world's psychic maelstrom. -Open a window into the world's psychic maelstrom. By default, the effect will last only as long as you maintain it, will reach only shallowly into the world's psychic maelstrom as it is local to you, and will bleed instability. Success: Choose 2; Partial Success: Choose 1: -It'll persist (for a while) without your actively maintaining it. -It reaches deep into the world's psychic maelstrom. -It reaches broadly throughout the world's psychic maelstrom. -It's stable and contained, no bleeding. Miss: Whatever bad happens, your antenna takes the brunt of it.</field>
+				  <field name="adds_factor">FALSE</field>
+				</block>
+				<block type="move">
+				  <mutation xmlns="http://www.w3.org/1999/xhtml" factors="{&quot;factors&quot;:[&quot;Once Per Session&quot;,&quot;Hx&quot;,&quot;Target Choice&quot;,&quot;Target Question&quot;,&quot;MC Choice&quot;],&quot;addFactors&quot;:[&quot;Highlight&quot;]}"></mutation>
+				  <field name="name">Highlight</field>
+				  <field name="effect">Change highlighted stats.</field>
+				  <field name="a0">TRUE</field>
+				  <field name="a1">TRUE</field>
+				  <field name="a2">TRUE</field>
+				  <field name="a3">TRUE</field>
+				  <field name="a4">TRUE</field>
+				  <field name="factors">no_value</field>
+				  <field name="desc">Choose one of the characters with the highest Hx on your sheet. Ask that player which of your stats is the most interesting, and highlight it.  The MC will have you highlight a second stat too.</field>
+				  <field name="adds_factor">TRUE</field>
+				  <field name="b0">TRUE</field>
+				  <field name="addFactors">no_value</field>
+				</block>
+				<block type="move">
+				  <mutation xmlns="http://www.w3.org/1999/xhtml" factors="{&quot;factors&quot;:[&quot;Weapon&quot;,&quot;Armor&quot;,&quot;Substitution&quot;,&quot;Weapon&quot;,&quot;Armor&quot;,&quot;Substitution&quot;],&quot;addFactors&quot;:[&quot;Harm&quot;]}"></mutation>
+				  <field name="name">Exchange harm</field>
+				  <field name="effect">Both sides simultaneously inflict and suffer harm.</field>
+				  <field name="a0">TRUE</field>
+				  <field name="a1">TRUE</field>
+				  <field name="a2">TRUE</field>
+				  <field name="a3">TRUE</field>
+				  <field name="a4">TRUE</field>
+				  <field name="a5">TRUE</field>
+				  <field name="factors">no_value</field>
+				  <field name="desc">You inflict harm equal to the harm rating of your weapon, minus the armor rating of your enemy's armor. You suffer harm equal to the harm rating of your enemy's weapon, minus the armor rating of your own armor.</field>
+				  <field name="adds_factor">TRUE</field>
+				  <field name="b0">TRUE</field>
+				  <field name="addFactors">no_value</field>
+				</block>
+				<block type="move">
+				  <mutation xmlns="http://www.w3.org/1999/xhtml" factors="{&quot;factors&quot;:[&quot;Hard&quot;,&quot;Player Choice&quot;,&quot;Substitution&quot;],&quot;addFactors&quot;:[&quot;Harm&quot;]}"></mutation>
+				  <field name="name">Seize by force</field>
+				  <field name="effect">Seize something by force</field>
+				  <field name="a0">TRUE</field>
+				  <field name="a1">TRUE</field>
+				  <field name="a2">TRUE</field>
+				  <field name="factors">no_value</field>
+				  <field name="desc">Success: Choose 3; Partial Success: Choose 2; Miss: Choose 1: -You inflict terrible harm (+1 harm) -You suffer little harm (-1 harm) -You take definite and undeniable control of it. -You impress, dismay, or frighten your enemy. After choosing, exchange harm.</field>
+				  <field name="adds_factor">TRUE</field>
+				  <field name="b0">TRUE</field>
+				  <field name="addFactors">no_value</field>
+				</block>
+				<block type="move">
+				  <mutation xmlns="http://www.w3.org/1999/xhtml" factors="{&quot;factors&quot;:[&quot;Substitution&quot;,&quot;Added Choice&quot;],&quot;addFactors&quot;:[&quot;Harm&quot;]}"></mutation>
+				  <field name="name">Assault a secure position</field>
+				  <field name="effect">Assault a secure position</field>
+				  <field name="a0">TRUE</field>
+				  <field name="a1">TRUE</field>
+				  <field name="factors">no_value</field>
+				  <field name="desc">Seize by force, but instead of choosing to take definite control of it, you can choose to force your way into the enemy's position.</field>
+				  <field name="adds_factor">TRUE</field>
+				  <field name="b0">TRUE</field>
+				  <field name="addFactors">no_value</field>
+				</block>
+				<block type="move">
+				  <mutation xmlns="http://www.w3.org/1999/xhtml" factors="{&quot;factors&quot;:[&quot;Substitution&quot;,&quot;Added Choice&quot;],&quot;addFactors&quot;:[&quot;Harm&quot;]}"></mutation>
+				  <field name="name">Keep hold of something you have</field>
+				  <field name="effect">Keep hold of something you have</field>
+				  <field name="a0">TRUE</field>
+				  <field name="a1">TRUE</field>
+				  <field name="factors">no_value</field>
+				  <field name="desc">Seize by force, but instead of choosing to take definite control, you can choose to keep definite control of it.</field>
+				  <field name="adds_factor">TRUE</field>
+				  <field name="b0">TRUE</field>
+				  <field name="addFactors">no_value</field>
+				</block>
+				<block type="move">
+				  <mutation xmlns="http://www.w3.org/1999/xhtml" factors="{&quot;factors&quot;:[&quot;Substitution&quot;,&quot;Added Choice&quot;],&quot;addFactors&quot;:[&quot;Harm&quot;]}"></mutation>
+				  <field name="name">Fight your way free</field>
+				  <field name="effect">Fight your way free</field>
+				  <field name="a0">TRUE</field>
+				  <field name="a1">TRUE</field>
+				  <field name="factors">no_value</field>
+				  <field name="desc">Seize by force, but instead of choosing to take definite control, you can choose to win free and get away.</field>
+				  <field name="adds_factor">TRUE</field>
+				  <field name="b0">TRUE</field>
+				  <field name="addFactors">no_value</field>
+				</block>
+				<block type="move">
+				  <mutation xmlns="http://www.w3.org/1999/xhtml" factors="{&quot;factors&quot;:[&quot;Substitution&quot;,&quot;Added Choice&quot;],&quot;addFactors&quot;:[&quot;Harm&quot;]}"></mutation>
+				  <field name="name">Defend someone else from attack</field>
+				  <field name="effect">Defend someone else from attack</field>
+				  <field name="a0">TRUE</field>
+				  <field name="a1">TRUE</field>
+				  <field name="factors">no_value</field>
+				  <field name="desc">Seize by force, but instead of choosing to take definite control, you can choose to protect them from harm.</field>
+				  <field name="adds_factor">TRUE</field>
+				  <field name="b0">TRUE</field>
+				  <field name="addFactors">no_value</field>
+				</block>
+				<block type="move">
+				  <mutation xmlns="http://www.w3.org/1999/xhtml" factors="{&quot;factors&quot;:[&quot;Hard&quot;,&quot;Substitution&quot;,&quot;Player Choice&quot;,&quot;Target Choice&quot;,&quot;Repeat&quot;],&quot;addFactors&quot;:[&quot;Harm&quot;]}"></mutation>
+				  <field name="name">Do single combat with someone</field>
+				  <field name="effect">Do single combat with someone, no quarters</field>
+				  <field name="a0">TRUE</field>
+				  <field name="a1">TRUE</field>
+				  <field name="a2">TRUE</field>
+				  <field name="a3">TRUE</field>
+				  <field name="a4">TRUE</field>
+				  <field name="factors">no_value</field>
+				  <field name="desc">Success: Do both; Partial Success: Choose one; Miss: Your target chooses one against you: -You inflict terrible harm (+1 harm) -You suffer little harm (-1 harm) After choosing, exchange harm. After you exchange harm, both you and your opponent choose: do you prefer to end the fight now, or fight on? -If both of you prefer to end the fight now, it ends. -If both of you prefer to fight on, it continues, and you must make the move again. -If one of you prefers to end the fight, though, and the other prefers to fight on, then the former must choose: -Flee -Submit to the latter's mercy -Fight on after all</field>
+				  <field name="adds_factor">TRUE</field>
+				  <field name="b0">TRUE</field>
+				  <field name="addFactors">no_value</field>
+				</block>
+				<block type="move">
+				  <mutation xmlns="http://www.w3.org/1999/xhtml" factors="{&quot;factors&quot;:[&quot;Hard&quot;,&quot;Player Choice&quot;],&quot;addFactors&quot;:[&quot;Added Choice&quot;,&quot;Denial&quot;,&quot;Harm&quot;]}"></mutation>
+				  <field name="name">Lay down fire</field>
+				  <field name="effect">Lay down fire</field>
+				  <field name="a0">TRUE</field>
+				  <field name="a1">TRUE</field>
+				  <field name="factors">no_value</field>
+				  <field name="desc">Success: Choose 3; Partial Success: Choose 2; Miss: Choose 1: -You provide covering fire, allowing another character to move or act freely. -You provide supporting fire, giving another PC +1 choice to their own battle move. -You provide suppressing fire, denying another character to move or act freely.  (If a PC, they may still act under fire.) -You take an opportune shot, inflicting harm (but -1 harm) on an enemy within your reach.</field>
+				  <field name="adds_factor">TRUE</field>
+				  <field name="b0">TRUE</field>
+				  <field name="b1">TRUE</field>
+				  <field name="b2">TRUE</field>
+				  <field name="addFactors">no_value</field>
+				</block>
+				<block type="move">
+				  <mutation xmlns="http://www.w3.org/1999/xhtml" factors="{&quot;factors&quot;:[&quot;Cool&quot;,&quot;Interaction&quot;,&quot;Substitution&quot;,&quot;Player Choice&quot;],&quot;addFactors&quot;:[&quot;Harm&quot;]}"></mutation>
+				  <field name="name">Stand overwatch</field>
+				  <field name="effect">Stand overwatch for an ally</field>
+				  <field name="a0">TRUE</field>
+				  <field name="a1">TRUE</field>
+				  <field name="a2">TRUE</field>
+				  <field name="a3">TRUE</field>
+				  <field name="factors">no_value</field>
+				  <field name="desc">Hit: If anyone attacks or interferes with your ally, you attack them and inflict harm as established, as well as warning your ally. Success: Choose one: -You also inflict your harm before they can carry out their attack or interference. -You also inflict terrible harm (+1 harm) Miss: You are able to warn your ally but not attack your enemy.</field>
+				  <field name="adds_factor">TRUE</field>
+				  <field name="b0">TRUE</field>
+				  <field name="addFactors">no_value</field>
+				</block>
+				<block type="move">
+				  <mutation xmlns="http://www.w3.org/1999/xhtml" factors="{&quot;factors&quot;:[&quot;Sharp&quot;,&quot;Hold&quot;,&quot;Player Question&quot;,&quot;Player Choice&quot;],&quot;addFactors&quot;:[&quot;Added Choice&quot;,&quot;Advantage&quot;,&quot;Harm&quot;]}"></mutation>
+				  <field name="name">Keep an eye out</field>
+				  <field name="effect">Watch for what's coming</field>
+				  <field name="a0">TRUE</field>
+				  <field name="a1">TRUE</field>
+				  <field name="a2">TRUE</field>
+				  <field name="a3">TRUE</field>
+				  <field name="factors">no_value</field>
+				  <field name="desc">Success: Hold 3; Partial Success: Hold 2; Miss: Hold 1. During the battle, spend your hold, 1 for 1, to ask the MC what's coming and choose 1: -Direct a PC ally's attention to an enemy. If they make a battle move against that enemy, they get +1 choice to their move. -Give a PC ally an order, instruction, or suggestion.  If they do it, they get +1 to any rolls they make in the effort. -Direct an ally's attention to an enemy.  If they attack that enemy, they inflict +1 harm. -Direct an ally's attention to a danger.  They take -1 harm from that danger.</field>
+				  <field name="adds_factor">TRUE</field>
+				  <field name="b0">TRUE</field>
+				  <field name="b1">TRUE</field>
+				  <field name="b2">TRUE</field>
+				  <field name="addFactors">no_value</field>
+				</block>
+				<block type="move">
+				  <mutation xmlns="http://www.w3.org/1999/xhtml" factors="{&quot;factors&quot;:[&quot;Cool&quot;,&quot;Player Choice&quot;,&quot;MC Choice&quot;],&quot;addFactors&quot;:[&quot;Harm&quot;]}"></mutation>
+				  <field name="name">You're the bait</field>
+				  <field name="effect">Commit subterfuge as the bait</field>
+				  <field name="a0">TRUE</field>
+				  <field name="a1">TRUE</field>
+				  <field name="a2">TRUE</field>
+				  <field name="factors">no_value</field>
+				  <field name="desc">Success: Choose 2; Partial Success: Choose 1: -You draw your prey all the way into the trap. Otherwise, they only approach. -Your prey doesn't suspect you. Otherwise, they're wary and alert. -You don't expose yourself to extra risk. Otherwise, any harm your prey inflicts is +1. Miss: The MC chooses 1 for you.</field>
+				  <field name="adds_factor">TRUE</field>
+				  <field name="b0">TRUE</field>
+				  <field name="addFactors">no_value</field>
+				</block>
+				<block type="move">
+				  <mutation xmlns="http://www.w3.org/1999/xhtml" factors="{&quot;factors&quot;:[&quot;Cool&quot;,&quot;Player Choice&quot;,&quot;Target Choice&quot;],&quot;addFactors&quot;:[]}"></mutation>
+				  <field name="name">You're the cat</field>
+				  <field name="effect">Commit subterfuge as the cat in a cat-and-mouse game.</field>
+				  <field name="a0">TRUE</field>
+				  <field name="a1">TRUE</field>
+				  <field name="a2">TRUE</field>
+				  <field name="factors">no_value</field>
+				  <field name="desc">Hit: You catch your prey out. Success: You've driven them first to a place of your choosing; say where. Partial Success: You've had to follow them where they wanted to go; they say where. Miss: Your prey escapes you.</field>
+				  <field name="adds_factor">FALSE</field>
+				</block>
+				<block type="move">
+				  <mutation xmlns="http://www.w3.org/1999/xhtml" factors="{&quot;factors&quot;:[&quot;Cool&quot;,&quot;Player Choice&quot;,&quot;MC Choice&quot;],&quot;addFactors&quot;:[]}"></mutation>
+				  <field name="name">You're the mouse</field>
+				  <field name="effect">Commit subterfuge as the mouse in a cat-and-mouse game.</field>
+				  <field name="a0">TRUE</field>
+				  <field name="a1">TRUE</field>
+				  <field name="a2">TRUE</field>
+				  <field name="factors">no_value</field>
+				  <field name="desc">Success: You escape clean and leave your hunter hunting. Partial Success: Your hunter catches you out, but only after you've led them to a place of your choosing; say where. Miss: Your hunter catches you out and the MC says where.</field>
+				  <field name="adds_factor">FALSE</field>
+				</block>
+				<block type="move">
+				  <mutation xmlns="http://www.w3.org/1999/xhtml" factors="{&quot;factors&quot;:[&quot;Sharp&quot;,&quot;Player Choice&quot;],&quot;addFactors&quot;:[&quot;Forward&quot;]}"></mutation>
+				  <field name="name">It's not certain whether you're the cat or the mouse</field>
+				  <field name="effect">Decide whether you're the cat or the mouse in a cat-and-mouse game.</field>
+				  <field name="a0">TRUE</field>
+				  <field name="a1">TRUE</field>
+				  <field name="factors">no_value</field>
+				  <field name="desc">Hit: You decide which you are. Success: You take +1 forward as well. Miss: You're the mouse.</field>
+				  <field name="adds_factor">TRUE</field>
+				  <field name="b0">TRUE</field>
+				  <field name="addFactors">no_value</field>
+				</block>
+				<block type="move">
+				  <mutation xmlns="http://www.w3.org/1999/xhtml" factors="{&quot;factors&quot;:[&quot;Cool&quot;,&quot;Vehicle Speed&quot;],&quot;addFactors&quot;:[&quot;Forward&quot;]}"></mutation>
+				  <field name="name">Board a moving vehicle</field>
+				  <field name="effect">Board a moving vehicle</field>
+				  <field name="a0">TRUE</field>
+				  <field name="a1">TRUE</field>
+				  <field name="factors">no_value</field>
+				  <field name="desc">Roll cool, minus the vehicle's speed. To board one vehicle from another, roll cool, minus the difference between their speeds. Success: You're on and you made it look easy.  Take +1 forward. Partial Success: You're on, but jesus. Miss: You're hanging for dear life, or you're down and good luck to you.</field>
+				  <field name="adds_factor">TRUE</field>
+				  <field name="b0">TRUE</field>
+				  <field name="addFactors">no_value</field>
+				</block>
+				<block type="move">
+				  <mutation xmlns="http://www.w3.org/1999/xhtml" factors="{&quot;factors&quot;:[&quot;Cool&quot;,&quot;Vehicle Speed&quot;,&quot;Player Choice&quot;,&quot;Target Choice&quot;],&quot;addFactors&quot;:[&quot;Harm&quot;]}"></mutation>
+				  <field name="name">Try to outdistance another vehicle</field>
+				  <field name="effect">Try to outdistance another vehicle</field>
+				  <field name="a0">TRUE</field>
+				  <field name="a1">TRUE</field>
+				  <field name="a2">TRUE</field>
+				  <field name="a3">TRUE</field>
+				  <field name="factors">no_value</field>
+				  <field name="desc">Roll cool, modified by the vehicles' relative speed. Success: You outdistance them and break away. Partial Success: Choose 1: -You outdistance them and break away, but your vehicle suffers 1-harm from the strain. -You don't escape them, but you can go to ground in a place you choose. -They overtake you, but their vehicle suffers 1-harm from the strain. Miss: Your counterpart chooses 1 against you.</field>
+				  <field name="adds_factor">TRUE</field>
+				  <field name="b0">TRUE</field>
+				  <field name="addFactors">no_value</field>
+				</block>
+				<block type="move">
+				  <mutation xmlns="http://www.w3.org/1999/xhtml" factors="{&quot;factors&quot;:[&quot;Cool&quot;,&quot;Vehicle Speed&quot;,&quot;Player Choice&quot;,&quot;Target Choice&quot;],&quot;addFactors&quot;:[&quot;Harm&quot;]}"></mutation>
+				  <field name="name">Try to overtake another vehicle</field>
+				  <field name="effect">Try to overtake another vehicle</field>
+				  <field name="a0">TRUE</field>
+				  <field name="a1">TRUE</field>
+				  <field name="a2">TRUE</field>
+				  <field name="a3">TRUE</field>
+				  <field name="factors">no_value</field>
+				  <field name="desc">Roll cool, modified by the vehicles' relative speed. Success: You overtake them and draw alongside. Partial Success: Choose 1: -You overtake them, but your vehicle suffers 1-harm the same. -You don't overtake them, but you can drive them into a place you choose. -They outdistance you, but their vehicle suffers 1-harm the same. Miss: Your counterpart chooses 1 against you.</field>
+				  <field name="adds_factor">TRUE</field>
+				  <field name="b0">TRUE</field>
+				  <field name="addFactors">no_value</field>
+				</block>
+				<block type="move">
+				  <mutation xmlns="http://www.w3.org/1999/xhtml" factors="{&quot;factors&quot;:[&quot;Cool&quot;,&quot;Vehicle Handling&quot;,&quot;Player Choice&quot;,&quot;MC Choice&quot;],&quot;addFactors&quot;:[]}"></mutation>
+				  <field name="name">Deal with bad terrain</field>
+				  <field name="effect">Deal with bad terrain in a vehicle</field>
+				  <field name="a0">TRUE</field>
+				  <field name="a1">TRUE</field>
+				  <field name="a2">TRUE</field>
+				  <field name="a3">TRUE</field>
+				  <field name="factors">no_value</field>
+				  <field name="desc">Roll cool, plus your vehicle's handling. Success: You fly through untouched. Partial Success: Choose 1: -You slow down and pick your way forward. -You push too hard and your vehicle suffers harm as established. -You ditch out or try to go back another way. Miss: The MC chooses 1 for you; the others are impossible.</field>
+				  <field name="adds_factor">TRUE</field>
+				  <field name="addFactors">no_value</field>
+				</block>
+				<block type="move">
+				  <mutation xmlns="http://www.w3.org/1999/xhtml" factors="{&quot;factors&quot;:[&quot;Cool&quot;,&quot;Vehicle Massive&quot;,&quot;Vehicle Handling&quot;,&quot;V-Harm&quot;,&quot;Substitution&quot;],&quot;addFactors&quot;:[&quot;V-Harm as Established&quot;]}"></mutation>
+				  <field name="name">Shoulder another vehicle</field>
+				  <field name="effect">Shoulder a separate vehicle using your own</field>
+				  <field name="a0">TRUE</field>
+				  <field name="a1">TRUE</field>
+				  <field name="a2">TRUE</field>
+				  <field name="a3">TRUE</field>
+				  <field name="a4">TRUE</field>
+				  <field name="factors">no_value</field>
+				  <field name="desc">Hit: You shoulder it aside, inflicting v-harm as established. Success: You inflict v-harm+1. Miss: It shoulders you instead, inflicting v-harm as established.</field>
+				  <field name="adds_factor">TRUE</field>
+				  <field name="b0">TRUE</field>
+				  <field name="addFactors">no_value</field>
+				</block>
+				<block type="move">
+				  <mutation xmlns="http://www.w3.org/1999/xhtml" factors="{&quot;factors&quot;:[&quot;Automatic&quot;,&quot;V-Harm&quot;,&quot;Target Choice&quot;],&quot;addFactors&quot;:[&quot;Harm&quot;]}"></mutation>
+				  <field name="name">Suffer v-harm</field>
+				  <field name="effect">A vehicle takes glancing damage</field>
+				  <field name="a0">TRUE</field>
+				  <field name="a1">TRUE</field>
+				  <field name="a2">TRUE</field>
+				  <field name="factors">no_value</field>
+				  <field name="desc">Roll +v-harm suffered. Success: You lose control, and your attacker chooses 1: -You crash. -You spin out. -Choose two from the list below. Partial success: You're forced to swerve, and your attacker chooses 1: -You give ground. -You're driven off course, or forced onto a new course. -Your car takes 1-harm, right in the transmission. Miss: You swerve but recover without disadvantage.</field>
+				  <field name="adds_factor">TRUE</field>
+				  <field name="b0">TRUE</field>
+				  <field name="addFactors">no_value</field>
+				</block>
 		  </category>
 		</xml>
 		<xml xmlns="https://developers.google.com/blockly/xml"
