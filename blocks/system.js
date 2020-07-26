@@ -915,6 +915,14 @@ Blockly.Blocks['character_improvement'] = {
     this.appendDummyInput()
         .setAlign(Blockly.ALIGN_CENTRE)
         .appendField("Character Improvement");
+    this.appendDummyInput()
+        .setAlign(Blockly.ALIGN_CENTRE)
+        .appendField("Main Conditions:")
+        .appendField(new Blockly.FieldTextInput("none"), "main_conditions");
+    this.appendDummyInput()
+        .setAlign(Blockly.ALIGN_CENTRE)
+        .appendField("Playbook Conditions? ")
+        .appendField(new Blockly.FieldCheckbox("FALSE", this.conditionValidator), "hasConditions");
     this.appendStatementInput("step")
         .setCheck("step")
         .appendField("Improvement Process:");
@@ -926,6 +934,66 @@ Blockly.Blocks['character_improvement'] = {
     this.setColour(240);
     this.setTooltip("The step-by-step process by which players advance their own characters' abilities. The common \"improvement process\" applies to all by default; special rules apply to certain playbooks.");
     this.setHelpUrl("");
+  },
+  conditionValidator: function(newValue) {
+    var sourceBlock = this.getSourceBlock();
+    sourceBlock.showInput_ = newValue == 'TRUE';
+    sourceBlock.updateInput();
+    return newValue;
+  },
+  updateInput: function() {
+    this.removeInput('playbook_condition', true);
+    if (this.showInput_) {
+      this.appendStatementInput('playbook_condition').setCheck('playbook_condition');
+      this.moveInputBefore('playbook_condition', 'step');
+    }
+  }
+};
+
+Blockly.Blocks['playbook_condition'] = {
+  init: function() {
+    this.appendDummyInput()
+        .setAlign(Blockly.ALIGN_CENTRE)
+        .appendField("Conditions for ")
+        .appendField(new Blockly.FieldDropdown(this.generatePlaybooks), "name");
+    this.appendDummyInput()
+        .setAlign(Blockly.ALIGN_CENTRE)
+        .appendField(new Blockly.FieldTextInput("none"), "main_conditions");
+    this.setInputsInline(false);
+    this.setPreviousStatement(true, "playbook_condition");
+    this.setNextStatement(true, "playbook_condition");
+    this.setColour(225);
+    this.setTooltip("A set of additional steps or revisions that must be made when creating or improving a character of the specified playbook.");
+    this.setHelpUrl("");
+  },
+  generatePlaybooks: function() {
+    var options = [["<select>","no_value"]];
+    var sourceBlock = this.getSourceBlock();
+    if (sourceBlock && sourceBlock.workspace) {
+      console.log("gp: parent block/workspace acquired");
+      var currBlock;
+      var name;
+      var parentSet = sourceBlock.workspace.getBlocksByType("player_rules");
+      for (var i = 0; i < parentSet.length; i++) {
+        if (parentSet[i].previousConnection.isConnected()
+          && parentSet[i].getInput("playbook").connection.isConnected()) {
+          currBlock = parentSet[i].getInput("playbook")
+            .connection.targetConnection.getSourceBlock();
+          break;
+        }
+      }
+      while (currBlock) {
+        name = currBlock.getField("name").getValue();
+        if (name != ""
+          && name != "<name>"){
+          options.push(new Array(name, currBlock.id));
+        }
+        currBlock = currBlock.getNextBlock();
+      }
+    } else {
+      console.log("gp: parent block/workspace not acquired");
+    }
+    return options;
   }
 };
 
@@ -933,7 +1001,7 @@ Blockly.Blocks['playbook_steps'] = {
   init: function() {
     this.appendDummyInput()
         .setAlign(Blockly.ALIGN_CENTRE)
-        .appendField("Steps for Playbook: ")
+        .appendField("Steps for ")
         .appendField(new Blockly.FieldDropdown(this.generatePlaybooks), "name");
     this.appendStatementInput("step")
         .setCheck("step");

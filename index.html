@@ -160,7 +160,14 @@
           <field name="hasExtras">FALSE</field>
         </block>
         <block type="character_creation"></block>
-        <block type="character_improvement"></block>
+        <block type="character_improvement">
+          <field name="main_conditions">none</field>
+          <field name="hasConditions">FALSE</field>
+        </block>
+        <block type="playbook_condition">
+          <field name="name">no_value</field>
+          <field name="main_conditions">none</field>
+        </block>
         <block type="step">
           <field name="name">&lt;name&gt;</field>
           <field name="desc">&lt;description&gt;</field>
@@ -1202,6 +1209,8 @@
                 </statement>
                 <statement name="character_improvement">
                   <block type="character_improvement">
+                    <field name="main_conditions">none</field>
+                    <field name="hasConditions">FALSE</field>
                     <statement name="step">
                       <block type="step">
                         <field name="name">&lt;name&gt;</field>
