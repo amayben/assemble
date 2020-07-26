@@ -160,16 +160,17 @@
           <field name="hasExtras">FALSE</field>
         </block>
         <block type="character_creation"></block>
-        <block type="creation_step">
+        <block type="character_improvement"></block>
+        <block type="step">
           <field name="name">&lt;name&gt;</field>
           <field name="desc">&lt;description&gt;</field>
           <mutation factors=""></mutation>
           <field name="factors">no_value</field>
         </block>
-        <block type="playbook_creation">
+        <block type="playbook_steps">
           <field name="name">no_value</field>
-          <statement name="creation_step">
-            <block type="creation_step">
+          <statement name="step">
+            <block type="step">
               <field name="name">&lt;name&gt;</field>
               <field name="desc">&lt;description&gt;</field>
               <mutation factors=""></mutation>
@@ -1176,19 +1177,44 @@
               <block type="player_rules">
                 <statement name="character_creation">
                   <block type="character_creation">
-                    <statement name="creation_step">
-                      <block type="creation_step">
+                    <statement name="step">
+                      <block type="step">
                         <field name="name">&lt;name&gt;</field>
                         <field name="desc">&lt;description&gt;</field>
                         <mutation factors=""></mutation>
                         <field name="factors">no_value</field>
                       </block>
                     </statement>
-                    <statement name="playbook_creation">
-                      <block type="playbook_creation">
+                    <statement name="playbook_steps">
+                      <block type="playbook_steps">
                         <field name="name">no_value</field>
-                        <statement name="creation_step">
-                          <block type="creation_step">
+                        <statement name="step">
+                          <block type="step">
+                            <field name="name">&lt;name&gt;</field>
+                            <field name="desc">&lt;description&gt;</field>
+                            <mutation factors=""></mutation>
+                            <field name="factors">no_value</field>
+                          </block>
+                        </statement>
+                      </block>
+                    </statement>
+                  </block>
+                </statement>
+                <statement name="character_improvement">
+                  <block type="character_improvement">
+                    <statement name="step">
+                      <block type="step">
+                        <field name="name">&lt;name&gt;</field>
+                        <field name="desc">&lt;description&gt;</field>
+                        <mutation factors=""></mutation>
+                        <field name="factors">no_value</field>
+                      </block>
+                    </statement>
+                    <statement name="playbook_steps">
+                      <block type="playbook_steps">
+                        <field name="name">no_value</field>
+                        <statement name="step">
+                          <block type="step">
                             <field name="name">&lt;name&gt;</field>
                             <field name="desc">&lt;description&gt;</field>
                             <mutation factors=""></mutation>

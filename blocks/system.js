@@ -857,6 +857,9 @@ Blockly.Blocks['player_rules'] = {
     this.appendStatementInput("character_creation")
         .setCheck("character_creation")
         .appendField("Character Creation: ");
+    this.appendStatementInput("character_improvement")
+        .setCheck("character_improvement")
+        .appendField("Character Improvement: ");
     this.appendStatementInput("playbook")
         .setCheck("playbook")
         .appendField("Playbooks: ");
@@ -893,11 +896,11 @@ Blockly.Blocks['character_creation'] = {
     this.appendDummyInput()
         .setAlign(Blockly.ALIGN_CENTRE)
         .appendField("Character Creation");
-    this.appendStatementInput("creation_step")
-        .setCheck("creation_step")
+    this.appendStatementInput("step")
+        .setCheck("step")
         .appendField("Creation Process:");
-    this.appendStatementInput("playbook_creation")
-        .setCheck("playbook_creation")
+    this.appendStatementInput("playbook_steps")
+        .setCheck("playbook_steps")
         .appendField("Playbook Creation Rules:");
     this.setInputsInline(false);
     this.setPreviousStatement(true, "character_creation");
@@ -907,19 +910,38 @@ Blockly.Blocks['character_creation'] = {
   }
 };
 
-Blockly.Blocks['playbook_creation'] = {
+Blockly.Blocks['character_improvement'] = {
+  init: function() {
+    this.appendDummyInput()
+        .setAlign(Blockly.ALIGN_CENTRE)
+        .appendField("Character Improvement");
+    this.appendStatementInput("step")
+        .setCheck("step")
+        .appendField("Improvement Process:");
+    this.appendStatementInput("playbook_steps")
+        .setCheck("playbook_steps")
+        .appendField("Playbook Improvement Rules:");
+    this.setInputsInline(false);
+    this.setPreviousStatement(true, "character_improvement");
+    this.setColour(240);
+    this.setTooltip("The step-by-step process by which players advance their own characters' abilities. The common \"improvement process\" applies to all by default; special rules apply to certain playbooks.");
+    this.setHelpUrl("");
+  }
+};
+
+Blockly.Blocks['playbook_steps'] = {
   init: function() {
     this.appendDummyInput()
         .setAlign(Blockly.ALIGN_CENTRE)
         .appendField("Steps for Playbook: ")
         .appendField(new Blockly.FieldDropdown(this.generatePlaybooks), "name");
-    this.appendStatementInput("creation_step")
-        .setCheck("creation_step");
+    this.appendStatementInput("step")
+        .setCheck("step");
     this.setInputsInline(false);
-    this.setPreviousStatement(true, "playbook_creation");
-    this.setNextStatement(true, "playbook_creation");
+    this.setPreviousStatement(true, "playbook_steps");
+    this.setNextStatement(true, "playbook_steps");
     this.setColour(225);
-    this.setTooltip("A set of additional steps or revisions that must be made when creating a character of the specified playbook.");
+    this.setTooltip("A set of additional steps or revisions that must be made when creating or improving a character of the specified playbook.");
     this.setHelpUrl("");
   },
   generatePlaybooks: function() {
@@ -953,7 +975,7 @@ Blockly.Blocks['playbook_creation'] = {
   }
 };
 
-Blockly.Blocks['creation_step'] = {
+Blockly.Blocks['step'] = {
   init: function() {
     this.factors = [];
     this.appendDummyInput()
@@ -971,10 +993,10 @@ Blockly.Blocks['creation_step'] = {
         .setAlign(Blockly.ALIGN_CENTRE)
         .appendField(new Blockly.FieldDropdown(generateFactors, dropdownValidator), "factors");
     this.setInputsInline(false);
-    this.setPreviousStatement(true, "creation_step");
-    this.setNextStatement(true, "creation_step");
+    this.setPreviousStatement(true, "step");
+    this.setNextStatement(true, "step");
     this.setColour(270);
-    this.setTooltip("One step of the creation process.");
+    this.setTooltip("One step of the creation or improvement process.");
     this.setHelpUrl("");
   },
   mutationToDom: function() {
