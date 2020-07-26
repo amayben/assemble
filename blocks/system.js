@@ -854,15 +854,15 @@ Blockly.Blocks['player_rules'] = {
     this.appendDummyInput()
         .setAlign(Blockly.ALIGN_CENTRE)
         .appendField("Player Rules");
+    this.appendStatementInput("playbook")
+        .setCheck("playbook")
+        .appendField("Playbooks: ");
     this.appendStatementInput("character_creation")
         .setCheck("character_creation")
         .appendField("Creation: ");
     this.appendStatementInput("character_improvement")
         .setCheck("character_improvement")
         .appendField("Improvement: ");
-    this.appendStatementInput("playbook")
-        .setCheck("playbook")
-        .appendField("Playbooks: ");
     this.appendStatementInput("resource")
         .setCheck("resource")
         .appendField("Resources: ");
@@ -898,7 +898,7 @@ Blockly.Blocks['character_creation'] = {
         .appendField("Character Creation");
     this.appendStatementInput("step")
         .setCheck("step")
-        .appendField("Creation Process:");
+        .appendField("Creation Rules:");
     this.appendStatementInput("playbook_steps")
         .setCheck("playbook_steps")
         .appendField("Playbook Creation Rules:");
@@ -925,7 +925,7 @@ Blockly.Blocks['character_improvement'] = {
         .appendField(new Blockly.FieldCheckbox("FALSE", this.conditionValidator), "hasConditions");
     this.appendStatementInput("step")
         .setCheck("step")
-        .appendField("Improvement Process:");
+        .appendField("Improvement Rules:");
     this.appendStatementInput("playbook_steps")
         .setCheck("playbook_steps")
         .appendField("Playbook Improvement Rules:");
