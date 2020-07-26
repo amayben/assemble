@@ -856,10 +856,10 @@ Blockly.Blocks['player_rules'] = {
         .appendField("Player Rules");
     this.appendStatementInput("character_creation")
         .setCheck("character_creation")
-        .appendField("Character Creation: ");
+        .appendField("Creation: ");
     this.appendStatementInput("character_improvement")
         .setCheck("character_improvement")
-        .appendField("Character Improvement: ");
+        .appendField("Improvement: ");
     this.appendStatementInput("playbook")
         .setCheck("playbook")
         .appendField("Playbooks: ");

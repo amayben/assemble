@@ -79,6 +79,12 @@
         <block type="theme">
           <field name="name">&lt;name&gt;</field>
           <field name="desc">&lt;description&gt;</field>
+          <statement name="function">
+            <block type="function">
+              <field name="name">&lt;name&gt;</field>
+              <field name="desc">&lt;description&gt;</field>
+            </block>
+          </statement>
         </block>
         <block type="function">
           <field name="name">&lt;name&gt;</field>
@@ -86,6 +92,161 @@
         </block>
         <block type="setting">
           <field name="name">&lt;name&gt;</field>
+          <statement name="society">
+            <block type="society">
+              <field name="name">&lt;region, social group, etc.&gt;</field>
+              <field name="desc">&lt;Describe how people in this social group live.&gt;</field>
+            </block>
+          </statement>
+          <statement name="history">
+            <block type="history">
+              <field name="name">&lt;subject&gt;</field>
+              <statement name="era">
+                <block type="era">
+                  <field name="name">&lt;name&gt;</field>
+                  <field name="desc">&lt;description&gt;</field>
+                  <field name="isCurrent">TRUE</field>
+                </block>
+              </statement>
+              <statement name="entity">
+                <block type="entity">
+                  <field name="name">&lt;name&gt;</field>
+                  <field name="role">&lt;description&gt;</field>
+                  <field name="status">&lt;description&gt;</field>
+                </block>
+              </statement>
+              <statement name="event">
+                <block type="event">
+                  <field name="name">&lt;name&gt;</field>
+                  <field name="desc">&lt;description&gt;</field>
+                  <field name="significance">&lt;significance&gt;</field>
+                </block>
+              </statement>
+            </block>
+          </statement>
+          <statement name="mystery">
+            <block type="mystery">
+              <field name="name">&lt;name&gt;</field>
+              <field name="desc">&lt;description&gt;</field>
+            </block>
+          </statement>
+          <statement name="region">
+            <block type="region">
+              <field name="name">&lt;name&gt;</field>
+              <field name="desc">&lt;description&gt;</field>
+              <field name="hasLandmarks">FALSE</field>
+            </block>
+          </statement>
+        </block>
+        <block type="player_rules">
+          <statement name="character_creation">
+            <block type="character_creation">
+              <statement name="step">
+                <block type="step">
+                  <field name="name">&lt;name&gt;</field>
+                  <field name="desc">&lt;description&gt;</field>
+                  <mutation factors=""></mutation>
+                  <field name="factors">no_value</field>
+                </block>
+              </statement>
+              <statement name="playbook_steps">
+                <block type="playbook_steps">
+                  <field name="name">no_value</field>
+                  <statement name="step">
+                    <block type="step">
+                      <field name="name">&lt;name&gt;</field>
+                      <field name="desc">&lt;description&gt;</field>
+                      <mutation factors=""></mutation>
+                      <field name="factors">no_value</field>
+                    </block>
+                  </statement>
+                </block>
+              </statement>
+            </block>
+          </statement>
+          <statement name="character_improvement">
+            <block type="character_improvement">
+              <field name="main_conditions">none</field>
+              <field name="hasConditions">FALSE</field>
+              <statement name="step">
+                <block type="step">
+                  <field name="name">&lt;name&gt;</field>
+                  <field name="desc">&lt;description&gt;</field>
+                  <mutation factors=""></mutation>
+                  <field name="factors">no_value</field>
+                </block>
+              </statement>
+              <statement name="playbook_steps">
+                <block type="playbook_steps">
+                  <field name="name">no_value</field>
+                  <statement name="step">
+                    <block type="step">
+                      <field name="name">&lt;name&gt;</field>
+                      <field name="desc">&lt;description&gt;</field>
+                      <mutation factors=""></mutation>
+                      <field name="factors">no_value</field>
+                    </block>
+                  </statement>
+                </block>
+              </statement>
+            </block>
+          </statement>
+          <statement name="playbook">
+            <block type="playbook">
+              <field name="name">&lt;name&gt;</field>
+              <mutation items=""></mutation>
+              <field name="equipment">no_value</field>
+              <statement name="playbook_introduction">
+                <block type="playbook_introduction">
+                  <field name="pitch">&lt;description for players&gt;</field>
+                  <field name="soc_role">&lt;personality/social interactions&gt;</field>
+                  <field name="mech_role">&lt;system/mechanical interactions&gt;</field>
+                </block>
+              </statement>
+              <statement name="feature">
+                <block type="feature">
+                  <field name="name">&lt;name&gt;</field>
+                  <field name="desc">&lt;description&gt;</field>
+                  <mutation factors=""></mutation>
+                  <field name="factors">no_value</field>
+                </block>
+              </statement>
+            </block>
+          </statement>
+          <statement name="resource">
+            <block type="resource">
+              <field name="name">&lt;name&gt;</field>
+              <field name="desc">&lt;description&gt;</field>
+              <mutation factors=""></mutation>
+              <field name="factors">no_value</field>
+              <field name="lrange">0</field>
+              <field name="rrange">1</field>
+              <field name="init">0</field>
+            </block>
+          </statement>
+          <statement name="equipment">
+            <block type="equipment">
+              <statement name="equipment_type">
+                <block type="equipment_type">
+                  <field name="name">&lt;name&gt;</field>
+                  <field name="desc">&lt;description&gt;</field>
+                  <mutation factors=""></mutation>
+                  <field name="factors">no_value</field>
+                  <field name="hasSubtypes">FALSE</field>
+                </block>
+              </statement>
+              <statement name="item">
+                <block type="item">
+                  <field name="name">&lt;name&gt;</field>
+                  <mutation types=""></mutation>
+                  <field name="types">no_value</field>
+                  <field name="subtypes">no_value</field>
+                  <field name="desc">&lt;description&gt;</field>
+                </block>
+              </statement>
+            </block>
+          </statement>
+          <field name="hasExtras">FALSE</field>
         </block>
       </category>
       <category name="Setting" colour="#5ba55b">
@@ -95,6 +256,27 @@
         </block>
         <block type="history">
           <field name="name">&lt;subject&gt;</field>
+          <statement name="era">
+            <block type="era">
+              <field name="name">&lt;name&gt;</field>
+              <field name="desc">&lt;description&gt;</field>
+              <field name="isCurrent">TRUE</field>
+            </block>
+          </statement>
+          <statement name="entity">
+            <block type="entity">
+              <field name="name">&lt;name&gt;</field>
+              <field name="role">&lt;description&gt;</field>
+              <field name="status">&lt;description&gt;</field>
+            </block>
+          </statement>
+          <statement name="event">
+            <block type="event">
+              <field name="name">&lt;name&gt;</field>
+              <field name="desc">&lt;description&gt;</field>
+              <field name="significance">&lt;significance&gt;</field>
+            </block>
+          </statement>
         </block>
         <block type="era">
           <field name="name">&lt;name&gt;</field>
@@ -126,7 +308,7 @@
           <field name="significance">&lt;description&gt;</field>
         </block>
       </category>
-      <category name="Moves" colour="#995ba5">
+      <category name="Moves" colour="a55b93">
         <block type="factor">
           <field name="name">&lt;name&gt;</field>
           <field name="type">Scalar</field>
@@ -155,14 +337,54 @@
           <field name="rrange">1</field>
         </block>
       </category>
-      <category name="Players" colour="#5b67a5">
-        <block type="player_rules">
-          <field name="hasExtras">FALSE</field>
+      <category name="Management" colour="#5b67a5">
+        <block type="character_creation">
+          <statement name="step">
+            <block type="step">
+              <field name="name">&lt;name&gt;</field>
+              <field name="desc">&lt;description&gt;</field>
+              <mutation factors=""></mutation>
+              <field name="factors">no_value</field>
+            </block>
+          </statement>
+          <statement name="playbook_steps">
+            <block type="playbook_steps">
+              <field name="name">no_value</field>
+              <statement name="step">
+                <block type="step">
+                  <field name="name">&lt;name&gt;</field>
+                  <field name="desc">&lt;description&gt;</field>
+                  <mutation factors=""></mutation>
+                  <field name="factors">no_value</field>
+                </block>
+              </statement>
+            </block>
+          </statement>
         </block>
-        <block type="character_creation"></block>
         <block type="character_improvement">
           <field name="main_conditions">none</field>
           <field name="hasConditions">FALSE</field>
+          <statement name="step">
+            <block type="step">
+              <field name="name">&lt;name&gt;</field>
+              <field name="desc">&lt;description&gt;</field>
+              <mutation factors=""></mutation>
+              <field name="factors">no_value</field>
+            </block>
+          </statement>
+          <statement name="playbook_steps">
+            <block type="playbook_steps">
+              <field name="name">no_value</field>
+              <statement name="step">
+                <block type="step">
+                  <field name="name">&lt;name&gt;</field>
+                  <field name="desc">&lt;description&gt;</field>
+                  <mutation factors=""></mutation>
+                  <field name="factors">no_value</field>
+                </block>
+              </statement>
+            </block>
+          </statement>
         </block>
         <block type="playbook_condition">
           <field name="name">no_value</field>
@@ -185,7 +407,18 @@
             </block>
           </statement>
         </block>
-        <block type="playbook">
+        <block type="resource">
+          <field name="name">&lt;name&gt;</field>
+          <field name="desc">&lt;description&gt;</field>
+          <mutation factors=""></mutation>
+          <field name="factors">no_value</field>
+          <field name="lrange">0</field>
+          <field name="rrange">1</field>
+          <field name="init">0</field>
+        </block>
+       </category>
+       <category name="Playbooks" colour="#995ba5">
+         <block type="playbook">
           <field name="name">&lt;name&gt;</field>
           <mutation items=""></mutation>
           <field name="equipment">no_value</field>
@@ -218,7 +451,26 @@
         </block>
        </category>
        <category name="Equipment" colour="#dd4444">
-        <block type="equipment"></block>
+        <block type="equipment">
+          <statement name="equipment_type">
+            <block type="equipment_type">
+              <field name="name">&lt;name&gt;</field>
+              <field name="desc">&lt;description&gt;</field>
+              <mutation factors=""></mutation>
+              <field name="factors">no_value</field>
+              <field name="hasSubtypes">FALSE</field>
+            </block>
+          </statement>
+          <statement name="item">
+            <block type="item">
+              <field name="name">&lt;name&gt;</field>
+              <mutation types=""></mutation>
+              <field name="types">no_value</field>
+              <field name="subtypes">no_value</field>
+              <field name="desc">&lt;description&gt;</field>
+            </block>
+          </statement>
+        </block>
         <block type="equipment_type">
           <field name="name">&lt;name&gt;</field>
           <field name="desc">&lt;description&gt;</field>
@@ -234,16 +486,7 @@
           <field name="desc">&lt;description&gt;</field>
         </block>
        </category>
-       <category name="Other Mechanics" colour="#a5a55b">
-        <block type="resource">
-          <field name="name">&lt;name&gt;</field>
-          <field name="desc">&lt;description&gt;</field>
-          <mutation factors=""></mutation>
-          <field name="factors">no_value</field>
-          <field name="lrange">0</field>
-          <field name="rrange">1</field>
-          <field name="init">0</field>
-        </block>
+       <category name="Extra Mechanics" colour="#a5a55b">
         <block type="extra_mechanic">
           <field name="name">&lt;name&gt;</field>
           <field name="desc">&lt;description&gt;</field>
