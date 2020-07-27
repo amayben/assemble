@@ -1938,17 +1938,17 @@ Blockly.Blocks['resource'] = {
     this.appendDummyInput()
         .setAlign(Blockly.ALIGN_CENTRE)
         .appendField("Range: ")
-        .appendField(new Blockly.FieldNumber(0), "lrange")
+        .appendField(new Blockly.FieldTextInput("0"), "lrange")
         .appendField(" to ")
-        .appendField(new Blockly.FieldNumber(1), "rrange");
+        .appendField(new Blockly.FieldTextInput("1"), "rrange");
     this.appendDummyInput()
         .setAlign(Blockly.ALIGN_CENTRE)
         .appendField("Initial Value: ")
-        .appendField(new Blockly.FieldNumber(0), "init");
+        .appendField(new Blockly.FieldTextInput("0"), "init");
     this.setInputsInline(false);
     this.setPreviousStatement(true, "resource");
     this.setNextStatement(true, "resource");
-    this.setColour(240);
+    this.setColour(270);
     this.setTooltip("A statistic that a player tracks which can factor into certain moves.");
     this.setHelpUrl("");
   },
