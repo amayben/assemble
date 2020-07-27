@@ -49,7 +49,9 @@
         </p>
         <p class="small"><a href="https://www.google.com/chrome/">Chrome</a> is recommended to most effectively display Assemble.</p>
         <p class="small">
-          Assemble &#169;2020 by Alexander Mayben. Blockly &#169;2016 by Google.
+          Assemble &#169;2020 by Alexander Mayben.
+          <br>
+          Blockly &#169;2016 by Google.
           <br>
           Assemble and Blockly are both licensed under <a href="https://www.apache.org/licenses/LICENSE-2.0.txt">Apache 2.0</a>.
         </p>
@@ -324,14 +326,6 @@
           <field name="desc">&lt;description&gt;</field>
           <field name="adds_factor">FALSE</field>
         </block>
-        <block type="playbook_move">
-          <field name="name">&lt;name&gt;</field>
-          <field name="effect">&lt;effect&gt;</field>
-          <mutation factors=""></mutation>
-          <field name="factors">no_value</field>
-          <field name="desc">&lt;description&gt;</field>
-          <field name="adds_factor">FALSE</field>
-        </block>
         <block type="parameter">
           <field name="name">&lt;outcome&gt;</field>
           <field name="lrange">0</field>
@@ -450,6 +444,14 @@
           <field name="desc">&lt;description&gt;</field>
           <mutation factors=""></mutation>
           <field name="factors">no_value</field>
+        </block>
+        <block type="playbook_move">
+          <field name="name">&lt;name&gt;</field>
+          <field name="effect">&lt;effect&gt;</field>
+          <mutation factors=""></mutation>
+          <field name="factors">no_value</field>
+          <field name="desc">&lt;description&gt;</field>
+          <field name="adds_factor">FALSE</field>
         </block>
        </category>
        <category name="Equipment" colour="#dd4444">
@@ -1587,7 +1589,7 @@
     var check = function() {
       var answer = confirm("Import workspace? (WARNING: This will delete your current workspace)");
       if (answer) loadworkspace();
-    }
+    };
     var loadworkspace = function() {
       workspaceUpload.click();
     };
