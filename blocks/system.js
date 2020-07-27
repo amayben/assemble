@@ -891,6 +891,177 @@ Blockly.Blocks['player_rules'] = {
   }
 };
 
+Blockly.Blocks['playbook'] = {
+  init: function() {
+    this.items = [];
+    this.appendDummyInput()
+        .setAlign(Blockly.ALIGN_CENTRE)
+        .appendField("Playbook: ")
+        .appendField(new Blockly.FieldTextInput("<name>"), "name");
+    this.appendStatementInput("playbook_introduction")
+        .setCheck("playbook_introduction")
+        .appendField("Introduction: ");
+    this.appendStatementInput("feature")
+        .setCheck(["playbook_move", "feature"])
+        .appendField("Playbook Moves/Features:");
+    this.appendDummyInput()
+        .setAlign(Blockly.ALIGN_CENTRE)
+        .appendField("Starting Item Options:");
+    this.appendDummyInput("dropdown")
+        .setAlign(Blockly.ALIGN_CENTRE)
+        .appendField(new Blockly.FieldDropdown(this.generateItems, this.dropdownValidator), "equipment");
+    this.setInputsInline(false);
+    this.setPreviousStatement(true, "playbook");
+    this.setNextStatement(true, "playbook");
+    this.setColour(240);
+    this.setTooltip("Defines a character playbook or class in the system.");
+    this.setHelpUrl("");
+  },
+  generateItems: function() {
+    var options = [["<select>","no_value"]];
+    var sourceBlock = this.getSourceBlock();
+    if (sourceBlock && sourceBlock.workspace) {
+      console.log("gi: parent block/workspace acquired");
+      var currBlock;
+      var name;
+      //var inItems; //TODO?: implement with item count feature
+      var parentSet = sourceBlock.workspace.getBlocksByType("equipment");
+      for (var i = 0; i < parentSet.length; i++) {
+        if (parentSet[i].previousConnection.isConnected()
+          && parentSet[i].getInput("item").connection.isConnected()) {
+          currBlock = parentSet[i].getInput("item")
+            .connection.targetConnection.getSourceBlock();
+          break;
+        }
+      }
+      while (currBlock) {
+        name = currBlock.getField("name").getValue();
+        if (name != ""
+          && name != "<name>"
+          && !name.includes("-0-")){
+          options.push(new Array(name, currBlock.id));
+        }
+        currBlock = currBlock.getNextBlock();
+      }
+    } else {
+      console.log("gi: parent block/workspace not acquired");
+    }
+    return options;
+  },
+  dropdownValidator: function(newValue) {  
+    var sourceBlock = this.getSourceBlock();
+    if (newValue != "no_value") {
+      var options = this.getOptions();
+      var displayText = "";
+      for (var i = 0; i < options.length; i++) {
+        if (options[i][1] == newValue) {
+          displayText = options[i][0];
+          break;
+        }
+      }
+      if (displayText == "") {
+        console.log("dropdownValidator called on empty displayText");
+      } else {
+        var index = -1;
+        //if selection is already part of playbook, increment count of that item
+        for (var i = 0; i < sourceBlock.items.length; i++) {
+          if (sourceBlock.items[i][0] == displayText) {
+            sourceBlock.items[i][1]++;
+            index = i;
+            break;
+          }
+        }
+        //else it's a new item, so push it
+        if (index == -1) {
+          sourceBlock.items.push(new Array(displayText, 1));
+        }
+        console.log(sourceBlock.type + " dropdown updated with " + sourceBlock.items.toString());
+        sourceBlock.updateItems();
+      }
+    }
+    return "no_value";
+  },
+  deleteButtonValidator: function(newValue) {
+    var sourceBlock = this.getSourceBlock();
+    var arr = sourceBlock.items;
+    var input = this.getParentInput();
+    if (newValue == "FALSE") {
+      //replace element in array with a dummy statement
+      //tells updateFactors which inputs to remove before running mutator code
+      //will be removed from array by updateFactors
+      arr[input.index][0] = "-0-";
+      arr[input.index][1] = 0;
+      console.log("dbv: Removing input " + input.name);
+      sourceBlock.removeInput(input.name);
+      this.dispose();
+    }
+    return newValue;
+  },
+  countValidator: function(newValue) {
+    var sourceBlock = this.getSourceBlock();
+    if (sourceBlock) {
+      var input = this.getParentInput();
+      if (newValue > 0) {
+        sourceBlock.items[input.index][1] = newValue;
+        return newValue;
+      } else {
+        sourceBlock.items[input.index][1] = 1;
+        return 1;
+      }
+    } else {
+      return newValue;
+    }
+  },
+  mutationToDom: function() {
+    var container = document.createElement('mutation');
+    var mutObj = {items: this.items};
+    var mutJSON = JSON.stringify(mutObj);
+    container.setAttribute('items', mutJSON);
+    return container;
+  },
+  domToMutation: function(xmlElement) {
+    var mutJSON = xmlElement.getAttribute('items');
+    if (mutJSON) {
+      var mutObj = JSON.parse(mutJSON);
+      this.items = mutObj.items;
+    }
+    this.updateItems();
+  },
+  updateItems: function() {
+    console.log("items field read with content: " + this.items.toString());
+    //first scrub out all inputs
+    for (var i = 0; i < this.items.length; i++) {
+      this.removeInput("a" + i, true);
+      console.log("cleanup: removed input a" + i);
+    }
+    //filter "-0-" from items
+    this.items = this.items.filter(
+      function (e) {
+        return e[0] != "-0-";
+      }
+    );
+    console.log("items filtered, new content: " + this.items.toString());
+    //now populate block with only current inputs
+    for (var i = 0; i < this.items.length; i++) {
+      //remove existing factor from block first
+      if (this.getInput("a" + i) != null) {
+        this.removeInput("a" + i, true);
+        console.log("input a" + i + " removed.");
+      }
+      if (this.items[i][0] && this.items[i][0] != "") {
+        console.log("Appending new input a" + i);
+        this.appendDummyInput("a" + i)
+          .setAlign(Blockly.ALIGN_CENTRE)
+          .appendField(new Blockly.FieldNumber(this.items[i][1], 1, Infinity, 1, this.countValidator))
+          .appendField("× " + this.items[i][0] + "   ")
+          .appendField(new Blockly.FieldCheckbox(true, this.deleteButtonValidator));
+        this.getInput("a" + i).index = i;
+        this.moveInputBefore("a" + i, "dropdown");
+      }
+    }
+  }
+};
+
 Blockly.Blocks['character_creation'] = {
   init: function() {
     this.appendDummyInput()
@@ -1109,177 +1280,6 @@ Blockly.Blocks['step'] = {
           .setAlign(Blockly.ALIGN_CENTRE)
           .appendField(this.factors[i] + " ")
           .appendField(new Blockly.FieldCheckbox(true, deleteButtonValidator));
-        this.getInput("a" + i).index = i;
-        this.moveInputBefore("a" + i, "dropdown");
-      }
-    }
-  }
-};
-
-Blockly.Blocks['playbook'] = {
-  init: function() {
-    this.items = [];
-    this.appendDummyInput()
-        .setAlign(Blockly.ALIGN_CENTRE)
-        .appendField("Playbook: ")
-        .appendField(new Blockly.FieldTextInput("<name>"), "name");
-    this.appendStatementInput("playbook_introduction")
-        .setCheck("playbook_introduction")
-        .appendField("Introduction: ");
-    this.appendStatementInput("feature")
-        .setCheck(["playbook_move", "feature"])
-        .appendField("Playbook Moves/Features:");
-    this.appendDummyInput()
-        .setAlign(Blockly.ALIGN_CENTRE)
-        .appendField("Starting Equipment:");
-    this.appendDummyInput("dropdown")
-        .setAlign(Blockly.ALIGN_CENTRE)
-        .appendField(new Blockly.FieldDropdown(this.generateItems, this.dropdownValidator), "equipment");
-    this.setInputsInline(false);
-    this.setPreviousStatement(true, "playbook");
-    this.setNextStatement(true, "playbook");
-    this.setColour(240);
-    this.setTooltip("Defines a character playbook or class in the system.");
-    this.setHelpUrl("");
-  },
-  generateItems: function() {
-    var options = [["<select>","no_value"]];
-    var sourceBlock = this.getSourceBlock();
-    if (sourceBlock && sourceBlock.workspace) {
-      console.log("gi: parent block/workspace acquired");
-      var currBlock;
-      var name;
-      //var inItems; //TODO?: implement with item count feature
-      var parentSet = sourceBlock.workspace.getBlocksByType("equipment");
-      for (var i = 0; i < parentSet.length; i++) {
-        if (parentSet[i].previousConnection.isConnected()
-          && parentSet[i].getInput("item").connection.isConnected()) {
-          currBlock = parentSet[i].getInput("item")
-            .connection.targetConnection.getSourceBlock();
-          break;
-        }
-      }
-      while (currBlock) {
-        name = currBlock.getField("name").getValue();
-        if (name != ""
-          && name != "<name>"
-          && !name.includes("-0-")){
-          options.push(new Array(name, currBlock.id));
-        }
-        currBlock = currBlock.getNextBlock();
-      }
-    } else {
-      console.log("gi: parent block/workspace not acquired");
-    }
-    return options;
-  },
-  dropdownValidator: function(newValue) {  
-    var sourceBlock = this.getSourceBlock();
-    if (newValue != "no_value") {
-      var options = this.getOptions();
-      var displayText = "";
-      for (var i = 0; i < options.length; i++) {
-        if (options[i][1] == newValue) {
-          displayText = options[i][0];
-          break;
-        }
-      }
-      if (displayText == "") {
-        console.log("dropdownValidator called on empty displayText");
-      } else {
-        var index = -1;
-        //if selection is already part of playbook, increment count of that item
-        for (var i = 0; i < sourceBlock.items.length; i++) {
-          if (sourceBlock.items[i][0] == displayText) {
-            sourceBlock.items[i][1]++;
-            index = i;
-            break;
-          }
-        }
-        //else it's a new item, so push it
-        if (index == -1) {
-          sourceBlock.items.push(new Array(displayText, 1));
-        }
-        console.log(sourceBlock.type + " dropdown updated with " + sourceBlock.items.toString());
-        sourceBlock.updateItems();
-      }
-    }
-    return "no_value";
-  },
-  deleteButtonValidator: function(newValue) {
-    var sourceBlock = this.getSourceBlock();
-    var arr = sourceBlock.items;
-    var input = this.getParentInput();
-    if (newValue == "FALSE") {
-      //replace element in array with a dummy statement
-      //tells updateFactors which inputs to remove before running mutator code
-      //will be removed from array by updateFactors
-      arr[input.index][0] = "-0-";
-      arr[input.index][1] = 0;
-      console.log("dbv: Removing input " + input.name);
-      sourceBlock.removeInput(input.name);
-      this.dispose();
-    }
-    return newValue;
-  },
-  countValidator: function(newValue) {
-    var sourceBlock = this.getSourceBlock();
-    if (sourceBlock) {
-      var input = this.getParentInput();
-      if (newValue > 0) {
-        sourceBlock.items[input.index][1] = newValue;
-        return newValue;
-      } else {
-        sourceBlock.items[input.index][1] = 1;
-        return 1;
-      }
-    } else {
-      return newValue;
-    }
-  },
-  mutationToDom: function() {
-    var container = document.createElement('mutation');
-    var mutObj = {items: this.items};
-    var mutJSON = JSON.stringify(mutObj);
-    container.setAttribute('items', mutJSON);
-    return container;
-  },
-  domToMutation: function(xmlElement) {
-    var mutJSON = xmlElement.getAttribute('items');
-    if (mutJSON) {
-      var mutObj = JSON.parse(mutJSON);
-      this.items = mutObj.items;
-    }
-    this.updateItems();
-  },
-  updateItems: function() {
-    console.log("items field read with content: " + this.items.toString());
-    //first scrub out all inputs
-    for (var i = 0; i < this.items.length; i++) {
-      this.removeInput("a" + i, true);
-      console.log("cleanup: removed input a" + i);
-    }
-    //filter "-0-" from items
-    this.items = this.items.filter(
-      function (e) {
-        return e[0] != "-0-";
-      }
-    );
-    console.log("items filtered, new content: " + this.items.toString());
-    //now populate block with only current inputs
-    for (var i = 0; i < this.items.length; i++) {
-      //remove existing factor from block first
-      if (this.getInput("a" + i) != null) {
-        this.removeInput("a" + i, true);
-        console.log("input a" + i + " removed.");
-      }
-      if (this.items[i][0] && this.items[i][0] != "") {
-        console.log("Appending new input a" + i);
-        this.appendDummyInput("a" + i)
-          .setAlign(Blockly.ALIGN_CENTRE)
-          .appendField(new Blockly.FieldNumber(this.items[i][1], 1, Infinity, 1, this.countValidator))
-          .appendField("× " + this.items[i][0] + "   ")
-          .appendField(new Blockly.FieldCheckbox(true, this.deleteButtonValidator));
         this.getInput("a" + i).index = i;
         this.moveInputBefore("a" + i, "dropdown");
       }
