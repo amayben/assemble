@@ -903,7 +903,10 @@ Blockly.Blocks['playbook'] = {
         .appendField("Introduction: ");
     this.appendStatementInput("feature")
         .setCheck(["playbook_move", "feature"])
-        .appendField("Playbook Moves/Features:");
+        .appendField("Moves/Features:");
+    this.appendDummyInput()
+        .appendField("Resources? ")
+        .appendField(new Blockly.FieldCheckbox("FALSE", this.resourceValidator), "hasResources");
     this.appendDummyInput()
         .setAlign(Blockly.ALIGN_CENTRE)
         .appendField("Starting Item Options:");
@@ -916,6 +919,16 @@ Blockly.Blocks['playbook'] = {
     this.setColour(240);
     this.setTooltip("Defines a character playbook or class in the system.");
     this.setHelpUrl("");
+  },
+  resourceValidator: function(newValue) {
+    var sourceBlock = this.getSourceBlock();
+    sourceBlock.showInput_ = newValue == 'TRUE';
+    sourceBlock.updateInput();
+    return newValue;
+  },
+  updateInput: function() {
+    this.removeInput('landmark', true);
+    if (this.showInput_) this.appendStatementInput('resource').setCheck('resource');
   },
   generateItems: function() {
     var options = [["<select>","no_value"]];
