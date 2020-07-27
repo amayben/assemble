@@ -907,7 +907,7 @@ Blockly.Blocks['playbook'] = {
     this.appendDummyInput()
         .appendField("Resources? ")
         .appendField(new Blockly.FieldCheckbox("FALSE", this.resourceValidator), "hasResources");
-    this.appendDummyInput()
+    this.appendDummyInput("options")
         .setAlign(Blockly.ALIGN_CENTRE)
         .appendField("Starting Item Options:");
     this.appendDummyInput("dropdown")
@@ -927,8 +927,11 @@ Blockly.Blocks['playbook'] = {
     return newValue;
   },
   updateInput: function() {
-    this.removeInput('landmark', true);
-    if (this.showInput_) this.appendStatementInput('resource').setCheck('resource');
+    this.removeInput('resource', true);
+    if (this.showInput_) {
+      this.appendStatementInput('resource').setCheck('resource');
+      this.moveInputBefore('resource', 'options');
+    }
   },
   generateItems: function() {
     var options = [["<select>","no_value"]];
