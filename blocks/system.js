@@ -1189,7 +1189,7 @@ Blockly.Blocks['playbook_steps'] = {
     this.appendDummyInput()
         .setAlign(Blockly.ALIGN_CENTRE)
         .appendField("Steps for ")
-        .appendField(new Blockly.FieldDropdown(this.generatePlaybooks), "name");
+        .appendField(new Blockly.FieldTextInput("<playbook>", this.playbookValidator), "playbook");
     this.appendStatementInput("step")
         .setCheck("step");
     this.setInputsInline(false);
@@ -1199,11 +1199,10 @@ Blockly.Blocks['playbook_steps'] = {
     this.setTooltip("A set of additional steps or revisions that must be made when creating or improving a character of the specified playbook.");
     this.setHelpUrl("");
   },
-  generatePlaybooks: function() {
-    var options = [["<select>","no_value"]];
+  playbookValidator: function(newValue) {
+    var options = ["<playbook>"];
     var sourceBlock = this.getSourceBlock();
     if (sourceBlock && sourceBlock.workspace) {
-      console.log("gp: parent block/workspace acquired");
       var currBlock;
       var name;
       var parentSet = sourceBlock.workspace.getBlocksByType("player_rules");
@@ -1214,19 +1213,21 @@ Blockly.Blocks['playbook_steps'] = {
             .connection.targetConnection.getSourceBlock();
           break;
         }
-      }
+      } if (!currBlock) return newValue; //error catch on load
       while (currBlock) {
         name = currBlock.getField("name").getValue();
         if (name != ""
           && name != "<name>"){
-          options.push(new Array(name, currBlock.id));
+          options.push(name);
         }
         currBlock = currBlock.getNextBlock();
       }
-    } else {
-      console.log("gp: parent block/workspace not acquired");
-    }
-    return options;
+      for (var i = 0; i < options.length; i++) {
+        //case insensitive comparison
+        if (options[i].toLowerCase() === newValue.toLowerCase()) return options[i];
+      }
+      return "<playbook>";
+    } else return newValue;
   }
 };
 
