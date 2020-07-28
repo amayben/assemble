@@ -1380,6 +1380,897 @@
           <field name="b0">TRUE</field>
           <field name="addFactors">no_value</field>
         </block>
+        <block type="move">
+          <mutation xmlns="http://www.w3.org/1999/xhtml" factors="{&quot;factors&quot;:[&quot;Automatic&quot;,&quot;Player Choice&quot;],&quot;addFactors&quot;:[&quot;Hard&quot;,&quot;Weird&quot;,&quot;Change Playbook&quot;]}"></mutation>
+          <field name="name">Life becomes untenable</field>
+          <field name="effect">A player reaches midnight on their harm clock.</field>
+          <field name="a0">TRUE</field>
+          <field name="a1">TRUE</field>
+          <field name="factors">no_value</field>
+          <field name="desc">Choose one: -Come back with -1hard -Come back with +1weird (max+3) -Change to a new playbook -Die</field>
+          <field name="adds_factor">TRUE</field>
+          <field name="b0">TRUE</field>
+          <field name="b1">TRUE</field>
+          <field name="b2">TRUE</field>
+          <field name="addFactors">no_value</field>
+        </block>
+        <block type="player_rules">
+          <field name="hasExtras">FALSE</field>
+          <statement name="playbook">
+            <block type="playbook">
+              <mutation xmlns="http://www.w3.org/1999/xhtml" items="{&quot;items&quot;:[[&quot;Angel kit&quot;,1],[&quot;.38 revolver&quot;,1],[&quot;9mm&quot;,1],[&quot;Big knife&quot;,1],[&quot;Sawed-off&quot;,1],[&quot;Stun gun&quot;,1],[&quot;Barter&quot;,2],[&quot;1-armor fashion suitable to your look&quot;,1]]}"></mutation>
+              <field name="name">The Angel</field>
+              <field name="hasResources">TRUE</field>
+              <field name="equipment">no_value</field>
+              <statement name="playbook_introduction">
+                <block type="playbook_introduction">
+                  <field name="pitch">When you’re lying in the dust of Apocalypse World guts aspilled, for whom do you pray? The gods? They’re long gone. Your beloved comrades? Fuckers all, or you wouldn’t be here to begin with. Your precious old mother? She’s a darling but she can’t put an intestine back inside so it’ll stay. No, you pray for some grinning kid or veteran or just someone with a heartshocker and a hand with sutures and a 6-pack of morphine. And when that someone comes, that’s an angel.</field>
+                  <field name="soc_role">Angels are medics. If you want everybody to love you, or at least rely on you, play an angel. Warning: if things are going well, maybe nobody will rely on you. Make interesting relationships so you’ll stay relevant. Or sabotage things, I guess.</field>
+                  <field name="mech_role"></field>
+                </block>
+              </statement>
+              <statement name="feature">
+                <block type="feature">
+                  <mutation xmlns="http://www.w3.org/1999/xhtml" factors="{&quot;factors&quot;:[&quot;Move&quot;,&quot;Sharp&quot;]}"></mutation>
+                  <field name="name">Sixth sense</field>
+                  <field name="desc">When you open your brain to the world’s psychic maelstrom, roll+sharp instead of +weird.</field>
+                  <field name="factors">no_value</field>
+                  <next>
+                    <block type="feature">
+                      <mutation xmlns="http://www.w3.org/1999/xhtml" factors="{&quot;factors&quot;:[&quot;Player Choice&quot;]}"></mutation>
+                      <field name="name">Infirmary</field>
+                      <field name="desc">You get an infirmary, a workspace with life support, a drug lab and a crew of 2 (Shigusa &amp; Mox, maybe). Get patients into it and you can work on them like a savvyhead on tech (cf).</field>
+                      <field name="factors">no_value</field>
+                      <next>
+                        <block type="feature">
+                          <mutation xmlns="http://www.w3.org/1999/xhtml" factors="{&quot;factors&quot;:[&quot;Move&quot;,&quot;Sharp&quot;]}"></mutation>
+                          <field name="name">Professional compassion</field>
+                          <field name="desc">You can roll+sharp instead of roll+Hx when you help someone who’s rolling.</field>
+                          <field name="factors">no_value</field>
+                          <next>
+                            <block type="feature">
+                              <mutation xmlns="http://www.w3.org/1999/xhtml" factors="{&quot;factors&quot;:[&quot;Situation&quot;,&quot;Armor&quot;]}"></mutation>
+                              <field name="name">Battlefield grace</field>
+                              <field name="desc">While you are caring for people, not fighting, you get +1 armor.</field>
+                              <field name="factors">no_value</field>
+                              <next>
+                                <block type="playbook_move">
+                                  <mutation xmlns="http://www.w3.org/1999/xhtml" factors="{&quot;factors&quot;:[&quot;Weird&quot;,&quot;Substitution&quot;,&quot;Substitution&quot;,&quot;Immediate Failure&quot;],&quot;addFactors&quot;:[&quot;Harm&quot;]}"></mutation>
+                                  <field name="name">Healing touch</field>
+                                  <field name="effect">Put your hands skin-to-skin on a wounded person and open your brain to them</field>
+                                  <field name="a0">TRUE</field>
+                                  <field name="a1">TRUE</field>
+                                  <field name="a2">TRUE</field>
+                                  <field name="a3">TRUE</field>
+                                  <field name="factors">no_value</field>
+                                  <field name="desc">On a 10+, heal 1 segment. On a 7–9, heal 1 segment, but you’re also opening your brain, so roll that move next. On a miss: first, you don’t heal them. Second, you’ve opened both your brain and theirs to the world’s psychic maelstrom, without protection or preparation. For you, and for your patient if your patient’s a fellow player’s character, treat it as though you’ve made that move and missed the roll. For patients belonging to the MC, their experience and fate are up to the MC.</field>
+                                  <field name="adds_factor">TRUE</field>
+                                  <field name="b0">TRUE</field>
+                                  <field name="addFactors">no_value</field>
+                                  <next>
+                                    <block type="feature">
+                                      <mutation xmlns="http://www.w3.org/1999/xhtml" factors="{&quot;factors&quot;:[&quot;Situation&quot;,&quot;Move&quot;]}"></mutation>
+                                      <field name="name">Touched by death</field>
+                                      <field name="desc">When someone is unconscious in your care, you can use them for augury. When someone has died in your care, you can use their body for augury.</field>
+                                      <field name="factors">no_value</field>
+                                      <next>
+                                        <block type="playbook_move">
+                                          <mutation xmlns="http://www.w3.org/1999/xhtml" factors="{&quot;factors&quot;:[&quot;Stock&quot;,&quot;Player Choice&quot;,&quot;Player Question&quot;,&quot;Stock&quot;],&quot;addFactors&quot;:[&quot;Stock&quot;,&quot;Harm&quot;,&quot;Experience&quot;]}"></mutation>
+                                          <field name="name">Stabilize and heal someone at 9:00 or past</field>
+                                          <field name="effect">Stabilize and heal someone who is badly injured</field>
+                                          <field name="a0">TRUE</field>
+                                          <field name="a1">TRUE</field>
+                                          <field name="a2">TRUE</field>
+                                          <field name="a3">TRUE</field>
+                                          <field name="factors">no_value</field>
+                                          <field name="desc">On a hit, they stabilize and heal to 6:00, and choose 2 (on a 10+) or 1 (on a 7–9): -They fight you and you have to narcostab them. How long will they be out? -The pain and drugs make them babble the truth to you. Ask them what secret they spill. -They respond very well to treatment. Recover 1 of the stock you spent, if you spent any. -They’re at your complete mercy. What do you do to them? -Their course of recovery teaches you something about your craft. Mark experience. -They owe you for your time, attention, and supplies, and you’re going to hold them to it. On a miss, they take 1-harm instead.</field>
+                                          <field name="adds_factor">TRUE</field>
+                                          <field name="b0">TRUE</field>
+                                          <field name="b1">TRUE</field>
+                                          <field name="b2">TRUE</field>
+                                          <field name="addFactors">no_value</field>
+                                          <next>
+                                            <block type="playbook_move">
+                                              <mutation xmlns="http://www.w3.org/1999/xhtml" factors="{&quot;factors&quot;:[&quot;Target Choice&quot;],&quot;addFactors&quot;:[&quot;Stock&quot;,&quot;Harm&quot;]}"></mutation>
+                                              <field name="name">Speed the recovery of someone at 3:00 or 6:00</field>
+                                              <field name="effect">Make life easier for someone who isn't seriously injured.</field>
+                                              <field name="a0">TRUE</field>
+                                              <field name="factors">no_value</field>
+                                              <field name="desc">They choose: you spend 1-stock and they spend 4 days (3:00) or 1 week (6:00) blissed out on chillstabs, immobile but happy, or else they do their time in agony like everyone else.</field>
+                                              <field name="adds_factor">TRUE</field>
+                                              <field name="b0">TRUE</field>
+                                              <field name="b1">TRUE</field>
+                                              <field name="addFactors">no_value</field>
+                                              <next>
+                                                <block type="playbook_move">
+                                                  <mutation xmlns="http://www.w3.org/1999/xhtml" factors="{&quot;factors&quot;:[&quot;Immediate Success&quot;,&quot;Player Choice&quot;],&quot;addFactors&quot;:[&quot;Stock&quot;]}"></mutation>
+                                                  <field name="name">Revive someone whose life has become untenable</field>
+                                                  <field name="effect">Revive a fallen teammate.</field>
+                                                  <field name="a0">TRUE</field>
+                                                  <field name="a1">TRUE</field>
+                                                  <field name="factors">no_value</field>
+                                                  <field name="desc">Spend 2-stock. They come back, but you get to choose how they come back. Choose from the regular “when life is untenable” list, or else choose 1: -They come back in your deep, deep debt. -They come back with a prosthetic (you detail). -You and they both come back with +1weird (max weird+3).</field>
+                                                  <field name="adds_factor">TRUE</field>
+                                                  <field name="b0">TRUE</field>
+                                                  <field name="addFactors">no_value</field>
+                                                  <next>
+                                                    <block type="playbook_move">
+                                                      <mutation xmlns="http://www.w3.org/1999/xhtml" factors="{&quot;factors&quot;:[&quot;NPC or PC?&quot;,&quot;Immediate Success&quot;],&quot;addFactors&quot;:[&quot;Stock&quot;,&quot;Weird&quot;]}"></mutation>
+                                                      <field name="name">Treat an NPC</field>
+                                                      <field name="effect">Treat an NPC</field>
+                                                      <field name="a0">TRUE</field>
+                                                      <field name="a1">TRUE</field>
+                                                      <field name="factors">no_value</field>
+                                                      <field name="desc">Spend 1-stock. They’re stable now and they’ll recover in time.</field>
+                                                      <field name="adds_factor">TRUE</field>
+                                                      <field name="b0">TRUE</field>
+                                                      <field name="b1">TRUE</field>
+                                                      <field name="addFactors">no_value</field>
+                                                      <next>
+                                                        <block type="feature">
+                                                          <mutation xmlns="http://www.w3.org/1999/xhtml" factors="{&quot;factors&quot;:[&quot;Stock&quot;]}"></mutation>
+                                                          <field name="name">You have a supplier</field>
+                                                          <field name="desc">At the beginning of every session, gain 1-stock, to a maximum of 6-stock.</field>
+                                                          <field name="factors">no_value</field>
+                                                          <next>
+                                                            <block type="playbook_move">
+                                                              <mutation xmlns="http://www.w3.org/1999/xhtml" factors="{&quot;factors&quot;:[&quot;Automatic&quot;],&quot;addFactors&quot;:[&quot;Hx&quot;,&quot;Experience&quot;]}"></mutation>
+                                                              <field name="name">Angel special</field>
+                                                              <field name="effect">Hx bonus from sex.</field>
+                                                              <field name="a0">TRUE</field>
+                                                              <field name="factors">no_value</field>
+                                                              <field name="desc">You and another character have sex. Your Hx with them on your sheet goes immediately to +3, and they immediately get +1 to their Hx with you on their sheet. If that brings their Hx with you to +4, they reset it to +1 instead, as usual, and so mark experience.</field>
+                                                              <field name="adds_factor">TRUE</field>
+                                                              <field name="b0">TRUE</field>
+                                                              <field name="b1">TRUE</field>
+                                                              <field name="addFactors">no_value</field>
+                                                            </block>
+                                                          </next>
+                                                        </block>
+                                                      </next>
+                                                    </block>
+                                                  </next>
+                                                </block>
+                                              </next>
+                                            </block>
+                                          </next>
+                                        </block>
+                                      </next>
+                                    </block>
+                                  </next>
+                                </block>
+                              </next>
+                            </block>
+                          </next>
+                        </block>
+                      </next>
+                    </block>
+                  </next>
+                </block>
+              </statement>
+              <statement name="resource">
+                <block type="resource">
+                  <mutation xmlns="http://www.w3.org/1999/xhtml" factors="{&quot;factors&quot;:[&quot;Barter&quot;]}"></mutation>
+                  <field name="name">Angel Kit Stock</field>
+                  <field name="desc">When you use your angel kit, spend its stock; you can spend 0–3 of its stock per use. You can resupply it for 1-barter per 2-stock, if your circumstances let you barter for medical supplies.</field>
+                  <field name="factors">no_value</field>
+                  <field name="lrange">0</field>
+                  <field name="rrange">6</field>
+                  <field name="init">6</field>
+                </block>
+              </statement>
+              <next>
+                <block type="playbook">
+                  <mutation xmlns="http://www.w3.org/1999/xhtml" items="{&quot;items&quot;:[[&quot;Custom weapon&quot;,2],[&quot;Barter&quot;,4],[&quot;1-armor fashion suitable to your look&quot;,1],[&quot;2-armor body armor suitable to your look&quot;,1]]}"></mutation>
+                  <field name="name">The Battlebabe</field>
+                  <field name="hasResources">FALSE</field>
+                  <field name="equipment">no_value</field>
+                  <statement name="playbook_introduction">
+                    <block type="playbook_introduction">
+                      <field name="pitch">Even in a place as dangerous as Apocalypse World, battlebabes are, well. They’re the ones you should walk away from, eyes down, but you can’t. They’re the ones like the seductive blue crackling light, y’know? You mistake looking at them for falling in love, and you get too close and it’s a zillion volts and your wings burn off like paper.  Dangerous.</field>
+                      <field name="soc_role">Battlebabes are good in battle, of course, but they’re wicked social too. If you want to play somebody dangerous and provocative, play a battlebabe. Warning: you might find that you’re better at making trouble than getting out of it. If you want to play the baddest ass, play a gunlugger instead.</field>
+                      <field name="mech_role"></field>
+                    </block>
+                  </statement>
+                  <statement name="feature">
+                    <block type="playbook_move">
+                      <mutation xmlns="http://www.w3.org/1999/xhtml" factors="{&quot;factors&quot;:[&quot;Situation&quot;,&quot;Hot&quot;,&quot;Hold&quot;],&quot;addFactors&quot;:[]}"></mutation>
+                      <field name="name">Dangerous &amp; sexy</field>
+                      <field name="effect">Gain the upper hand with your looks.</field>
+                      <field name="a0">TRUE</field>
+                      <field name="a1">TRUE</field>
+                      <field name="a2">TRUE</field>
+                      <field name="factors">no_value</field>
+                      <field name="desc">When you enter into a charged situation, roll+hot. On a 10+, hold 2. On a 7–9, hold 1. Spend your hold 1 for 1 to make eye contact with an NPC present, who freezes or flinches and can’t take action until you break it off. On a miss, your enemies identify you immediately as their foremost threat.</field>
+                      <field name="adds_factor">FALSE</field>
+                      <next>
+                        <block type="feature">
+                          <mutation xmlns="http://www.w3.org/1999/xhtml" factors="{&quot;factors&quot;:[&quot;Move&quot;,&quot;Cool&quot;,&quot;Hx&quot;]}"></mutation>
+                          <field name="name">Ice cold</field>
+                          <field name="desc">When you go aggro on an NPC, roll+cool instead of roll+hard. When you go aggro on another player’s character, roll+Hx instead of roll+hard.</field>
+                          <field name="factors">no_value</field>
+                          <next>
+                            <block type="feature">
+                              <mutation xmlns="http://www.w3.org/1999/xhtml" factors="{&quot;factors&quot;:[&quot;Move&quot;,&quot;Harm&quot;]}"></mutation>
+                              <field name="name">Merciless</field>
+                              <field name="desc">When you inflict harm, inflict +1harm.</field>
+                              <field name="factors">no_value</field>
+                              <next>
+                                <block type="playbook_move">
+                                  <mutation xmlns="http://www.w3.org/1999/xhtml" factors="{&quot;factors&quot;:[&quot;Situation&quot;,&quot;Weird&quot;,&quot;Player Choice&quot;],&quot;addFactors&quot;:[&quot;Disadvantage&quot;]}"></mutation>
+                                  <field name="name">Visions of death</field>
+                                  <field name="effect">Perceive a psychic vision of someone's demise.</field>
+                                  <field name="a0">TRUE</field>
+                                  <field name="a1">TRUE</field>
+                                  <field name="a2">TRUE</field>
+                                  <field name="factors">no_value</field>
+                                  <field name="desc">When you go into battle, roll+weird. On a 10+, name one person who’ll die and one who’ll live. On a 7–9, name one person who’ll die OR one person who’ll live. Don’t name a player’s character; name NPCs only. The MC will make your vision come true, if it’s even remotely possible. On a miss, you foresee your own death, and accordingly take -1 throughout the battle.</field>
+                                  <field name="adds_factor">TRUE</field>
+                                  <field name="b0">TRUE</field>
+                                  <field name="addFactors">no_value</field>
+                                  <next>
+                                    <block type="feature">
+                                      <mutation xmlns="http://www.w3.org/1999/xhtml" factors="{&quot;factors&quot;:[&quot;Move&quot;,&quot;Advantage&quot;]}"></mutation>
+                                      <field name="name">Perfect instincts</field>
+                                      <field name="desc">When you’ve read a charged situation and you’re acting on the MC’s answers, take +2 instead of +1.</field>
+                                      <field name="factors">no_value</field>
+                                      <next>
+                                        <block type="feature">
+                                          <mutation xmlns="http://www.w3.org/1999/xhtml" factors="{&quot;factors&quot;:[&quot;Fashion&quot;,&quot;Armor&quot;]}"></mutation>
+                                          <field name="name">Impossible reflexes</field>
+                                          <field name="desc">The way you move unencumbered counts as armor. If you’re naked or nearly naked, 2-armor; if you’re wearing non-armor fashion, 1-armor. If you’re wearing armor, use it instead.</field>
+                                          <field name="factors">no_value</field>
+                                        </block>
+                                      </next>
+                                    </block>
+                                  </next>
+                                </block>
+                              </next>
+                            </block>
+                          </next>
+                        </block>
+                      </next>
+                    </block>
+                  </statement>
+                </block>
+              </next>
+            </block>
+          </statement>
+          <statement name="character_creation">
+            <block type="character_creation">
+              <statement name="step">
+                <block type="step">
+                  <mutation xmlns="http://www.w3.org/1999/xhtml" factors="{&quot;factors&quot;:[&quot;Player Choice&quot;]}"></mutation>
+                  <field name="name">Decide Playbook</field>
+                  <field name="desc">Look through the available playbooks and pick the one you want.</field>
+                  <field name="factors">no_value</field>
+                  <next>
+                    <block type="step">
+                      <mutation xmlns="http://www.w3.org/1999/xhtml" factors="{&quot;factors&quot;:[&quot;Playbook&quot;]}"></mutation>
+                      <field name="name">Follow Playbook</field>
+                      <field name="desc">Follow the playbook creation rules.</field>
+                      <field name="factors">no_value</field>
+                    </block>
+                  </next>
+                </block>
+              </statement>
+              <statement name="playbook_steps">
+                <block type="playbook_steps">
+                  <field name="playbook">The Angel</field>
+                  <statement name="step">
+                    <block type="step">
+                      <mutation xmlns="http://www.w3.org/1999/xhtml" factors="{&quot;factors&quot;:[&quot;Player Choice&quot;]}"></mutation>
+                      <field name="name">Choose Name</field>
+                      <field name="desc">Your playbook gives you some suggestions: Dou, Bon, Abe, Boo, T, Kal, Bai, Char, Jav, Ruth, Wei, Jay, Nee, Kim, Lan, Di, Dez, Doc, Core, Wheels, Buzz, Key, Gabe, Biz, Bish, Line, Inch, Grip, or Setter.</field>
+                      <field name="factors">no_value</field>
+                      <next>
+                        <block type="step">
+                          <mutation xmlns="http://www.w3.org/1999/xhtml" factors="{&quot;factors&quot;:[&quot;Player Choice&quot;]}"></mutation>
+                          <field name="name">Choose Look: Gender</field>
+                          <field name="desc">Man, woman, ambiguous, transgressing, or concealed.</field>
+                          <field name="factors">no_value</field>
+                          <next>
+                            <block type="step">
+                              <mutation xmlns="http://www.w3.org/1999/xhtml" factors="{&quot;factors&quot;:[&quot;Player Choice&quot;]}"></mutation>
+                              <field name="name">Choose Look: Outfit</field>
+                              <field name="desc">Utility wear, casual wear plus utility, scrounge wear plus utility.</field>
+                              <field name="factors">no_value</field>
+                              <next>
+                                <block type="step">
+                                  <mutation xmlns="http://www.w3.org/1999/xhtml" factors="{&quot;factors&quot;:[&quot;Player Choice&quot;]}"></mutation>
+                                  <field name="name">Choose Look: Face</field>
+                                  <field name="desc">Kind face, strong face, rugged face, haggard face, pretty face, or lively face.</field>
+                                  <field name="factors">no_value</field>
+                                  <next>
+                                    <block type="step">
+                                      <mutation xmlns="http://www.w3.org/1999/xhtml" factors="{&quot;factors&quot;:[&quot;Player Choice&quot;]}"></mutation>
+                                      <field name="name">Choose Look: Eyes</field>
+                                      <field name="desc">Quick eyes, hard eyes, caring eyes, bright eyes, laughing eyes, or clear eyes.</field>
+                                      <field name="factors">no_value</field>
+                                      <next>
+                                        <block type="step">
+                                          <mutation xmlns="http://www.w3.org/1999/xhtml" factors="{&quot;factors&quot;:[&quot;Player Choice&quot;]}"></mutation>
+                                          <field name="name">Choose Look: Body</field>
+                                          <field name="desc">Compact body, stout body, spare body, big body, rangy body, or sturdy body.</field>
+                                          <field name="factors">no_value</field>
+                                          <next>
+                                            <block type="step">
+                                              <mutation xmlns="http://www.w3.org/1999/xhtml" factors="{&quot;factors&quot;:[&quot;Player Choice&quot;,&quot;Cool&quot;,&quot;Hard&quot;,&quot;Hot&quot;,&quot;Sharp&quot;,&quot;Weird&quot;]}"></mutation>
+                                              <field name="name">Choose Stats</field>
+                                              <field name="desc">Choose one set: -Cool+1 Hard=0 Hot+1 Sharp+2 Weird-1 -Cool+1 Hard+1 Hot=0 Sharp+2 Weird-1 -Cool-1 Hard+1 Hot=0 Sharp+2 Weird+1 -Cool+2 Hard=0 Hot-1 Sharp+2 Weird-1</field>
+                                              <field name="factors">no_value</field>
+                                              <next>
+                                                <block type="step">
+                                                  <mutation xmlns="http://www.w3.org/1999/xhtml" factors="{&quot;factors&quot;:[&quot;Player Choice&quot;]}"></mutation>
+                                                  <field name="name">Choose Moves</field>
+                                                  <field name="desc">Choose 2 angel moves.  Options are: -Sixth sense -Infirmary -Professional compassion -Battlefield grace -Healing touch -Touched by death -You have a supplier</field>
+                                                  <field name="factors">no_value</field>
+                                                  <next>
+                                                    <block type="step">
+                                                      <mutation xmlns="http://www.w3.org/1999/xhtml" factors="{&quot;factors&quot;:[&quot;Player Choice&quot;]}"></mutation>
+                                                      <field name="name">Choose Gear</field>
+                                                      <field name="desc">You get: -angel kit, no supplier -1 small practical weapon -oddments worth 2-barter -fashion suitable to your look, including at your option a piece worth 1-armor (you detail) Small practical weapons (choose 1): -.38 revolver (2-harm close reload loud) -9mm (2-harm close loud) -big knife (2-harm hand) -sawed-off (3-harm close reload messy) -stun gun (s-harm hand reload) If you’d like to start play with a vehicle or a prosthetic, get with the MC.</field>
+                                                      <field name="factors">no_value</field>
+                                                      <next>
+                                                        <block type="step">
+                                                          <mutation xmlns="http://www.w3.org/1999/xhtml" factors="{&quot;factors&quot;:[&quot;Player Choice&quot;,&quot;Target Question&quot;,&quot;Hx&quot;]}"></mutation>
+                                                          <field name="name">Choose Hx</field>
+                                                          <field name="desc">Everyone introduces their characters by name, look and outlook. Take your turn. List the other characters’ names. Go around again for Hx. On your turn, ask 1, 2, or all 3: -Which one of you do I figure is doomed to self-destruction? For that character, write Hx-2. -Which one of you put a hand in when it mattered, and helped me save a life? For that character, write Hx+2. -Which one of you has been beside me all along, and has seen everything I’ve seen? For that character, write Hx+3. For everyone else, write Hx+1. You keep your eyes open.</field>
+                                                          <field name="factors">no_value</field>
+                                                          <next>
+                                                            <block type="step">
+                                                              <mutation xmlns="http://www.w3.org/1999/xhtml" factors="{&quot;factors&quot;:[&quot;Substitution&quot;]}"></mutation>
+                                                              <field name="name">Highlight</field>
+                                                              <field name="desc">Make the Highlight move.</field>
+                                                              <field name="factors">no_value</field>
+                                                            </block>
+                                                          </next>
+                                                        </block>
+                                                      </next>
+                                                    </block>
+                                                  </next>
+                                                </block>
+                                              </next>
+                                            </block>
+                                          </next>
+                                        </block>
+                                      </next>
+                                    </block>
+                                  </next>
+                                </block>
+                              </next>
+                            </block>
+                          </next>
+                        </block>
+                      </next>
+                    </block>
+                  </statement>
+                  <next>
+                    <block type="playbook_steps">
+                      <field name="playbook">The Battlebabe</field>
+                      <statement name="step">
+                        <block type="step">
+                          <mutation xmlns="http://www.w3.org/1999/xhtml" factors="{&quot;factors&quot;:[&quot;Player Choice&quot;]}"></mutation>
+                          <field name="name">Choose Name</field>
+                          <field name="desc">Your playbook gives you some suggestions: Snow, Crimson, Shadow, Azure, Midnight, Scarlet, Violetta, Amber, Rouge, Damson, Sunset, Emerald, Ruby, Raksha, Kickskirt, Kite, Monsoon, Smith, Beastie, Baaba, Melody, Mar, Tavi, Absinthe, or Honeytree.</field>
+                          <field name="factors">no_value</field>
+                          <next>
+                            <block type="step">
+                              <mutation xmlns="http://www.w3.org/1999/xhtml" factors="{&quot;factors&quot;:[&quot;Player Choice&quot;]}"></mutation>
+                              <field name="name">Choose Look: Gender</field>
+                              <field name="desc">Man, woman, ambiguous, or transgressing.</field>
+                              <field name="factors">no_value</field>
+                              <next>
+                                <block type="step">
+                                  <mutation xmlns="http://www.w3.org/1999/xhtml" factors="{&quot;factors&quot;:[&quot;Player Choice&quot;]}"></mutation>
+                                  <field name="name">Choose Look: Outfit</field>
+                                  <field name="desc">Formal wear, display wear, luxe wear, casual wear, or showy armor.</field>
+                                  <field name="factors">no_value</field>
+                                  <next>
+                                    <block type="step">
+                                      <mutation xmlns="http://www.w3.org/1999/xhtml" factors="{&quot;factors&quot;:[&quot;Player Choice&quot;]}"></mutation>
+                                      <field name="name">Choose Look: Face</field>
+                                      <field name="desc">Smooth face, sweet face, handsome face, sharp face, girlish face, boyish face, striking face.</field>
+                                      <field name="factors">no_value</field>
+                                      <next>
+                                        <block type="step">
+                                          <mutation xmlns="http://www.w3.org/1999/xhtml" factors="{&quot;factors&quot;:[&quot;Player Choice&quot;]}"></mutation>
+                                          <field name="name">Choose Look: Eyes</field>
+                                          <field name="desc">Calculating eyes, merciless eyes, frosty eyes, arresting eyes, or indifferent eyes.</field>
+                                          <field name="factors">no_value</field>
+                                          <next>
+                                            <block type="step">
+                                              <mutation xmlns="http://www.w3.org/1999/xhtml" factors="{&quot;factors&quot;:[&quot;Player Choice&quot;]}"></mutation>
+                                              <field name="name">Choose Look: Body</field>
+                                              <field name="desc">Sweet body, slim body, gorgeous body, muscular body, or angular body.</field>
+                                              <field name="factors">no_value</field>
+                                              <next>
+                                                <block type="step">
+                                                  <mutation xmlns="http://www.w3.org/1999/xhtml" factors="{&quot;factors&quot;:[&quot;Player Choice&quot;,&quot;Cool&quot;,&quot;Hard&quot;,&quot;Hot&quot;,&quot;Sharp&quot;,&quot;Weird&quot;]}"></mutation>
+                                                  <field name="name">Choose Stats</field>
+                                                  <field name="desc">Choose one set: -Cool+3 Hard-1 Hot+1 Sharp+1 Weird=0 -Cool+3 Hard-1 Hot+2 Sharp=0 Weird-1 -Cool+3 Hard-2 Hot+1 Sharp+1 Weird+1 -Cool+3 Hard=0 Hot+1 Sharp+1 Weird-1</field>
+                                                  <field name="factors">no_value</field>
+                                                  <next>
+                                                    <block type="step">
+                                                      <mutation xmlns="http://www.w3.org/1999/xhtml" factors="{&quot;factors&quot;:[&quot;Player Choice&quot;]}"></mutation>
+                                                      <field name="name">Choose Moves</field>
+                                                      <field name="desc">Choose 2 battlebabe moves.  Options are: -Dangerous &amp; sexy -Ice cold -Merciless -Visions of death -Perfect instincts -Impossible reflexes</field>
+                                                      <field name="factors">no_value</field>
+                                                      <next>
+                                                        <block type="step">
+                                                          <mutation xmlns="http://www.w3.org/1999/xhtml" factors="{&quot;factors&quot;:[&quot;Player Choice&quot;]}"></mutation>
+                                                          <field name="name">Choose Gear</field>
+                                                          <field name="desc">You get: -2 custom weapons -oddments worth 4-barter -fashion suitable to your look, including at your option fashion worth 1-armor or body armor worth 2-armor (you detail).  If you'd like to start play with a vehicle or a prosthetic, get with the MC.</field>
+                                                          <field name="factors">no_value</field>
+                                                          <next>
+                                                            <block type="step">
+                                                              <mutation xmlns="http://www.w3.org/1999/xhtml" factors="{&quot;factors&quot;:[]}"></mutation>
+                                                              <field name="name">Choose Gear: Custom Weapons</field>
+                                                              <field name="desc">Decide what you two custom weapons are.  First choose a base, then two options.  Custom firearm base: -handgun (2-harm close reload loud) -shotgun (3-harm close reload messy) -rifle (2-harm far reload loud) -crossbow (2-harm close slow); custom firearm options: -ornate (+valuable) -antique (+valuable) -semiautomatic (-reload) -3-round burst (+1harm) -automatic (+area) -silenced (-loud) -hi-powered (close/far, or +1harm at far) -ap ammo (+ap) -scoped (+far, or +1harm at far) -big (+1harm); custom hand weapon base: -staff (1-harm hand area) -haft (1-harm hand) -handle (1-harm hand) -chain (1-harm hand area); custom hand weapon options: -ornate (+valuable) -antique (+valuable) -head (+1harm) -spikes (+1harm) -blade (+1harm) -hidden (+infinite).  For hand weapons, the following options can also be chosen, but they count as two options instead: -long blade (+2harm) -heavy blade (+2harm) -blades (+2harm)</field>
+                                                              <field name="factors">no_value</field>
+                                                              <next>
+                                                                <block type="step">
+                                                                  <mutation xmlns="http://www.w3.org/1999/xhtml" factors="{&quot;factors&quot;:[&quot;Target Question&quot;,&quot;Hx&quot;]}"></mutation>
+                                                                  <field name="name">Choose Hx</field>
+                                                                  <field name="desc">Everyone introduces their characters by name, look and outlook. Take your turn. List the other characters’ names. Go around again for Hx. On your turn, ask the other players which of their characters you can trust. -For the characters you can trust, write Hx-1. -For the characters you can’t trust, write Hx+3. You are indifferent to what is safe, and drawn to what is not.</field>
+                                                                  <field name="factors">no_value</field>
+                                                                  <next>
+                                                                    <block type="step">
+                                                                      <mutation xmlns="http://www.w3.org/1999/xhtml" factors="{&quot;factors&quot;:[&quot;Substitution&quot;]}"></mutation>
+                                                                      <field name="name">Highlight</field>
+                                                                      <field name="desc">Make the Highlight move.</field>
+                                                                      <field name="factors">no_value</field>
+                                                                    </block>
+                                                                  </next>
+                                                                </block>
+                                                              </next>
+                                                            </block>
+                                                          </next>
+                                                        </block>
+                                                      </next>
+                                                    </block>
+                                                  </next>
+                                                </block>
+                                              </next>
+                                            </block>
+                                          </next>
+                                        </block>
+                                      </next>
+                                    </block>
+                                  </next>
+                                </block>
+                              </next>
+                            </block>
+                          </next>
+                        </block>
+                      </statement>
+                    </block>
+                  </next>
+                </block>
+              </statement>
+            </block>
+          </statement>
+          <statement name="character_improvement">
+            <block type="character_improvement">
+              <field name="main_conditions">Reach 5 experience.</field>
+              <field name="hasConditions">FALSE</field>
+              <statement name="step">
+                <block type="step">
+                  <mutation xmlns="http://www.w3.org/1999/xhtml" factors="{&quot;factors&quot;:[&quot;Playbook&quot;]}"></mutation>
+                  <field name="name">Improve</field>
+                  <field name="desc">Choose what improvement you get based on your playbook.</field>
+                  <field name="factors">no_value</field>
+                  <next>
+                    <block type="step">
+                      <mutation xmlns="http://www.w3.org/1999/xhtml" factors="{&quot;factors&quot;:[&quot;Experience&quot;]}"></mutation>
+                      <field name="name">Erase</field>
+                      <field name="desc">Erase all experience marks.</field>
+                      <field name="factors">no_value</field>
+                    </block>
+                  </next>
+                </block>
+              </statement>
+              <statement name="playbook_steps">
+                <block type="playbook_steps">
+                  <field name="playbook">The Angel</field>
+                  <statement name="step">
+                    <block type="step">
+                      <mutation xmlns="http://www.w3.org/1999/xhtml" factors="{&quot;factors&quot;:[&quot;Player Choice&quot;]}"></mutation>
+                      <field name="name">Choose improvement</field>
+                      <field name="desc">Once you claim an option, mark it; you can't choose it again. As an angel, your options are as follows: -get +1sharp (max sharp+3) -get +1cool (max cool+2) -get +1hard (max hard+2) -get +1hard (max hard+2) -get +1weird (max weird+2) -get a new angel move -get a new angel move -get a supplier (cf, detail with the MC) -get a move from another playbook -get a move from another playbook If all those options are taken, you can now choose from the following: -get +1 to any stat (max stat+3) -retire your character to safety -create a second character to play -change your character to a new playbook -choose 3 basic moves and advance them -advance the other 3 basic moves</field>
+                      <field name="factors">no_value</field>
+                    </block>
+                  </statement>
+                  <next>
+                    <block type="playbook_steps">
+                      <field name="playbook">The Battlebabe</field>
+                      <statement name="step">
+                        <block type="step">
+                          <mutation xmlns="http://www.w3.org/1999/xhtml" factors="{&quot;factors&quot;:[&quot;Player Choice&quot;]}"></mutation>
+                          <field name="name">Choose improvement</field>
+                          <field name="desc">Once you claim an option, mark it; you can't choose it again. As a battlebabe, your options are as follows: -get +1hard (max +2) -get +1hot (max +2) -get +1sharp (max +2) -get +1weird (max +2) -get a new battlebabe move -get a new battlebabe move -get an ally (cf; detail with the MC) -get a gang (you detail) and leadership -get a move from another playbook -get a move from another playbook If all those options are taken, you can now choose from the following: -get +1 to any stat (max stat+3) -retire your character to safety -create a second character to play -change your character to a new playbook -choose 3 basic moves and advance them -advance the other 3 basic moves</field>
+                          <field name="factors">no_value</field>
+                        </block>
+                      </statement>
+                    </block>
+                  </next>
+                </block>
+              </statement>
+            </block>
+          </statement>
+          <statement name="resource">
+            <block type="resource">
+              <mutation xmlns="http://www.w3.org/1999/xhtml" factors="{&quot;factors&quot;:[&quot;Cool&quot;]}"></mutation>
+              <field name="name">Cool</field>
+              <field name="desc">One of five main character stats.</field>
+              <field name="factors">no_value</field>
+              <field name="lrange">-3</field>
+              <field name="rrange">3</field>
+              <field name="init">Depends on playbook</field>
+              <next>
+                <block type="resource">
+                  <mutation xmlns="http://www.w3.org/1999/xhtml" factors="{&quot;factors&quot;:[&quot;Cool&quot;,&quot;Highlight&quot;]}"></mutation>
+                  <field name="name">Cool Highlight</field>
+                  <field name="desc">Affected by the highlight move.</field>
+                  <field name="factors">no_value</field>
+                  <field name="lrange">0</field>
+                  <field name="rrange">1</field>
+                  <field name="init">0</field>
+                  <next>
+                    <block type="resource">
+                      <mutation xmlns="http://www.w3.org/1999/xhtml" factors="{&quot;factors&quot;:[&quot;Hard&quot;]}"></mutation>
+                      <field name="name">Hard</field>
+                      <field name="desc">One of five main character stats.</field>
+                      <field name="factors">no_value</field>
+                      <field name="lrange">-3</field>
+                      <field name="rrange">3</field>
+                      <field name="init">Depends on playbook</field>
+                      <next>
+                        <block type="resource">
+                          <mutation xmlns="http://www.w3.org/1999/xhtml" factors="{&quot;factors&quot;:[&quot;Hard&quot;,&quot;Highlight&quot;]}"></mutation>
+                          <field name="name">Hard Highlight</field>
+                          <field name="desc">Affected by the highlight move.</field>
+                          <field name="factors">no_value</field>
+                          <field name="lrange">0</field>
+                          <field name="rrange">1</field>
+                          <field name="init">0</field>
+                          <next>
+                            <block type="resource">
+                              <mutation xmlns="http://www.w3.org/1999/xhtml" factors="{&quot;factors&quot;:[&quot;Hot&quot;]}"></mutation>
+                              <field name="name">Hot</field>
+                              <field name="desc">One of five main character stats.</field>
+                              <field name="factors">no_value</field>
+                              <field name="lrange">-3</field>
+                              <field name="rrange">3</field>
+                              <field name="init">Depends on playbook</field>
+                              <next>
+                                <block type="resource">
+                                  <mutation xmlns="http://www.w3.org/1999/xhtml" factors="{&quot;factors&quot;:[&quot;Hot&quot;,&quot;Highlight&quot;]}"></mutation>
+                                  <field name="name">Hot Highlight</field>
+                                  <field name="desc">Affected by the highlight move.</field>
+                                  <field name="factors">no_value</field>
+                                  <field name="lrange">0</field>
+                                  <field name="rrange">1</field>
+                                  <field name="init">0</field>
+                                  <next>
+                                    <block type="resource">
+                                      <mutation xmlns="http://www.w3.org/1999/xhtml" factors="{&quot;factors&quot;:[&quot;Sharp&quot;]}"></mutation>
+                                      <field name="name">Sharp</field>
+                                      <field name="desc">One of five main character stats.</field>
+                                      <field name="factors">no_value</field>
+                                      <field name="lrange">-3</field>
+                                      <field name="rrange">3</field>
+                                      <field name="init">Depends on playbook</field>
+                                      <next>
+                                        <block type="resource">
+                                          <mutation xmlns="http://www.w3.org/1999/xhtml" factors="{&quot;factors&quot;:[&quot;Sharp&quot;,&quot;Highlight&quot;]}"></mutation>
+                                          <field name="name">Sharp Highlight</field>
+                                          <field name="desc">Affected by the highlight move.</field>
+                                          <field name="factors">no_value</field>
+                                          <field name="lrange">0</field>
+                                          <field name="rrange">1</field>
+                                          <field name="init">0</field>
+                                          <next>
+                                            <block type="resource">
+                                              <mutation xmlns="http://www.w3.org/1999/xhtml" factors="{&quot;factors&quot;:[&quot;Weird&quot;]}"></mutation>
+                                              <field name="name">Weird</field>
+                                              <field name="desc">One of five main character stats.</field>
+                                              <field name="factors">no_value</field>
+                                              <field name="lrange">-3</field>
+                                              <field name="rrange">3</field>
+                                              <field name="init">Depends on playbook</field>
+                                              <next>
+                                                <block type="resource">
+                                                  <mutation xmlns="http://www.w3.org/1999/xhtml" factors="{&quot;factors&quot;:[&quot;Weird&quot;,&quot;Highlight&quot;]}"></mutation>
+                                                  <field name="name">Weird Highlight</field>
+                                                  <field name="desc">Affected by the highlight move.</field>
+                                                  <field name="factors">no_value</field>
+                                                  <field name="lrange">0</field>
+                                                  <field name="rrange">1</field>
+                                                  <field name="init">0</field>
+                                                  <next>
+                                                    <block type="resource">
+                                                      <mutation xmlns="http://www.w3.org/1999/xhtml" factors="{&quot;factors&quot;:[&quot;Harm&quot;]}"></mutation>
+                                                      <field name="name">Harm</field>
+                                                      <field name="desc">Tracks how hurt a character is.</field>
+                                                      <field name="factors">no_value</field>
+                                                      <field name="lrange">No harm</field>
+                                                      <field name="rrange">12:00</field>
+                                                      <field name="init">No harm</field>
+                                                      <next>
+                                                        <block type="resource">
+                                                          <mutation xmlns="http://www.w3.org/1999/xhtml" factors="{&quot;factors&quot;:[&quot;Hx&quot;,&quot;Highlight&quot;,&quot;Experience&quot;]}"></mutation>
+                                                          <field name="name">Hx</field>
+                                                          <field name="desc">Determines character's social affinity with other characters, driving player interactions and highlighted traits.</field>
+                                                          <field name="factors">no_value</field>
+                                                          <field name="lrange">-3</field>
+                                                          <field name="rrange">3</field>
+                                                          <field name="init">0</field>
+                                                          <next>
+                                                            <block type="resource">
+                                                              <mutation xmlns="http://www.w3.org/1999/xhtml" factors="{&quot;factors&quot;:[&quot;Experience&quot;]}"></mutation>
+                                                              <field name="name">Experience</field>
+                                                              <field name="desc">Results in improvement upon reaching 5.</field>
+                                                              <field name="factors">no_value</field>
+                                                              <field name="lrange">0</field>
+                                                              <field name="rrange">4</field>
+                                                              <field name="init">0</field>
+                                                            </block>
+                                                          </next>
+                                                        </block>
+                                                      </next>
+                                                    </block>
+                                                  </next>
+                                                </block>
+                                              </next>
+                                            </block>
+                                          </next>
+                                        </block>
+                                      </next>
+                                    </block>
+                                  </next>
+                                </block>
+                              </next>
+                            </block>
+                          </next>
+                        </block>
+                      </next>
+                    </block>
+                  </next>
+                </block>
+              </next>
+            </block>
+          </statement>
+          <statement name="equipment">
+            <block type="equipment">
+              <statement name="equipment_type">
+                <block type="equipment_type">
+                  <mutation xmlns="http://www.w3.org/1999/xhtml" factors="{&quot;factors&quot;:[&quot;Stock&quot;]}"></mutation>
+                  <field name="name">Kit</field>
+                  <field name="desc">A supply with all kinds of crap in it.</field>
+                  <field name="factors">no_value</field>
+                  <field name="hasSubtypes">FALSE</field>
+                  <next>
+                    <block type="equipment_type">
+                      <mutation xmlns="http://www.w3.org/1999/xhtml" factors="{&quot;factors&quot;:[]}"></mutation>
+                      <field name="name">Weapon</field>
+                      <field name="desc">Something you use to hurt someone else.</field>
+                      <field name="factors">no_value</field>
+                      <field name="hasSubtypes">TRUE</field>
+                      <statement name="subtype">
+                        <block type="equipment_type">
+                          <mutation xmlns="http://www.w3.org/1999/xhtml" factors="{&quot;factors&quot;:[&quot;Distance&quot;]}"></mutation>
+                          <field name="name">Hand</field>
+                          <field name="desc">A melee weapon.</field>
+                          <field name="factors">no_value</field>
+                          <field name="hasSubtypes">FALSE</field>
+                          <next>
+                            <block type="equipment_type">
+                              <mutation xmlns="http://www.w3.org/1999/xhtml" factors="{&quot;factors&quot;:[&quot;Distance&quot;]}"></mutation>
+                              <field name="name">Close</field>
+                              <field name="desc">A ranged weapon that can only attack at close range.</field>
+                              <field name="factors">no_value</field>
+                              <field name="hasSubtypes">FALSE</field>
+                              <next>
+                                <block type="equipment_type">
+                                  <mutation xmlns="http://www.w3.org/1999/xhtml" factors="{&quot;factors&quot;:[]}"></mutation>
+                                  <field name="name">Reload</field>
+                                  <field name="desc">Weapon must be reloaded.</field>
+                                  <field name="factors">no_value</field>
+                                  <field name="hasSubtypes">FALSE</field>
+                                  <next>
+                                    <block type="equipment_type">
+                                      <mutation xmlns="http://www.w3.org/1999/xhtml" factors="{&quot;factors&quot;:[]}"></mutation>
+                                      <field name="name">Loud</field>
+                                      <field name="desc">Weapon is noisy to use, potentially exposing your position.</field>
+                                      <field name="factors">no_value</field>
+                                      <field name="hasSubtypes">FALSE</field>
+                                      <next>
+                                        <block type="equipment_type">
+                                          <mutation xmlns="http://www.w3.org/1999/xhtml" factors="{&quot;factors&quot;:[]}"></mutation>
+                                          <field name="name">Messy</field>
+                                          <field name="desc">Weapon's effectiveness is sloppy.</field>
+                                          <field name="factors">no_value</field>
+                                          <field name="hasSubtypes">FALSE</field>
+                                          <next>
+                                            <block type="equipment_type">
+                                              <mutation xmlns="http://www.w3.org/1999/xhtml" factors="{&quot;factors&quot;:[&quot;Harm&quot;]}"></mutation>
+                                              <field name="name">1-harm</field>
+                                              <field name="desc">Weapon adds 1-harm to battle moves.</field>
+                                              <field name="factors">no_value</field>
+                                              <field name="hasSubtypes">FALSE</field>
+                                              <next>
+                                                <block type="equipment_type">
+                                                  <mutation xmlns="http://www.w3.org/1999/xhtml" factors="{&quot;factors&quot;:[]}"></mutation>
+                                                  <field name="name">2-harm</field>
+                                                  <field name="desc">Weapon adds 2-harm to battle moves.</field>
+                                                  <field name="factors">no_value</field>
+                                                  <field name="hasSubtypes">FALSE</field>
+                                                  <next>
+                                                    <block type="equipment_type">
+                                                      <mutation xmlns="http://www.w3.org/1999/xhtml" factors="{&quot;factors&quot;:[]}"></mutation>
+                                                      <field name="name">3-harm</field>
+                                                      <field name="desc">Weapon adds 3-harm to battle moves.</field>
+                                                      <field name="factors">no_value</field>
+                                                      <field name="hasSubtypes">FALSE</field>
+                                                      <next>
+                                                        <block type="equipment_type">
+                                                          <mutation xmlns="http://www.w3.org/1999/xhtml" factors="{&quot;factors&quot;:[]}"></mutation>
+                                                          <field name="name">s-harm</field>
+                                                          <field name="desc">s-harm means stun. It disables its target without causing any regular harm. Use it on a PC, and doing anything at all means doing it under fire; the fire is “you’re stunned.”</field>
+                                                          <field name="factors">no_value</field>
+                                                          <field name="hasSubtypes">FALSE</field>
+                                                        </block>
+                                                      </next>
+                                                    </block>
+                                                  </next>
+                                                </block>
+                                              </next>
+                                            </block>
+                                          </next>
+                                        </block>
+                                      </next>
+                                    </block>
+                                  </next>
+                                </block>
+                              </next>
+                            </block>
+                          </next>
+                        </block>
+                      </statement>
+                      <next>
+                        <block type="equipment_type">
+                          <mutation xmlns="http://www.w3.org/1999/xhtml" factors="{&quot;factors&quot;:[&quot;Barter&quot;]}"></mutation>
+                          <field name="name">Barter</field>
+                          <field name="desc">Oddments that you can trade as currency.</field>
+                          <field name="factors">no_value</field>
+                          <field name="hasSubtypes">FALSE</field>
+                          <next>
+                            <block type="equipment_type">
+                              <mutation xmlns="http://www.w3.org/1999/xhtml" factors="{&quot;factors&quot;:[]}"></mutation>
+                              <field name="name">Fashion</field>
+                              <field name="desc">An outfit suitable to your look.</field>
+                              <field name="factors">no_value</field>
+                              <field name="hasSubtypes">TRUE</field>
+                              <statement name="subtype">
+                                <block type="equipment_type">
+                                  <mutation xmlns="http://www.w3.org/1999/xhtml" factors="{&quot;factors&quot;:[&quot;Armor&quot;]}"></mutation>
+                                  <field name="name">1-armor</field>
+                                  <field name="desc">Fashion worth at most 1-armor in protection.</field>
+                                  <field name="factors">no_value</field>
+                                  <field name="hasSubtypes">FALSE</field>
+                                  <next>
+                                    <block type="equipment_type">
+                                      <mutation xmlns="http://www.w3.org/1999/xhtml" factors="{&quot;factors&quot;:[&quot;Armor&quot;]}"></mutation>
+                                      <field name="name">2-armor</field>
+                                      <field name="desc">Fashion worth at most 1-armor in protection.</field>
+                                      <field name="factors">no_value</field>
+                                      <field name="hasSubtypes">FALSE</field>
+                                    </block>
+                                  </next>
+                                </block>
+                              </statement>
+                            </block>
+                          </next>
+                        </block>
+                      </next>
+                    </block>
+                  </next>
+                </block>
+              </statement>
+              <statement name="item">
+                <block type="item">
+                  <mutation xmlns="http://www.w3.org/1999/xhtml" types="{&quot;types&quot;:[[&quot;Barter&quot;,&quot;_Z@N9vZt]p!s}/=R:u`7&quot;]],&quot;subtypes&quot;:[]}"></mutation>
+                  <field name="name">Barter</field>
+                  <field name="types">no_value</field>
+                  <field name="subtypes">no_value</field>
+                  <field name="desc">Oddments that you can trade as currency.</field>
+                  <next>
+                    <block type="item">
+                      <mutation xmlns="http://www.w3.org/1999/xhtml" types="{&quot;types&quot;:[[&quot;Kit&quot;,&quot;Pq31?gJhfc;ZZ##N`W$Q&quot;]],&quot;subtypes&quot;:[]}"></mutation>
+                      <field name="name">Angel kit</field>
+                      <field name="types">no_value</field>
+                      <field name="subtypes">no_value</field>
+                      <field name="desc">Your angel kit has all kinds of crap in it: scissors, rags, tape, needles, clamps, gloves, chill coils, wipes, alcohol, injectable tourniquets &amp; bloodslower, instant blood packets (coffee reddener), tubes of meatmesh, bonepins &amp; site injectors, biostabs, chemostabs, narcostabs (chillstabs) in quantity, and a roll of heart jumpshock patches for when it comes to that. It’s big enough to fill the trunk of a car.</field>
+                      <next>
+                        <block type="item">
+                          <mutation xmlns="http://www.w3.org/1999/xhtml" types="{&quot;types&quot;:[[&quot;Fashion&quot;,&quot;NEVAh1HZz1+`.~DL5NT/&quot;]],&quot;subtypes&quot;:[[&quot;1-armor&quot;,&quot;Q7)-[}u%+t/+4J4gUrS(&quot;]]}"></mutation>
+                          <field name="name">1-armor fashion suitable to your look</field>
+                          <field name="types">no_value</field>
+                          <field name="subtypes">no_value</field>
+                          <field name="desc">Fashion including at your option a piece worth 1-armor</field>
+                          <next>
+                            <block type="item">
+                              <mutation xmlns="http://www.w3.org/1999/xhtml" types="{&quot;types&quot;:[[&quot;Fashion&quot;,&quot;NEVAh1HZz1+`.~DL5NT/&quot;]],&quot;subtypes&quot;:[[&quot;2-armor&quot;,&quot;L-:1FSB*z9O]VCl}^-.S&quot;]]}"></mutation>
+                              <field name="name">2-armor body armor suitable to your look</field>
+                              <field name="types">no_value</field>
+                              <field name="subtypes">no_value</field>
+                              <field name="desc">Fashion including at your option a piece worth 2-armor</field>
+                              <next>
+                                <block type="item">
+                                  <mutation xmlns="http://www.w3.org/1999/xhtml" types="{&quot;types&quot;:[[&quot;Weapon&quot;,&quot;bnedbX]/tfBWv-$i%(pK&quot;]],&quot;subtypes&quot;:[]}"></mutation>
+                                  <field name="name">Custom weapon</field>
+                                  <field name="types">no_value</field>
+                                  <field name="subtypes">no_value</field>
+                                  <field name="desc">A customized weapon, detailed in the playbook's creation processs.</field>
+                                  <next>
+                                    <block type="item">
+                                      <mutation xmlns="http://www.w3.org/1999/xhtml" types="{&quot;types&quot;:[[&quot;Weapon&quot;,&quot;bnedbX]/tfBWv-$i%(pK&quot;]],&quot;subtypes&quot;:[[&quot;2-harm&quot;,&quot;c^=%Ni7XQr)#,Ht{7k$Y&quot;],[&quot;Close&quot;,&quot;*6t@LdGQg-?qYNO,hib2&quot;],[&quot;Reload&quot;,&quot;fV6@~^w%sX,XIqr*Xzqw&quot;],[&quot;Loud&quot;,&quot;PN$+#b7W{/fGnm$kg-fJ&quot;]]}"></mutation>
+                                      <field name="name">.38 revolver</field>
+                                      <field name="types">no_value</field>
+                                      <field name="subtypes">no_value</field>
+                                      <field name="desc">.38 revolver</field>
+                                      <next>
+                                        <block type="item">
+                                          <mutation xmlns="http://www.w3.org/1999/xhtml" types="{&quot;types&quot;:[[&quot;Weapon&quot;,&quot;bnedbX]/tfBWv-$i%(pK&quot;]],&quot;subtypes&quot;:[[&quot;2-harm&quot;,&quot;c^=%Ni7XQr)#,Ht{7k$Y&quot;],[&quot;Close&quot;,&quot;*6t@LdGQg-?qYNO,hib2&quot;],[&quot;Loud&quot;,&quot;PN$+#b7W{/fGnm$kg-fJ&quot;]]}"></mutation>
+                                          <field name="name">9mm</field>
+                                          <field name="types">no_value</field>
+                                          <field name="subtypes">no_value</field>
+                                          <field name="desc">9mm</field>
+                                          <next>
+                                            <block type="item">
+                                              <mutation xmlns="http://www.w3.org/1999/xhtml" types="{&quot;types&quot;:[[&quot;Weapon&quot;,&quot;bnedbX]/tfBWv-$i%(pK&quot;]],&quot;subtypes&quot;:[[&quot;2-harm&quot;,&quot;c^=%Ni7XQr)#,Ht{7k$Y&quot;],[&quot;Hand&quot;,&quot;I`O]oiioaV9Q/1ZXgEON&quot;]]}"></mutation>
+                                              <field name="name">Big knife</field>
+                                              <field name="types">no_value</field>
+                                              <field name="subtypes">no_value</field>
+                                              <field name="desc">Big knife</field>
+                                              <next>
+                                                <block type="item">
+                                                  <mutation xmlns="http://www.w3.org/1999/xhtml" types="{&quot;types&quot;:[[&quot;Weapon&quot;,&quot;bnedbX]/tfBWv-$i%(pK&quot;]],&quot;subtypes&quot;:[[&quot;3-harm&quot;,&quot;B[ls+~vj28N?Q88j!xiR&quot;],[&quot;Close&quot;,&quot;*6t@LdGQg-?qYNO,hib2&quot;],[&quot;Reload&quot;,&quot;fV6@~^w%sX,XIqr*Xzqw&quot;],[&quot;Messy&quot;,&quot;Ujaa5C($xpS;0tyLmQXR&quot;]]}"></mutation>
+                                                  <field name="name">Sawed-off</field>
+                                                  <field name="types">no_value</field>
+                                                  <field name="subtypes">no_value</field>
+                                                  <field name="desc">Sawed-off</field>
+                                                  <next>
+                                                    <block type="item">
+                                                      <mutation xmlns="http://www.w3.org/1999/xhtml" types="{&quot;types&quot;:[[&quot;Weapon&quot;,&quot;bnedbX]/tfBWv-$i%(pK&quot;]],&quot;subtypes&quot;:[[&quot;s-harm&quot;,&quot;lpDpm}@Apn)ik({=h8u{&quot;],[&quot;Hand&quot;,&quot;I`O]oiioaV9Q/1ZXgEON&quot;],[&quot;Reload&quot;,&quot;fV6@~^w%sX,XIqr*Xzqw&quot;]]}"></mutation>
+                                                      <field name="name">Stun gun</field>
+                                                      <field name="types">no_value</field>
+                                                      <field name="subtypes">no_value</field>
+                                                      <field name="desc">Stun gun</field>
+                                                    </block>
+                                                  </next>
+                                                </block>
+                                              </next>
+                                            </block>
+                                          </next>
+                                        </block>
+                                      </next>
+                                    </block>
+                                  </next>
+                                </block>
+                              </next>
+                            </block>
+                          </next>
+                        </block>
+                      </next>
+                    </block>
+                  </next>
+                </block>
+              </statement>
+            </block>
+          </statement>
+        </block>
       </category>
     </xml>
     <xml xmlns="https://developers.google.com/blockly/xml"
