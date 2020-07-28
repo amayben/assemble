@@ -832,6 +832,48 @@
           <field name="desc">The difference of an attacking car's massive stat and the defending car's massive or handling stat.</field>
           <field name="isAdditive">TRUE</field>
         </block>
+        <block type="factor">
+          <field name="name">Change Playbook</field>
+          <field name="type">Meta</field>
+          <field name="desc">A player is dead; they must make a new playbook.</field>
+          <field name="isAdditive">TRUE</field>
+        </block>
+        <block type="factor">
+          <field name="name">Stock</field>
+          <field name="type">Scalar</field>
+          <field name="desc">The amount of kit stock gained or spent in a playbook move.</field>
+          <field name="isAdditive">TRUE</field>
+        </block>
+        <block type="factor">
+          <field name="name">Distance</field>
+          <field name="type">Meta</field>
+          <field name="desc">The amount of space between yourself and the target.</field>
+          <field name="isAdditive">FALSE</field>
+        </block>
+        <block type="factor">
+          <field name="name">Situation</field>
+          <field name="type">Meta</field>
+          <field name="desc">Situation must be appropriate.</field>
+          <field name="isAdditive">FALSE</field>
+        </block>
+        <block type="factor">
+          <field name="name">Move</field>
+          <field name="type">Meta</field>
+          <field name="desc">Applies toward a particular move or group of moves.</field>
+          <field name="isAdditive">FALSE</field>
+        </block>
+        <block type="factor">
+          <field name="name">s-harm</field>
+          <field name="type">Meta</field>
+          <field name="desc">s-harm means stun. It disables its target without causing any regular harm. Use it on a PC, and doing anything at all means doing it under fire; the fire is “you’re stunned.”</field>
+          <field name="isAdditive">TRUE</field>
+        </block>
+        <block type="factor">
+          <field name="name">Fashion</field>
+          <field name="type">Meta</field>
+          <field name="desc">What a character is wearing.</field>
+          <field name="isAdditive">FALSE</field>
+        </block>
         <block type="move">
           <mutation xmlns="http://www.w3.org/1999/xhtml" factors="{&quot;factors&quot;:[&quot;Cool&quot;],&quot;addFactors&quot;:[]}"></mutation>
           <field name="name">Do something under fire</field>

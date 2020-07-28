@@ -1189,7 +1189,7 @@ Blockly.Blocks['playbook_steps'] = {
     this.appendDummyInput()
         .setAlign(Blockly.ALIGN_CENTRE)
         .appendField("Steps for ")
-        .appendField(new Blockly.FieldTextInput("<playbook>", this.playbookValidator), "playbook");
+        .appendField(new Blockly.FieldTextInput("<playbook>"/*, this.playbookValidator*/), "playbook");
     this.appendStatementInput("step")
         .setCheck("step");
     this.setInputsInline(false);
