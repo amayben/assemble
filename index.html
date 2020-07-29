@@ -32,8 +32,16 @@
       .small {
         font-size: small;
       }
+      .caption {
+        font-size: x-small;
+        text-align: center;
+        margin-top: 0px;
+      }
       body {
         overflow: hidden;
+      }
+      img {
+        width: 100%;
       }
     </style>
   </head>
@@ -45,7 +53,11 @@
           <p>Welcome to Assemble!</p>
           <p>Designed at the outset for role-playing system designers, Assemble is a content-authorship tool which allows for RPG designers to plan and write <i>Powered by the Apocalypse</i> (PbtA) systems.</p>
           <h2>Introduction</h2>
-          <p>Assemble divides role-playing systems into three distinct categories: <b>Themes</b>, <b>Setting</b>, and <b>Mechanics</b>.</p>
+          <p>To simulate and visualize the construction of a standard PbtA system, Assemble utilizes a pattern language: a set of discrete fields that form an accepted system once they are filled out and iterated upon to the designer's liking.  Designers employ pattern languages as a utlity to show them which design options are at their disposal, to assist in laying out an effective, cohesive system blueprint.  Patterns may be represented by text fields, checkboxes, dropdown menus, block inputs, or even blocks themselves:</p>
+          <img src="images/patterns.png" alt="Setting screencap" title="Each box indicates one of several types of patterns that can be resolved.">
+          <p class="caption">Each box indicates one of several types of patterns that can be resolved.</p>
+          <p>These patterns function together to lay out a plan for organizing system elements that the designer can then fill in as necessary.  Note that <i>not every pattern needs to be resolved</i>; rather, the pattern language should serve as a workflow to help the designer consider how their system might fulfill certain design criteria, whilst sticking to the designer's own goals.</p>
+          <p>Assemble separates role-playing systems into three distinct categories: <b>Themes</b>, <b>Setting</b>, and <b>Mechanics</b>.  The rest of this page will describe the blocks in each of these categories, and the role each block plays within the system as a whole.</p>
           <p class="small">
             Assemble is an open-source web application written in JavaScript and <a href="https://developers.google.com/blockly">Built with Blockly</a>.  View Assemble on <a href="https://github.com/amayben/assemble">Github</a>!
           </p>
