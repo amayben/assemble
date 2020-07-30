@@ -57,6 +57,15 @@
       li {
         margin-bottom: 8px;
       }
+      .assemble {
+        float: right;
+        height: 99vh;
+        width: 73vw;
+      }
+      .buttonrow {
+        height: 4%;
+        text-align: right;
+      }
     </style>
   </head>
   <body>
@@ -100,7 +109,7 @@
             <summary>Themes</summary>
             <p>This section describes themes and their functions, both of which are located under the <b>System</b> heading of the toolbox.  They are connected to the Themes input of the System block.</p>
             <img src="images/theme.png" alt="Theme and function blocks" title="Theme and function blocks.">
-            <p><b>Themes</b> can be loosely described as the overarching principles which drive the tone of a system's narrative and play.  They may take the form of a genre (e.g. horror, detective fiction, sci-fi), a particular role-playing style (e.g. GM-less, player competition, modular), or an interesting story prompt (e.g. historical figures transported into a modern setting, dragons assuming the roles of adventurers, mall clerks having to fend off a zombie invasion).  Identifying an underlying theme (or themes) to design a system around can be an important consideration when crafting a role-playing system that is captivating for players.  Ensuring that the look and feel of your system is recognizable and unique is a major responsibility of effective theming. Themes are also useful for maintaining harmony between your system's individual elements; generally your system's parts should serve its overall themes and design philosophy wherever possible.</p>
+            <p><b>Themes</b> can be loosely described as the overarching principles which drive the tone of a system's narrative and play.  They may take the form of a genre (e.g. horror, detective fiction, sci-fi), a particular role-playing style (e.g. MC-less, player competition, modular), or an interesting story prompt (e.g. historical figures transported into a modern setting, dragons assuming the roles of adventurers, mall clerks having to fend off a zombie invasion).  Identifying an underlying theme (or themes) to design a system around can be an important consideration when crafting a role-playing system that is captivating for players.  Ensuring that the look and feel of your system is recognizable and unique is a major responsibility of effective theming. Themes are also useful for maintaining harmony between your system's individual elements; generally your system's parts should serve its overall themes and design philosophy wherever possible.</p>
             <p><b>Functions</b> are more low-level realizations of themes. They describe how a theme contributes to certain aspects of the game's design.  For example, perhaps a theme of suspense has a function of red herrings being common in the story to throw off the players, or a function of rising action playing a role in how moves are made in the game.  Functions may also operate on a more meta level; a modular theme could simply have the function of making play more intuitive or streamlining setup.  Whatever your theme is, that theme should always have a precise direction for how it will impact the look and feel of your system.</p>
           </details>
           <details>
@@ -153,23 +162,21 @@
           </p>
         </div>
       </div>
-      <div style="float: right; width: 74%">
-        <table style="height: 99vh; width: 73vw;">
-          <tbody>
-            <tr>
-              <td id="blocklyArea" style="text-align: center"></td>
-            </tr>
-            <tr>
-              <td style="height: 4%; text-align: right">
-                <button class="button" onclick="exportworkspace()">Export Blocks</button>
-                <button class="button" onclick="check()">Import Blocks</button>
-                <input type="file" id="workspaceUpload" accept="text/xml"
-                  onchange="openFile(event)" style="display: none"/>
-              </td>
-            </tr>
-          </tbody>
-        </table>
-      </div>
+      <table class="assemble">
+        <tbody>
+          <tr>
+            <td id="blocklyArea" style="text-align: center"></td>
+          </tr>
+          <tr>
+            <td class="buttonrow">
+              <button class="button" onclick="exportworkspace()">Export Blocks</button>
+              <button class="button" onclick="check()">Import Blocks</button>
+              <input type="file" id="workspaceUpload" accept="text/xml"
+                onchange="openFile(event)" style="display: none"/>
+            </td>
+          </tr>
+        </tbody>
+      </table>
     </div>
     <div id="blocklyDiv" style="position: absolute"></div>
     <xml xmlns="https://developers.google.com/blockly/xml"
