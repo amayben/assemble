@@ -48,6 +48,12 @@
         font-weight: bold;
         margin-bottom: 10px;
       }
+      ul {
+        padding-left: 20px;
+      }
+      li {
+        margin-bottom: 8px;
+      }
     </style>
   </head>
   <body>
@@ -58,8 +64,20 @@
           <p>Welcome to Assemble!</p>
           <p>Designed at the outset for role-playing system designers, Assemble is a content-authorship tool which allows for RPG designers to plan and write <i>Powered by the Apocalypse</i> (PbtA) systems.</p>
           <details>
-            <summary>Introduction</summary>
-            <p>pbta</p>
+            <summary>Powered by the Apocalypse</summary>
+            <img src="images/pbta.png" alt="Powered by the Apocalypse" title="Powered by the Apocalypse">
+            <p>Assemble has been specifically designed to work best for <i>Powered by the Apocalypse</i> systems.  Though <i>Powered by the Apocalypse</i> is generally considered a loose grouping (essentially defined by any system that takes inspiration from <a href="http://apocalypse-world.com/"><i>Apocalypse World</i></a>, designed by Vincent and Meguey Baker) there are certain system elements that most PbtA systems tend to have in common:</p>
+            <ul>
+              <li>Action is based around the use of "moves", which a system pre-defines for its players.</li>
+              <li>To decide the outcome of most moves, two six-sided dice are rolled and applicable modifiers are added.</li>
+              <li>Outcomes are either hit or miss; a roll of six or less is considered a miss, and a roll of seven or above is a hit.</li>
+              <li>Hits are often further divided into successes (10+) and partial successes (7-9).</li>
+              <li>Finally, classes are defined by single-sheet "playbooks", commonly designed for quick character setup, doubling as both a reference document and a character sheet.</li>
+            </ul>
+            <p>Beyond <i>Apocalypse World</i>, other examples of <i>Powered by the Apocalypse</i> systems include <i>Monsterhearts</i>, <i>Dungeon World</i>, <i>Bluebeard's Bride</i>, and others.  For more information on <i>Powered by the Apocalypse</i> systems, please visit the <a href="http://apocalypse-world.com/pbta/">Apocalypse World website</a>.</p>
+          </details>
+          <details>
+            <summary>Introduction to Assemble</summary>
             <p>To simulate and visualize the construction of a standard PbtA system, Assemble utilizes a pattern language: a set of discrete fields that form an accepted system once they are filled out and iterated upon to the designer's liking.  Designers employ pattern languages as a utility to show them which design options are at their disposal, to assist in laying out an effective, cohesive system blueprint.  Patterns may be represented by text fields, checkboxes, dropdown menus, block inputs, or even blocks themselves:</p>
             <img src="images/patterns.png" alt="Setting blocks with outlines" title="Each box indicates one of several types of patterns that can be resolved.">
             <p class="caption">Each box indicates one of several types of patterns that can be resolved.</p>
