@@ -48,6 +48,9 @@
         font-weight: bold;
         margin-bottom: 10px;
       }
+      summary.inner {
+        padding-left: 40px;
+      }
       ul {
         padding-left: 20px;
       }
@@ -66,15 +69,16 @@
           <details>
             <summary>Powered by the Apocalypse</summary>
             <img src="images/pbta.png" alt="Powered by the Apocalypse" title="Powered by the Apocalypse">
-            <p>Assemble has been specifically designed to work best for <i>Powered by the Apocalypse</i> systems.  Though <i>Powered by the Apocalypse</i> is generally considered a loose grouping (essentially defined by any system that takes inspiration from <a href="http://apocalypse-world.com/"><i>Apocalypse World</i></a>, designed by Vincent and Meguey Baker) there are certain system elements that most PbtA systems tend to have in common:</p>
+            <p>Assemble has been specifically designed to work best for <i>Powered by the Apocalypse</i> systems.  Though <i>Powered by the Apocalypse</i> is generally considered a loose grouping (essentially defined by any system that takes inspiration from <a href="http://apocalypse-world.com/"><i>Apocalypse World</i></a>, designed by Vincent and Meguey Baker) there are certain elements that most PbtA systems tend to have in common:</p>
             <ul>
+              <li>The GM, or game master, is commonly referred to instead as the Master of Ceremonies (MC)</li>
               <li>Action is based around the use of "moves", which a system pre-defines for its players.</li>
               <li>To decide the outcome of most moves, two six-sided dice are rolled and applicable modifiers are added.</li>
               <li>Outcomes are either hit or miss; a roll of six or less is considered a miss, and a roll of seven or above is a hit.</li>
               <li>Hits are often further divided into successes (10+) and partial successes (7-9).</li>
               <li>Finally, classes are defined by single-sheet "playbooks", commonly designed for quick character setup, doubling as both a reference document and a character sheet.</li>
             </ul>
-            <p>Beyond <i>Apocalypse World</i>, other examples of <i>Powered by the Apocalypse</i> systems include <i>Monsterhearts</i>, <i>Dungeon World</i>, <i>Bluebeard's Bride</i>, and others.  For more information on <i>Powered by the Apocalypse</i> systems, please visit the <a href="http://apocalypse-world.com/pbta/">Apocalypse World website</a>.</p>
+            <p>Beyond <i>Apocalypse World</i>, other examples of <i>Powered by the Apocalypse</i> systems include <i>Monsterhearts</i>, <i>Dungeon World</i>, <i>Bluebeard's Bride</i>, and others.  For more information on <i>Powered by the Apocalypse</i> systems, please visit the <a href="http://apocalypse-world.com/pbta/">Powered by the Apocalypse website</a>.</p>
           </details>
           <details>
             <summary>Introduction to Assemble</summary>
@@ -89,22 +93,52 @@
             <p>and connect the block to its place in the block tree.</p>
             <img src="images/step3.png" alt="Connect block" title="Connect the block.">
             <p>Any block with a notch below it can be connected to additional blocks of the same type, and you are able to add as many blocks as you need to craft your system as you wish.</p>
+            <p>You are free to export your Assemble project as an XML file by clicking <b>Export Blocks</b> at the bottom right corner of the page.  You can also import systems made in Assemble with the <b>Import Blocks</b> button.  (Warning: Importing will delete your current workspace, so make sure you've saved everything first.)</p>
             <p>Assemble separates role-playing systems into three distinct categories: <b>Themes</b>, <b>Setting</b>, and <b>Mechanics</b>.  The rest of this page will describe the blocks in each of these categories, where those blocks can be found and placed, and the role each block plays within the system as a whole.</p>
           </details>
           <details>
             <summary>Themes</summary>
-            <p>This section describes Themes and Functions, both of which are located under the <b>System</b> heading of the toolbox.  They are connected to the Themes input of the System block.</p>
+            <p>This section describes themes and their functions, both of which are located under the <b>System</b> heading of the toolbox.  They are connected to the Themes input of the System block.</p>
             <img src="images/theme.png" alt="Theme and function blocks" title="Theme and function blocks.">
             <p><b>Themes</b> can be loosely described as the overarching principles which drive the tone of a system's narrative and play.  They may take the form of a genre (e.g. horror, detective fiction, sci-fi), a particular role-playing style (e.g. GM-less, player competition, modular), or an interesting story prompt (e.g. historical figures transported into a modern setting, dragons assuming the roles of adventurers, mall clerks having to fend off a zombie invasion).  Identifying an underlying theme (or themes) to design a system around can be an important consideration when crafting a role-playing system that is captivating for players.  Ensuring that the look and feel of your system is recognizable and unique is a major responsibility of effective theming. Themes are also useful for maintaining harmony between your system's individual elements; generally your system's parts should serve its overall themes and design philosophy wherever possible.</p>
             <p><b>Functions</b> are more low-level realizations of themes. They describe how a theme contributes to certain aspects of the game's design.  For example, perhaps a theme of suspense has a function of red herrings being common in the story to throw off the players, or a function of rising action playing a role in how moves are made in the game.  Functions may also operate on a more meta level; a modular theme could simply have the function of making play more intuitive or streamlining setup.  Whatever your theme is, that theme should always have a precise direction for how it will impact the look and feel of your system.</p>
           </details>
           <details>
             <summary>Setting</summary>
-            <p>Setting goes here.</p>
+            <p>This section describes blocks in the <b>Setting</b> heading of the toolbox.  They are connected to the Setting input of the System block.</p>
+            <img src="images/setting.png" alt="Setting block" title="A setting block.">
+            <p>A <b>setting</b> is a fictional space in which a system's narrative is set. If it helps set the stage for the story, or builds the world of the system, it should go in here.  If you want to define more settings for your system, you can do so by adding additional Setting blocks.</p>
+            <p><b>Societies</b> are groups of people that can be encountered within the setting, whether united by blood, creed, community, or otherwise.</p>
+            <p>A <b>history</b> is an account of past events, however recent those events may be.  Different subjects will have different histories.  The same subject might even have different histories, depending on whose account is being considered.</p>
+            <p>Each History block is defined by three additional types of blocks: eras, entities, and events.  <b>Eras</b> describe historical periods in which stories are set, specifying what age of human history they may be analogous to, and how far back known history might reach in a given setting.  <b>Entities</b> are figures (whether they be humans, groups, or otherwise) that have left some impact on a story's world, or perhaps are currently active within it.  <b>Events</b> are past occurrences that are relevant for the players, providing greater context for the world as it may currently exist.</p>
+            <p>A <b>mystery</b> is, in essence, a hint to something greater.  It represents information that is not known to the players, and usually not even the MC.  A mystery should be thought of as a kind of question, to be answered over the course of a game's campaign.  Give the players an interesting enigma to ponder, and provide the MC with a basis to get their story-bending juices flowing.  Avoid giving your own answers wherever possible.</p>
+            <img src="images/region.png" alt="Region and landmark blocks" title="Region and landmark blocks.">
+            <p>A <b>region</b> is a relevant location within the setting.  It can simply include a basic description of the general surroundings, or it can be expanded to include landmarks.</p>
+            <p><b>Landmarks</b> are defined geographical features, buildings, and points of interest within a region, to give that region more flavor.  Having more landmarks in a given region might give your system's MC more to work with when planning their story.</p>
           </details>
           <details>
             <summary>Mechanics</summary>
-            <p>Mechanics go here (probably gonna need some sub-details)</p>
+            <p>Mechanics are where things get a little more complicated.  The blocks related to system mechanics are each divided into the five remaining headings of the toolbox.  You can also access the default player rules pattern from the System block.  Please note that a system can only hold one player rules block at a time.</p>
+            <details>
+              <summary class="inner">Moves</summary>
+              <p>Moves go here</p>
+            </details>
+            <details>
+              <summary class="inner">Management</summary>
+              <p>Management goes here</p>
+            </details>
+            <details>
+              <summary class="inner">Playbooks</summary>
+              <p>Playbooks go here</p>
+            </details>
+            <details>
+              <summary class="inner">Equipment</summary>
+              <p>Equipment goes here</p>
+            </details>
+            <details>
+              <summary class="inner">Extra Mechanics</summary>
+              <p>Extra mechanics go here</p>
+            </details>
           </details>
           <p class="small">
             Assemble is an open-source web application written in JavaScript and <a href="https://developers.google.com/blockly">Built with Blockly</a>.  View Assemble on <a href="https://github.com/amayben/assemble">Github</a>!
