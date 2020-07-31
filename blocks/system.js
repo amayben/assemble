@@ -1407,7 +1407,7 @@ Blockly.Blocks['equipment'] = {
         .appendField("Equipment Types:");
     this.appendStatementInput("item")
         .setCheck("item")
-        .appendField("Item List:");
+        .appendField("Items:");
     this.setInputsInline(false);
     this.setPreviousStatement(true, "equipment");
     this.setColour(240);
