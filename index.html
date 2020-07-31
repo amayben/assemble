@@ -103,7 +103,7 @@
             <img src="images/step3.png" alt="Connect block" title="Connect the block.">
             <p>Any block with a notch below it can be connected to additional blocks of the same type, and you are able to add as many blocks as you need to craft your system as you wish.</p>
             <p>You are free to export your Assemble project as an XML file by clicking <b>Export Blocks</b> at the bottom right corner of the page.  You can also import systems made in Assemble with the <b>Import Blocks</b> button.  (Warning: Importing will delete your current workspace, so make sure you've saved everything first.)</p>
-            <p>Assemble separates role-playing systems into three distinct categories: <b>Themes</b>, <b>Setting</b>, and <b>Mechanics</b>.  The rest of this page will describe the blocks in each of these categories, where those blocks can be found and placed, and the role each block plays within the system as a whole.</p>
+            <p>Assemble separates role-playing systems into three distinct categories: <b>Themes</b>, <b>Setting</b>, and <b>Mechanics</b>.  The rest of this page will describe the blocks in each of these categories, where those blocks can be found and placed, and the role each block plays within the system as a whole.  For quick information about a particular block, you can also mouse over any block for a brief summary on how to use it.</p>
           </details>
           <details>
             <summary>Themes</summary>
@@ -136,14 +136,21 @@
               <img src="images/factor.png" alt="A factor block" title="A factor block.">
               <p>Before building a move, you will need to construct the relevant factor blocks.  A <b>factor</b> is any metric that affects the move's action until it is resolved.  It might be a stat that is relevant to the move, an operation (like making a choice or asking a question) that affects the move's outcome while it is being made, or any operation that plays a role in how the move itself is carried out.  A factor can have one of four types: Scalar (has a positive or negative value that is directly combined with a roll), Reroll (calls for the repeat of a previous action or a re-rolling of the dice), Revision (gives an immediate response or ignores a different factor, move, or roll), or Meta (originates from story or gameplay rather than a rigid mechanic).  Some factors can also originate as the result of certain moves; these factors should be marked as a Result to be tracked as such.</p>
               <p>Once you've filled out some factor blocks and connected them to the "Move Factors" input of the Mechanics block, the dropdown menu under the "Factors" section of the move block will populate with the names of those factors, allowing you to select them and add them to the block.  You can then continue adding as many factors as necessary.  If a move results in any factors, select the "Result Factor(s)" checkbox, and you will be able to add any number of relevant result factors in a similar manner.</p>
+              <img src="images/parameter.png" alt="A parameter block" title="A parameter block.">
+              <p>If your move's outcome is based on parameters outside of the standard ones used for PbtA systems (success, partial success, and so on; see "Powered by the Apocalypse" above for details), you can specify those parameters with <b>parameter</b> blocks.  If your system uses special parameters, check the box labeled "special parameters" on the Mechanics block and insert your parameter blocks as needed.  Make sure that the "range" fields encompass a valid range of potential roll outcomes.</p>
+            </details>
+            <details>
+              <summary class="inner">Playbooks</summary>
+              <img src="images/playbook.png" alt="Playbook, introduction, and feature blocks" title="Playbook, introduction, and feature blocks.">
+              <p><b>Playbooks</b> are the player classes of a <i>Powered by the Apocalypse</i> system; each playbook represents a certain personality or skill set for the character using it.  The more playbooks a system has, the more options a player will have to choose from when deciding what character to play as.</p>
+              <p>A playbook should have some kind of <b>introduction</b> to help players learn about its general play-style and personality.  This introduction can include a flavor pitch describing the playbook in the context of the system's world, a description of the playbook's social role, a summary of its mechanical role, or some combination of the three.</p>
+              <p>Playbooks should also contain a list of special features and/or moves at that playbook's disposal.  <b>Playbook moves</b> are functionally identical to regular moves, but instead can only be applied to playbooks.  <b>Playbook features</b>, on the other hand, describe passive attributes that a playbook has without constituting moves of their own.  Like moves, they can affect or be affected by a set of relevant factors.  Both playbook features and playbook moves can be connected to the "Moves/Features" section of the Playbook block.</p>
+              <p>Playbooks can also have resources that aren't shared by all playbooks (for more information on resources, read "Management" below).</p>
+              <p>Finally, playbooks can come with a set of options for starting items that they can choose from.  To use the dropdown menu here, the system must first have some items defined (see "Equipment" for details).  The process of choosing equipment should also be specified within the playbook's creation rules (see "Management" for details).</p>
             </details>
             <details>
               <summary class="inner">Management</summary>
               <p>Management goes here</p>
-            </details>
-            <details>
-              <summary class="inner">Playbooks</summary>
-              <p>Playbooks go here</p>
             </details>
             <details>
               <summary class="inner">Equipment</summary>
@@ -441,6 +448,48 @@
           <field name="rrange">1</field>
         </block>
       </category>
+      <category name="Playbooks" colour="#995ba5">
+        <block type="playbook">
+         <field name="name">&lt;name&gt;</field>
+         <field name="hasResources">FALSE</field>
+         <mutation items=""></mutation>
+         <field name="equipment">no_value</field>
+         <statement name="playbook_introduction">
+           <block type="playbook_introduction">
+             <field name="pitch">&lt;description for players&gt;</field>
+             <field name="soc_role">&lt;personality/social interactions&gt;</field>
+             <field name="mech_role">&lt;system/mechanical interactions&gt;</field>
+           </block>
+         </statement>
+         <statement name="feature">
+           <block type="feature">
+             <field name="name">&lt;name&gt;</field>
+             <field name="desc">&lt;description&gt;</field>
+             <mutation factors=""></mutation>
+             <field name="factors">no_value</field>
+           </block>
+         </statement>
+       </block>
+       <block type="playbook_introduction">
+         <field name="pitch">&lt;description for players&gt;</field>
+         <field name="soc_role">&lt;personality/social interactions&gt;</field>
+         <field name="mech_role">&lt;system/mechanical interactions&gt;</field>
+       </block>
+       <block type="feature">
+         <field name="name">&lt;name&gt;</field>
+         <field name="desc">&lt;description&gt;</field>
+         <mutation factors=""></mutation>
+         <field name="factors">no_value</field>
+       </block>
+       <block type="playbook_move">
+         <field name="name">&lt;name&gt;</field>
+         <field name="effect">&lt;effect&gt;</field>
+         <mutation factors=""></mutation>
+         <field name="factors">no_value</field>
+         <field name="desc">&lt;description&gt;</field>
+         <field name="adds_factor">FALSE</field>
+       </block>
+      </category>
       <category name="Management" colour="#5b67a5">
         <block type="character_creation">
           <statement name="step">
@@ -491,7 +540,7 @@
           </statement>
         </block>
         <block type="playbook_condition">
-          <field name="name">no_value</field>
+          <field name="playbook">&lt;playbook&gt;</field>
           <field name="main_conditions">none</field>
         </block>
         <block type="step">
@@ -519,48 +568,6 @@
           <field name="lrange">0</field>
           <field name="rrange">1</field>
           <field name="init">0</field>
-        </block>
-       </category>
-       <category name="Playbooks" colour="#995ba5">
-         <block type="playbook">
-          <field name="name">&lt;name&gt;</field>
-          <field name="hasResources">FALSE</field>
-          <mutation items=""></mutation>
-          <field name="equipment">no_value</field>
-          <statement name="playbook_introduction">
-            <block type="playbook_introduction">
-              <field name="pitch">&lt;description for players&gt;</field>
-              <field name="soc_role">&lt;personality/social interactions&gt;</field>
-              <field name="mech_role">&lt;system/mechanical interactions&gt;</field>
-            </block>
-          </statement>
-          <statement name="feature">
-            <block type="feature">
-              <field name="name">&lt;name&gt;</field>
-              <field name="desc">&lt;description&gt;</field>
-              <mutation factors=""></mutation>
-              <field name="factors">no_value</field>
-            </block>
-          </statement>
-        </block>
-        <block type="playbook_introduction">
-          <field name="pitch">&lt;description for players&gt;</field>
-          <field name="soc_role">&lt;personality/social interactions&gt;</field>
-          <field name="mech_role">&lt;system/mechanical interactions&gt;</field>
-        </block>
-        <block type="feature">
-          <field name="name">&lt;name&gt;</field>
-          <field name="desc">&lt;description&gt;</field>
-          <mutation factors=""></mutation>
-          <field name="factors">no_value</field>
-        </block>
-        <block type="playbook_move">
-          <field name="name">&lt;name&gt;</field>
-          <field name="effect">&lt;effect&gt;</field>
-          <mutation factors=""></mutation>
-          <field name="factors">no_value</field>
-          <field name="desc">&lt;description&gt;</field>
-          <field name="adds_factor">FALSE</field>
         </block>
        </category>
        <category name="Equipment" colour="#dd4444">

@@ -1142,7 +1142,7 @@ Blockly.Blocks['playbook_condition'] = {
     this.appendDummyInput()
         .setAlign(Blockly.ALIGN_CENTRE)
         .appendField("Conditions for ")
-        .appendField(new Blockly.FieldDropdown(this.generatePlaybooks), "name");
+        .appendField(new Blockly.FieldTextInput("<playbook>"/*, this.playbookValidator*/), "playbook");
     this.appendDummyInput()
         .setAlign(Blockly.ALIGN_CENTRE)
         .appendField(new Blockly.FieldTextInput("none"), "main_conditions");
@@ -1153,34 +1153,32 @@ Blockly.Blocks['playbook_condition'] = {
     this.setTooltip("A set of additional steps or revisions that must be made when creating or improving a character of the specified playbook.");
     this.setHelpUrl("");
   },
-  generatePlaybooks: function() {
-    var options = [["<select>","no_value"]];
+  playbookValidator: function(newValue) {
+    var options = ["<playbook>"];
     var sourceBlock = this.getSourceBlock();
     if (sourceBlock && sourceBlock.workspace) {
-      console.log("gp: parent block/workspace acquired");
       var currBlock;
       var name;
       var parentSet = sourceBlock.workspace.getBlocksByType("player_rules");
-      for (var i = 0; i < parentSet.length; i++) {
-        if (parentSet[i].previousConnection.isConnected()
-          && parentSet[i].getInput("playbook").connection.isConnected()) {
-          currBlock = parentSet[i].getInput("playbook")
-            .connection.targetConnection.getSourceBlock();
-          break;
-        }
-      }
+      //just handwave it if multiple/no player_rules
+      if (!parentSet || parentSet.length != 1) return newValue;
+      if (parentSet[0].previousConnection.isConnected()
+        && parentSet[0].getInput("playbook").connection.isConnected()) {
+        currBlock = parentSet[0].getInput("playbook")
+          .connection.targetConnection.getSourceBlock();
+      } else return newValue; //error catch on load
       while (currBlock) {
         name = currBlock.getField("name").getValue();
         if (name != ""
           && name != "<name>"){
-          options.push(new Array(name, currBlock.id));
-        }
-        currBlock = currBlock.getNextBlock();
+          options.push(name);
+        } currBlock = currBlock.getNextBlock();
       }
-    } else {
-      console.log("gp: parent block/workspace not acquired");
-    }
-    return options;
+      for (var i = 0; i < options.length; i++) {
+        //case insensitive comparison
+        if (options[i].toLowerCase() === newValue.toLowerCase()) return options[i];
+      } return "<playbook>";
+    } else return newValue;
   }
 };
 
