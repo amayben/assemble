@@ -6,7 +6,7 @@
 
 /**
  * @fileoverview PL blocks for PbtA pattern language.
- * @author amayben@ucsc.edu (Alexander Mayben)
+ * @author maybenalex@gmail.com (Alexander Mayben)
  */
 'use strict';
 Blockly.FieldCheckbox.CHECK_CHAR = "X";

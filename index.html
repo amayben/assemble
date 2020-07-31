@@ -1,6 +1,8 @@
 <!DOCTYPE html>
 <html>
   <head>
+    <!--index.html: main page of Assemble-->
+    <!--Author: Alexander Mayben (maybenalex@gmail.com)-->
     <meta charset="UTF-8">
     <title>Assemble</title>
     <script src="http://danml.com/js/download.js"></script>
@@ -101,8 +103,8 @@
             <img src="images/step2.png" alt="Drag block outside toolbox" title="Drag the block outside of the toolbox.">
             <p>and connect the block to its place in the block tree.</p>
             <img src="images/step3.png" alt="Connect block" title="Connect the block.">
-            <p>Any block with a notch below it can be connected to additional blocks of the same type, and you are able to add as many blocks as you need to craft your system as you wish.</p>
-            <p>You are free to export your Assemble project as an XML file by clicking <b>Export Blocks</b> at the bottom right corner of the page.  You can also import systems made in Assemble with the <b>Import Blocks</b> button.  (Warning: Importing will delete your current workspace, so make sure you've saved everything first.)</p>
+            <p>Any block with a notch below it can be connected to additional blocks of the same type, and you are able to use as many or as few blocks as you need to craft your system as you wish.</p>
+            <p>You can export your Assemble project as an XML file by clicking <b>Export Blocks</b> at the bottom right corner of the page.  You can also import other systems made in Assemble with the <b>Import Blocks</b> button.  (Warning: Imports will delete your current workspace, so make sure you've saved everything first.)</p>
             <p>Assemble separates role-playing systems into three distinct categories: <b>Themes</b>, <b>Setting</b>, and <b>Mechanics</b>.  The rest of this page will describe the blocks in each of these categories, where those blocks can be found and placed, and the role each block plays within the system as a whole.  For quick information about a particular block, you can also mouse over any block for a brief summary on how to use it.  To see these blocks in action, check out the blocks entered into the <b>Examples</b> headings in the toolbox.</p>
           </details>
           <details>
@@ -123,7 +125,7 @@
             <p>A <b>mystery</b> is, in essence, a hint to something greater.  It represents information that is not known to the players, and usually not even the MC.  A mystery should be thought of as a kind of question, to be answered over the course of a game's campaign.  Give the players an interesting enigma to ponder, and provide the MC with a basis to get their story-bending juices flowing.  Avoid giving your own answers wherever possible.</p>
             <img src="images/region.png" alt="Region and landmark blocks" title="Region and landmark blocks.">
             <p>A <b>region</b> is a relevant location within the setting.  It can simply include a basic description of the general surroundings, or it can be expanded to include landmarks.</p>
-            <p><b>Landmarks</b> are defined geographical features, buildings, and points of interest within a region, to give that region more flavor.  Having more landmarks in a given region might give your system's MC more to work with when planning their story.</p>
+            <p><b>Landmarks</b> are defined geographical features, buildings, and points of interest within a region, to give that region more flavor.  Defining more landmarks in a given region might give your system's MC more to work with when planning their story.</p>
           </details>
           <details>
             <summary>Mechanics</summary>
@@ -150,19 +152,28 @@
             </details>
             <details>
               <summary class="inner">Management</summary>
-              <p>Management goes here</p>
+              <img src="images/character.png" alt="Character creation, character improvement, and step blocks" title="Character creation, character improvement, and step blocks.">
+              <p>The Management heading of the toolbox contains blocks for character creation, character improvement, steps, and playbook steps.  <b>Character creation</b> and <b>character improvement</b> specify the rules for creating new characters, and improving (i.e, leveling up) existing ones, respectively.  Each block breaks down the process into <b>steps</b>, each of which lays out a specific stage in the process of developing a character.</p>
+              <p>Playbooks may also have processes for creation and improvement that are unique from other playbooks.  To specify playbook-specific creation or improvement processes, place a <b>playbook step</b> block (labeled "Steps for: &lt;playbook&gt;") under either "Playbook Creation Rules" or "Playbook Improvement Rules", label it with the appropriate playbook, and add the playbook-specific steps into that block instead.</p>
+              <p>The character improvement block also allows you to specify the conditions necessary for a character to improve (such as reaching a certain level of XP, or completing a certain task).  Conditions can be universal to all characters, specific to certain playbooks, or work as a mixture of the two.  If you need to enter playbook-specific conditions for improvement, check the box labeled "Playbook Conditions" and place <b>condition</b> blocks into the relevant input:</p>
+              <img src="images/condition.png" alt="A condition block" title="A condition block.">
+              <p>When using condition blocks, be sure to specify the playbook they apply to in addition to the conditions for that playbook's improvement.</p>
+              <img src="images/resource.png" alt="A resource block" title="A resource block.">
+              <p>Also located under the Management heading are resource blocks.  <b>Resources</b> are values that are maintained as part of a character's information.  Resources can be ability stats, health values, currency, or any other value that the players should keep track of over the course of play.  Resources are also tied to factors, though in this case, these factors are mostly intended to represent the metrics which are dependent on each resource, rather than the other way around (for more information on factors, see the "Moves" section for details).  Resources can either be universal for all player characters (placed in the "Resources" section of the player rules block) or unique to certain playbooks (placed in the relevant playbook blocks that use them).</p>
             </details>
             <details>
               <summary class="inner">Equipment</summary>
               <img src="images/equipment.png" alt="Equipment, type, and item blocks" title="Equipment, type, and item blocks.">
               <p><b>Equipment</b> is comprised of the system-defined objects, weapons, and artifacts that players can use.  Equipment is divided into two lists of blocks: equipment types and items.</p>
-              <p><b>Equipment types</b> describe a certain category of items.  Items that have a given type will have all the properties of that type, indicated by its factors.  Types can also have subtypes, which have all the factors of the parent type, as well as additional factors that make that subtype more unique.  Some types and subtypes may not need factors, but can still be useful to identify for clarity.</p>
+              <p><b>Equipment types</b> describe a certain category of items.  Items that have a given type will have all the properties of that type, indicated by its factors (for more information on factors, see the "Moves" section for details).  Types can also have subtypes, which have all the factors of the parent type, as well as additional factors that make that subtype more unique.  Some types and subtypes may not need factors, but can still be useful to identify for clarity.</p>
               <p><b>Items</b> are the individual tools and objects that characters in the system can utilize for their purposes.  Once you have entered some types into the "Equipment Types" section, you will be able to select an item's types via the "Types" dropdown menu.  Once you have selected one or more types, those types' subtypes will appear in the "Subtypes" dropdown menu as well.  Feel free to add as many types and subtypes to each item as are relevant.</p>
+              <p>Once you have added items to the system, you can specify any of those items as starting items for playbooks (see "Playbooks" for details).</p>
             </details>
             <details>
               <summary class="inner">Extra Mechanics</summary>
               <img src="images/extra.png" alt="An extra mechanic block" title="An extra mechanic block.">
               <p>If your system has any extra quirks or elements that you don't feel are accurately covered by the existing blocks in Assemble, then you can specify those elements with <b>extra mechanics</b> blocks.  These blocks contain fields for relevant factors, moves, and resources to be added as necessary.  Mark the "Extra Mechanics" box of the Player Rules block to add them into the system.</p>
+              <p>For more information on factors, see the "Moves" section for details.</p>
             </details>
           </details>
           <p class="small">
