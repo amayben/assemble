@@ -90,7 +90,7 @@
             <p>Beyond <i>Apocalypse World</i>, other examples of <i>Powered by the Apocalypse</i> systems include <i>Monsterhearts</i>, <i>Dungeon World</i>, <i>Bluebeard's Bride</i>, and others.  For more information on <i>Powered by the Apocalypse</i> systems, please visit the <a href="http://apocalypse-world.com/pbta/">Powered by the Apocalypse website</a>.</p>
           </details>
           <details>
-            <summary>Introduction to Assemble</summary>
+            <summary>Assemble Basics</summary>
             <p>To simulate and visualize the construction of a standard PbtA system, Assemble utilizes a pattern language: a set of discrete fields that form an accepted system once they are filled out and iterated upon to the designer's liking.  Designers employ pattern languages as a utility to show them which design options are at their disposal, to assist in laying out an effective, cohesive system blueprint.  Patterns may be represented by text fields, checkboxes, dropdown menus, block inputs, or even blocks themselves:</p>
             <img src="images/patterns.png" alt="Setting blocks with outlines" title="Each box indicates one of several types of patterns that can be resolved.">
             <p class="caption">Each box indicates one of several types of patterns that can be resolved.</p>
@@ -130,7 +130,12 @@
             <p>Mechanics are where things get a little more complicated.  The blocks related to system mechanics are each divided into the five remaining headings of the toolbox.  You can also access the default player rules pattern from the System block.  Please note that a system can only hold one player rules block at a time.</p>
             <details>
               <summary class="inner">Moves</summary>
-              <p>Moves go here</p>
+              <p>The Moves heading is arguably the most important area of mechanics design for PbtA systems.  In this section, you will need to add the moves that are actionable by players, as well as their building blocks.</p>
+              <img src="images/move.png" alt="A move block" title="A move block.">
+              <p>A <b>move</b> is any action that a player can take which is specified by the system.  A move should have a name, an effect (a short summary of what it should be used for), a group of factors ordered by their sequential relevance in the move itself, and a detailed description of how the move is executed within the system's rules.</p>
+              <img src="images/factor.png" alt="A factor block" title="A factor block.">
+              <p>Before building a move, you will need to construct the relevant factor blocks.  A <b>factor</b> is any metric that affects the move's action until it is resolved.  It might be a stat that is relevant to the move, an operation (like making a choice or asking a question) that affects the move's outcome while it is being made, or any operation that plays a role in how the move itself is carried out.  A factor can have one of four types: Scalar (has a positive or negative value that is directly combined with a roll), Reroll (calls for the repeat of a previous action or a re-rolling of the dice), Revision (gives an immediate response or ignores a different factor, move, or roll), or Meta (originates from story or gameplay rather than a rigid mechanic).  Some factors can also originate as the result of certain moves; these factors should be marked as a Result to be tracked as such.</p>
+              <p>Once you've filled out some factor blocks and connected them to the "Move Factors" input of the Mechanics block, the dropdown menu under the "Factors" section of the move block will populate with the names of those factors, allowing you to select them and add them to the block.  You can then continue adding as many factors as necessary.  If a move results in any factors, select the "Result Factor(s)" checkbox, and you will be able to add any number of relevant result factors in a similar manner.</p>
             </details>
             <details>
               <summary class="inner">Management</summary>
