@@ -2483,6 +2483,12 @@
           <field name="isAdditive">FALSE</field>
         </block>
         <block type="factor">
+          <field name="name">Target Choice</field>
+          <field name="type">Meta</field>
+          <field name="desc">A given target makes a decision for the player.</field>
+          <field name="isAdditive">FALSE</field>
+        </block>
+        <block type="factor">
           <field name="name">MC Choice</field>
           <field name="type">Meta</field>
           <field name="desc">The MC decides for the player.</field>
@@ -2492,6 +2498,12 @@
           <field name="name">Player Question</field>
           <field name="type">Meta</field>
           <field name="desc">A question is asked of the player.</field>
+          <field name="isAdditive">FALSE</field>
+        </block>
+        <block type="factor">
+          <field name="name">Target Question</field>
+          <field name="type">Meta</field>
+          <field name="desc">A question is asked of the move's target.</field>
           <field name="isAdditive">FALSE</field>
         </block>
         <block type="factor">
@@ -2583,6 +2595,30 @@
           <field name="type">Meta</field>
           <field name="desc">The associated action can only be done once per game session.</field>
           <field name="isAdditive">FALSE</field>
+        </block>
+        <block type="factor">
+          <field name="name">Move</field>
+          <field name="type">Meta</field>
+          <field name="desc">Applies toward a particular move or group of moves.</field>
+          <field name="isAdditive">FALSE</field>
+        </block>
+        <block type="factor">
+          <field name="name">Skin</field>
+          <field name="type">Meta</field>
+          <field name="desc">Options depend on the character's Skin.</field>
+          <field name="isAdditive">FALSE</field>
+        </block>
+        <block type="factor">
+          <field name="name">Situation</field>
+          <field name="type">Meta</field>
+          <field name="desc">Situation must be appropriate.</field>
+          <field name="isAdditive">FALSE</field>
+        </block>
+        <block type="factor">
+          <field name="name">Hunger</field>
+          <field name="type">Meta</field>
+          <field name="desc">Pursued and held by the Ghoul.</field>
+          <field name="isAdditive">TRUE</field>
         </block>
         <block type="move">
           <mutation xmlns="http://www.w3.org/1999/xhtml" factors="{&quot;factors&quot;:[&quot;Hot&quot;,&quot;Player Choice&quot;,&quot;Substitution&quot;,&quot;Hot&quot;],&quot;addFactors&quot;:[&quot;Strings&quot;]}"></mutation>
@@ -2698,10 +2734,11 @@
           <field name="addFactors">no_value</field>
         </block>
         <block type="move">
-          <mutation xmlns="http://www.w3.org/1999/xhtml" factors="{&quot;factors&quot;:[&quot;Harm&quot;],&quot;addFactors&quot;:[&quot;Darkest Self&quot;,&quot;Strings&quot;]}"></mutation>
+          <mutation xmlns="http://www.w3.org/1999/xhtml" factors="{&quot;factors&quot;:[&quot;Harm&quot;,&quot;Player Choice&quot;],&quot;addFactors&quot;:[&quot;Darkest Self&quot;,&quot;Strings&quot;]}"></mutation>
           <field name="name">Skirt Death</field>
           <field name="effect">Avoid death.</field>
           <field name="a0">TRUE</field>
+          <field name="a1">TRUE</field>
           <field name="factors">no_value</field>
           <field name="desc">Erase all harm and choose one: -Become your Darkest Self -Lose all Strings you have on everybody</field>
           <field name="adds_factor">TRUE</field>
@@ -2710,15 +2747,765 @@
           <field name="addFactors">no_value</field>
         </block>
         <block type="move">
-          <mutation xmlns="http://www.w3.org/1999/xhtml" factors="{&quot;factors&quot;:[&quot;Strings&quot;],&quot;addFactors&quot;:[&quot;Experience&quot;]}"></mutation>
+          <mutation xmlns="http://www.w3.org/1999/xhtml" factors="{&quot;factors&quot;:[&quot;Strings&quot;,&quot;Player Choice&quot;],&quot;addFactors&quot;:[&quot;Experience&quot;]}"></mutation>
           <field name="name">Tempted by Pulling Strings</field>
           <field name="effect">A character gains experience if they are tempted and give in to the temptation.</field>
           <field name="a0">TRUE</field>
+          <field name="a1">TRUE</field>
           <field name="factors">no_value</field>
           <field name="desc">If a character is tempted by another character with the Pulling Strings move, the tempted character adds 1 experience.</field>
           <field name="adds_factor">TRUE</field>
           <field name="b0">TRUE</field>
           <field name="addFactors">no_value</field>
+        </block>
+        <block type="player_rules">
+          <field name="hasExtras">TRUE</field>
+          <statement name="playbook">
+            <block type="playbook">
+              <mutation xmlns="http://www.w3.org/1999/xhtml" items="{&quot;items&quot;:[]}"></mutation>
+              <field name="name">The Fae</field>
+              <field name="hasResources">FALSE</field>
+              <field name="equipment">no_value</field>
+              <statement name="playbook_introduction">
+                <block type="playbook_introduction">
+                  <field name="pitch">At the edges of this world, just beyond the veil, there are colours that few mortals even dream of. Beauty enough to shatter any heart. The Fae live and breathe at the edges of this world. They keep a dusting of that magic tucked behind their ears, just in case. And the Fae are willing to share. They’re nothing if not generous, asking for only one thing in return. A promise. Keep it, and the true beauty of the world will be revealed. Break it, and feel the wrath of faery vengeance.</field>
+                  <field name="soc_role">Alluring, otherworldly, fickle, and vengeful. The Fae entices people into making promises, and wields faerie vengeance when those promises are broken. They also have the ability to commune with ethereal forces, just beyond the veil. When you play the Fae, promises matter. Use the Fae’s allure and wit to tease those promises out of other characters. You can add mechanical incentive for others to make promises to you by spending Strings to tempt them to do what you want, or through the move Lure. Keep track of the promises that others make to you, in the margins of your character sheet or on scrap paper.</field>
+                  <field name="mech_role">The two stat choices for the Fae allow you to slant toward being either beautiful and mysterious (Hot 2 &amp; Dark 1) or audacious and alien (Volatile 2 &amp; Hot 1). With a consistently-low Cold stat, they aren’t prone to being very chill, cynical, or wry. From their forward sensuality to their unwavering sense of justice, sincerity is a big theme for the Fae. Beyond the Veil, Guide, the option to join a Jury of Fae, and talk of faery justice all invite you to collaboratively imagine the world of faery. To do so, ask questions of the MC, anticipate questions being asked of you in return, and brace yourself for surprise.</field>
+                </block>
+              </statement>
+              <statement name="feature">
+                <block type="feature">
+                  <mutation xmlns="http://www.w3.org/1999/xhtml" factors="{&quot;factors&quot;:[&quot;Situation&quot;,&quot;Harm&quot;,&quot;Advantage&quot;,&quot;Advantage&quot;]}"></mutation>
+                  <field name="name">Faery Contract</field>
+                  <field name="desc">If someone breaks a promise or contract made to you, take a String on them.  WHen spending a string to even out the score and get justice on a broken promise, add these options to Pulling Strings: -They fuck up something simple at a crucial moment, suffering 1 Harm if appropriate -Add 2 to your roll on an act of vengeance.</field>
+                  <field name="factors">no_value</field>
+                  <next>
+                    <block type="feature">
+                      <mutation xmlns="http://www.w3.org/1999/xhtml" factors="{&quot;factors&quot;:[&quot;Move&quot;,&quot;Strings&quot;,&quot;Advantage&quot;,&quot;Advantage&quot;,&quot;Advantage&quot;]}"></mutation>
+                      <field name="name">Faery Contract</field>
+                      <field name="desc">You can give someone a String on you to add 3 to your attempt to Turn Them On.</field>
+                      <field name="factors">no_value</field>
+                      <next>
+                        <block type="playbook_move">
+                          <mutation xmlns="http://www.w3.org/1999/xhtml" factors="{&quot;factors&quot;:[],&quot;addFactors&quot;:[&quot;Experience&quot;]}"></mutation>
+                          <field name="name">Lure</field>
+                          <field name="effect">Mark experience based on promises made or broken.</field>
+                          <field name="factors">no_value</field>
+                          <field name="desc">Whenever someone makes a promise to you, they mark experience. Whenever someone breaks a promise to you, you mark experience.</field>
+                          <field name="adds_factor">TRUE</field>
+                          <field name="b0">TRUE</field>
+                          <field name="addFactors">no_value</field>
+                          <next>
+                            <block type="playbook_move">
+                              <mutation xmlns="http://www.w3.org/1999/xhtml" factors="{&quot;factors&quot;:[&quot;Strings&quot;],&quot;addFactors&quot;:[]}"></mutation>
+                              <field name="name">Guide</field>
+                              <field name="effect">Bring someone into the faery realm.</field>
+                              <field name="a0">TRUE</field>
+                              <field name="factors">no_value</field>
+                              <field name="desc">If you spend a String on someone willing, you can bring them across the veil, into the faery realm. The spell lasts for a scene or two, before you’re both returned to the mundane world.</field>
+                              <field name="adds_factor">FALSE</field>
+                              <next>
+                                <block type="playbook_move">
+                                  <mutation xmlns="http://www.w3.org/1999/xhtml" factors="{&quot;factors&quot;:[&quot;Substitution&quot;],&quot;addFactors&quot;:[&quot;Strings&quot;,&quot;Forward&quot;]}"></mutation>
+                                  <field name="name">Beyond The Veil</field>
+                                  <field name="effect">Seek audience with the Faery King.</field>
+                                  <field name="a0">TRUE</field>
+                                  <field name="factors">no_value</field>
+                                  <field name="desc">Gaze Into the Abyss. On a 10 up, in addition to other results, the Faery King reveals to you a hidden String on someone. Gain it. On a 7 to 9, in addition to other results, the Faery King demands a favour of you.</field>
+                                  <field name="adds_factor">TRUE</field>
+                                  <field name="b0">TRUE</field>
+                                  <field name="b1">TRUE</field>
+                                  <field name="addFactors">no_value</field>
+                                  <next>
+                                    <block type="feature">
+                                      <mutation xmlns="http://www.w3.org/1999/xhtml" factors="{&quot;factors&quot;:[&quot;Darkest Self&quot;]}"></mutation>
+                                      <field name="name">Darkest Self</field>
+                                      <field name="desc">Everything you say seems a promise. Everything you hear seems a promise. If a promise is broken, justice must be wrought in trickery or blood. You aren’t subject to the human rules of mercy. To escape your Darkest Self, you must in some way re-balance the scales of justice.</field>
+                                      <field name="factors">no_value</field>
+                                      <next>
+                                        <block type="playbook_move">
+                                          <mutation xmlns="http://www.w3.org/1999/xhtml" factors="{&quot;factors&quot;:[],&quot;addFactors&quot;:[&quot;Strings&quot;]}"></mutation>
+                                          <field name="name">Sex Move</field>
+                                          <field name="effect">Ask your partner for a promise.</field>
+                                          <field name="factors">no_value</field>
+                                          <field name="desc">When you lie naked with another, you can ask them for a promise. If they refuse, take 2 Strings on them.</field>
+                                          <field name="adds_factor">TRUE</field>
+                                          <field name="b0">TRUE</field>
+                                          <field name="addFactors">no_value</field>
+                                        </block>
+                                      </next>
+                                    </block>
+                                  </next>
+                                </block>
+                              </next>
+                            </block>
+                          </next>
+                        </block>
+                      </next>
+                    </block>
+                  </next>
+                </block>
+              </statement>
+              <next>
+                <block type="playbook">
+                  <mutation xmlns="http://www.w3.org/1999/xhtml" items="{&quot;items&quot;:[]}"></mutation>
+                  <field name="name">The Ghost</field>
+                  <field name="hasResources">FALSE</field>
+                  <field name="equipment">no_value</field>
+                  <statement name="playbook_introduction">
+                    <block type="playbook_introduction">
+                      <field name="pitch">You used to have a future. Growing up was a painful tumult at times, but at least you were growing. Now you only have a past – unfinished business to take care of before you can leave this world behind. Life is precious. You understand that, now that you’ve lost yours. You just want to help. You just want to be seen. But sometimes even the simplest desires feel so difficult to grasp. Ghosty ghost, you’re dead.</field>
+                      <field name="soc_role">Lonely, wounded, caring, and creepy. The Ghost has experienced intense trauma, and now seeks validation and intimacy. They have the potential to provide care and healing for others, but also tend to ignore personal and physical boundaries.</field>
+                      <field name="mech_role">The two stat choices for the Ghost let you steer toward being either icy and distant (Cold 2 &amp; Dark 1), or scary and moody (Dark 2 &amp; Volatile 1). Your ghost might end up crying out for help, pushing away the very people they care about, or burning themself out trying to take care of others. At the start of the game, the Ghost’s low Hot stat means that they aren’t good at Turning Someone On. This plays into their core dilemma – without social power, how does the Ghost get the attention and emotional support that they need? Maybe they’re endlessly giving, hoping for reciprocation. Helpful Spirit and Transference both point in that direction. Maybe they’re mean and spiteful, assuming from the outset that they aren’t worthy of affection. Unresolved Trauma and Projected Blame provide a different dynamic, suggesting a mean and spiteful Ghost who lashes out at those who remind them of what they’ve lost. Creep and Limitless add a voyeuristic element, encouraging the Ghost to ignore others’ boundaries. Lots of other possibilities exist in the interactions between these moves, too.</field>
+                    </block>
+                  </statement>
+                  <statement name="feature">
+                    <block type="playbook_move">
+                      <mutation xmlns="http://www.w3.org/1999/xhtml" factors="{&quot;factors&quot;:[&quot;Automatic&quot;],&quot;addFactors&quot;:[&quot;Condition&quot;]}"></mutation>
+                      <field name="name">Unresolved Trauma</field>
+                      <field name="effect">Become traumatized from the thought of your demise.</field>
+                      <field name="a0">TRUE</field>
+                      <field name="factors">no_value</field>
+                      <field name="desc">Whenever something brings to mind your death, you choke up and gain the Condition "traumatized" if you don’t have it already. Whenever someone helps you resolve this Condition, you both mark experience.</field>
+                      <field name="adds_factor">TRUE</field>
+                      <field name="b0">TRUE</field>
+                      <field name="addFactors">no_value</field>
+                      <next>
+                        <block type="feature">
+                          <mutation xmlns="http://www.w3.org/1999/xhtml" factors="{&quot;factors&quot;:[&quot;Condition&quot;,&quot;Strings&quot;]}"></mutation>
+                          <field name="name">Helpful Spirit</field>
+                          <field name="desc">When you help someone resolve a Condition, gain a String on them.</field>
+                          <field name="factors">no_value</field>
+                          <next>
+                            <block type="feature">
+                              <mutation xmlns="http://www.w3.org/1999/xhtml" factors="{&quot;factors&quot;:[&quot;Harm&quot;]}"></mutation>
+                              <field name="name">Transference</field>
+                              <field name="desc">Whenever you spend time truly listening to someone else's struggles, they heal 1 Harm, and then transfer their remaining harm to you.</field>
+                              <field name="factors">no_value</field>
+                              <next>
+                                <block type="feature">
+                                  <mutation xmlns="http://www.w3.org/1999/xhtml" factors="{&quot;factors&quot;:[&quot;Condition&quot;]}"></mutation>
+                                  <field name="name">Projected Blame</field>
+                                  <field name="desc">While you’ve got the Condition "traumatized", you may act as though others had the Condition "at fault for my death".</field>
+                                  <field name="factors">no_value</field>
+                                  <next>
+                                    <block type="feature">
+                                      <mutation xmlns="http://www.w3.org/1999/xhtml" factors="{&quot;factors&quot;:[&quot;Strings&quot;]}"></mutation>
+                                      <field name="name">Creep</field>
+                                      <field name="desc">When you silently witness someone in one of their most private moments, perhaps sleeping or putting on makeup, gain a String on them.</field>
+                                      <field name="factors">no_value</field>
+                                      <next>
+                                        <block type="feature">
+                                          <mutation xmlns="http://www.w3.org/1999/xhtml" factors="{&quot;factors&quot;:[]}"></mutation>
+                                          <field name="name">Limitless</field>
+                                          <field name="desc">You can walk through walls and fly.</field>
+                                          <field name="factors">no_value</field>
+                                          <next>
+                                            <block type="feature">
+                                              <mutation xmlns="http://www.w3.org/1999/xhtml" factors="{&quot;factors&quot;:[&quot;Darkest Self&quot;]}"></mutation>
+                                              <field name="name">Darkest Self</field>
+                                              <field name="desc">You become invisible, unnoticeable. No one can see you, feel you, or hear your voice. You can still affect inanimate objects, but this is your only avenue of communication. You escape your Darkest Self when someone acknowledges your presence, and demonstrates how much they want you around.</field>
+                                              <field name="factors">no_value</field>
+                                              <next>
+                                                <block type="playbook_move">
+                                                  <mutation xmlns="http://www.w3.org/1999/xhtml" factors="{&quot;factors&quot;:[&quot;Player Question&quot;,&quot;Target Question&quot;],&quot;addFactors&quot;:[]}"></mutation>
+                                                  <field name="name">Sex Move</field>
+                                                  <field name="effect">You and your partner ask questions of each other.</field>
+                                                  <field name="a0">TRUE</field>
+                                                  <field name="a1">TRUE</field>
+                                                  <field name="factors">no_value</field>
+                                                  <field name="desc">When you have sex with someone, you both get to ask a question of one another. This can be asked in character or player-to-player. They must answer honestly and directly.</field>
+                                                  <field name="adds_factor">FALSE</field>
+                                                </block>
+                                              </next>
+                                            </block>
+                                          </next>
+                                        </block>
+                                      </next>
+                                    </block>
+                                  </next>
+                                </block>
+                              </next>
+                            </block>
+                          </next>
+                        </block>
+                      </next>
+                    </block>
+                  </statement>
+                  <next>
+                    <block type="playbook">
+                      <mutation xmlns="http://www.w3.org/1999/xhtml" items="{&quot;items&quot;:[]}"></mutation>
+                      <field name="name">The Ghoul</field>
+                      <field name="hasResources">FALSE</field>
+                      <field name="equipment">no_value</field>
+                      <statement name="playbook_introduction">
+                        <block type="playbook_introduction">
+                          <field name="pitch">Death changed you. It took away your contemplative joy, it dulled your senses, and it left you impossibly hungry. That hunger is always with you, like a hum in your ears that swells and crescendos until you can’t hear anything else. Unattended, it will come to dominate you – but feeding it may be just as bad. There is a certain beauty to what you’ve become. Your gaunt body, its unnatural form – it draws people in. Your stark disinterest is beguiling. But underneath that disaffected presentation – the hunger, the hunger.</field>
+                          <field name="soc_role">Obsessive, dangerous, morbid, and quiet. The Ghoul is constantly contending with voracious Hunger, and the emotional distance brought on by death makes it easier to do bad things in pursuit of feeding. They might be a flesh-eating zombie, or something a little more subtle and strange. Watchful Golem and Esprit de Corpse both present the ability to steer the Ghoul in a couple different directions. Are you watching over others out of a deep-rooted but unexpressed sense of care? Or are you skulking around serving them because death took away your sense of independence?</field>
+                          <field name="mech_role">The two stat choices for the Ghoul paint a portrait of the character as either cruel and erratic (Volatile 2 &amp; Cold 1) or disaffected and portentous (Cold 2 &amp; Dark 1). Since The Hunger forces you to Keep Your Cool to avoid a feeding opportunity, your Cold stat plays a pivotal role in maintaining self-control. Short Rest For the Wicked is a recipe for pandemonium. It’s also an invitation to the MC to frame you into a new, dramatic situation. A lot can happen in a few hours. Your Sex Move prompts you to create a new Hunger. It can be anything you like, and it’s added to your character alongside their existing Hungers. If you have sex often, you’ll find your appetite growing wider and weirder all the time.</field>
+                        </block>
+                      </statement>
+                      <statement name="feature">
+                        <block type="feature">
+                          <mutation xmlns="http://www.w3.org/1999/xhtml" factors="{&quot;factors&quot;:[&quot;Hunger&quot;,&quot;Advantage&quot;,&quot;Substitution&quot;]}"></mutation>
+                          <field name="name">The Hunger</field>
+                          <field name="desc">You have a Hunger for 1 of the following: -Fear -Power -Plunder -Thrills.  When you heedlessly pursue a Hunger, add 1 to rolls.  When you ignore a promising feeding opportunity, roll to Keep Your Cool.</field>
+                          <field name="factors">no_value</field>
+                          <next>
+                            <block type="feature">
+                              <mutation xmlns="http://www.w3.org/1999/xhtml" factors="{&quot;factors&quot;:[&quot;Hunger&quot;]}"></mutation>
+                              <field name="name">What the Right Hand Wants</field>
+                              <field name="desc">Your body contains many histories, and it desires many things.  Create another Hunger.</field>
+                              <field name="factors">no_value</field>
+                              <next>
+                                <block type="playbook_move">
+                                  <mutation xmlns="http://www.w3.org/1999/xhtml" factors="{&quot;factors&quot;:[&quot;Hunger&quot;],&quot;addFactors&quot;:[&quot;Harm&quot;,&quot;Experience&quot;,&quot;Forward&quot;]}"></mutation>
+                                  <field name="name">Satiety</field>
+                                  <field name="effect">Satiate a Hunger.</field>
+                                  <field name="a0">TRUE</field>
+                                  <field name="factors">no_value</field>
+                                  <field name="desc">When you satiate a Hunger, choose one: -Heal 1 Harm -Mark experience -Take 1 Forward</field>
+                                  <field name="adds_factor">TRUE</field>
+                                  <field name="b0">TRUE</field>
+                                  <field name="b1">TRUE</field>
+                                  <field name="b2">TRUE</field>
+                                  <field name="addFactors">no_value</field>
+                                  <next>
+                                    <block type="feature">
+                                      <mutation xmlns="http://www.w3.org/1999/xhtml" factors="{&quot;factors&quot;:[]}"></mutation>
+                                      <field name="name">Short Rest for the Wicked</field>
+                                      <field name="desc">When you die, wait it out. A few hours later, you wake up fully healed.</field>
+                                      <field name="factors">no_value</field>
+                                      <next>
+                                        <block type="feature">
+                                          <mutation xmlns="http://www.w3.org/1999/xhtml" factors="{&quot;factors&quot;:[&quot;Situation&quot;,&quot;Experience&quot;]}"></mutation>
+                                          <field name="name">Watchful Golem</field>
+                                          <field name="desc">When you defend someone without them ever knowing about it, mark experience.</field>
+                                          <field name="factors">no_value</field>
+                                          <next>
+                                            <block type="playbook_move">
+                                              <mutation xmlns="http://www.w3.org/1999/xhtml" factors="{&quot;factors&quot;:[&quot;Substitution&quot;,&quot;Cold&quot;],&quot;addFactors&quot;:[&quot;Condition&quot;]}"></mutation>
+                                              <field name="name">Ending</field>
+                                              <field name="effect">Tell someone the details of your death.</field>
+                                              <field name="a0">TRUE</field>
+                                              <field name="a1">TRUE</field>
+                                              <field name="factors">no_value</field>
+                                              <field name="desc">You remember every detail of your death. When you tell someone about it, give them the Condition "morbid" and roll to Turn Them On with Cold.</field>
+                                              <field name="adds_factor">TRUE</field>
+                                              <field name="b0">TRUE</field>
+                                              <field name="addFactors">no_value</field>
+                                              <next>
+                                                <block type="feature">
+                                                  <mutation xmlns="http://www.w3.org/1999/xhtml" factors="{&quot;factors&quot;:[&quot;Move&quot;,&quot;Experience&quot;,&quot;Hunger&quot;]}"></mutation>
+                                                  <field name="name">Esprit de Corpse</field>
+                                                  <field name="desc">When you Gaze Into the Abyss, the abyss will share with you its Hunger. Treat that Hunger as one of your own until you satiate it, and mark experience when you do so.</field>
+                                                  <field name="factors">no_value</field>
+                                                  <next>
+                                                    <block type="feature">
+                                                      <mutation xmlns="http://www.w3.org/1999/xhtml" factors="{&quot;factors&quot;:[&quot;Darkest Self&quot;]}"></mutation>
+                                                      <field name="name">Darkest Self</field>
+                                                      <field name="desc">Your dull hunger sharpens. You can’t focus on anything else but feeding. And in addition to your peculiar cravings, you recognize something else. That primordial hunger which connects all hungers. Flesh, blood, meat. You escape your Darkest Self once you’ve overindulged, or you’ve been locked out for long enough to regain composure.</field>
+                                                      <field name="factors">no_value</field>
+                                                      <next>
+                                                        <block type="playbook_move">
+                                                          <mutation xmlns="http://www.w3.org/1999/xhtml" factors="{&quot;factors&quot;:[&quot;-0-&quot;,&quot;-0-&quot;],&quot;addFactors&quot;:[]}"></mutation>
+                                                          <field name="name">Sex Move</field>
+                                                          <field name="effect">Sex stokes your appetite.</field>
+                                                          <field name="factors">no_value</field>
+                                                          <field name="desc">When you have sex with someone, create a new Hunger.</field>
+                                                          <field name="adds_factor">FALSE</field>
+                                                        </block>
+                                                      </next>
+                                                    </block>
+                                                  </next>
+                                                </block>
+                                              </next>
+                                            </block>
+                                          </next>
+                                        </block>
+                                      </next>
+                                    </block>
+                                  </next>
+                                </block>
+                              </next>
+                            </block>
+                          </next>
+                        </block>
+                      </statement>
+                    </block>
+                  </next>
+                </block>
+              </next>
+            </block>
+          </statement>
+          <statement name="character_creation">
+            <block type="character_creation">
+              <statement name="step">
+                <block type="step">
+                  <mutation xmlns="http://www.w3.org/1999/xhtml" factors="{&quot;factors&quot;:[&quot;Player Choice&quot;]}"></mutation>
+                  <field name="name">Pick Skins</field>
+                  <field name="desc">The MC reads out the flavor text of each skin, and allows the players to choose among them.</field>
+                  <field name="factors">no_value</field>
+                  <next>
+                    <block type="step">
+                      <mutation xmlns="http://www.w3.org/1999/xhtml" factors="{&quot;factors&quot;:[&quot;Player Choice&quot;]}"></mutation>
+                      <field name="name">Choose Identities</field>
+                      <field name="desc">Once everyone has chosen their Skins, direct their attention to the Identity section on the inside left page. Explain that a character’s Identity has four components: name, look, eyes, and origin. Players should circle one option for each component.</field>
+                      <field name="factors">no_value</field>
+                      <next>
+                        <block type="step">
+                          <mutation xmlns="http://www.w3.org/1999/xhtml" factors="{&quot;factors&quot;:[&quot;Player Choice&quot;,&quot;Hot&quot;,&quot;Cold&quot;,&quot;Volatile&quot;,&quot;Dark&quot;,&quot;Move&quot;]}"></mutation>
+                          <field name="name">Choose Stats and Moves</field>
+                          <field name="desc">After discussing Moves and Strings, direct the players to select their stats as well as their Skin Moves. These choices can be made in either order, and can potentially inform one another.</field>
+                          <field name="factors">no_value</field>
+                          <next>
+                            <block type="step">
+                              <mutation xmlns="http://www.w3.org/1999/xhtml" factors="{&quot;factors&quot;:[&quot;Collaboration&quot;,&quot;Skin&quot;]}"></mutation>
+                              <field name="name">Establish Backstories</field>
+                              <field name="desc">Once everyone has chosen their stats and moves, make sure all of the main characters have been introduced. Encourage each player to share a few details about their character’s personality and family life. Let questions bubble up if there are any. Now that the whole table has a handle on who the main characters are, it’s time to establish their Backstories. Backstories are located on the inside left page of the character sheet. Anyone can volunteer to go first, with the exception of the Mortal. If there’s a Mortal, they always go last.</field>
+                              <field name="factors">no_value</field>
+                              <next>
+                                <block type="step">
+                                  <mutation xmlns="http://www.w3.org/1999/xhtml" factors="{&quot;factors&quot;:[&quot;MC Question&quot;,&quot;Collaboration&quot;]}"></mutation>
+                                  <field name="name">Set Up Seating Chart</field>
+                                  <field name="desc">The seating chart depicts a high school homeroom, showing where everybody sits and how they are seen by others. The seating chart is important for a few reasons: it introduces new characters, it allows you to establish additional relationships, and it draws out the petty high school drama early. The MC is in charge of the seating chart process, but it depends on back-and-forth collaboration. The MC starts by drawing a simple classroom – a teacher’s desk at the front, and several rows of student desks. The ideal is three rows of five, or four rows of four, despite the fact that real high school classrooms typically have double that many desks. Each desk should be a square that you can write a name and details inside, and the squares should be drawn as big as your paper will allow.</field>
+                                  <field name="factors">no_value</field>
+                                </block>
+                              </next>
+                            </block>
+                          </next>
+                        </block>
+                      </next>
+                    </block>
+                  </next>
+                </block>
+              </statement>
+              <statement name="playbook_steps">
+                <block type="playbook_steps">
+                  <field name="playbook">The Fae</field>
+                  <statement name="step">
+                    <block type="step">
+                      <mutation xmlns="http://www.w3.org/1999/xhtml" factors="{&quot;factors&quot;:[&quot;Player Choice&quot;]}"></mutation>
+                      <field name="name">Choose Identity: Name</field>
+                      <field name="desc">Anders, Aurora, Crow, Gail, Harmony, Iris, Lilith, Ping, Selene, Sienna, Walthus</field>
+                      <field name="factors">no_value</field>
+                      <next>
+                        <block type="step">
+                          <mutation xmlns="http://www.w3.org/1999/xhtml" factors="{&quot;factors&quot;:[&quot;Player Choice&quot;]}"></mutation>
+                          <field name="name">Choose Identity: Look</field>
+                          <field name="desc">Dainty, girlish, gaunt, mysterious, disheveled</field>
+                          <field name="factors">no_value</field>
+                          <next>
+                            <block type="step">
+                              <mutation xmlns="http://www.w3.org/1999/xhtml" factors="{&quot;factors&quot;:[&quot;Player Choice&quot;]}"></mutation>
+                              <field name="name">Choose Identity: Eyes</field>
+                              <field name="desc">Quick eyes, lyrical eyes, mesmerizing eyes, laughing eyes, piercing eyes</field>
+                              <field name="factors">no_value</field>
+                              <next>
+                                <block type="step">
+                                  <mutation xmlns="http://www.w3.org/1999/xhtml" factors="{&quot;factors&quot;:[&quot;Player Choice&quot;]}"></mutation>
+                                  <field name="name">Choose Identity: Origin</field>
+                                  <field name="desc">Fae born, fae blooded, swapped at birth, stole the gift, touched with the gift</field>
+                                  <field name="factors">no_value</field>
+                                  <next>
+                                    <block type="step">
+                                      <mutation xmlns="http://www.w3.org/1999/xhtml" factors="{&quot;factors&quot;:[&quot;Player Choice&quot;,&quot;Hot&quot;,&quot;Cold&quot;,&quot;Volatile&quot;,&quot;Dark&quot;]}"></mutation>
+                                      <field name="name">Choose Stats</field>
+                                      <field name="desc">Choose one: -Hot 2, Cold -1, Volatile -1, Dark 1 -Hot 1, Cold -1, Volatile 2, Dark -1</field>
+                                      <field name="factors">no_value</field>
+                                      <next>
+                                        <block type="step">
+                                          <mutation xmlns="http://www.w3.org/1999/xhtml" factors="{&quot;factors&quot;:[&quot;Player Choice&quot;,&quot;Move&quot;]}"></mutation>
+                                          <field name="name">Choose Moves</field>
+                                          <field name="desc">You get Faery Contract, and choose one more: -Unashamed -The Wild Hunt -Lure -Guide -Beyond The Veil</field>
+                                          <field name="factors">no_value</field>
+                                          <next>
+                                            <block type="step">
+                                              <mutation xmlns="http://www.w3.org/1999/xhtml" factors="{&quot;factors&quot;:[&quot;Strings&quot;]}"></mutation>
+                                              <field name="name">Establish Backstory</field>
+                                              <field name="desc">You wear your heart on your sleeve. Give everyone one String. You’ve captured someone’s fancy. Gain 2 Strings on them.</field>
+                                              <field name="factors">no_value</field>
+                                            </block>
+                                          </next>
+                                        </block>
+                                      </next>
+                                    </block>
+                                  </next>
+                                </block>
+                              </next>
+                            </block>
+                          </next>
+                        </block>
+                      </next>
+                    </block>
+                  </statement>
+                  <next>
+                    <block type="playbook_steps">
+                      <field name="playbook">The Ghost</field>
+                      <statement name="step">
+                        <block type="step">
+                          <mutation xmlns="http://www.w3.org/1999/xhtml" factors="{&quot;factors&quot;:[&quot;Player Choice&quot;]}"></mutation>
+                          <field name="name">Choose Identity: Name</field>
+                          <field name="desc">Alastor, Avira, Catherine, Daniel, Kara, Lenora, Orville, Rufus, Spencer, Tien</field>
+                          <field name="factors">no_value</field>
+                          <next>
+                            <block type="step">
+                              <mutation xmlns="http://www.w3.org/1999/xhtml" factors="{&quot;factors&quot;:[&quot;Player Choice&quot;]}"></mutation>
+                              <field name="name">Choose Identity: Look</field>
+                              <field name="desc">Forlorn, scared, stuffy, out of place, brooding</field>
+                              <field name="factors">no_value</field>
+                              <next>
+                                <block type="step">
+                                  <mutation xmlns="http://www.w3.org/1999/xhtml" factors="{&quot;factors&quot;:[&quot;Player Choice&quot;]}"></mutation>
+                                  <field name="name">Choose Identity: Eyes</field>
+                                  <field name="desc">Hollow eyes, pained eyes, dull eyes, unnerving eyes, piercing eyes</field>
+                                  <field name="factors">no_value</field>
+                                  <next>
+                                    <block type="step">
+                                      <mutation xmlns="http://www.w3.org/1999/xhtml" factors="{&quot;factors&quot;:[&quot;Player Choice&quot;]}"></mutation>
+                                      <field name="name">Choose Identity: Origin</field>
+                                      <field name="desc">Left to die, murdered in cold blood, murdered in hot passion, a tragic accident, a confused death</field>
+                                      <field name="factors">no_value</field>
+                                      <next>
+                                        <block type="step">
+                                          <mutation xmlns="http://www.w3.org/1999/xhtml" factors="{&quot;factors&quot;:[&quot;Player Choice&quot;,&quot;Hot&quot;,&quot;Cold&quot;,&quot;Volatile&quot;,&quot;Dark&quot;]}"></mutation>
+                                          <field name="name">Choose Stats</field>
+                                          <field name="desc">Choose one: -Hot -1, Cold 2, Volatile -1, Dark 1 -Hot -1, Cold -1, Volatile 1, Dark 2</field>
+                                          <field name="factors">no_value</field>
+                                          <next>
+                                            <block type="step">
+                                              <mutation xmlns="http://www.w3.org/1999/xhtml" factors="{&quot;factors&quot;:[&quot;Player Choice&quot;,&quot;Move&quot;]}"></mutation>
+                                              <field name="name">Choose Moves</field>
+                                              <field name="desc">You get Unresolved Trauma, and choose two more: -Helpful Spirit -Transference -Projected Blame -Creep -Limitless</field>
+                                              <field name="factors">no_value</field>
+                                              <next>
+                                                <block type="step">
+                                                  <mutation xmlns="http://www.w3.org/1999/xhtml" factors="{&quot;factors&quot;:[&quot;Strings&quot;]}"></mutation>
+                                                  <field name="name">Establish Backstory</field>
+                                                  <field name="desc">Someone knows that you’re dead and how you died. They gain 2 Strings on you. You’ve been inside someone’s bedroom while they were sleeping. Take a String on them.</field>
+                                                  <field name="factors">no_value</field>
+                                                </block>
+                                              </next>
+                                            </block>
+                                          </next>
+                                        </block>
+                                      </next>
+                                    </block>
+                                  </next>
+                                </block>
+                              </next>
+                            </block>
+                          </next>
+                        </block>
+                      </statement>
+                      <next>
+                        <block type="playbook_steps">
+                          <field name="playbook">The Ghoul</field>
+                          <statement name="step">
+                            <block type="step">
+                              <mutation xmlns="http://www.w3.org/1999/xhtml" factors="{&quot;factors&quot;:[&quot;Player Choice&quot;]}"></mutation>
+                              <field name="name">Choose Identity: Name</field>
+                              <field name="desc">Akuji, Cage, Cole, Georgia, Horace, Iggy, Mara, Morrigan, Silas, Sharona, Victor, Zed</field>
+                              <field name="factors">no_value</field>
+                              <next>
+                                <block type="step">
+                                  <mutation xmlns="http://www.w3.org/1999/xhtml" factors="{&quot;factors&quot;:[&quot;Player Choice&quot;]}"></mutation>
+                                  <field name="name">Choose Identity: Look</field>
+                                  <field name="desc">Gaunt, stiff, disfigured, detached, wrecked</field>
+                                  <field name="factors">no_value</field>
+                                  <next>
+                                    <block type="step">
+                                      <mutation xmlns="http://www.w3.org/1999/xhtml" factors="{&quot;factors&quot;:[&quot;Player Choice&quot;]}"></mutation>
+                                      <field name="name">Choose Identity: Eyes</field>
+                                      <field name="desc">Hollow eyes, quiet eyes, calculating eyes, harsh eyes, hungry eyes</field>
+                                      <field name="factors">no_value</field>
+                                      <next>
+                                        <block type="step">
+                                          <mutation xmlns="http://www.w3.org/1999/xhtml" factors="{&quot;factors&quot;:[&quot;Player Choice&quot;]}"></mutation>
+                                          <field name="name">Choose Identity: Origin</field>
+                                          <field name="desc">Resurrected, constructed, disturbed, rejected, sent</field>
+                                          <field name="factors">no_value</field>
+                                          <next>
+                                            <block type="step">
+                                              <mutation xmlns="http://www.w3.org/1999/xhtml" factors="{&quot;factors&quot;:[&quot;Player Choice&quot;,&quot;Hot&quot;,&quot;Cold&quot;,&quot;Volatile&quot;,&quot;Dark&quot;]}"></mutation>
+                                              <field name="name">Choose Stats</field>
+                                              <field name="desc">Choose one: -Hot -1, Cold 1, Volatile 2, Dark -1 -Hot -1, Cold 2, Volatile -1, Dark 1</field>
+                                              <field name="factors">no_value</field>
+                                              <next>
+                                                <block type="step">
+                                                  <mutation xmlns="http://www.w3.org/1999/xhtml" factors="{&quot;factors&quot;:[&quot;Player Choice&quot;,&quot;Move&quot;]}"></mutation>
+                                                  <field name="name">Choose Moves</field>
+                                                  <field name="desc">You get The Hunger, and choose two more: -What the Right Hand Wants -Satiety -Short Rest for the Wicked -Watchful Golem -Ending -Esprit de Corpse</field>
+                                                  <field name="factors">no_value</field>
+                                                  <next>
+                                                    <block type="step">
+                                                      <mutation xmlns="http://www.w3.org/1999/xhtml" factors="{&quot;factors&quot;:[&quot;Strings&quot;]}"></mutation>
+                                                      <field name="name">Establish Backstory</field>
+                                                      <field name="desc">Someone reminded you what love was, when you thought that death had stolen it away from you forever. Give them a String. Did anyone watch you die? If so, you gain 2 Strings on each other.</field>
+                                                      <field name="factors">no_value</field>
+                                                    </block>
+                                                  </next>
+                                                </block>
+                                              </next>
+                                            </block>
+                                          </next>
+                                        </block>
+                                      </next>
+                                    </block>
+                                  </next>
+                                </block>
+                              </next>
+                            </block>
+                          </statement>
+                        </block>
+                      </next>
+                    </block>
+                  </next>
+                </block>
+              </statement>
+            </block>
+          </statement>
+          <statement name="character_improvement">
+            <block type="character_improvement">
+              <field name="main_conditions">Reach 5 experience</field>
+              <field name="hasConditions">FALSE</field>
+              <statement name="step">
+                <block type="step">
+                  <mutation xmlns="http://www.w3.org/1999/xhtml" factors="{&quot;factors&quot;:[&quot;Player Choice&quot;,&quot;Skin&quot;]}"></mutation>
+                  <field name="name">Choose Option</field>
+                  <field name="desc">Choose one of the improvement options listed for your Skin.</field>
+                  <field name="factors">no_value</field>
+                </block>
+              </statement>
+              <statement name="playbook_steps">
+                <block type="playbook_steps">
+                  <field name="playbook">The Fae</field>
+                  <statement name="step">
+                    <block type="step">
+                      <mutation xmlns="http://www.w3.org/1999/xhtml" factors="{&quot;factors&quot;:[&quot;Player Choice&quot;,&quot;Hot&quot;,&quot;Cold&quot;,&quot;Volatile&quot;,&quot;Dark&quot;,&quot;Move&quot;,&quot;Skin&quot;]}"></mutation>
+                      <field name="name">Choose Improvement</field>
+                      <field name="desc">Choose one: -Add +1 to one of your stats. -Take another Fae move. -Take another Fae move. -Take a move from any Skin. -Take a move from any Skin. -You belong to a Jury of Fae.</field>
+                      <field name="factors">no_value</field>
+                    </block>
+                  </statement>
+                  <next>
+                    <block type="playbook_steps">
+                      <field name="playbook">The Ghost</field>
+                      <statement name="step">
+                        <block type="step">
+                          <mutation xmlns="http://www.w3.org/1999/xhtml" factors="{&quot;factors&quot;:[&quot;Player Choice&quot;,&quot;Hot&quot;,&quot;Cold&quot;,&quot;Volatile&quot;,&quot;Dark&quot;,&quot;Move&quot;,&quot;Skin&quot;]}"></mutation>
+                          <field name="name">Choose Improvement</field>
+                          <field name="desc">Choose one: -Add +1 to one of your stats. -Take another Ghost move. -Take another Ghost move. -Take a move from any Skin. -Take a move from any Skin. -You reside in a Haunted House.</field>
+                          <field name="factors">no_value</field>
+                        </block>
+                      </statement>
+                      <next>
+                        <block type="playbook_steps">
+                          <field name="playbook">The Ghoul</field>
+                          <statement name="step">
+                            <block type="step">
+                              <mutation xmlns="http://www.w3.org/1999/xhtml" factors="{&quot;factors&quot;:[&quot;Player Choice&quot;,&quot;Hot&quot;,&quot;Cold&quot;,&quot;Volatile&quot;,&quot;Dark&quot;,&quot;Move&quot;,&quot;Skin&quot;]}"></mutation>
+                              <field name="name">Choose Improvement</field>
+                              <field name="desc">Choose one: -Add +1 to one of your stats. -Take another Ghoul move. -Take another Ghoul move. -Take a move from any Skin. -Take a move from any Skin. -You're part of a Reckless Crew.</field>
+                              <field name="factors">no_value</field>
+                            </block>
+                          </statement>
+                        </block>
+                      </next>
+                    </block>
+                  </next>
+                </block>
+              </statement>
+            </block>
+          </statement>
+          <statement name="resource">
+            <block type="resource">
+              <mutation xmlns="http://www.w3.org/1999/xhtml" factors="{&quot;factors&quot;:[]}"></mutation>
+              <field name="name">Hot</field>
+              <field name="desc">One of four main character stats.</field>
+              <field name="factors">no_value</field>
+              <field name="lrange">-1</field>
+              <field name="rrange">3</field>
+              <field name="init">0</field>
+              <next>
+                <block type="resource">
+                  <mutation xmlns="http://www.w3.org/1999/xhtml" factors="{&quot;factors&quot;:[]}"></mutation>
+                  <field name="name">Cold</field>
+                  <field name="desc">One of four main character stats.</field>
+                  <field name="factors">no_value</field>
+                  <field name="lrange">-1</field>
+                  <field name="rrange">3</field>
+                  <field name="init">0</field>
+                  <next>
+                    <block type="resource">
+                      <mutation xmlns="http://www.w3.org/1999/xhtml" factors="{&quot;factors&quot;:[]}"></mutation>
+                      <field name="name">Volatile</field>
+                      <field name="desc">One of four main character stats.</field>
+                      <field name="factors">no_value</field>
+                      <field name="lrange">-1</field>
+                      <field name="rrange">3</field>
+                      <field name="init">0</field>
+                      <next>
+                        <block type="resource">
+                          <mutation xmlns="http://www.w3.org/1999/xhtml" factors="{&quot;factors&quot;:[]}"></mutation>
+                          <field name="name">Dark</field>
+                          <field name="desc">One of four main character stats.</field>
+                          <field name="factors">no_value</field>
+                          <field name="lrange">-1</field>
+                          <field name="rrange">3</field>
+                          <field name="init">0</field>
+                          <next>
+                            <block type="resource">
+                              <mutation xmlns="http://www.w3.org/1999/xhtml" factors="{&quot;factors&quot;:[&quot;Strings&quot;]}"></mutation>
+                              <field name="name">Strings</field>
+                              <field name="desc">Strings represent the emotional power that you have over others. You gain Strings on specific individuals, and can then spend them as a sort of currency during interactions with those individuals. Strings can be earned by Turning Someone On, Shutting Someone Down, or in ways specific to each Skin. Strings are abstract, reflecting a general shift in power within a relationship. There is no specific response demanded when someone gains a String, other than playing your character with authenticity as power dynamics are shifting. There is a space to keep track of Strings on the character sheet. The best way to use that space is to list the other characters, and then whenever you gain a String on one of them draw a little circle next to their name. When you spend the String, fill in the circle. Whenever you spend a String, there should be something in the fiction to explain the mechanical effect. If you’re adding 1 to a roll against them, what’s causing that effect? Do you utter some snide remark that throws them off balance? Or if you’re tempting them to do your bidding, how do you use your emotional hold to do that? Do you dangle a juicy secret in return for their obedience, or is it your seductive allure drawing them in? Sometimes it can help to think back to how you got the String in the first place.</field>
+                              <field name="factors">no_value</field>
+                              <field name="lrange">0</field>
+                              <field name="rrange">Infinity</field>
+                              <field name="init">Depends</field>
+                              <next>
+                                <block type="resource">
+                                  <mutation xmlns="http://www.w3.org/1999/xhtml" factors="{&quot;factors&quot;:[&quot;Experience&quot;]}"></mutation>
+                                  <field name="name">Experience</field>
+                                  <field name="desc">Results in improvement upon reaching 5.</field>
+                                  <field name="factors">no_value</field>
+                                  <field name="lrange">0</field>
+                                  <field name="rrange">4</field>
+                                  <field name="init">0</field>
+                                  <next>
+                                    <block type="resource">
+                                      <mutation xmlns="http://www.w3.org/1999/xhtml" factors="{&quot;factors&quot;:[]}"></mutation>
+                                      <field name="name">Harm</field>
+                                      <field name="desc">How hurt a character is.  1 harm is a beating, 2 harm requires medical treatment, 3 harm is very severe injury, 4 harm is death.</field>
+                                      <field name="factors">no_value</field>
+                                      <field name="lrange">0</field>
+                                      <field name="rrange">4</field>
+                                      <field name="init">0</field>
+                                    </block>
+                                  </next>
+                                </block>
+                              </next>
+                            </block>
+                          </next>
+                        </block>
+                      </next>
+                    </block>
+                  </next>
+                </block>
+              </next>
+            </block>
+          </statement>
+          <statement name="extra_mechanic">
+            <block type="extra_mechanic">
+              <mutation xmlns="http://www.w3.org/1999/xhtml" factors="{&quot;factors&quot;:[&quot;MC Choice&quot;,&quot;Player Choice&quot;,&quot;MC Question&quot;]}"></mutation>
+              <field name="name">Scenes</field>
+              <field name="desc">Play is divided into scenes, just like in a movie or TV show. The MC and the players make decisions about what’s important enough to show, when the scene should end, and what the group should skip to next. As a scene plays out, the MC will ask a lot of questions, and some of the answers will become the foundation for new scenes.</field>
+              <field name="factors">no_value</field>
+              <field name="hasResources">FALSE</field>
+              <field name="hasMoves">TRUE</field>
+              <statement name="move">
+                <block type="move">
+                  <mutation xmlns="http://www.w3.org/1999/xhtml" factors="{&quot;factors&quot;:[&quot;MC Question&quot;,&quot;Player Choice&quot;,&quot;Collaboration&quot;,&quot;MC Choice&quot;],&quot;addFactors&quot;:[]}"></mutation>
+                  <field name="name">Scene framing</field>
+                  <field name="effect">Frame the next scene of action between characters.</field>
+                  <field name="a0">TRUE</field>
+                  <field name="a1">TRUE</field>
+                  <field name="a2">TRUE</field>
+                  <field name="a3">TRUE</field>
+                  <field name="factors">no_value</field>
+                  <field name="desc">After one scene ends, the MC can ask a question, or return to a question that arose during the previous scene.  That player can then respond, leading into a new scene.  The MC can respond by fleshing out the scene a bit more, describing the crowds and the mall itself. Or, the MC can ask questions about those topics, and the player can fill in those details. Or, another player can suggest that they’re there too, and jump in with their character.  The MC has authority over scene framing. This means that the MC is the one who ultimately decides where the next scene starts and what is happening. However, the MC is invited to share that authority and responsibility whenever doing so makes sense. If it’s clear to the MC what the next moment of action or brooding gloom will be, they can dive into that scene. If it isn’t clear, they can ask questions in order to give others an opportunity to introduce interesting situations.</field>
+                  <field name="adds_factor">FALSE</field>
+                </block>
+              </statement>
+              <next>
+                <block type="extra_mechanic">
+                  <mutation xmlns="http://www.w3.org/1999/xhtml" factors="{&quot;factors&quot;:[&quot;Condition&quot;]}"></mutation>
+                  <field name="name">Conditions</field>
+                  <field name="desc">Conditions represent your character’s social situation and weaknesses. They’re the things that people are saying and thinking about you that shape how you’re treated, or even how you see yourself. Conditions take the form of gossip, unsavory opinions, and interpersonal labels. Conditions are given to people through Shutting Someone Down, Pulling Strings, and a few other avenues.</field>
+                  <field name="factors">no_value</field>
+                  <field name="hasResources">FALSE</field>
+                  <field name="hasMoves">FALSE</field>
+                  <next>
+                    <block type="extra_mechanic">
+                      <mutation xmlns="http://www.w3.org/1999/xhtml" factors="{&quot;factors&quot;:[&quot;Gang&quot;]}"></mutation>
+                      <field name="name">Gangs</field>
+                      <field name="desc">Every gang makes demands of its members and its leaders. These demands sometimes push characters out of their comfort zones and into the territory of hard decisions. If your character is part of a gang, expect some chaos as a result. One of the jobs of the MC is to give voice to gang members, and to look for situations where they might suddenly get demanding. But your gang can also help you. When they help you carry out a task, add 1 to your relevant rolls. When they join you in an act of violence, they inflict an additional 1 Harm. Remember that the characters in your gang are still individuals under the MC’s authority. Their power, personality, and ambitions aren’t inherently under your control.</field>
+                      <field name="factors">no_value</field>
+                      <field name="hasResources">FALSE</field>
+                      <field name="hasMoves">FALSE</field>
+                      <next>
+                        <block type="extra_mechanic">
+                          <mutation xmlns="http://www.w3.org/1999/xhtml" factors="{&quot;factors&quot;:[&quot;Experience&quot;]}"></mutation>
+                          <field name="name">Seasons</field>
+                          <field name="desc">Seasons work like this: once someone has taken their fifth advance, the Season Advances are unlocked for everybody. There’s one more session left after the current one, and then the season ends.  The Season Advances are: -Change your character’s Skin. -Rewrite your Darkest Self. -Retire your character and start a new one. -Gain two Growing Up moves.</field>
+                          <field name="factors">no_value</field>
+                          <field name="hasResources">FALSE</field>
+                          <field name="hasMoves">TRUE</field>
+                          <statement name="move">
+                            <block type="move">
+                              <mutation xmlns="http://www.w3.org/1999/xhtml" factors="{&quot;factors&quot;:[&quot;Hot&quot;,&quot;Player Choice&quot;],&quot;addFactors&quot;:[&quot;Forward&quot;,&quot;Condition&quot;,&quot;Experience&quot;]}"></mutation>
+                              <field name="name">Make Others Feel Beautiful</field>
+                              <field name="effect">Use your charisma to support others.</field>
+                              <field name="a0">TRUE</field>
+                              <field name="a1">TRUE</field>
+                              <field name="factors">no_value</field>
+                              <field name="desc">Roll with Hot. On a 10 up, choose two from below. -They take 1 Forward -They remove a Condition -They mark experience -You take 1 Forward. On a 7-9, you can tempt them to do what you want, as if you’d just spent a String.</field>
+                              <field name="adds_factor">TRUE</field>
+                              <field name="b0">TRUE</field>
+                              <field name="b1">TRUE</field>
+                              <field name="b2">TRUE</field>
+                              <field name="addFactors">no_value</field>
+                              <next>
+                                <block type="move">
+                                  <mutation xmlns="http://www.w3.org/1999/xhtml" factors="{&quot;factors&quot;:[&quot;Cold&quot;,&quot;Player Choice&quot;],&quot;addFactors&quot;:[&quot;Condition&quot;,&quot;Strings&quot;]}"></mutation>
+                                  <field name="name">Call People On Their Shit</field>
+                                  <field name="effect">Take a stand against bullying and abuse.</field>
+                                  <field name="a0">TRUE</field>
+                                  <field name="a1">TRUE</field>
+                                  <field name="factors">no_value</field>
+                                  <field name="desc">Roll with Cold. On a 10 up, choose one from below. On a 7-9, choose one from below, but you come across poorly, and they give you a Condition in return. -They lose a String against someone else -They choke up, break down, or bail.</field>
+                                  <field name="adds_factor">TRUE</field>
+                                  <field name="b0">TRUE</field>
+                                  <field name="b1">TRUE</field>
+                                  <field name="addFactors">no_value</field>
+                                  <next>
+                                    <block type="move">
+                                      <mutation xmlns="http://www.w3.org/1999/xhtml" factors="{&quot;factors&quot;:[&quot;Volatile&quot;,&quot;Target Choice&quot;],&quot;addFactors&quot;:[&quot;Forward&quot;]}"></mutation>
+                                      <field name="name">Intervene in an Act of Violence</field>
+                                      <field name="effect">Defend another.</field>
+                                      <field name="a0">TRUE</field>
+                                      <field name="a1">TRUE</field>
+                                      <field name="factors">no_value</field>
+                                      <field name="desc">Roll with Volatile. On a 10 up, you get in the way and they need to deal with you first. Whoever you’re protecting gets to react, and takes 1 Forward to whatever they decide to do. On a 7-9, you’re in the middle of it, and the assailant chooses from below: -I back off -I take whatever harm you want to give me as I push past -I redirect the violence to you.</field>
+                                      <field name="adds_factor">TRUE</field>
+                                      <field name="b0">TRUE</field>
+                                      <field name="addFactors">no_value</field>
+                                      <next>
+                                        <block type="move">
+                                          <mutation xmlns="http://www.w3.org/1999/xhtml" factors="{&quot;factors&quot;:[&quot;Dark&quot;,&quot;Player Choice&quot;],&quot;addFactors&quot;:[]}"></mutation>
+                                          <field name="name">Share Your Pain</field>
+                                          <field name="effect">Reach out to others and ask for support.</field>
+                                          <field name="a0">TRUE</field>
+                                          <field name="a1">TRUE</field>
+                                          <field name="factors">no_value</field>
+                                          <field name="desc">Roll with Dark. On a 10 up, choose two. On a 7-9, choose one: -Remove a Condition from yourself -Remove a Condition from someone who listened -Take 1 Forward toward helping yourself -Those who listened take 1 Forward to helping you</field>
+                                          <field name="adds_factor">FALSE</field>
+                                        </block>
+                                      </next>
+                                    </block>
+                                  </next>
+                                </block>
+                              </next>
+                            </block>
+                          </statement>
+                        </block>
+                      </next>
+                    </block>
+                  </next>
+                </block>
+              </next>
+            </block>
+          </statement>
         </block>
       </category>
     </xml>
