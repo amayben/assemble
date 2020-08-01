@@ -223,54 +223,6 @@
           <field name="name">&lt;name&gt;</field>
           <field name="desc">&lt;description&gt;</field>
         </block>
-        <block type="setting">
-          <field name="name">&lt;name&gt;</field>
-          <statement name="society">
-            <block type="society">
-              <field name="name">&lt;region, social group, etc.&gt;</field>
-              <field name="desc">&lt;Describe how people in this social group live.&gt;</field>
-            </block>
-          </statement>
-          <statement name="history">
-            <block type="history">
-              <field name="name">&lt;subject&gt;</field>
-              <statement name="era">
-                <block type="era">
-                  <field name="name">&lt;name&gt;</field>
-                  <field name="desc">&lt;description&gt;</field>
-                  <field name="isCurrent">TRUE</field>
-                </block>
-              </statement>
-              <statement name="entity">
-                <block type="entity">
-                  <field name="name">&lt;name&gt;</field>
-                  <field name="role">&lt;description&gt;</field>
-                  <field name="status">&lt;description&gt;</field>
-                </block>
-              </statement>
-              <statement name="event">
-                <block type="event">
-                  <field name="name">&lt;name&gt;</field>
-                  <field name="desc">&lt;description&gt;</field>
-                  <field name="significance">&lt;significance&gt;</field>
-                </block>
-              </statement>
-            </block>
-          </statement>
-          <statement name="mystery">
-            <block type="mystery">
-              <field name="name">&lt;name&gt;</field>
-              <field name="desc">&lt;description&gt;</field>
-            </block>
-          </statement>
-          <statement name="region">
-            <block type="region">
-              <field name="name">&lt;name&gt;</field>
-              <field name="desc">&lt;description&gt;</field>
-              <field name="hasLandmarks">FALSE</field>
-            </block>
-          </statement>
-        </block>
         <block type="player_rules">
           <statement name="playbook">
             <block type="playbook">
@@ -440,6 +392,54 @@
           <field name="name">&lt;name&gt;</field>
           <field name="desc">&lt;description&gt;</field>
           <field name="significance">&lt;description&gt;</field>
+        </block>
+        <block type="setting">
+          <field name="name">&lt;name&gt;</field>
+          <statement name="society">
+            <block type="society">
+              <field name="name">&lt;region, social group, etc.&gt;</field>
+              <field name="desc">&lt;Describe how people in this social group live.&gt;</field>
+            </block>
+          </statement>
+          <statement name="history">
+            <block type="history">
+              <field name="name">&lt;subject&gt;</field>
+              <statement name="era">
+                <block type="era">
+                  <field name="name">&lt;name&gt;</field>
+                  <field name="desc">&lt;description&gt;</field>
+                  <field name="isCurrent">TRUE</field>
+                </block>
+              </statement>
+              <statement name="entity">
+                <block type="entity">
+                  <field name="name">&lt;name&gt;</field>
+                  <field name="role">&lt;description&gt;</field>
+                  <field name="status">&lt;description&gt;</field>
+                </block>
+              </statement>
+              <statement name="event">
+                <block type="event">
+                  <field name="name">&lt;name&gt;</field>
+                  <field name="desc">&lt;description&gt;</field>
+                  <field name="significance">&lt;significance&gt;</field>
+                </block>
+              </statement>
+            </block>
+          </statement>
+          <statement name="mystery">
+            <block type="mystery">
+              <field name="name">&lt;name&gt;</field>
+              <field name="desc">&lt;description&gt;</field>
+            </block>
+          </statement>
+          <statement name="region">
+            <block type="region">
+              <field name="name">&lt;name&gt;</field>
+              <field name="desc">&lt;description&gt;</field>
+              <field name="hasLandmarks">FALSE</field>
+            </block>
+          </statement>
         </block>
       </category>
       <category name="Moves" colour="a55b93">
@@ -2449,6 +2449,400 @@
             <block type="function">
               <field name="name">Saying what honesty demands</field>
               <field name="desc">You will need to sit with these anxieties about belonging and difference, and channel them into the choices you make for your character. Further, it means challenging yourself to see additional dimensions of difference that might exist for them. Is your character a cultural or racial outsider in this community? Is your character flunking their classes? Does your character come from a split family? Are they pretty? Is their family wealthy or are they living off food stamps? Is their dad in jail? While monstrosity and queerness stand out as the obvious types of difference that Monsterhearts puts on the table, that doesn’t mean they are the only ones.</field>
+            </block>
+          </statement>
+        </block>
+        <block type="setting">
+          <field name="name">Allswell</field>
+          <statement name="society">
+            <block type="society">
+              <field name="name">Allswell</field>
+              <field name="desc">Sometimes the lights go out. They get rewired after a couple days, but one poorer neighborhood’s been on bottled water for two years. The school bus commute grew by a half hour last month because part of the route collapsed. Our parents just adapt. And yeah, we like stories, but this isn’t a gateway to something below. It’s just what our parents built sinking out from under us. What we thought would support us. The world we could depend on, disappearing. Economically, most of the lumber mills have shut down. Allswell’s been trying to reinvent itself but the experiments have been sluggish and unimaginative. Zoning never changes which gradually creates more problems, plus the housing shortage. Poorer families rent on the lip, but many whose dream homes are there haven’t left them. Businesses fall in &amp; then don’t exist anymore. People talk about the excellent halal restaurant we used to have. What don’t we know we’re missing?</field>
+            </block>
+          </statement>
+          <statement name="history">
+            <block type="history">
+              <field name="name">Allswell</field>
+              <statement name="era">
+                <block type="era">
+                  <field name="name">Modern Day</field>
+                  <field name="desc">The modern era</field>
+                  <field name="isCurrent">TRUE</field>
+                </block>
+              </statement>
+              <statement name="entity">
+                <block type="entity">
+                  <field name="name">The Lip</field>
+                  <field name="role">This must’ve started off small, right? And small things can be dealt with. But for some reason the pit wasn’t, and as the decades passed it grew, and to this day the geological surveys remain unconducted. Two generations, at least, have watched the streets slowly be eaten up. Watched as neighbors’ houses fell in. Watched as the whole rec centre and the left wall of the movie theatre went; empty air suddenly where solid ground had been. People still go to the movies, if only for the evening showings.</field>
+                  <field name="status">Expanding and alive</field>
+                  <next>
+                    <block type="entity">
+                      <field name="name">The Native Mortal</field>
+                      <field name="role">The Native Mortal from the reservation is transferring to the school in town. Is that the right choice? And will his cosplay and makeup tutorials on YouTube remain undiscovered?</field>
+                      <field name="status">Possible player character</field>
+                      <next>
+                        <block type="entity">
+                          <field name="name">The Half-Quebecois Witch</field>
+                          <field name="role">The Half-Quebecois Witch comes from a line of witches but his mom left it behind &amp; wishes he would too. Will he choose his relationship with his mom or his heritage?</field>
+                          <field name="status">Possible player character</field>
+                          <next>
+                            <block type="entity">
+                              <field name="name">The Chinese-Canadian Werewolf</field>
+                              <field name="role">The Chinese-Canadian Werewolf just moved here from Vancouver with their paramedic mom. Will playing music let them channel their emotions to stop from transforming?</field>
+                              <field name="status">Possible player character</field>
+                              <next>
+                                <block type="entity">
+                                  <field name="name">The Iranian/Scottish-Canadian Ghoul</field>
+                                  <field name="role">The Iranian/Scottish-Canadian Ghoul stands in the wreckage her grandfather, the mayor, is making. Will the verve and passion she lost with death ever return?</field>
+                                  <field name="status">Possible player character</field>
+                                  <next>
+                                    <block type="entity">
+                                      <field name="name">The Quebecois Fae</field>
+                                      <field name="role">The Quebecois Fae is a lover of novels and gardening, and was home schooled up until her dad became ill this year. Will their house topple into the pit?</field>
+                                      <field name="status">Possible player character</field>
+                                      <next>
+                                        <block type="entity">
+                                          <field name="name">The Native Queen</field>
+                                          <field name="role">The Native Queen takes to her bike, spreading word to resist the grown ups: the monsters who let it get like this. Will her new friends give her the power to enact real change?</field>
+                                          <field name="status">Possible player character</field>
+                                        </block>
+                                      </next>
+                                    </block>
+                                  </next>
+                                </block>
+                              </next>
+                            </block>
+                          </next>
+                        </block>
+                      </next>
+                    </block>
+                  </next>
+                </block>
+              </statement>
+              <statement name="event">
+                <block type="event">
+                  <field name="name">The Lip's Crawl</field>
+                  <field name="desc">The Lip has been expanding for decades.</field>
+                  <field name="significance">Responsible for destroying most of Allswell.</field>
+                </block>
+              </statement>
+            </block>
+          </statement>
+          <statement name="mystery">
+            <block type="mystery">
+              <field name="name">The Lip</field>
+              <field name="desc">Where did it come from? What caused it? What fuels it? What is down there?</field>
+            </block>
+          </statement>
+          <statement name="region">
+            <block type="region">
+              <field name="name">Allswell</field>
+              <field name="desc">Northern British Columbia, near a Sm'algyax-language First Nations reserve, population 7,448</field>
+              <field name="hasLandmarks">TRUE</field>
+              <statement name="landmark">
+                <block type="landmark">
+                  <field name="name">The Lip</field>
+                  <field name="desc">A massive sinkhole</field>
+                  <field name="significance">Responsible for destroying most of Allswell.</field>
+                  <next>
+                    <block type="landmark">
+                      <field name="name">Pasha's Pizza</field>
+                      <field name="desc">The dining room fell in but we still do take out.</field>
+                      <field name="significance"></field>
+                      <next>
+                        <block type="landmark">
+                          <field name="name">All Parts Garage</field>
+                          <field name="desc">Tran’s a sweet old dude, free cans of pop.</field>
+                          <field name="significance"></field>
+                          <next>
+                            <block type="landmark">
+                              <field name="name">Tire Swing</field>
+                              <field name="desc">Will today be the day the tree falls in?</field>
+                              <field name="significance"></field>
+                              <next>
+                                <block type="landmark">
+                                  <field name="name">Boyden's Gap</field>
+                                  <field name="desc">Cars can’t take Boyden now, but there’s a bike ramp.</field>
+                                  <field name="significance"></field>
+                                  <next>
+                                    <block type="landmark">
+                                      <field name="name">The Wrecked Centre</field>
+                                      <field name="desc">Climb down to this weird old ruin.</field>
+                                      <field name="significance"></field>
+                                    </block>
+                                  </next>
+                                </block>
+                              </next>
+                            </block>
+                          </next>
+                        </block>
+                      </next>
+                    </block>
+                  </next>
+                </block>
+              </statement>
+            </block>
+          </statement>
+        </block>
+        <block type="setting">
+          <field name="name">Bateleur</field>
+          <statement name="society">
+            <block type="society">
+              <field name="name">Bateleur</field>
+              <field name="desc">This town is all about tourism and the shimmer and shadows of performance. Most nights are filled with the light and laughter of talented rogues that wander the streets for tips and adventure. So many inhabitants dream of becoming one in the lights. Those that can’t cut it make do with the more attainable glamour found in the market or the wildness found on the shores by the sea. The economy relies heavily on the market, the supernaturally talented street performers, the tourism derived from them, and the compensation from their crowds as easy-pickings for the bird-shaped shadow that stalks folks in the dark of the... day? The town also boasts world-class conservation of their waterfalls (anybody hear that hissing in the night? whose bones are those?), a sanctuary to the endangered dove, and that landfill fire that still hasn’t gone out. Through fires, feathers, salt water, and spice... this is a lush place that also manages to be gritty, burning and sharp. Its magic is fading, possibly because of the many deaths of the island’s beloved scrappy dove (spirits). Maybe it’s only changing because the time of the tricksy bateleur family has finally come. Either way, when you’re kicking back at the beach and showing off, you’ll probably not want to wander too far off the coast... There’s a hungry perimeter of sea ghosts held back only by the dubious intentions of the underwater sculpture garden.</field>
+            </block>
+          </statement>
+          <statement name="history">
+            <block type="history">
+              <field name="name">Bateleur</field>
+              <statement name="entity">
+                <block type="entity">
+                  <field name="name">Mami Watah (The Queen)</field>
+                  <field name="role">Listen. Your friends worship you because you’ve got hindquarter scales like a serpent and you carry all the latest designs. Plus you literally feed off the worship so it’s kind of a requirement to roll with you... Your family runs markets. Do you eat doves?</field>
+                  <field name="status">Potential player character</field>
+                  <next>
+                    <block type="entity">
+                      <field name="name">Papa Bois (The Werewolf)</field>
+                      <field name="role">Manicou you! Are you eating those doves? Of course not, you’re a nature conservationist right? It’s your family’s legacy! You only want to protect them. You’d never hurt them...right?</field>
+                      <field name="status">Potential player character</field>
+                      <next>
+                        <block type="entity">
+                          <field name="name">Fairymade (The Fae)</field>
+                          <field name="role">You like to steal shadows and hoof stomp people. Dancing at the edge of the ocean, you make oathbreakers pray to the water for release from your torturous caress. You also like shoes and maybe performing?</field>
+                          <field name="status">Potential player character</field>
+                          <next>
+                            <block type="entity">
+                              <field name="name">Soucoyant (The Ghoul)</field>
+                              <field name="role">Every time you leave a hickie, someone makes a joke but you’re just so hungry. You love the soft places of the body... Your family runs a restaurant at the resort soo... try to stay away from salt?</field>
+                              <field name="status">Potential player character</field>
+                              <next>
+                                <block type="entity">
+                                  <field name="name">Bateleur (The Infernal)</field>
+                                  <field name="role">Your small family runs the performing and thus the industry in this town. You’re indebted to a predator and you’re starting to become one. Doves are your natural prey. Sorry, but what’s that salty liquid in your nose though?</field>
+                                  <field name="status">Potential player character</field>
+                                  <next>
+                                    <block type="entity">
+                                      <field name="name">Dove (The Witch)</field>
+                                      <field name="role">You’re scrappy, endearingly endangered, and your home burned down. Your people cast a spell of protection so that you can hide in un-feathered form, but still there’s precious few of your kind left so you’re not going out without a fight. Too bad everyone’s craving your sweet flesh... Can you survive their desires...and yours?</field>
+                                      <field name="status">Potential player character</field>
+                                    </block>
+                                  </next>
+                                </block>
+                              </next>
+                            </block>
+                          </next>
+                        </block>
+                      </next>
+                    </block>
+                  </next>
+                </block>
+              </statement>
+            </block>
+          </statement>
+          <statement name="mystery">
+            <block type="mystery">
+              <field name="name">Bird-shaped shadow</field>
+              <field name="desc">Why does it stalk people?  What are its intentions?</field>
+              <next>
+                <block type="mystery">
+                  <field name="name">The hidden waterfalls</field>
+                  <field name="desc">What are they hiding?  What is the dark secret to their beauty?</field>
+                  <next>
+                    <block type="mystery">
+                      <field name="name">The sculpture garden</field>
+                      <field name="desc">Why does it exist?  What does it want?</field>
+                    </block>
+                  </next>
+                </block>
+              </next>
+            </block>
+          </statement>
+          <statement name="region">
+            <block type="region">
+              <field name="name">Bateleur</field>
+              <field name="desc">Bateleur, Grenada.  Population 1,000.</field>
+              <field name="hasLandmarks">TRUE</field>
+              <statement name="landmark">
+                <block type="landmark">
+                  <field name="name">Underwater sculpture garden</field>
+                  <field name="desc">Surrounded by a hungry perimeter of sea ghosts.</field>
+                  <field name="significance">Has dubious intentions.</field>
+                  <next>
+                    <block type="landmark">
+                      <field name="name">The cluster of street stages</field>
+                      <field name="desc"></field>
+                      <field name="significance"></field>
+                      <next>
+                        <block type="landmark">
+                          <field name="name">The Dove Conservatory</field>
+                          <field name="desc"></field>
+                          <field name="significance"></field>
+                          <next>
+                            <block type="landmark">
+                              <field name="name">Crescent Beach</field>
+                              <field name="desc"></field>
+                              <field name="significance"></field>
+                              <next>
+                                <block type="landmark">
+                                  <field name="name">The Hidden Waterfalls</field>
+                                  <field name="desc"></field>
+                                  <field name="significance"></field>
+                                  <next>
+                                    <block type="landmark">
+                                      <field name="name">The Tourist Marketplace</field>
+                                      <field name="desc"></field>
+                                      <field name="significance"></field>
+                                    </block>
+                                  </next>
+                                </block>
+                              </next>
+                            </block>
+                          </next>
+                        </block>
+                      </next>
+                    </block>
+                  </next>
+                </block>
+              </statement>
+            </block>
+          </statement>
+        </block>
+        <block type="setting">
+          <field name="name">Forbearance</field>
+          <statement name="society">
+            <block type="society">
+              <field name="name">Forbearance</field>
+              <field name="desc">In the new economy, locals rely on freelancing and service jobs. A kid with a bike can get a courier gig. A smart and savvy enough kid could swing a QA job at one of the startups.  Forbearance is all about class conflict. The skins represent the old wealth, the new tech wealth, and the poor kids clever enough to exploit it.</field>
+            </block>
+          </statement>
+          <statement name="history">
+            <block type="history">
+              <field name="name">Forbearance</field>
+              <statement name="era">
+                <block type="era">
+                  <field name="name">The '90s</field>
+                  <field name="desc">The era of personal computing.</field>
+                  <field name="isCurrent">TRUE</field>
+                  <next>
+                    <block type="era">
+                      <field name="name">The Wild West</field>
+                      <field name="desc">The days of cowboys and Indians, prospectors and outlaws.</field>
+                      <field name="isCurrent">FALSE</field>
+                    </block>
+                  </next>
+                </block>
+              </statement>
+              <statement name="entity">
+                <block type="entity">
+                  <field name="name">Penta Systems</field>
+                  <field name="role">A startup tech business capitalizing on cheap office space and plentiful silicon.</field>
+                  <field name="status">Actively parasitic</field>
+                  <next>
+                    <block type="entity">
+                      <field name="name">The Queen</field>
+                      <field name="role">The Queen, whose great-great-grandfather John Randall built this shitpile of a town into what it is today. When your family’s wealth no longer impresses your peers, what will you do to keep control?</field>
+                      <field name="status">Potential player character</field>
+                      <next>
+                        <block type="entity">
+                          <field name="name">The Infernal</field>
+                          <field name="role">The Infernal, whose sponsorship by a powerful online entity has made them into a digital oracle and trendmaker, with all the power that entails. What does your benefactor demand in return?</field>
+                          <field name="status">Potential player character</field>
+                          <next>
+                            <block type="entity">
+                              <field name="name">The Ghost</field>
+                              <field name="role">The Ghost, who stays hidden in the computer lab, communicating entirely through emails and chat windows. When was the last time someone saw you in corporeal form? Do you ever forget that you even have a body?</field>
+                              <field name="status">Potential player character</field>
+                              <next>
+                                <block type="entity">
+                                  <field name="name">The Witch</field>
+                                  <field name="role">The Witch, who flings hexes as skillfully as she hex-edits a database. Your friends don’t realize that the littlest scrap of information is all you need to ruin their lives. Who bad-mouthed you on their Livejournal?</field>
+                                  <field name="status">Potential player character</field>
+                                  <next>
+                                    <block type="entity">
+                                      <field name="name">The Vampire</field>
+                                      <field name="role">The Vampire, a gifted youth whose cold, calculating attitude earned them a place in the industry it suits best: technology. It’s easy to be a child prodigy when you’ve had centuries of practice. How do you see Forbearance in a hundred years?</field>
+                                      <field name="status">Potential player character</field>
+                                      <next>
+                                        <block type="entity">
+                                          <field name="name">The Fae</field>
+                                          <field name="role">The Fae, a being from cyberspace who has taken on, experimentally, a humanoid avatar. It’s not an easy form to maintain. What happens when the people tagging “DIE TECH SCUM” discover you’re a construct?</field>
+                                          <field name="status">Potential player character</field>
+                                        </block>
+                                      </next>
+                                    </block>
+                                  </next>
+                                </block>
+                              </next>
+                            </block>
+                          </next>
+                        </block>
+                      </next>
+                    </block>
+                  </next>
+                </block>
+              </statement>
+              <statement name="event">
+                <block type="event">
+                  <field name="name">The gold boom</field>
+                  <field name="desc">They found gold in Forbearance, once. Suddenly the tiny mission was playing host to droves of prospectors. A few people ended up rich. Everyone else ended up in debt.</field>
+                  <field name="significance">Mirrors the current dotcom craze that has reached the town in the present day.</field>
+                  <next>
+                    <block type="event">
+                      <field name="name">The dotcom boom</field>
+                      <field name="desc">Now Forbearance is bracing for another invasion, but it’s not gold this time – it’s silicon. Windows 95 just hit the market. 56K modems are starting to sell. And Americans are logging on to the Internet for the very first time. A few people have already struck it big. Guys with beards, thick-rimmed glasses and no business experience whatsoever are going public on Wall Street for profits that should have taken years to accrue. Everyone’s caught the scent of wealth. Many have followed it to Forbearance. Penta Systems came to New Mexico because office space was cheap and silicon plentiful, and no would-be millionaire would dare start up anywhere else. Communities that trace themselves back to the gold rush days are being displaced as neighborhoods they’ve grown up in suddenly become “hip.”</field>
+                      <field name="significance">The latest economic craze currently sucking the town dry.</field>
+                    </block>
+                  </next>
+                </block>
+              </statement>
+            </block>
+          </statement>
+          <statement name="mystery">
+            <block type="mystery">
+              <field name="name">The daemons in the modem lines</field>
+              <field name="desc">What do they want?  What do they offer?</field>
+            </block>
+          </statement>
+          <statement name="region">
+            <block type="region">
+              <field name="name">Forbearance</field>
+              <field name="desc">Forbearance, New Mexico: first the Pueblo, then the Spanish, then prospectors, now techies.</field>
+              <field name="hasLandmarks">TRUE</field>
+              <statement name="landmark">
+                <block type="landmark">
+                  <field name="name">John Randall High School</field>
+                  <field name="desc"></field>
+                  <field name="significance"></field>
+                  <next>
+                    <block type="landmark">
+                      <field name="name">Chiba City</field>
+                      <field name="desc">A LAN cafe downtown</field>
+                      <field name="significance">Can replace the standard homeroom layout.</field>
+                      <next>
+                        <block type="landmark">
+                          <field name="name">Juan Paolo's</field>
+                          <field name="desc">The last local-owned bodega in the neighborhood</field>
+                          <field name="significance"></field>
+                          <next>
+                            <block type="landmark">
+                              <field name="name">Cosmic.com</field>
+                              <field name="desc">A courier-based latte delivery startup</field>
+                              <field name="significance"></field>
+                              <next>
+                                <block type="landmark">
+                                  <field name="name">An empty stretch of highway in the New Mexico desert</field>
+                                  <field name="desc"></field>
+                                  <field name="significance"></field>
+                                </block>
+                              </next>
+                            </block>
+                          </next>
+                        </block>
+                      </next>
+                    </block>
+                  </next>
+                </block>
+              </statement>
             </block>
           </statement>
         </block>
