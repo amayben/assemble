@@ -2403,6 +2403,324 @@
           </statement>
         </block>
       </category>
+      <category name="Monsterhearts 2" colour="#dc1920">
+        <block type="theme">
+          <field name="name">High School Horror Show</field>
+          <field name="desc">Monsterhearts 2 is about the messy lives of teenagers who are secretly monsters.</field>
+          <statement name="function">
+            <block type="function">
+              <field name="name">Adolescent disorientation</field>
+              <field name="desc">Monsterhearts explores the terror and confusion of having a body that is changing without your permission.</field>
+              <next>
+                <block type="function">
+                  <field name="name">Adolescence is monstrosity</field>
+                  <field name="desc">The monstrosity of these characters is literal: they are vampires, werewolves, witches, and more. But their monstrosity is also allegorical, standing in for experiences of alienation, shame, queerness, and self-destruction.</field>
+                </block>
+              </next>
+            </block>
+          </statement>
+        </block>
+        <block type="theme">
+          <field name="name">Queer Content</field>
+          <field name="desc">Queer content will make your game more interesting. It gives you new dimensions of shame, confusion, and desire to explore. It dismantles stale genre conventions and builds new stories out of the pieces. It breathes life into the monstrous.</field>
+          <statement name="function">
+            <block type="function">
+              <field name="name">Queer youth</field>
+              <field name="desc">Queer youth are often forgotten or erased in media. When their stories are told, it’s either dis-empowering tragedy tourism or a sanitized and toothless portrayal that fails to capture the chaos of lived experience. Monsterhearts gives you an opportunity to tell some intriguing, messy stories that are largely missing from our cultural milieu.</field>
+              <next>
+                <block type="function">
+                  <field name="name">Practical benefits</field>
+                  <field name="desc">Introducing queer content means more possible romantic pairings in a small group, which lets you build relationship webs that are dense and ever-changing. When queer attraction proves to be unrequited, additional tensions are thrown into the mix: the fear of being outed, the risk of gay panic, the resentment of “but you’re literally the only other dyke in town, how can you do this to me?” Working with queer assumptions means putting more opportunities and more risks on the table, giving you a wider range of potential stories with the same number of characters.</field>
+                  <next>
+                    <block type="function">
+                      <field name="name">Gaining awareness</field>
+                      <field name="desc">Use the game to explore and challenge your own ideas about gender, sexuality, relationships, what’s normal and what’s monstrous.</field>
+                    </block>
+                  </next>
+                </block>
+              </next>
+            </block>
+          </statement>
+        </block>
+        <block type="theme">
+          <field name="name">Belonging and Difference</field>
+          <field name="desc">During adolescence, having a sense of belonging and a coherent social identity is so, so important. When that sense is lacking, self-esteem and physical well-being often suffer. People will go to great lengths to feel like they belong, even if it means making self-destructive choices along the way.</field>
+          <statement name="function">
+            <block type="function">
+              <field name="name">Saying what honesty demands</field>
+              <field name="desc">You will need to sit with these anxieties about belonging and difference, and channel them into the choices you make for your character. Further, it means challenging yourself to see additional dimensions of difference that might exist for them. Is your character a cultural or racial outsider in this community? Is your character flunking their classes? Does your character come from a split family? Are they pretty? Is their family wealthy or are they living off food stamps? Is their dad in jail? While monstrosity and queerness stand out as the obvious types of difference that Monsterhearts puts on the table, that doesn’t mean they are the only ones.</field>
+            </block>
+          </statement>
+        </block>
+        <block type="factor">
+          <field name="name">Hot</field>
+          <field name="type">Scalar</field>
+          <field name="desc">A stat describing how attractive a character is.</field>
+          <field name="isAdditive">FALSE</field>
+        </block>
+        <block type="factor">
+          <field name="name">Cold</field>
+          <field name="type">Scalar</field>
+          <field name="desc">A stat describing how harsh a character is.</field>
+          <field name="isAdditive">FALSE</field>
+        </block>
+        <block type="factor">
+          <field name="name">Volatile</field>
+          <field name="type">Scalar</field>
+          <field name="desc">A stat describing how unstable a character is.</field>
+          <field name="isAdditive">FALSE</field>
+        </block>
+        <block type="factor">
+          <field name="name">Dark</field>
+          <field name="type">Scalar</field>
+          <field name="desc">A stat describing how mysterious a character is.</field>
+          <field name="isAdditive">FALSE</field>
+        </block>
+        <block type="factor">
+          <field name="name">Player Choice</field>
+          <field name="type">Meta</field>
+          <field name="desc">The player makes a decision.</field>
+          <field name="isAdditive">FALSE</field>
+        </block>
+        <block type="factor">
+          <field name="name">MC Choice</field>
+          <field name="type">Meta</field>
+          <field name="desc">The MC decides for the player.</field>
+          <field name="isAdditive">FALSE</field>
+        </block>
+        <block type="factor">
+          <field name="name">Player Question</field>
+          <field name="type">Meta</field>
+          <field name="desc">A question is asked of the player.</field>
+          <field name="isAdditive">FALSE</field>
+        </block>
+        <block type="factor">
+          <field name="name">MC Question</field>
+          <field name="type">Scalar</field>
+          <field name="desc">The player asks a question from the MC.</field>
+          <field name="isAdditive">FALSE</field>
+        </block>
+        <block type="factor">
+          <field name="name">Collaboration</field>
+          <field name="type">Scalar</field>
+          <field name="desc">The players and MC make a consensus-based decision.</field>
+          <field name="isAdditive">FALSE</field>
+        </block>
+        <block type="factor">
+          <field name="name">Strings</field>
+          <field name="type">Scalar</field>
+          <field name="desc">A value that tracks a social advantage that one character may have over another. Strings are used up with the Pulling Strings move.</field>
+          <field name="isAdditive">TRUE</field>
+        </block>
+        <block type="factor">
+          <field name="name">Forward</field>
+          <field name="type">Scalar</field>
+          <field name="desc">Some moves will tell you to take 1 Forward. This means that you add +1 to your next die roll. A few will be more specific, perhaps telling you to take 1 Forward toward a certain type of action. In those cases, you’ll save the +1 until you find yourself in the specified situation. When you take 1 Forward, the bonus is always used on just one roll, and then it gets erased or crossed off.</field>
+          <field name="isAdditive">TRUE</field>
+        </block>
+        <block type="factor">
+          <field name="name">Condition</field>
+          <field name="type">Meta</field>
+          <field name="desc">Conditions represent your character’s social situation and weaknesses. They’re the things that people are saying and thinking about you that shape how you’re treated, or even how you see yourself. Conditions take the form of gossip, unsavory opinions, and interpersonal labels. Conditions are given to people through Shutting Someone Down, Pulling Strings, and a few other avenues. If you take advantage of a Condition that someone has while making a move against them, add +1 to your roll. In order to take advantage of a Condition mechanically, though, you need to explain what that looks like in the story.</field>
+          <field name="isAdditive">TRUE</field>
+        </block>
+        <block type="factor">
+          <field name="name">Automatic</field>
+          <field name="type">Meta</field>
+          <field name="desc">Occurs automatically if conditions are met.</field>
+          <field name="isAdditive">FALSE</field>
+        </block>
+        <block type="factor">
+          <field name="name">Experience</field>
+          <field name="type">Meta</field>
+          <field name="desc">Influences player experience.</field>
+          <field name="isAdditive">TRUE</field>
+        </block>
+        <block type="factor">
+          <field name="name">Gang</field>
+          <field name="type">Scalar</field>
+          <field name="desc">If a character is in a gang, and that gang assists them in a move, the gang adds +1 to the relevant roll, or does 1 additional harm if they are being violent.</field>
+          <field name="isAdditive">FALSE</field>
+        </block>
+        <block type="factor">
+          <field name="name">Sexuality</field>
+          <field name="type">Meta</field>
+          <field name="desc">Result depends on a character's sexuality.</field>
+          <field name="isAdditive">FALSE</field>
+        </block>
+        <block type="factor">
+          <field name="name">Substitution</field>
+          <field name="type">Revision</field>
+          <field name="desc">Another move is used to resolve the current move.</field>
+          <field name="isAdditive">FALSE</field>
+        </block>
+        <block type="factor">
+          <field name="name">Harm</field>
+          <field name="type">Scalar</field>
+          <field name="desc">How hurt a character is.</field>
+          <field name="isAdditive">TRUE</field>
+        </block>
+        <block type="factor">
+          <field name="name">Darkest Self</field>
+          <field name="type">Meta</field>
+          <field name="desc">Specific to the player's Skin, a player becomes the embodiment of their worst traits.</field>
+          <field name="isAdditive">TRUE</field>
+        </block>
+        <block type="factor">
+          <field name="name">Advantage</field>
+          <field name="type">Scalar</field>
+          <field name="desc">A +1 bonus to a move.</field>
+          <field name="isAdditive">TRUE</field>
+        </block>
+        <block type="factor">
+          <field name="name">Help</field>
+          <field name="type">Meta</field>
+          <field name="desc">Another character is there to assist.</field>
+          <field name="isAdditive">FALSE</field>
+        </block>
+        <block type="factor">
+          <field name="name">Once Per Session</field>
+          <field name="type">Meta</field>
+          <field name="desc">The associated action can only be done once per game session.</field>
+          <field name="isAdditive">FALSE</field>
+        </block>
+        <block type="move">
+          <mutation xmlns="http://www.w3.org/1999/xhtml" factors="{&quot;factors&quot;:[&quot;Hot&quot;,&quot;Player Choice&quot;,&quot;Substitution&quot;,&quot;Hot&quot;],&quot;addFactors&quot;:[&quot;Strings&quot;]}"></mutation>
+          <field name="name">Turn Someone On</field>
+          <field name="effect">Use your charm to attract the eye of another.</field>
+          <field name="a0">TRUE</field>
+          <field name="a1">TRUE</field>
+          <field name="a2">TRUE</field>
+          <field name="a3">TRUE</field>
+          <field name="factors">no_value</field>
+          <field name="desc">When you turn someone on, roll with Hot. On a 10 up, gain a String on them and they choose a reaction from below. On a 7-9, they can either give you a String or choose one of these reactions: -I give myself to you, -I promise something I think you want, or -I get embarrassed and act awkward. If someone targets your character with Turn Someone On but it’s not possible for your character to get turned on in that situation, let them know. Instead, it counts as a roll to Shut Someone Down using Hot.</field>
+          <field name="adds_factor">TRUE</field>
+          <field name="b0">TRUE</field>
+          <field name="addFactors">no_value</field>
+        </block>
+        <block type="move">
+          <mutation xmlns="http://www.w3.org/1999/xhtml" factors="{&quot;factors&quot;:[&quot;Cold&quot;],&quot;addFactors&quot;:[&quot;Strings&quot;,&quot;Condition&quot;,&quot;Forward&quot;]}"></mutation>
+          <field name="name">Shut Someone Down</field>
+          <field name="effect">Take someone else's power and confidence away.</field>
+          <field name="a0">TRUE</field>
+          <field name="factors">no_value</field>
+          <field name="desc">Roll with Cold. On a 10 up, choose one from below. On a 7-9, choose one from below, but you come across poorly, and they give you a Condition in return. -They lose a String on you. -If they have no Strings on you, gain one on them. -They gain a Condition. -You take 1 Forward.</field>
+          <field name="adds_factor">TRUE</field>
+          <field name="b0">TRUE</field>
+          <field name="b1">TRUE</field>
+          <field name="b2">TRUE</field>
+          <field name="addFactors">no_value</field>
+        </block>
+        <block type="move">
+          <mutation xmlns="http://www.w3.org/1999/xhtml" factors="{&quot;factors&quot;:[&quot;Cold&quot;,&quot;Player Question&quot;,&quot;Player Choice&quot;],&quot;addFactors&quot;:[&quot;Forward&quot;]}"></mutation>
+          <field name="name">Keep Your Cool</field>
+          <field name="effect">Act against your fears.</field>
+          <field name="a0">TRUE</field>
+          <field name="a1">TRUE</field>
+          <field name="a2">TRUE</field>
+          <field name="factors">no_value</field>
+          <field name="desc">Name what you’re afraid of and roll with Cold. On a 10 up, you keep your cool and gain insight: ask the MC a question about the situation and take 1 Forward to acting on that information. On a 7-9, the MC will tell you how your actions would leave you vulnerable, and you can choose to back down or go through with it. </field>
+          <field name="adds_factor">TRUE</field>
+          <field name="b0">TRUE</field>
+          <field name="addFactors">no_value</field>
+        </block>
+        <block type="move">
+          <mutation xmlns="http://www.w3.org/1999/xhtml" factors="{&quot;factors&quot;:[&quot;Volatile&quot;,&quot;Player Choice&quot;,&quot;MC Choice&quot;],&quot;addFactors&quot;:[&quot;Harm&quot;,&quot;Strings&quot;,&quot;Darkest Self&quot;]}"></mutation>
+          <field name="name">Lash Out Physically</field>
+          <field name="effect">Attempt to cause physical harm.</field>
+          <field name="a0">TRUE</field>
+          <field name="a1">TRUE</field>
+          <field name="a2">TRUE</field>
+          <field name="factors">no_value</field>
+          <field name="desc">Roll with Volatile. On a 10 up, you deal them harm, and they choke up momentarily before they can react. On a 7-9, you harm them but choose one: -They learn something about your true nature and gain a String on you -The MC decides how bad the harm turns out  -You become your Darkest Self.</field>
+          <field name="adds_factor">TRUE</field>
+          <field name="b0">TRUE</field>
+          <field name="b1">TRUE</field>
+          <field name="b2">TRUE</field>
+          <field name="addFactors">no_value</field>
+        </block>
+        <block type="move">
+          <mutation xmlns="http://www.w3.org/1999/xhtml" factors="{&quot;factors&quot;:[&quot;Volatile&quot;,&quot;Player Choice&quot;],&quot;addFactors&quot;:[]}"></mutation>
+          <field name="name">Run Away</field>
+          <field name="effect">Attempt escape</field>
+          <field name="a0">TRUE</field>
+          <field name="a1">TRUE</field>
+          <field name="factors">no_value</field>
+          <field name="desc">When you run away, roll with Volatile. On a 10 up, you get away to a safe place. On a 7-9, you get away but choose one: -You run into something worse -You cause a big scene -You leave something behind.</field>
+          <field name="adds_factor">FALSE</field>
+        </block>
+        <block type="move">
+          <mutation xmlns="http://www.w3.org/1999/xhtml" factors="{&quot;factors&quot;:[&quot;Dark&quot;],&quot;addFactors&quot;:[&quot;Forward&quot;]}"></mutation>
+          <field name="name">Gaze Into the Abyss</field>
+          <field name="effect">Search the universe for dark answers.</field>
+          <field name="a0">TRUE</field>
+          <field name="factors">no_value</field>
+          <field name="desc">Name what you’re looking for and roll with Dark. On a 10 up, the abyss shows you lucid visions, and you take 1 Forward to addressing them. On a 7-9, the abyss shows you confusing and alarming visions, but you get your answer nonetheless.</field>
+          <field name="adds_factor">TRUE</field>
+          <field name="b0">TRUE</field>
+          <field name="addFactors">no_value</field>
+        </block>
+        <block type="move">
+          <mutation xmlns="http://www.w3.org/1999/xhtml" factors="{&quot;factors&quot;:[&quot;Automatic&quot;],&quot;addFactors&quot;:[&quot;Experience&quot;]}"></mutation>
+          <field name="name">Failed Roll</field>
+          <field name="effect">A character gains experience if they fail a roll.</field>
+          <field name="a0">TRUE</field>
+          <field name="factors">no_value</field>
+          <field name="desc">If you fail a roll, add 1 experience.</field>
+          <field name="adds_factor">TRUE</field>
+          <field name="b0">TRUE</field>
+          <field name="addFactors">no_value</field>
+        </block>
+        <block type="move">
+          <mutation xmlns="http://www.w3.org/1999/xhtml" factors="{&quot;factors&quot;:[&quot;Strings&quot;,&quot;Player Choice&quot;],&quot;addFactors&quot;:[&quot;Experience&quot;,&quot;Condition&quot;,&quot;Advantage&quot;,&quot;Harm&quot;]}"></mutation>
+          <field name="name">Pull Strings</field>
+          <field name="effect">Use a String to get what you want out of someone.</field>
+          <field name="a0">TRUE</field>
+          <field name="a1">TRUE</field>
+          <field name="factors">no_value</field>
+          <field name="desc">When you spend a String on someone, choose one: -Tempt them to do what you want -Give them a Condition -Add 1 to your roll against them -Add 1 to the harm you deal them</field>
+          <field name="adds_factor">TRUE</field>
+          <field name="b0">TRUE</field>
+          <field name="b1">TRUE</field>
+          <field name="b2">TRUE</field>
+          <field name="b3">TRUE</field>
+          <field name="addFactors">no_value</field>
+        </block>
+        <block type="move">
+          <mutation xmlns="http://www.w3.org/1999/xhtml" factors="{&quot;factors&quot;:[&quot;Once Per Session&quot;],&quot;addFactors&quot;:[&quot;Harm&quot;]}"></mutation>
+          <field name="name">Heal</field>
+          <field name="effect">Take time to tend to your wounds.</field>
+          <field name="a0">TRUE</field>
+          <field name="factors">no_value</field>
+          <field name="desc">&lt;description&gt;</field>
+          <field name="adds_factor">TRUE</field>
+          <field name="b0">TRUE</field>
+          <field name="addFactors">no_value</field>
+        </block>
+        <block type="move">
+          <mutation xmlns="http://www.w3.org/1999/xhtml" factors="{&quot;factors&quot;:[&quot;Harm&quot;],&quot;addFactors&quot;:[&quot;Darkest Self&quot;,&quot;Strings&quot;]}"></mutation>
+          <field name="name">Skirt Death</field>
+          <field name="effect">Avoid death.</field>
+          <field name="a0">TRUE</field>
+          <field name="factors">no_value</field>
+          <field name="desc">Erase all harm and choose one: -Become your Darkest Self -Lose all Strings you have on everybody</field>
+          <field name="adds_factor">TRUE</field>
+          <field name="b0">TRUE</field>
+          <field name="b1">TRUE</field>
+          <field name="addFactors">no_value</field>
+        </block>
+        <block type="move">
+          <mutation xmlns="http://www.w3.org/1999/xhtml" factors="{&quot;factors&quot;:[&quot;Strings&quot;],&quot;addFactors&quot;:[&quot;Experience&quot;]}"></mutation>
+          <field name="name">Tempted by Pulling Strings</field>
+          <field name="effect">A character gains experience if they are tempted and give in to the temptation.</field>
+          <field name="a0">TRUE</field>
+          <field name="factors">no_value</field>
+          <field name="desc">If a character is tempted by another character with the Pulling Strings move, the tempted character adds 1 experience.</field>
+          <field name="adds_factor">TRUE</field>
+          <field name="b0">TRUE</field>
+          <field name="addFactors">no_value</field>
+        </block>
+      </category>
     </xml>
     <xml xmlns="https://developers.google.com/blockly/xml"
       id="workspaceBlocks" style="display: none">
