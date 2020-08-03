@@ -3929,6 +3929,622 @@
             </block>
           </statement>
         </block>
+        <block type="factor">
+          <field name="name">Charm</field>
+          <field name="type">Scalar</field>
+          <field name="desc">A stat describing a character's charisma.</field>
+          <field name="isAdditive">FALSE</field>
+        </block>
+        <block type="factor">
+          <field name="name">Cool</field>
+          <field name="type">Scalar</field>
+          <field name="desc">A stat describing the "coolness" of a character.</field>
+          <field name="isAdditive">FALSE</field>
+        </block>
+        <block type="factor">
+          <field name="name">Sharp</field>
+          <field name="type">Scalar</field>
+          <field name="desc">A stat describing a character's intelligence.</field>
+          <field name="isAdditive">FALSE</field>
+        </block>
+        <block type="factor">
+          <field name="name">Tough</field>
+          <field name="type">Scalar</field>
+          <field name="desc">A stat describing a character's toughness.</field>
+          <field name="isAdditive">FALSE</field>
+        </block>
+        <block type="factor">
+          <field name="name">Weird</field>
+          <field name="type">Scalar</field>
+          <field name="desc">A stat describing a character's association with the monstrous and magical.</field>
+          <field name="isAdditive">FALSE</field>
+        </block>
+        <block type="factor">
+          <field name="name">Player Choice</field>
+          <field name="type">Meta</field>
+          <field name="desc">The player makes a decision.</field>
+          <field name="isAdditive">FALSE</field>
+        </block>
+        <block type="factor">
+          <field name="name">Target Choice</field>
+          <field name="type">Meta</field>
+          <field name="desc">A given target makes a decision for the player.</field>
+          <field name="isAdditive">FALSE</field>
+        </block>
+        <block type="factor">
+          <field name="name">MC Choice</field>
+          <field name="type">Meta</field>
+          <field name="desc">The MC decides for the player.</field>
+          <field name="isAdditive">FALSE</field>
+        </block>
+        <block type="factor">
+          <field name="name">Argument</field>
+          <field name="type">Meta</field>
+          <field name="desc">The player must make a convincing argument.</field>
+          <field name="isAdditive">FALSE</field>
+        </block>
+        <block type="factor">
+          <field name="name">NPC or PC?</field>
+          <field name="type">Meta</field>
+          <field name="desc">Does the character belong to the MC or a player?</field>
+          <field name="isAdditive">FALSE</field>
+        </block>
+        <block type="factor">
+          <field name="name">Player Question</field>
+          <field name="type">Meta</field>
+          <field name="desc">A question is asked of the player.</field>
+          <field name="isAdditive">FALSE</field>
+        </block>
+        <block type="factor">
+          <field name="name">Target Question</field>
+          <field name="type">Meta</field>
+          <field name="desc">A question is asked of the move's target.</field>
+          <field name="isAdditive">FALSE</field>
+        </block>
+        <block type="factor">
+          <field name="name">MC Question</field>
+          <field name="type">Scalar</field>
+          <field name="desc">The player asks a question from the MC.</field>
+          <field name="isAdditive">FALSE</field>
+        </block>
+        <block type="factor">
+          <field name="name">Hold</field>
+          <field name="type">Meta</field>
+          <field name="desc">A move-associated value allowing for future action.</field>
+          <field name="isAdditive">FALSE</field>
+        </block>
+        <block type="factor">
+          <field name="name">Automatic</field>
+          <field name="type">Meta</field>
+          <field name="desc">Occurs automatically if conditions are met.</field>
+          <field name="isAdditive">FALSE</field>
+        </block>
+        <block type="factor">
+          <field name="name">Playbook</field>
+          <field name="type">Meta</field>
+          <field name="desc">Options depend on the character's playbook.</field>
+          <field name="isAdditive">FALSE</field>
+        </block>
+        <block type="factor">
+          <field name="name">Experience</field>
+          <field name="type">Meta</field>
+          <field name="desc">Influences player experience.</field>
+          <field name="isAdditive">TRUE</field>
+        </block>
+        <block type="factor">
+          <field name="name">Harm</field>
+          <field name="type">Scalar</field>
+          <field name="desc">How much harm has been taken or healed.</field>
+          <field name="isAdditive">TRUE</field>
+        </block>
+        <block type="factor">
+          <field name="name">Armor</field>
+          <field name="type">Scalar</field>
+          <field name="desc">Blocks against harm when suffered.</field>
+          <field name="isAdditive">FALSE</field>
+        </block>
+        <block type="factor">
+          <field name="name">Advantage</field>
+          <field name="type">Scalar</field>
+          <field name="desc">A bonus to a future move.</field>
+          <field name="isAdditive">TRUE</field>
+        </block>
+        <block type="factor">
+          <field name="name">Disadvantage</field>
+          <field name="type">Scalar</field>
+          <field name="desc">A penalty to a future move.</field>
+          <field name="isAdditive">TRUE</field>
+        </block>
+        <block type="factor">
+          <field name="name">Immediate Advanced Success</field>
+          <field name="type">Revision</field>
+          <field name="desc">An outcome is immediately a major success.</field>
+          <field name="isAdditive">TRUE</field>
+        </block>
+        <block type="factor">
+          <field name="name">Immediate Success</field>
+          <field name="type">Revision</field>
+          <field name="desc">An outcome is immediately successful.</field>
+          <field name="isAdditive">FALSE</field>
+        </block>
+        <block type="factor">
+          <field name="name">Immediate Partial Success</field>
+          <field name="type">Revision</field>
+          <field name="desc">An outcome is immediately partially successful.</field>
+          <field name="isAdditive">FALSE</field>
+        </block>
+        <block type="factor">
+          <field name="name">Immediate Failure</field>
+          <field name="type">Revision</field>
+          <field name="desc">An outcome is immediately failed.</field>
+          <field name="isAdditive">FALSE</field>
+        </block>
+        <block type="factor">
+          <field name="name">Luck</field>
+          <field name="type">Revision</field>
+          <field name="desc">A die roll is set to 12 or harm is reduced to 0.</field>
+          <field name="isAdditive">TRUE</field>
+        </block>
+        <block type="factor">
+          <field name="name">Continuous</field>
+          <field name="type">Scalar</field>
+          <field name="desc">Additive bonus maintained through certain conditions.</field>
+          <field name="isAdditive">TRUE</field>
+        </block>
+        <block type="factor">
+          <field name="name">Move</field>
+          <field name="type">Meta</field>
+          <field name="desc">Applies toward a particular move or group of moves.</field>
+          <field name="isAdditive">FALSE</field>
+        </block>
+
+        <block type="move">
+          <mutation xmlns="http://www.w3.org/1999/xhtml" factors="{&quot;factors&quot;:[&quot;Tough&quot;,&quot;Player Choice&quot;],&quot;addFactors&quot;:[&quot;Advantage&quot;,&quot;Harm&quot;]}"></mutation>
+          <field name="name">Kick Some Ass</field>
+          <field name="effect">Fight or exert yourself to achieve a physical goal</field>
+          <field name="a0">TRUE</field>
+          <field name="a1">TRUE</field>
+          <field name="factors">no_value</field>
+          <field name="desc">Success: Hunter and target inflict harm on each other, but the Hunter gains one of the following benefits: -Gain +1 advantage or give it to another Hunter -Inflict +1 harm -Receive -1 harm -Position target where you want Partial Success: Hunter and target inflict harm on each other Miss: Keeper takes a move against the Hunter Advanced Success: Hunter and target inflict harm on each other, but the Hunter gains one of the following benefits: -All Hunters gain +1 advantage -Suffer no harm -You inflict double harm</field>
+          <field name="adds_factor">TRUE</field>
+          <field name="b0">TRUE</field>
+          <field name="b1">TRUE</field>
+          <field name="addFactors">no_value</field>
+        </block>
+        <block type="move">
+          <mutation xmlns="http://www.w3.org/1999/xhtml" factors="{&quot;factors&quot;:[&quot;Cool&quot;,&quot;Player Choice&quot;],&quot;addFactors&quot;:[]}"></mutation>
+          <field name="name">Act Under Pressure</field>
+          <field name="effect">Attempt to act despite the circumstances</field>
+          <field name="a0">TRUE</field>
+          <field name="a1">TRUE</field>
+          <field name="factors">no_value</field>
+          <field name="desc">Success: You do what you set out to do Partial Success: Keeper offers a worse outcome, hard choice, or price to pay Miss: Keeper takes a move against the Hunter Advanced Success: Either the action is performed perfectly or thr Hunter gains some benefit</field>
+          <field name="adds_factor">FALSE</field>
+        </block>
+        <block type="move">
+          <mutation xmlns="http://www.w3.org/1999/xhtml" factors="{&quot;factors&quot;:[&quot;Cool&quot;],&quot;addFactors&quot;:[&quot;Advantage&quot;,&quot;Immediate Advanced Success&quot;]}"></mutation>
+          <field name="name">Help Out</field>
+          <field name="effect">Attempt to assist another Hunter</field>
+          <field name="a0">TRUE</field>
+          <field name="factors">no_value</field>
+          <field name="desc">Success: Target Hunter gains +1 advantage Partial Success: Target Hunter gains +1 advantage, but the current Hunter is exposed to danger Miss: Keeper takes a move against the player Advanced Success: Target player substitutes roll with 12</field>
+          <field name="adds_factor">TRUE</field>
+          <field name="b0">TRUE</field>
+          <field name="b1">TRUE</field>
+          <field name="addFactors">no_value</field>
+        </block>
+        <block type="move">
+          <mutation xmlns="http://www.w3.org/1999/xhtml" factors="{&quot;factors&quot;:[&quot;Sharp&quot;,&quot;Hold&quot;,&quot;Player Question&quot;,&quot;Player Choice&quot;],&quot;addFactors&quot;:[]}"></mutation>
+          <field name="name">Investigate a Mystery</field>
+          <field name="effect">Gleam information from your surroundings.</field>
+          <field name="a0">TRUE</field>
+          <field name="a1">TRUE</field>
+          <field name="a2">TRUE</field>
+          <field name="a3">TRUE</field>
+          <field name="factors">no_value</field>
+          <field name="desc">Success: Hold 2 to ask questions from following list: -What happened here? -What sort of creature is it? -What can it do? -What can hurt it? -Where did it go? -What was it going to do? -What is being concealed here? Partial Success: Hold 1 to ask questions from previous list: Miss: Keeper takes a move against the Hunter Advanced Success: The current Hunter may ask the Keeper any question they want</field>
+          <field name="adds_factor">FALSE</field>
+        </block>
+        <block type="move">
+          <mutation xmlns="http://www.w3.org/1999/xhtml" factors="{&quot;factors&quot;:[&quot;Charm&quot;,&quot;NPC or PC?&quot;,&quot;Target Choice&quot;],&quot;addFactors&quot;:[&quot;Advantage&quot;]}"></mutation>
+          <field name="name">Manipulate Someone</field>
+          <field name="effect">Persuade your target.</field>
+          <field name="a0">TRUE</field>
+          <field name="a1">TRUE</field>
+          <field name="a2">TRUE</field>
+          <field name="factors">no_value</field>
+          <field name="desc">Against NPC Success: Target will immediately do the task Partial Success: Current Hunter has to make a hard choice or pay a price Miss: Keeper takes a move against the Hunter Advanced Success: Target will immediately do the task and becomes an ally for the rest of the mystery Against PC Success: Target Hunter gains +1 advandtage while following and gain experience for completing the task current Hunter asked Partial Success: Target Hunter gains experience for completing Miss: Target Hunter becomes offended at the advances of the current Hunter. Target Hunter gains experience whne acting against current Hunter Advanced Success: Target Hunter can make a roll to resist. Otherwise they gain +1 advandtage while following and gain experience for completing</field>
+          <field name="adds_factor">TRUE</field>
+          <field name="b0">TRUE</field>
+          <field name="addFactors">no_value</field>
+        </block>
+        <block type="move">
+          <mutation xmlns="http://www.w3.org/1999/xhtml" factors="{&quot;factors&quot;:[&quot;Tough&quot;,&quot;Player Choice&quot;,&quot;NPC or PC?&quot;],&quot;addFactors&quot;:[&quot;Harm&quot;]}"></mutation>
+          <field name="name">Protect Someone</field>
+          <field name="effect">Mitigate harm to another.</field>
+          <field name="a0">TRUE</field>
+          <field name="a1">TRUE</field>
+          <field name="a2">TRUE</field>
+          <field name="factors">no_value</field>
+          <field name="desc">Success: Harm is split between you and the target. Gain one of the following benefits: -Current Hunter suffers -1 harm -Current Hunter draws all danger towards them -Current Hunter inflicts harm on the attacker Partial Success: Harm is split between you and the target Miss: Keeper takes a move against the Hunter Advanced Success: No harm is received for either party. If the target was an NPC, they become an ally for the rest of the mystery</field>
+          <field name="adds_factor">TRUE</field>
+          <field name="b0">TRUE</field>
+          <field name="addFactors">no_value</field>
+        </block>
+        <block type="move">
+          <mutation xmlns="http://www.w3.org/1999/xhtml" factors="{&quot;factors&quot;:[&quot;Sharp&quot;,&quot;Hold&quot;,&quot;Player Question&quot;,&quot;Player Choice&quot;],&quot;addFactors&quot;:[&quot;Advantage&quot;]}"></mutation>
+          <field name="name">Read a Bad Situation</field>
+          <field name="effect">Discern information from a current predicament</field>
+          <field name="a0">TRUE</field>
+          <field name="a1">TRUE</field>
+          <field name="a2">TRUE</field>
+          <field name="a3">TRUE</field>
+          <field name="factors">no_value</field>
+          <field name="desc">Success: Hold 3 to ask questions from following list: While acting on the information, the current Hunter has +1 advantage. -What's the best way in? -What's the best way out? -Is there any danger? -What's the biggest threat? -What is most vulnerable? -What's the best way to protect the victims? Partial Success: Hold 1 to ask questions from previous list: While acting on the information, the current Hunter has +1 advantage. Miss: Keeper takes a move against the Hunter Advanced Success: The current Hunter may ask the Keeper any question they want</field>
+          <field name="adds_factor">TRUE</field>
+          <field name="b0">TRUE</field>
+          <field name="addFactors">no_value</field>
+        </block>
+        <block type="move">
+          <mutation xmlns="http://www.w3.org/1999/xhtml" factors="{&quot;factors&quot;:[&quot;Weird&quot;,&quot;Player Choice&quot;],&quot;addFactors&quot;:[]}"></mutation>
+          <field name="name">Use Magic</field>
+          <field name="effect">Attempt to perform beyond natural limitations.</field>
+          <field name="a0">TRUE</field>
+          <field name="a1">TRUE</field>
+          <field name="factors">no_value</field>
+          <field name="desc">Success: Magic works without issue Partial Success: Keeper offers a worse outcome, hard choice, or price to pay Miss: Keeper takes a move against the Hunter Advanced Success: Hunter gains some benefit</field>
+          <field name="adds_factor">FALSE</field>
+        </block>
+        <block type="player_rules">
+          <field name="hasExtras">FALSE</field>
+          <statement name="playbook">
+            <block type="playbook">
+              <mutation xmlns="http://www.w3.org/1999/xhtml" items="{&quot;items&quot;:[]}"></mutation>
+              <field name="name">The Chosen</field>
+              <field name="hasResources">FALSE</field>
+              <field name="equipment">no_value</field>
+              <statement name="playbook_introduction">
+                <block type="playbook_introduction">
+                  <field name="pitch">Your birth was prophesied. You are the Chosen One, and with your abilities you can save the world. If you fail, all will be destroyed. It all rests on you. Only you.</field>
+                  <field name="soc_role"></field>
+                  <field name="mech_role"></field>
+                </block>
+              </statement>
+              <statement name="feature">
+                <block type="feature">
+                  <mutation xmlns="http://www.w3.org/1999/xhtml" factors="{&quot;factors&quot;:[&quot;Weird&quot;]}"></mutation>
+                  <field name="name">Destiny's Plaything</field>
+                  <field name="desc">At the beginning of each mystery, roll +Weird to see what is revealed about your immediate future. On a 10+, the Keeper will reveal a useful detail about the coming mystery. On a 7-9 you get a vague hint about it. On a miss, some- thing bad is going to happen to you.</field>
+                  <field name="factors">no_value</field>
+                  <next>
+                    <block type="feature">
+                      <mutation xmlns="http://www.w3.org/1999/xhtml" factors="{&quot;factors&quot;:[&quot;Luck&quot;]}"></mutation>
+                      <field name="name">I'm Here For A Reason</field>
+                      <field name="desc">"There’s something you are destined to do. Work out the details with the Keeper, based on your fate. You cannot die until it comes to pass. If you die in play, then you must spend a Luck point. You will then, somehow, recover or be returned to life. Once your task is done (or you use up all your Luck), all bets are off."</field>
+                      <field name="factors">no_value</field>
+                      <next>
+                        <block type="feature">
+                          <mutation xmlns="http://www.w3.org/1999/xhtml" factors="{&quot;factors&quot;:[&quot;Harm&quot;]}"></mutation>
+                          <field name="name">Devastating</field>
+                          <field name="desc">When you inflict harm, you may inflict +1 harm.</field>
+                          <field name="factors">no_value</field>
+                          <next>
+                            <block type="feature">
+                              <mutation xmlns="http://www.w3.org/1999/xhtml" factors="{&quot;factors&quot;:[&quot;Experience&quot;,&quot;Advantage&quot;]}"></mutation>
+                              <field name="name">Dutiful</field>
+                              <field name="desc">When your fate rears its ugly head, and you act in accordance with any of your fate tags (either heroic or doom) then mark experience. If it’s a heroic tag, take +1 forward.</field>
+                              <field name="factors">no_value</field>
+                              <next>
+                                <block type="feature">
+                                  <mutation xmlns="http://www.w3.org/1999/xhtml" factors="{&quot;factors&quot;:[&quot;Armor&quot;,&quot;Harm&quot;]}"></mutation>
+                                  <field name="name">Invincible</field>
+                                  <field name="desc">You always count as having 2-armour. This doesn’t stack with other protection.</field>
+                                  <field name="factors">no_value</field>
+                                  <next>
+                                    <block type="feature">
+                                      <mutation xmlns="http://www.w3.org/1999/xhtml" factors="{&quot;factors&quot;:[&quot;Harm&quot;]}"></mutation>
+                                      <field name="name">Resilience</field>
+                                      <field name="desc">You heal faster than normal people. Any time your harm gets healed, heal an extra point. Additionally, your wounds count as 1-harm less for the purpose of the Keeper’s harm moves.</field>
+                                      <field name="factors">no_value</field>
+                                    </block>
+                                  </next>
+                                </block>
+                              </next>
+                            </block>
+                          </next>
+                        </block>
+                      </next>
+                    </block>
+                  </next>
+                </block>
+              </statement>
+              <next>
+                <block type="playbook">
+                  <mutation xmlns="http://www.w3.org/1999/xhtml" items="{&quot;items&quot;:[]}"></mutation>
+                  <field name="name">The Crooked</field>
+                  <field name="hasResources">FALSE</field>
+                  <field name="equipment">no_value</field>
+                  <statement name="playbook_introduction">
+                    <block type="playbook_introduction">
+                      <field name="pitch">“Yeah, I’ve been around the block. A bit of this, a bit of that. When I came across the secret under- world of monsters and magic... well... it wasn’t so different from the underworld I already knew. It was easy to find an angle, just like before.”</field>
+                      <field name="soc_role"></field>
+                      <field name="mech_role"></field>
+                    </block>
+                  </statement>
+                  <statement name="feature">
+                    <block type="feature">
+                      <mutation xmlns="http://www.w3.org/1999/xhtml" factors="{&quot;factors&quot;:[&quot;Tough&quot;]}"></mutation>
+                      <field name="name">Hoodlum</field>
+                      <field name="desc">You can use Tough instead of Charm to manipulate someone with threats of violence.</field>
+                      <field name="factors">no_value</field>
+                      <next>
+                        <block type="feature">
+                          <mutation xmlns="http://www.w3.org/1999/xhtml" factors="{&quot;factors&quot;:[&quot;Player Question&quot;]}"></mutation>
+                          <field name="name">Grifter</field>
+                          <field name="desc">When you are about to manipulate someone, you can ask the Keeper “What will convince this person to do what I want?” The Keeper must answer honestly, but not necessarily completely.</field>
+                          <field name="factors">no_value</field>
+                          <next>
+                            <block type="feature">
+                              <mutation xmlns="http://www.w3.org/1999/xhtml" factors="{&quot;factors&quot;:[&quot;Charm&quot;,&quot;Player Choice&quot;]}"></mutation>
+                              <field name="name">Fixer</field>
+                              <field name="desc">If you need to buy something, sell something, or hire someone, roll +Charm. On a 10+ you know just the person who will be interested. On a 7-9 you know the only person who can do it, but there’s a complication. Pick one: you owe them; they screwed you over; you screwed them over. On a miss, the only person who can help is someone who absolutely hates you.</field>
+                              <field name="factors">no_value</field>
+                              <next>
+                                <block type="feature">
+                                  <mutation xmlns="http://www.w3.org/1999/xhtml" factors="{&quot;factors&quot;:[&quot;Harm&quot;]}"></mutation>
+                                  <field name="name">Assassin</field>
+                                  <field name="desc">When you take your first shot at an unsuspecting target, do +2 Harm.</field>
+                                  <field name="factors">no_value</field>
+                                  <next>
+                                    <block type="feature">
+                                      <mutation xmlns="http://www.w3.org/1999/xhtml" factors="{&quot;factors&quot;:[&quot;Cool&quot;,&quot;Player Question&quot;]}"></mutation>
+                                      <field name="name">Charlatan</field>
+                                      <field name="desc">When you want people to think you are using magic, roll +Cool. On a 10 or more, your audience is amazed and fooled by your illusion. On a 7-9 you tripped up a couple of times, maybe someone will notice. You may also manipulate people with fortune telling. When you do that, ask “What are they hoping for right now?” as a free question (even on a miss).</field>
+                                      <field name="factors">no_value</field>
+                                      <next>
+                                        <block type="feature">
+                                          <mutation xmlns="http://www.w3.org/1999/xhtml" factors="{&quot;factors&quot;:[&quot;Charm&quot;]}"></mutation>
+                                          <field name="name">Pickpocket</field>
+                                          <field name="desc">When you steal something small, roll +Charm. On a 10 or more, you get it and they didn’t notice you taking it. On a 7-9 either you don’t grab it, you grab the wrong thing, or they remember you later: your choice.</field>
+                                          <field name="factors">no_value</field>
+                                          <next>
+                                            <block type="feature">
+                                              <mutation xmlns="http://www.w3.org/1999/xhtml" factors="{&quot;factors&quot;:[&quot;Sharp&quot;,&quot;Player Choice&quot;]}"></mutation>
+                                              <field name="name">Burglar</field>
+                                              <field name="desc">When you break into a secure location, roll +Sharp. On a 10+ pick three, on a 7-9 pick two: you get in undetected, you get out undetected, you don’t leave a mess, you find what you were after.</field>
+                                              <field name="factors">no_value</field>
+                                              <next>
+                                                <block type="feature">
+                                                  <mutation xmlns="http://www.w3.org/1999/xhtml" factors="{&quot;factors&quot;:[&quot;Player Choice&quot;,&quot;Armor&quot;,&quot;Luck&quot;,&quot;Advantage&quot;,&quot;Move&quot;]}"></mutation>
+                                                  <field name="name">Artifact</field>
+                                                  <field name="desc">You ‘found’ a magical artifact with handy powers, and kept it. Pick one: Protective amulet (1-armour magic recharge), Lucky charm (may be used as a Luck point, once only), Grimoire (studying the book gives +1 forward to use magic), Skeleton key (opens any magically sealed lock), Imp stone (A weak demon is bound to serve the holder. The imp must be summoned with the use magic move).</field>
+                                                  <field name="factors">no_value</field>
+                                                  <next>
+                                                    <block type="feature">
+                                                      <mutation xmlns="http://www.w3.org/1999/xhtml" factors="{&quot;factors&quot;:[]}"></mutation>
+                                                      <field name="name">Crew</field>
+                                                      <field name="desc">You have a regular crew, a team of three or four people who will help you out with pretty much anything.</field>
+                                                      <field name="factors">no_value</field>
+                                                      <next>
+                                                        <block type="feature">
+                                                          <mutation xmlns="http://www.w3.org/1999/xhtml" factors="{&quot;factors&quot;:[&quot;Charm&quot;,&quot;Cool&quot;,&quot;Sharp&quot;,&quot;Tough&quot;,&quot;Weird&quot;]}"></mutation>
+                                                          <field name="name">Deal with the Devil</field>
+                                                          <field name="desc">You sold your soul to the Devil. Pick one or two things you got out of the deal: wealth, fame, youth, sensual gratification, skill (add +1 to two ratings). Payment is due either when you die, in six months (if you picked two things) or otherwise in a year.</field>
+                                                          <field name="factors">no_value</field>
+                                                          <next>
+                                                            <block type="feature">
+                                                              <mutation xmlns="http://www.w3.org/1999/xhtml" factors="{&quot;factors&quot;:[&quot;Advantage&quot;]}"></mutation>
+                                                              <field name="name">Driver</field>
+                                                              <field name="desc">You have +1 ongoing while driving, plus you can hotwire anything (the older it is, the fewer tools you need to do it). You also own two handy, wide- ly-available vehicles (perhaps a sportscar and a van).</field>
+                                                              <field name="factors">no_value</field>
+                                                              <next>
+                                                                <block type="feature">
+                                                                  <mutation xmlns="http://www.w3.org/1999/xhtml" factors="{&quot;factors&quot;:[]}"></mutation>
+                                                                  <field name="name">Home Ground</field>
+                                                                  <field name="desc">Your crew made a point of keeping the locals happy - keeping them safe, ensuring things always went down okay. When you’re back in your old neighbourhood, you can always find people who will hide you or help you with a minor favour, no questions asked.</field>
+                                                                  <field name="factors">no_value</field>
+                                                                </block>
+                                                              </next>
+                                                            </block>
+                                                          </next>
+                                                        </block>
+                                                      </next>
+                                                    </block>
+                                                  </next>
+                                                </block>
+                                              </next>
+                                            </block>
+                                          </next>
+                                        </block>
+                                      </next>
+                                    </block>
+                                  </next>
+                                </block>
+                              </next>
+                            </block>
+                          </next>
+                        </block>
+                      </next>
+                    </block>
+                  </statement>
+                  <next>
+                    <block type="playbook">
+                      <mutation xmlns="http://www.w3.org/1999/xhtml" items="{&quot;items&quot;:[]}"></mutation>
+                      <field name="name">The Divine</field>
+                      <field name="hasResources">FALSE</field>
+                      <field name="equipment">no_value</field>
+                      <statement name="playbook_introduction">
+                        <block type="playbook_introduction">
+                          <field name="pitch">"I am the Light, the Sword. I am sent to defend the meek from Darkness. All Evil fears me, for I am its end."</field>
+                          <field name="soc_role"></field>
+                          <field name="mech_role"></field>
+                        </block>
+                      </statement>
+                      <statement name="feature">
+                        <block type="feature">
+                          <mutation xmlns="http://www.w3.org/1999/xhtml" factors="{&quot;factors&quot;:[&quot;Player Question&quot;]}"></mutation>
+                          <field name="name">Boss from Beyond</field>
+                          <field name="desc">At the beginning of each mystery, roll +Weird. On a 10+, your Superiors ask you to do something simple. On a 7-9, they ask you to do something complicated or difficult. In either case, you get to ask them one of the questions from the investigate a mystery move right now. On a miss, you are required to do something terrible. If you do not accomplish what they’ve ordered, you cannot use this move again until you have made up for your failure.</field>
+                          <field name="factors">no_value</field>
+                          <next>
+                            <block type="feature">
+                              <mutation xmlns="http://www.w3.org/1999/xhtml" factors="{&quot;factors&quot;:[]}"></mutation>
+                              <field name="name">What I Need, When I Need It</field>
+                              <field name="desc">You may store any small object you own, putting it into a magical space nobody can get to. You may retrieve anything you stored at any time; it appears in your hand.</field>
+                              <field name="factors">no_value</field>
+                              <next>
+                                <block type="feature">
+                                  <mutation xmlns="http://www.w3.org/1999/xhtml" factors="{&quot;factors&quot;:[&quot;Harm&quot;]}"></mutation>
+                                  <field name="name">Smite</field>
+                                  <field name="desc">Your body and divine weapon always count as a weakness against the monsters you fight. Your unarmed attacks are 2-harm intimate hand messy.</field>
+                                  <field name="factors">no_value</field>
+                                  <next>
+                                    <block type="feature">
+                                      <mutation xmlns="http://www.w3.org/1999/xhtml" factors="{&quot;factors&quot;:[]}"></mutation>
+                                      <field name="name">Soothe</field>
+                                      <field name="desc">When you talk to someone for a few seconds in a quiet voice, you can calm them down, blocking any panic, anger, or other negative emo- tions they have. This works even if the thing that freaked them out is still present, as long as your voice can be heard.</field>
+                                      <field name="factors">no_value</field>
+                                    </block>
+                                  </next>
+                                </block>
+                              </next>
+                            </block>
+                          </next>
+                        </block>
+                      </statement>
+                    </block>
+                  </next>
+                </block>
+              </next>
+            </block>
+          </statement>
+          <statement name="resource">
+            <block type="resource">
+              <mutation xmlns="http://www.w3.org/1999/xhtml" factors="{&quot;factors&quot;:[]}"></mutation>
+              <field name="name">Charm</field>
+              <field name="desc">One of five main character stats.</field>
+              <field name="factors">no_value</field>
+              <field name="lrange">0</field>
+              <field name="rrange">1</field>
+              <field name="init">Depends</field>
+              <next>
+                <block type="resource">
+                  <mutation xmlns="http://www.w3.org/1999/xhtml" factors="{&quot;factors&quot;:[]}"></mutation>
+                  <field name="name">Cool</field>
+                  <field name="desc">One of five main character stats.</field>
+                  <field name="factors">no_value</field>
+                  <field name="lrange">0</field>
+                  <field name="rrange">1</field>
+                  <field name="init">Depends</field>
+                  <next>
+                    <block type="resource">
+                      <mutation xmlns="http://www.w3.org/1999/xhtml" factors="{&quot;factors&quot;:[]}"></mutation>
+                      <field name="name">Sharp</field>
+                      <field name="desc">One of five main character stats.</field>
+                      <field name="factors">no_value</field>
+                      <field name="lrange">0</field>
+                      <field name="rrange">1</field>
+                      <field name="init">Depends</field>
+                      <next>
+                        <block type="resource">
+                          <mutation xmlns="http://www.w3.org/1999/xhtml" factors="{&quot;factors&quot;:[]}"></mutation>
+                          <field name="name">Tough</field>
+                          <field name="desc">One of five main character stats.</field>
+                          <field name="factors">no_value</field>
+                          <field name="lrange">0</field>
+                          <field name="rrange">1</field>
+                          <field name="init">Depends</field>
+                          <next>
+                            <block type="resource">
+                              <mutation xmlns="http://www.w3.org/1999/xhtml" factors="{&quot;factors&quot;:[]}"></mutation>
+                              <field name="name">Weird</field>
+                              <field name="desc">One of five main character stats.</field>
+                              <field name="factors">no_value</field>
+                              <field name="lrange">0</field>
+                              <field name="rrange">1</field>
+                              <field name="init">Depends</field>
+                              <next>
+                                <block type="resource">
+                                  <mutation xmlns="http://www.w3.org/1999/xhtml" factors="{&quot;factors&quot;:[]}"></mutation>
+                                  <field name="name">Luck</field>
+                                  <field name="desc">Tracks the amount of Luck a character has.</field>
+                                  <field name="factors">no_value</field>
+                                  <field name="lrange">0</field>
+                                  <field name="rrange">7</field>
+                                  <field name="init">7</field>
+                                  <next>
+                                    <block type="resource">
+                                      <mutation xmlns="http://www.w3.org/1999/xhtml" factors="{&quot;factors&quot;:[&quot;Experience&quot;]}"></mutation>
+                                      <field name="name">Experience</field>
+                                      <field name="desc">Displays player progress toward advancement.</field>
+                                      <field name="factors">no_value</field>
+                                      <field name="lrange">0</field>
+                                      <field name="rrange">4</field>
+                                      <field name="init">0</field>
+                                    </block>
+                                  </next>
+                                </block>
+                              </next>
+                            </block>
+                          </next>
+                        </block>
+                      </next>
+                    </block>
+                  </next>
+                </block>
+              </next>
+            </block>
+          </statement>
+          <statement name="equipment">
+            <block type="equipment">
+              <statement name="equipment_type">
+                <block type="equipment_type">
+                  <mutation xmlns="http://www.w3.org/1999/xhtml" factors="{&quot;factors&quot;:[&quot;Harm&quot;]}"></mutation>
+                  <field name="name">Weapons</field>
+                  <field name="desc">Tools of the trade used to fight monsters.</field>
+                  <field name="factors">no_value</field>
+                  <field name="hasSubtypes">TRUE</field>
+                  <statement name="subtype">
+                    <block type="equipment_type">
+                      <mutation xmlns="http://www.w3.org/1999/xhtml" factors="{&quot;factors&quot;:[]}"></mutation>
+                      <field name="name">Effective</field>
+                      <field name="desc">Traditional weapons that are generally effective versus most enemies. These are also the most common weapons that anyone could get their hands on.</field>
+                      <field name="factors">no_value</field>
+                      <field name="hasSubtypes">FALSE</field>
+                      <next>
+                        <block type="equipment_type">
+                          <mutation xmlns="http://www.w3.org/1999/xhtml" factors="{&quot;factors&quot;:[]}"></mutation>
+                          <field name="name">Monster-Slaying Weapons</field>
+                          <field name="desc">Weapons specifically created or used in monster slaying. They are usually used in the slaying of specific monsters.</field>
+                          <field name="factors">no_value</field>
+                          <field name="hasSubtypes">FALSE</field>
+                          <next>
+                            <block type="equipment_type">
+                              <mutation xmlns="http://www.w3.org/1999/xhtml" factors="{&quot;factors&quot;:[]}"></mutation>
+                              <field name="name">Magic Weapons</field>
+                              <field name="desc">These weapons have been imbued with magical energy in order to increase their effectiveness</field>
+                              <field name="factors">no_value</field>
+                              <field name="hasSubtypes">FALSE</field>
+                            </block>
+                          </next>
+                        </block>
+                      </next>
+                    </block>
+                  </statement>
+                </block>
+              </statement>
+              <statement name="item">
+                <block type="item">
+                  <mutation xmlns="http://www.w3.org/1999/xhtml" types="{&quot;types&quot;:[],&quot;subtypes&quot;:[]}"></mutation>
+                  <field name="name">&lt;name&gt;</field>
+                  <field name="types">no_value</field>
+                  <field name="subtypes">no_value</field>
+                  <field name="desc">&lt;description&gt;</field>
+                </block>
+              </statement>
+            </block>
+          </statement>
+        </block>
       </category>
     </xml>
     <xml xmlns="https://developers.google.com/blockly/xml"
