@@ -451,7 +451,7 @@ Blockly.Blocks['factor'] = {
           ), "type");
     this.appendDummyInput()
         .setAlign(Blockly.ALIGN_CENTRE)
-        .appendField("Effect:")
+        .appendField("Description:")
         .appendField(new Blockly.FieldTextInput("<description>"), "desc");
     this.appendDummyInput()
         .setAlign(Blockly.ALIGN_CENTRE)
