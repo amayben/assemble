@@ -2,6 +2,6 @@
 
 Assemble uses Google's [Blockly](https://github.com/google/blockly) library for JavaScript.
 
-Most of the code you see here is from the Blockly library itself.  Assemble's actual function is handled by the files **index.html** and **blocks/system.js**.  For functionality specific to Assemble, you can find what you need there.
+Most of the code seen here is from the Blockly library itself.  Functionality unique to Assemble is handled by the files **index.html** and **blocks/system.js**.
 
 Assemble is run by opening **index.html** in a browser (optimized for Chrome).
